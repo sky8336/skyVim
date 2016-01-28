@@ -29,3 +29,5 @@ function config_vim()
 
 bakup_vimconfig
 config_vim
+git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
+chown -R maning:maning ~/.vim/bundle/

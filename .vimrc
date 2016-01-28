@@ -10,7 +10,44 @@
 " To use VIM settings, out of VI compatible mode.
 set nocompatible
 " Enable file type detection.
-filetype plugin indent on
+" filetype plugin indent on
+filetype off 
+" vundle.vim 插件管理器
+set rtp+=~/.vim/bundle/vundle/  
+call vundle#rc()  
+  
+" let Vundle manage Vundle  
+"required!   
+Bundle 'gmarik/vundle'  
+  
+" My Bundles here:  /* 插件配置格式 */  
+"     
+" original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）  
+"Bundle 'tpope/vim-fugitive'  
+"Bundle 'Lokaltog/vim-easymotion'  
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'tpope/vim-rails.git'  
+Bundle 'airblade/vim-gitgutter'
+" vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
+"Bundle 'L9' 
+"Bundle 'FuzzyFinder'
+Bundle 'fugitive.vim'
+Bundle 'gitv'
+" non github repos   (非上面两种情况的，按下面格式填写)  
+"Bundle 'git://git.wincent.com/command-t.git'  
+" ...   
+  
+filetype plugin indent on     " required!   /** vimrc文件配置结束 **/  
+"                                           /** vundle命令 **/  
+" Brief help  
+" :BundleList          - list configured bundles  
+" :BundleInstall(!)    - install(update) bundles  
+" :BundleSearch(!) foo - search(or refresh cache first) for foo   
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles  
+"     
+" see :h vundle for more details or wiki for FAQ   
+" NOTE: comments after Bundle command are not allowed..  
+" vundle setup end
 " Syntax highlighting.
 syntax on
 " Setting colorscheme
@@ -259,7 +296,7 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 " 常规模式下输入 cM 清除行尾 ^M 符号
 nmap cM :%s/\r$//g<CR>:noh<CR>
 " 启用每行超过90列的字符提示（字体变蓝并加下划线）
-au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 90 . 'v.\+', -1)
+" au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 90 . 'v.\+', -1)
 
 
 
