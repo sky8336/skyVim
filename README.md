@@ -3,14 +3,17 @@ vim config for linux devices driver development
 配置文件是隐藏文件
 
 =======================================================================
-一、注意：
-		1)在配置之前，确保已经安装好vim,
+一、配置前注意：
+	1)在配置之前，确保已经安装好vim,
 	  	即之前做过sudo apt-get install vim 这样的操作,如果没有请先安装vim
 	  	
-	  2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
+       安装vim+ctags+cscope+taglist
+		sudo apt-get install vim ctags cscope
+
+	2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
 	  在执行完sudo ./config.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
 	  
-	  3)160125更新：
+	3)160125更新：
 	  	增加bundle管理插件，执行脚本前确保联网。bundle用于插件管理，使用bundle安装新的插件。
 	  	可利用bundle安装vim-gitgutter插件，gitv插件。	  
 	  	vim-gitgutter 可用于查看自己修改的地方。
@@ -19,10 +22,9 @@ vim config for linux devices driver development
 
 二、配置步骤：
 
-1)先将脚本config.sh中 chown -R maning:maning .vim/bundle/
-	用户组和用户名修改为自己对应的名称
+1)进入vimconfig_bundle/目录。（脚本中会利用目录下到config.sh获取用户名和用户组）
 
-2)输入./config.sh 即可自动完成配置。
+2)输入sudo ./config.sh 即可自动完成配置。
 
 3)打开vim，利用vundle安装几个插件
 	底行模式命令：
@@ -31,26 +33,25 @@ vim config for linux devices driver development
 	  
 配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
 
+	测试：
+        vi a.c
+        输入main后，按tab键看是否成功自动补全。
+
 =======================================================================
 三、vim使用说明
 151208
 
 -------------------------------
-1、配置vim+ctags+cscope+taglist 
+1、插件及功能列表
 -------------------------------
-
-        （1）安装vim ctags cscope
-                  sudo apt-get install vim ctags cscope
-
-        （2） vimconfig.tar.bz2  拷贝到Ubuntu家目录下解压（或解压后的vimconfig拷贝到家目录）；
-                  
-        （3）进入解压后的目录，执行sudo ./config.sh
-        
-                  
-        至此，环境配置完毕
-测试：
-        vi a.c
-        输入main后，按tab键看是否成功自动补全。
+    TagList
+    NERDTree
+    MRU
+    LookupFile
+    用vimgrep搜索光标所在的单词
+    生成tags
+    生成 filename tags
+    生成cscope的数据库
         
 -------------------------------
 2、快捷键说明 
@@ -97,19 +98,19 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 -------------------------------
 用于跟踪源码
 ctags用法：
-	跟踪代码：Ctrl+t
+	跟踪代码：Ctrl+]
 	回退：	Ctrl+t
 	
 cscoe用法：
 1)普通模式下，光标在要查找的符号上，快速按下以下对应快捷键。
-,sc	 查找调用本函数的函数
-,sd	 查找本函数调用的函数
-,se	 查找egrep模式，相当于egrep功能，但查找速度快多了
-,sf	 查找并打开文件，类似vim的find功能
-,sg	 查找函数、宏、枚举等定义的位置，类似c tags的功能
-,si	 查找包含本文件的文件
-,ss	 查找C语言符号，即查找函数名、宏、枚举值等出现的地方
-,st	 查找指定的字符串
+	,sc	 查找调用本函数的函数
+	,sd	 查找本函数调用的函数
+	,se	 查找egrep模式，相当于egrep功能，但查找速度快多了
+	,sf	 查找并打开文件，类似vim的find功能
+	,sg	 查找函数、宏、枚举等定义的位置，类似c tags的功能
+	,si	 查找包含本文件的文件
+	,ss	 查找C语言符号，即查找函数名、宏、枚举值等出现的地方
+	,st	 查找指定的字符串
 
 注意：
 	按的慢，如按下,s停顿后，会删除一个字符进入插入模式，只依次需按Esc u即可恢复（回到普通模式，撤销）。
@@ -120,10 +121,10 @@ cscoe用法：
 ------------------------------- 
 5、vim-gitgutter 的使用(160125)
 -------------------------------
-		最左边的标记列。
+最左边的标记列:
     波浪线  ：该行相比HEAD修改过，
     红色的减号：这里删除了一行，
-    绿色的+号：这些行都是新增的。
+    绿色的+号：新增行。
 
 (1)diff区块之间跳转，默认快捷键为 [c 和 ]c
 (2)暂存和回退
@@ -133,9 +134,28 @@ cscoe用法：
 有时没反应，底行模式输入“gitg”点Tab键跟出“GitGutter”，回车执行,即可
 
 -------------------------------  
-6、gitv 的使用
+6、gitv 的使用 -- gitk for vim
 ------------------------------- 
-		
+浏览模式 Brower mode 
+	:Gitv
+    显示当前分支的提交记录
+    类似gitk 功能，左边显示提交信息，右边显示具体修改。
+    退出时，回到原来的窗口
+    
+File mode
+	:Gitv!
+		显示当前文件的修改
+
+	:Git log
+		显示提交信息
+
+按键映射：
+	只在gitv browser modes 模式下有效
+	普通模式下:
+		<cr> 回车
+		q  退出
+		s 竖直分割窗口，显示diff信息
+		u	更新当前浏览窗口内容
 -------------------------------
 其他
 -------------------------------
@@ -154,4 +174,4 @@ cscoe用法：
 	光标向左移动 ctrl+H (不生效，哪里映射成了backspace)
 	光标向右移动 ctrl+L
 
-(e).bashrc 中命令提示行颜色更改
+(e).bashrc 中更改命令提示行颜色
