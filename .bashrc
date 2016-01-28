@@ -52,7 +52,13 @@ fi
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+# 01;35m和01;35m。第一个数字表示username@hostname的颜色输出，第二个表示路径的文字颜色。[都为品红]
+# 显示时间 HH:MM
+#PS1='\[\033[0;33m\]┌─[${debian_chroot:+($debian_chroot)}\[\033[01;35m\]\u@\h\[\033[0;31m\]:\[\033[01;35m\]\A\[\033[0;33m\]]\n└─>\[\033[01;35m\]\w\[\033[0;33m\]$\[\033[0m\] '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;35m\]\u@\h\[\033[0;31m\]:\[\033[01;35m\]\w\[\033[00m\]\[\033[0;33m\]$\[\033[0;36m\] '
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;35m\]\u@\h\[\033[0;31m\]:\[\033[01;35m\]\w\[\033[00m\]\[\033[0;33m\]$\[\033[0m\] '
+
 fi
 unset color_prompt force_color_prompt
 
