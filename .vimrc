@@ -85,6 +85,17 @@ inoremap <C-h> <Esc><C-W>h
 inoremap <C-j> <Esc><C-W>j
 inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
+
+" insert mode 光标移动
+" Ctrl + K 插入模式下光标向上移动
+" imap <c-k> <Up>
+" Ctrl + J 插入模式下光标向下移动
+" imap <c-j> <Down>
+" Ctrl + H 插入模式下光标向左移动
+" imap <c-h> <Left>
+" Ctrl + L 插入模式下光标向右移动
+" imap <c-L> <Right>
+
 " "cd" to change to open directory.
 let OpenDir=system("pwd")
 nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
@@ -93,19 +104,20 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 " taglist.vim
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
-let g:Tlist_Exit_OnlyWindow=1
-let g:Tlist_Show_One_File=1
+let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
+let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
 let g:Tlist_WinWidth=25
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
-let Tlist_Show_One_File=0
-let Tlist_Auto_Open=1
+"let Tlist_Show_One_File=0
+let g:Tlist_Auto_Open=1
 
 " NERDTree.vim
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
+"autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
 " cscope.vim
 if has("cscope")
     set csto=1
@@ -130,7 +142,7 @@ if has("gdb")
 	run macros/gdb_mappings.vim
 endif
 " LookupFile setting
-"let g:LookupFile_TagExpr='"./tags.filename"'
+"let g:LookupFile_TagExpr='"./tags.filename"' "原来的名称不匹配
 let g:LookupFile_TagExpr='"./tags.fn"'
 let g:LookupFile_MinPatLength=2
 let g:LookupFile_PreserveLastPattern=0
@@ -149,15 +161,43 @@ function! RunShell(Msg, Shell)
 	call system(a:Shell)
 	echon 'done'
 endfunction
+
+" 实现递归查找上级目录中的ctags和cscope并自动载入
+function! AutoLoadCTagsAndCScope()
+    let max = 5
+    let dir = './'
+    let i = 0
+    let break = 0
+    while isdirectory(dir) && i < max
+        if filereadable(dir . 'cscope.out') 
+            execute 'cs add ' . dir . 'cscope.out'
+            let break = 1
+        endif
+        if filereadable(dir . 'tags')
+            execute 'set tags =' . dir . 'tags'
+            let break = 1
+        endif
+        if break == 1
+            execute 'lcd ' . dir
+            break
+        endif
+        let dir = dir . '../'
+        let i = i + 1
+    endwhile
+endf
+" <cr> 回车
 nmap  <F2> :TlistToggle<cr>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 nmap  <F7> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
-nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-nmap  <F9> :call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
+nmap  <F8> :call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
+nmap  <F9> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 nmap <F10> :call HLUDSync()<cr>
+nmap <F12> :call AutoLoadCTagsAndCScope()<CR>
+"call AutoLoadCTagsAndCScope()
+"cscope 按键映射
 nmap <leader>sa :cs add cscope.out<cr>
 nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sg :cs find g <C-R>=expand("<cword>")<cr><cr>
@@ -167,14 +207,59 @@ nmap <leader>se :cs find e <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
+"其他映射
 nmap <leader>zz <C-w>o
 nmap <leader>gs :GetScripts<cr>
+",sa 添加cscope.out库
+",ss 查找c语言符号（函数名 宏 枚举值）出现的地方
+",sg 查找函数/宏/枚举等定义的位置，类似ctags的功能
+",sc 查找调用本函数的函数
+",st 查找字符串
+",se 查找egrep模式
+",sf 查找并打开文件，类似vim的find功能
+",si 查找包含本文件的文件
+",sd 查找本函数调用的函数
 
+"zz  
+",gs 自动安装(更新)插件
+
+""""""""""""""""""""""""""""""
+" BufExplorer.vim 其中有默认配置
+""""""""""""""""""""""""""""""
+"   let g:bufExplorerDefaultHelp=0       " Do not show default help.
+"   let g:bufExplorerShowRelativePath=1  " Show relative paths.
+"   let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+"   let g:bufExplorerSplitRight=0        " Split left.
+"   let g:bufExplorerSplitVertical=1     " Split vertically.
+"   let g:bufExplorerSplitVertSize = 30  " Split width
+"   let g:bufExplorerUseCurrentWindow=1  " Open in new window.
+" <Leader>be　　全屏方式打来 buffer 列表。
+" <Leader>bs　　水平窗口打来 buffer 列表。
+" <Leader>bv　　垂直窗口打开 buffer 列表。
+
+
+""""""""""""""""""""""""""""""""""""
 set noswapfile
 set tags+=/usr/include/tags
 set tags+=./tags
 map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-
-set clipboard=unnamedplus
+""""""""""""""""""""""""""""""
+"实现vim和终端及gedit等之间复制、粘贴的设置
+""""""""""""""""""""""""""""""
+" 让VIM和ubuntu(X Window)共享一个粘贴板
+set clipboard=unnamedplus " 设置vim使用"+寄存器(粘贴板)，"+寄存器是代表ubuntu的粘贴板。
+" VIM退出时，运行xsel命令把"+寄存器中的内容保存到系统粘贴板中;需要安装xsel
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
+
+
+""""""""""""""""""""""""""""""
+" 编辑文件相关配置
+""""""""""""""""""""""""""""""
+" 常规模式下输入 cM 清除行尾 ^M 符号
+nmap cM :%s/\r$//g<CR>:noh<CR>
+" 启用每行超过90列的字符提示（字体变蓝并加下划线）
+au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 90 . 'v.\+', -1)
+
+
+
