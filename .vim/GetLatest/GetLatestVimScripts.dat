@@ -1,0 +1,15 @@
+ScriptID SourceID Filename
+--------------------------
+1879 11894 :AutoInstall: AutoComplPop
+42 14208 :AutoInstall: BufExplorer
+1735 10501 :AutoInstall: EchoFunc
+197 11399 :AutoInstall: Genutils
+1581 7671 :AutoInstall: LookupFile
+521 11919 :AutoInstall: MRU
+1218 14455 :AutoInstall: NERD_Commenter
+1658 11834 :AutoInstall: NERD_Tree
+1520 7722 :AutoInstall: OmniCppComplete
+2540 11006 :AutoInstall: snipMate
+273 7701 :AutoInstall: Taglist
+508 9865 :AutoInstall: ZoomWin
+642 8136 :AutoInstall: getscript.vim

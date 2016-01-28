@@ -1,0 +1,75 @@
+# file header
+snippet hdr
+	/*******************************************************************************
+	 * `expand('%:t')` ${1}
+	 *
+	 * @fcopyright  Copyright `strftime("%Y")` SIC Microelectronics CO. Ltd.
+	 * @fauthor     [`g:snips_author`] [`g:snips_email`]
+	 * @fversion    1.0
+	 *
+	 * @fhistory    [`strftime("%Y-%m-%d")`] Create file.
+	 ******************************************************************************/
+	${2}
+# function header
+snippet funh
+	/*
+	 * function:    ${1}
+	 * @param [ in] ${2}
+	 * @param [out] ${3}
+	 * @return      ${4}
+	 */${5}
+# include file
+snippet Inc
+	#include <${1:stdio}.h>${2}
+snippet inc
+	#include "${1:`Filename("$1")`}.h"${2}
+# macro defines
+snippet def
+	#define 
+snippet ifd
+	#ifdef ${1}
+	#endif
+snippet ifn
+	#ifndef ${1}
+	#endif
+snippet once
+	#ifndef ${1:`toupper(Filename('', 'UNTITLED').'_H')`}
+	#define $1
+
+	${2}
+
+	#endif /* $1 */
+# condition
+snippet if
+	if (${1:/* condition */})
+	{
+		${2:/* code */}
+	}
+snippet else
+	else
+	{
+		${1:/* code */}
+	}
+# loop
+snippet do
+	do
+	{
+		${2:/* code */}
+	} while (${1:/* condition */});
+snippet while
+	while (${1:/* condition */})
+	{
+		${2:/* code */}
+	}
+snippet for
+	for (${1:/* initialize */}; ${2:/* condition */}; ${3:/* loop */})
+	{
+		${4:/* code */}
+	}
+# main()
+snippet main
+	int main(int argc, const char *argv[])
+	{
+		${1}
+		return 0;
+	}
