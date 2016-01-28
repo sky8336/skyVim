@@ -98,6 +98,9 @@ let g:Tlist_Show_One_File=1
 let g:Tlist_WinWidth=25
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
+let Tlist_Show_One_File=0
+let Tlist_Auto_Open=1
+
 " NERDTree.vim
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
@@ -127,7 +130,8 @@ if has("gdb")
 	run macros/gdb_mappings.vim
 endif
 " LookupFile setting
-let g:LookupFile_TagExpr='"./tags.filename"'
+"let g:LookupFile_TagExpr='"./tags.filename"'
+let g:LookupFile_TagExpr='"./tags.fn"'
 let g:LookupFile_MinPatLength=2
 let g:LookupFile_PreserveLastPattern=0
 let g:LookupFile_PreservePatternHistory=1
@@ -150,10 +154,10 @@ nmap  <F3> :NERDTreeToggle<cr>
 nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
-nmap  <F9> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
+nmap  <F7> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
+nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
+nmap  <F9> :call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
 nmap <F10> :call HLUDSync()<cr>
-nmap <F11> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-nmap <F12> :call RunShell("Generate cscope", "cscope -Rb")<cr>:cs add cscope.out<cr>
 nmap <leader>sa :cs add cscope.out<cr>
 nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sg :cs find g <C-R>=expand("<cword>")<cr><cr>
@@ -166,8 +170,11 @@ nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>zz <C-w>o
 nmap <leader>gs :GetScripts<cr>
 
-let Tlist_Show_One_File=0
 set noswapfile
 set tags+=/usr/include/tags
 set tags+=./tags
 map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+
+set clipboard=unnamedplus
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
