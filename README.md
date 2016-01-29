@@ -43,6 +43,7 @@ vim config for linux devices driver development
     NERDTree
     MRU
     LookupFile
+	bufexplorer
     用vimgrep搜索光标所在的单词
     生成tags
     生成 filename tags
@@ -108,7 +109,53 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 回退按：
 		Ctrl+t
 		
-## 5、vim-gitgutter 的使用(160125)
+## 5、TagList
+	基于ctags,分割窗口显示当前的代码结构概览		
+
+### 底行模式打开:
+	:TlistOpen   打开并将焦点置于标签列表窗口
+	:TlistClose  关闭标签列表窗口
+	:TlistToggle 切换标签列表窗口状态（打开--关闭），标签列表窗口是否获得焦点取决于其他配置
+
+### 在TagList窗口操作：
+	回车键： 跳到光标所在标记的定义处
+	o: 新建一个水平分割窗口（上部），跳到标记定义处
+	p: 预览标记定义（焦点仍然在taglist窗口）
+	空格: 在底行显示标记的原型（如函数原型）
+	u: 更新标记列表（比如源文件新增一个函数，保存后，在taglist窗口按u）
+	d: 删除光标所在的taglist文件
+	x: 放大/缩小taglist窗口
+	[[: 将光标移到前一个文件的起点
+	]]: 将光标移到后一个文件的起点
+	+: 展开标记
+	-: 折叠
+	*: 全部展开
+	=: 全部折叠
+	s: 选择排序字段
+	q: 退出taglist窗口
+
+ 
+## 6、NERDTree --用于文件浏览
+	
+## 7、MRU -- Most Recently Used 最近打开文件列表
+	
+## 8、LookupFile
+	
+## 9、vimgrep
+
+## 10、bufexplorer
+	在各个buffer 之间切换
+	,be 全屏方式打开buffer列表
+	,bs 水平窗口打开buffer列表
+	,bv 垂直窗口打开buffer列表
+
+	:help bufexplorer 帮助 
+
+
+## 11、Man命令
+
+
+## 12、vim-gitgutter 的使用(160125)
 最左边的标记列:
     波浪线  ：该行相比HEAD修改过，
     红色的减号：这里删除了一行，
@@ -121,7 +168,7 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 (3)查看diff的修改，<Leader>hp ,显示diff差异。
 有时没反应，底行模式输入“gitg”点Tab键跟出“GitGutter”，回车执行,即可
 
-## 6、gitv 的使用 -- gitk for vim
+## 13、gitv 的使用 -- gitk for vim
 ### 浏览模式 Brower mode 
 	:Gitv
     显示当前分支的提交记录
@@ -142,6 +189,7 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 		q  退出
 		s 竖直分割窗口，显示diff信息
 		u	更新当前浏览窗口内容
+
 ## 其他
 (a)常规模式下输入 cM 清除行尾 ^M 符号
 (b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)
