@@ -27,12 +27,21 @@ function config_vim()
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
 }
 
+#install vundle
+function install_vundle()
+{
+	echo "Install vundle now !"
+	git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
+	#切换到config.sh所在目录，获取非sudo模式下的username and groupname
+	cd -
+	username=`ls -l config.sh | cut -d ' ' -f3`
+	groupname=`ls -l  config.sh | cut -d ' ' -f4`
+	echo "~/.vim/bundle/ change owner:"
+	echo "username=$username"
+	echo "groupname=$groupname"
+	chown -R $username:$groupname ~/.vim/bundle/
+}
+
 bakup_vimconfig
 config_vim
-
-git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
-username=`ls -l config.sh | cut -d ' ' -f3`
-groupname=`ls -l  config.sh | cut -d ' ' -f4`
-echo $username
-echo $groupname
-chown -R $username:$groupname ~/.vim/bundle/
+install_vundle
