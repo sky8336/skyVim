@@ -81,7 +81,7 @@ set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
 "set   statusline=%-10.3n  "buffer number
-set   statusline=%-2.2n%<%f\ %h%m%r%=%-4.(%l,%c%V%)\ %P
+set   statusline=%-2.2n%<%f\ %h%m%r%=%-4.(%y[%{&fenc}]%l,%c%V%)\ %P
 set   mouse=a
 set   number
 set   pumheight=10
