@@ -79,7 +79,8 @@ set   history=100
 set   hlsearch
 set   ignorecase
 set   incsearch
-set   laststatus=2
+set   laststatus=2 "show the status line
+"set statusline=%-10.3n  "buffer number
 set   mouse=a
 set   number
 set   pumheight=10
@@ -274,7 +275,14 @@ nmap <leader>gs :GetScripts<cr>
 " <Leader>bs　　水平窗口打来 buffer 列表。
 " <Leader>bv　　垂直窗口打开 buffer 列表。
 
-
+" vimdiff hot keys
+" if you know the buffer number, you can use hot key like ",2" 
+" (press comma first, then press two as quickly as possible) to 
+" pull change from buffer number two.set up hot keys:
+map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
+map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
+map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
+map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 """"""""""""""""""""""""""""""""""""
 set noswapfile
 set tags+=/usr/include/tags
