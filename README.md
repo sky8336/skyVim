@@ -65,8 +65,12 @@ F10
 F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录，
 
 
-说明：
-		修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
+### 说明：
+	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
+	2)使用vim打开文件按下F5后的界面:  
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F5-Lookup_File.png)
+	3)使用vim打开文件按下F3和F4后的界面:  
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-F4-NERDtree-MRU.png)
 
 ## 3、tags和cscope库文件的生成
 方法一：
@@ -310,6 +314,9 @@ QuickFix 窗口操作：
 ### 解决 git merge 冲突	
 	当合并时出现 merge conflicts 时:
 		git mergetool
+	vimdiff作为合并工具的界面截图：
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
+
 ## 其他
 (a)常规模式下输入 cM 清除行尾 ^M 符号
 (b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)
