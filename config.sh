@@ -45,3 +45,6 @@ function install_vundle()
 bakup_vimconfig
 config_vim
 install_vundle
+# To use vimdiff as default merge tool:
+git config --global merge.tool vimdiff
+git config --global mergetool.prompt false

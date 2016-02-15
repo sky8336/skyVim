@@ -48,7 +48,8 @@ vim config for linux devices driver development
     生成tags
     生成 filename tags
     生成cscope的数据库
-        
+    vimdiff
+
 ## 2、快捷键说明 
 vim打开在源码目录打开文件后
 普通模式下：
@@ -305,6 +306,10 @@ QuickFix 窗口操作：
 		s 竖直分割窗口，显示diff信息
 		u	更新当前浏览窗口内容
 
+## 14、vimdiff
+### 解决 git merge 冲突	
+	当合并时出现 merge conflicts 时:
+		git mergetool
 ## 其他
 (a)常规模式下输入 cM 清除行尾 ^M 符号
 (b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)
