@@ -54,6 +54,9 @@ vim config for linux devices driver development
 	SnipMate  代码片段补全  
 	superTab  代码自动补全  
 
+	.vim/plugin/ 下插件截图：
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin.png)
+
 ## 2、快捷键说明 
 	vim打开在源码目录打开文件后  
 	普通模式下：  
@@ -215,6 +218,9 @@ vim config for linux devices driver development
 	tab键开始扫描  
 	ctrl+o:	水平分割窗口打开  
 
+	注意：  
+	Lookupfile插件需要genutils支持,提供一些通用的函数，供其它的脚本使用.  
+
 ### 1)查找文件，
     在打开的缓冲区中查找，
     按目录查找。
@@ -359,9 +365,16 @@ vim config for linux devices driver development
 	snippets/ 目录存放的是代码模板，可以根据需要修改和添加代码模板
 
 	
-## 17、superTab 代码自动补全
+## 17、AutoComplPop和superTab 代码自动补全
+	AutoComplPop:  
+	acp.vim插件，实现代码自动提示,不用每次都按键  
+
+	superTab:  
 	Tab键自动补全
 	shift-Tab 回退选择
+## 18、echofunc.vim
+	打开一个文件，生成tags数据库，在一个函数实现体中调用另外一个函数。
+	当你输入完这个被调用的函数名，在输入左括号的时候在VIM的下方就会显示函数的原型。
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
