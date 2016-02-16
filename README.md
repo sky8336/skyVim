@@ -63,11 +63,11 @@ vim config for linux devices driver development
 	F5    打开LookupFile  
 	F6    用vimgrep搜索光标所在的单词  
 	F7    生成tags  
-	F8    生成 filename tags  
+	F8    生成filename tags(tags.fn)  
 	F9    生成cscope的数据库  
-	F10    
-	F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
-
+	,mt   生成tags.usertype文件(tags.ut)
+	F12	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
+	(F10/F11系统占用)
 
 ### 说明：
 	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
@@ -76,33 +76,34 @@ vim config for linux devices driver development
 	3)使用vim打开文件按下F3和F4后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-F4-NERDtree-MRU.png)
 
-## 3、tags和cscope库文件的生成
-###方法一：
+## 3、tags和cscope生成及使用方法
+### 1)tags和cscope库文件的生成
+#### 方法一：
 	在要生成库的目录下打开3个vim，普通模式下，分别按F7、F8、F9 ；等待生成结束即可
  
-###方法二：
-####kernel/下只生成与arm架构有关的 :（kernel中建议用方法二）  
-   	1)生成tags文件：   
+#### 方法二：
+##### kernel/下只生成与arm架构有关的 :（kernel中建议用方法二）  
+   	(1)生成tags文件：   
    		make tags ARCH=arm
    	
-   	2)生成cscope的库   
+   	(2)生成cscope的库   
    		make cscope ARCH=arm  
    		
-####u-boot64/下生成tags  
+##### u-boot64/下生成tags  
    	ctags -R  
 	cscope -Rbq  
 		
 	注意：
 		在生成tags和cscope前已打开的文件不能跟踪代码，重新打开即可；
 		
-## 4、tags和cscope使用方法
-### ctags用法：
-####用于跟踪源码
+### 2)tags和cscope使用方法
+#### (1)ctags用法：
+##### 用于跟踪源码
 	跟踪代码：Ctrl+]  
 	回退：	Ctrl+t
 	
-### cscoe用法：
-####1)普通模式下，光标在要查找的符号上，快速按下以下对应快捷键。
+#### (2)cscoe用法：
+##### 普通模式下，光标在要查找的符号上，快速按下以下对应快捷键。
 	,sc	 查找调用本函数的函数  
 	,sd	 查找本函数调用的函数  
 	,se	 查找egrep模式，相当于egrep功能，但查找速度快多了  
@@ -117,8 +118,11 @@ vim config for linux devices driver development
 
 	回退按：  
 		Ctrl+t
-		
-## 5、TagList
+## 4、hlud.vim -- 生成tags.usertype文件(,mt)
+	先按F7生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
+	让自己定义的类型、函数以不同的颜色显示  
+
+## 5、TagList(按F2)
 	基于ctags,分割窗口显示当前的代码结构概览		
 
 ### 1)底行模式打开:
@@ -144,7 +148,7 @@ vim config for linux devices driver development
 	q: 退出taglist窗口
 
  
-## 6、NERDTree --用于文件浏览
+## 6、NERDTree --用于文件浏览(按F3)
 	列出当前路径的目录树。  
 	浏览项目的总体目录结构和创建删除重命名文件或文件名。  
 	内核中_defconfig  .mk等文件可用nerd tree 打开
@@ -192,7 +196,7 @@ vim config for linux devices driver development
 	q       关闭 NerdTree 窗口  
 	?       切换是否显示 Quick Help	  
 
-## 7、MRU -- Most Recently Used 最近打开文件列表
+## 7、MRU -- Most Recently Used 最近打开文件列表(按F4)
 ###1) 打开一个新窗口，显示最新打开的文件列表。
     :MRU
         在该命令后加空格，然后TAB或者Ctrl+D会自动补全。
@@ -206,7 +210,7 @@ vim config for linux devices driver development
     :MRU vim
         打开文件名中包含vim的文件
         	
-## 8、LookupFile -- 文件搜索用
+## 8、LookupFile -- 文件搜索用(按F5)
 	tags.fn 用于文件搜索,包含项目中所有文件名  
 	tab键开始扫描  
 	ctrl+o:	水平分割窗口打开  
@@ -216,9 +220,10 @@ vim config for linux devices driver development
     按目录查找。
 #### (1)项目文件查找
 
-	按”<F5>“或输入”:LookupFile“
-	在当前窗口上方打开一个lookupfile小窗口，开始输入文件名（至少4个字符）。
+	按F5或输入:LookupFile
+	在当前窗口上方打开文件查找窗口，开始输入文件名（至少4个字符）。
     文件名可以使用vim的正则表达式。
+	按两下F5窗口消失
 
     CTRL-N ：向上选择
     CTRL-P ：向下选择
@@ -249,7 +254,7 @@ vim config for linux devices driver development
 
 	LUPath和LUArgs两个功能。感兴趣的朋友读一下lookupfile的手册。	
 
-## 9、vimgrep
+## 9、vimgrep(按F6)
 	在打开vim的目录下递归搜索.c 和 .h 文件
 
 ### 1)在底行模式
@@ -375,3 +380,9 @@ vim config for linux devices driver development
 		光标向右移动 ctrl+L  
 
 	(e).bashrc 中更改命令提示行颜色  
+	(f)快捷键映射
+		空格-> :  
+		,cd -> 快速切换到打开VIM时的目录。  
+		比如:  
+		在"~/project"目录下打开VIM，为了编译"~/project/driver/dma"目录而  
+		切换目录":cd driver/dma"，编译完成后可使用",cd"命令切换到"~/project"目录下  

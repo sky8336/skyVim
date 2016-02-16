@@ -264,7 +264,7 @@ nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 nmap  <F7> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
 nmap  <F8> :call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
 nmap  <F9> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-nmap <F10> :call HLUDSync()<cr>
+nmap <leader>mt :call HLUDSync()<cr>
 nmap <F12> :call AutoLoadCTagsAndCScope()<CR>
 "call AutoLoadCTagsAndCScope()
 "cscope 按键映射
