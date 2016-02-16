@@ -290,7 +290,7 @@ ctrl+o:	水平分割窗口打开
 	有时没反应，底行模式输入“gitg”点Tab键跟出“GitGutter”，回车执行,即可  
 
 ### GitGutter 截图
-	![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/GitGutter_screenshot.png)
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/GitGutter_screenshot.png)
 
 ## 13、gitv 的使用 -- gitk for vim
 ### 1)浏览模式 Brower mode 
@@ -315,14 +315,14 @@ ctrl+o:	水平分割窗口打开
 		u	更新当前浏览窗口内容
 
 #### Gitv截图
-	![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
 
 ## 14、vimdiff
 ### 解决 git merge 冲突	
 	当合并时出现 merge conflicts 时:
 		git mergetool
 	vimdiff作为合并工具的界面截图：
-	![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
 
 ## 其他
 (a)常规模式下输入 cM 清除行尾 ^M 符号  
