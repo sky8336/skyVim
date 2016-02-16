@@ -100,6 +100,7 @@ set   wildmenu
 set   wildmode=list:longest,full
 set nowrap
 
+
 " AUTO COMMANDS: {{{1
 " auto expand tab to blanks
 "autocmd FileType c,cpp set expandtab
@@ -109,12 +110,15 @@ autocmd BufReadPost *
     \     exe "normal g'\"" |
     \ endif
 
+
 " SHORTCUT SETTINGS: {{{1
 " Set mapleader
 let mapleader=","
+
 " Space to command mode.
 nnoremap <space> :
 vnoremap <space> :
+
 " Switching between buffers.
 nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
@@ -139,6 +143,7 @@ inoremap <C-l> <Esc><C-W>l
 let OpenDir=system("pwd")
 nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 
+
 " PLUGIN SETTINGS: {{{1
 " taglist.vim
 let g:Tlist_Auto_Update=1
@@ -157,6 +162,7 @@ let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
 "autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
+
 " cscope.vim
 if has("cscope")
     set csto=1
@@ -167,6 +173,7 @@ if has("cscope")
     endif
     set csverb
 endif
+
 " OmniCppComplete.vim
 "set nocp 
 "filetype plugin on 
@@ -180,6 +187,7 @@ if has("gdb")
 	let g:vimgdb_debug_file=""
 	run macros/gdb_mappings.vim
 endif
+
 " LookupFile setting
 "let g:LookupFile_TagExpr='"./tags.filename"' "原来的名称不匹配
 let g:LookupFile_TagExpr='"./tags.fn"'
@@ -188,18 +196,37 @@ let g:LookupFile_PreserveLastPattern=0
 let g:LookupFile_PreservePatternHistory=1
 let g:LookupFile_AlwaysAcceptFirst=1
 let g:LookupFile_AllowNewFiles=0
+
 " Man.vim
 source $VIMRUNTIME/ftplugin/man.vim
+
 " snipMate
 let g:snips_author="Du Jianfeng"
 let g:snips_email="cmdxiaoha@163.com"
 let g:snips_copyright="SicMicro, Inc"
+
 " plugin shortcuts
 function! RunShell(Msg, Shell)
 	echo a:Msg . '...'
 	call system(a:Shell)
 	echon 'done'
 endfunction
+
+" ZoomWinPlugin.vim
+" Zoom / Restore window.
+function! s:ZoomToggle() abort
+    if exists('t:zoomed') && t:zoomed
+        execute t:zoom_winrestcmd
+        let t:zoomed = 0
+    else
+        let t:zoom_winrestcmd = winrestcmd()
+        resize
+        vertical resize
+        let t:zoomed = 1
+    endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <silent> <C-A> :ZoomToggle<CR>
 
 " 实现递归查找上级目录中的ctags和cscope并自动载入
 function! AutoLoadCTagsAndCScope()
@@ -225,6 +252,7 @@ function! AutoLoadCTagsAndCScope()
     endwhile
 endf
 " <cr> 回车
+
 nmap  <F2> :TlistToggle<cr>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <F4> :MRU<cr>

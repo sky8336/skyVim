@@ -20,49 +20,53 @@ vim config for linux devices driver development
 
 # 二、配置步骤：
 
-1)进入vimconfig_bundle/目录。（脚本中会利用目录下到config.sh获取用户名和用户组）
+	1)进入vimconfig_bundle/目录。（脚本中会利用目录下到config.sh获取用户名和用户组）
 
-2)输入sudo ./config.sh 即可自动完成配置。
+	2)输入sudo ./config.sh 即可自动完成配置。
 
-3)打开vim，利用vundle安装几个插件  
-	底行模式命令：  
-		:BundleList 查看要安装的插件  
-		:BundleInstall 安装插件  
+	3)打开vim，利用vundle安装几个插件  
+		底行模式命令：  
+			:BundleList 查看要安装的插件  
+			:BundleInstall 安装插件  
 	  
-配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
+	配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
 
 	测试：
         vi a.c
         输入main后，按tab键看是否成功自动补全。
 
 # 三、vim使用说明
-151208
+	151208
 
 ## 1、插件及功能列表
-    TagList
-    NERDTree
-    MRU
-    LookupFile
-	bufexplorer
-    用vimgrep搜索光标所在的单词
-    生成tags
-    生成 filename tags
-    生成cscope的数据库
-    vimdiff
+    vundle  插件管理  
+	TagList  
+    NERDTree  
+    MRU  
+    LookupFile  
+	bufexplorer  
+    用vimgrep搜索光标所在的单词  
+    生成 tags  
+	生成 filename tags  
+	生成 cscope的数据库  
+	vimdiff  
+	ZoomWinPlugin  窗口缩放插件  
+	SnipMate  代码片段补全  
+	superTab  代码自动补全  
 
 ## 2、快捷键说明 
-vim打开在源码目录打开文件后  
-普通模式下：  
-F2    打开TagList  
-F3    打开NERDTree  
-F4    打开MRU  
-F5    打开LookupFile  
-F6    用vimgrep搜索光标所在的单词  
-F7    生成tags  
-F8    生成 filename tags  
-F9    生成cscope的数据库  
-F10    
-F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
+	vim打开在源码目录打开文件后  
+	普通模式下：  
+	F2    打开TagList  
+	F3    打开NERDTree  
+	F4    打开MRU  
+	F5    打开LookupFile  
+	F6    用vimgrep搜索光标所在的单词  
+	F7    生成tags  
+	F8    生成 filename tags  
+	F9    生成cscope的数据库  
+	F10    
+	F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
 
 
 ### 说明：
@@ -88,7 +92,7 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
    	ctags -R  
 	cscope -Rbq  
 		
-注意：
+	注意：
 		在生成tags和cscope前已打开的文件不能跟踪代码，重新打开即可；
 		
 ## 4、tags和cscope使用方法
@@ -108,10 +112,10 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 	,ss	 查找C语言符号，即查找函数名、宏、枚举值等出现的地方  
 	,st	 查找指定的字符串  
 
-注意：
-	按的慢，如按下,s停顿后，会删除一个字符进入插入模式，只依次需按Esc u即可恢复（回到普通模式，撤销）。
+	注意：
+		按的慢，如按下,s停顿后，会删除一个字符进入插入模式，只依次需按Esc u即可恢复（回到普通模式，撤销）。
 
-回退按：  
+	回退按：  
 		Ctrl+t
 		
 ## 5、TagList
@@ -141,52 +145,52 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 
  
 ## 6、NERDTree --用于文件浏览
-列出当前路径的目录树。  
-浏览项目的总体目录结构和创建删除重命名文件或文件名。  
-内核中_defconfig  .mk等文件可用nerd tree 打开
+	列出当前路径的目录树。  
+	浏览项目的总体目录结构和创建删除重命名文件或文件名。  
+	内核中_defconfig  .mk等文件可用nerd tree 打开
 
 ### 1)在NERDTree中选中目录，按ma，新建文件或者目录
-o       在已有窗口中打开文件、目录或书签，并跳到该窗口  
-go      在已有窗口中打开文件、目录或书签，但不跳到该窗口  
-t       在新 Tab 中打开选中文件/书签，并跳到新 Tab  
-T       在新 Tab 中打开选中文件/书签，但不跳到新 Tab  
-i       split 一个新窗口打开选中文件，并跳到该窗口  
-gi      split 一个新窗口打开选中文件，但不跳到该窗口  
-s       vsplit 一个新窗口打开选中文件，并跳到该窗口  
-gs      vsplit 一个新 窗口打开选中文件，但不跳到该窗口  
-!       执行当前文件  
-O       递归打开选中结点下的所有目录  
-x       合拢选中结点的父目录  
-X       递归合拢选中结点下的所有目录  
-e       Edit the current dif  
+	o       在已有窗口中打开文件、目录或书签，并跳到该窗口  
+	go      在已有窗口中打开文件、目录或书签，但不跳到该窗口  
+	t       在新 Tab 中打开选中文件/书签，并跳到新 Tab  
+	T       在新 Tab 中打开选中文件/书签，但不跳到新 Tab  
+	i       split 一个新窗口打开选中文件，并跳到该窗口  
+	gi      split 一个新窗口打开选中文件，但不跳到该窗口  
+	s       vsplit 一个新窗口打开选中文件，并跳到该窗口  
+	gs      vsplit 一个新 窗口打开选中文件，但不跳到该窗口  
+	!       执行当前文件  
+	O       递归打开选中结点下的所有目录  
+	x       合拢选中结点的父目录  
+	X       递归合拢选中结点下的所有目录  
+	e       Edit the current dif  
 
-双击    相当于 NERDTree-o  
-中键    对文件相当于 NERDTree-i，对目录相当于 NERDTree-e  
+	双击    相当于 NERDTree-o  
+	中键    对文件相当于 NERDTree-i，对目录相当于 NERDTree-e  
 
-D       删除当前书签
+	D       删除当前书签
 
-P       跳到根结点  
-p       跳到父结点  
-K       跳到当前目录下同级的第一个结点  
-J       跳到当前目录下同级的最后一个结点  
-k       跳到当前目录下同级的前一个结点  
-j       跳到当前目录下同级的后一个结点  
+	P       跳到根结点  
+	p       跳到父结点  
+	K       跳到当前目录下同级的第一个结点  
+	J       跳到当前目录下同级的最后一个结点  
+	k       跳到当前目录下同级的前一个结点  
+	j       跳到当前目录下同级的后一个结点  
 
-C       将选中目录或选中文件的父目录设为根结点  
-u       将当前根结点的父目录设为根目录，并变成合拢原根结点  
-U       将当前根结点的父目录设为根目录，但保持展开原根结点  
-r       递归刷新选中目录  
-R       递归刷新根结点  
-m       显示文件系统菜单 #！！！然后根据提示进行文件的操作如新建，重命名等  
-cd      将 CWD 设为选中目录  
+	C       将选中目录或选中文件的父目录设为根结点  
+	u       将当前根结点的父目录设为根目录，并变成合拢原根结点  
+	U       将当前根结点的父目录设为根目录，但保持展开原根结点  
+	r       递归刷新选中目录  
+	R       递归刷新根结点  
+	m       显示文件系统菜单 #！！！然后根据提示进行文件的操作如新建，重命名等  
+	cd      将 CWD 设为选中目录  
 
-I       切换是否显示隐藏文件  
-f       切换是否使用文件过滤器  
-F       切换是否显示文件  
-B       切换是否显示书签  
+	I       切换是否显示隐藏文件  
+	f       切换是否使用文件过滤器  
+	F       切换是否显示文件  
+	B       切换是否显示书签  
 
-q       关闭 NerdTree 窗口  
-?       切换是否显示 Quick Help	  
+	q       关闭 NerdTree 窗口  
+	?       切换是否显示 Quick Help	  
 
 ## 7、MRU -- Most Recently Used 最近打开文件列表
 ###1) 打开一个新窗口，显示最新打开的文件列表。
@@ -203,13 +207,13 @@ q       关闭 NerdTree 窗口
         打开文件名中包含vim的文件
         	
 ## 8、LookupFile -- 文件搜索用
-tags.fn 用于文件搜索,包含项目中所有文件名  
-tab键开始扫描  
-ctrl+o:	水平分割窗口打开  
+	tags.fn 用于文件搜索,包含项目中所有文件名  
+	tab键开始扫描  
+	ctrl+o:	水平分割窗口打开  
 
 ### 1)查找文件，
-        在打开的缓冲区中查找，
-        按目录查找。
+    在打开的缓冲区中查找，
+    按目录查找。
 #### (1)项目文件查找
 
 	按”<F5>“或输入”:LookupFile“
@@ -218,7 +222,7 @@ ctrl+o:	水平分割窗口打开
 
     CTRL-N ：向上选择
     CTRL-P ：向下选择
-   	或者用上、下光标键 在下拉列表中选择文件。
+	或者用上、下光标键 在下拉列表中选择文件。
     
 	选中文件后，按回车，在当前窗口中打开此文件。
 	ctrl+o:	水平分割窗口打开
@@ -324,20 +328,50 @@ ctrl+o:	水平分割窗口打开
 	vimdiff作为合并工具的界面截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
 
+## 15、ZoomWinPlugin.vim
+	当多窗口时：  
+	Ctrl+a :缩放当前vim窗口(在终端内全屏或恢复)  
+
+
+## 16、SnipMate  代码片段补全
+	代码补全快捷键是Tab  
+	例子：  
+	a.输入inc后，按Tab键。  
+		自动补齐为  #include <stdio.h>  
+	b.输入def，按Tab键。  
+		自动补齐为   #define  
+	c.输入if，按Tab键。  
+		自动补齐为   
+		if (/* condition */) {  
+			/* code */  
+		}  
+	d.输入for，按Tab键  
+		代码自动补齐为   
+		for (i = 0; i < count; i++) {  
+			/* code */  
+		}  
+	
+	snippets/ 目录存放的是代码模板，可以根据需要修改和添加代码模板
+
+	
+## 17、superTab 代码自动补全
+	Tab键自动补全
+	shift-Tab 回退选择
+
 ## 其他
-(a)常规模式下输入 cM 清除行尾 ^M 符号  
-(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
-(c)窗口焦点切换的映射  
-	 普通模式或插入模式下：  
-		ctrl+h    焦点移到左边窗口  
-		ctrl+j 			  下边  
-		ctrl+k 			  上边  
-		ctrl+l			  右边  
+	(a)常规模式下输入 cM 清除行尾 ^M 符号  
+	(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
+	(c)窗口焦点切换的映射  
+		 普通模式或插入模式下：  
+		 ctrl+h    焦点移到左边窗口  
+		 ctrl+j 		   下边  
+		 ctrl+k 		   上边  
+		 ctrl+l			   右边  
 
-(d)插入模式下光标移动(暂时未启用，与当前窗口处于插入模式，窗口焦点切换冲突)：  
-	光标向上移动 ctrl+K  
-	光标向下移动 ctrl+J  
-	光标向左移动 ctrl+H (不生效，哪里映射成了backspace)  
-	光标向右移动 ctrl+L  
+	(d)插入模式下光标移动(暂时未启用，与当前窗口处于插入模式，窗口焦点切换冲突)：  
+		光标向上移动 ctrl+K  
+		光标向下移动 ctrl+J  
+		光标向左移动 ctrl+H (不生效，哪里映射成了backspace)  
+		光标向右移动 ctrl+L  
 
-(e).bashrc 中更改命令提示行颜色  
+	(e).bashrc 中更改命令提示行颜色  
