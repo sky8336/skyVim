@@ -73,20 +73,20 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-F4-NERDtree-MRU.png)
 
 ## 3、tags和cscope库文件的生成
-方法一：
+###方法一：
 	在要生成库的目录下打开3个vim，普通模式下，分别按F7、F8、F9 ；等待生成结束即可
  
-方法二：
-   kernel/下只生成与arm架构有关的 :（kernel中建议用方法二）
-   	1)生成tags文件： 
+###方法二：
+####kernel/下只生成与arm架构有关的 :（kernel中建议用方法二）  
+   	1)生成tags文件：   
    		make tags ARCH=arm
    	
-   	2)生成cscope的库 
-   		make cscope ARCH=arm
+   	2)生成cscope的库   
+   		make cscope ARCH=arm  
    		
-  u-boot64/下生成tags
-   	ctags -R
-		cscope -Rbq
+####u-boot64/下生成tags  
+   	ctags -R  
+	cscope -Rbq  
 		
 注意：
 		在生成tags和cscope前已打开的文件不能跟踪代码，重新打开即可；
@@ -145,7 +145,7 @@ F12		实现递归查找上级目录中的ctags和cscope并自动载入，向上�
 浏览项目的总体目录结构和创建删除重命名文件或文件名。
 内核中_defconfig  .mk等文件可用nerd tree 打开
 
-在NERDTree中选中目录，按ma，新建文件或者目录
+###在NERDTree中选中目录，按ma，新建文件或者目录
 o       在已有窗口中打开文件、目录或书签，并跳到该窗口
 go      在已有窗口中打开文件、目录或书签，但不跳到该窗口
 t       在新 Tab 中打开选中文件/书签，并跳到新 Tab
@@ -247,14 +247,14 @@ LUPath和LUArgs两个功能。感兴趣的朋友读一下lookupfile的手册。
 ## 9、vimgrep
 在打开vim的目录下递归搜索.c 和 .h 文件
 
-在底行模式
+###在底行模式
 	:vimgrep 
-QuickFix 窗口操作：
 
 在路径和文件名符合{file}的所有文件中,查找符合{pattern}的字符串：
-:vimgrep     /{pattern}/[g][j]     {file} ...
+:vimgrep     /{pattern}/[g][j]     {file} ...  
 :copen    打开quickfix列表查看结果，回车打开对应文件 
 
+###QuickFix 窗口操作：
 	:copen    打开quickfix
 	:cclose    关闭quickfix
 	:cc    是在转到当前查找到的位置
@@ -288,6 +288,9 @@ QuickFix 窗口操作：
 (3)查看diff的修改，<Leader>hp ,显示diff差异。
 有时没反应，底行模式输入“gitg”点Tab键跟出“GitGutter”，回车执行,即可
 
+### GitGutter 截图
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/GitGutter_screenshot.png)
+
 ## 13、gitv 的使用 -- gitk for vim
 ### 浏览模式 Brower mode 
 	:Gitv
@@ -309,6 +312,9 @@ QuickFix 窗口操作：
 		q  退出
 		s 竖直分割窗口，显示diff信息
 		u	更新当前浏览窗口内容
+
+### Gitv截图
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
 
 ## 14、vimdiff
 ### 解决 git merge 冲突	
