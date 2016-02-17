@@ -346,7 +346,11 @@ vim config for linux devices driver development
 
 ## 16、SnipMate  代码片段补全
 	代码补全快捷键是Tab  
-	例子：  
+	按Tab按可跳到可选择下一个位置，即c.snippets	中${1},${2}...  
+	等表示的位置，输入可直接替换  
+	snippets/ 目录存放的是代码模板，可以根据需要修改和添加代码模板
+### 代码片段补全例子：  
+	可补全到代码见c.snippets  
 	a.输入inc后，按Tab键。  
 		自动补齐为  #include <stdio.h>  
 	b.输入def，按Tab键。  
@@ -361,9 +365,13 @@ vim config for linux devices driver development
 		for (i = 0; i < count; i++) {  
 			/* code */  
 		}  
-	
-	snippets/ 目录存放的是代码模板，可以根据需要修改和添加代码模板
+### {} [] () 尖括号  "" '' 等补全:
+	输入左半部分，需要补全的时候使用tab，括号里的内容输入完成后tab出去.   
+	不需要补全，正常输入即可  
+	若用插件自动补全，输入 ( 时显示函数参数的插件就废了  
 
+	注意:
+	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
 ## 17、AutoComplPop和superTab 代码自动补全
 	AutoComplPop:  
