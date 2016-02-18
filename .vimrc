@@ -138,6 +138,7 @@ Bundle 'genutils'
 Bundle 'lookupfile'
 Bundle 'taglist.vim'
 Bundle 'The-NERD-tree'
+Bundle 'The-NERD-Commenter'
 Bundle 'fugitive.vim'
 Bundle 'gitv'
 
