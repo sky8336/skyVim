@@ -60,8 +60,8 @@ vim config for linux devices driver development
 	SnipMate  代码片段补全  
 	superTab  代码自动补全  
 
-	.vim/plugin/ 下插件截图：
-![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin.png)
+	vundle插件列表截图：
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin_vundle.png)
 
 ## 2、快捷键说明 
 	vim打开在源码目录打开文件后  
