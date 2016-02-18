@@ -24,16 +24,24 @@ function config_vim()
 	sudo cp ctags /bin 
 	echo "Make tags in /usr/include"
 	cd /usr/include
+	pwd
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
 }
 
 #install vundle
-function install_vundle()
+function install_vundle_and_plugin()
 {
 	echo "Install vundle now !"
 	git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
+	vim +BundleInstall +qall
+}
+
+#chown ~/.vim/bundle
+function chown_vundle()
+{
 	#切换到config.sh所在目录，获取非sudo模式下的username and groupname
-	cd -
+	cd $vimcfig_bundle_dir_path 
+	pwd
 	username=`ls -l config.sh | cut -d ' ' -f3`
 	groupname=`ls -l  config.sh | cut -d ' ' -f4`
 	echo "~/.vim/bundle/ change owner:"
@@ -42,9 +50,12 @@ function install_vundle()
 	chown -R $username:$groupname ~/.vim/bundle/
 }
 
+vimcfig_bundle_dir_path=$(pwd)
+echo $vimcfig_bundle_dir_path
 bakup_vimconfig
 config_vim
-install_vundle
+install_vundle_and_plugin
+chown_vundle
 # To use vimdiff as default merge tool:
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
