@@ -127,6 +127,7 @@ Bundle 'airblade/vim-gitgutter'
 Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
 Bundle 'majutsushi/tagbar'
+Bundle 'jlanzarotta/bufexplorer'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -139,6 +140,7 @@ Bundle 'lookupfile'
 Bundle 'taglist.vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
+Bundle 'mru.vim'
 Bundle 'fugitive.vim'
 Bundle 'gitv'
 
