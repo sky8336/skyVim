@@ -1,2 +1,2 @@
-ZoomWin.vba: call delete('/home/cyg/.vim/plugin/ZoomWinPlugin.vim')|call delete('/home/cyg/.vim/doc/ZoomWin.txt')|call delete('/home/cyg/.vim/autoload/ZoomWin.vim')
-getscript.vba: call delete('/home/cyg/.vim/plugin/getscriptPlugin.vim')|call delete('/home/cyg/.vim/autoload/getscript.vim')|call delete('/home/cyg/.vim/GetLatest/GetLatestVimScripts.dist')|call delete('/home/cyg/.vim/doc/pi_getscript.txt')
+getscript.vba: call delete('/home/maning/.vim/plugin/getscriptPlugin.vim')|call delete('/home/maning/.vim/autoload/getscript.vim')|call delete('/home/maning/.vim/GetLatest/GetLatestVimScripts.dist')|call delete('/home/maning/.vim/doc/pi_getscript.txt')
+ZoomWin.vba: call delete('/home/maning/.vim/plugin/ZoomWinPlugin.vim')|call delete('/home/maning/.vim/doc/ZoomWin.txt')|call delete('/home/maning/.vim/autoload/ZoomWin.vim')

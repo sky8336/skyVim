@@ -6,8 +6,8 @@
 "               supports.
 " Authors:      Ming Bai <mbbill AT gmail DOT com>,
 "               Wu Yongwei <wuyongwei AT gmail DOT com>
-" Last Change:  2009-04-30 21:17:26
-" Version:      1.19
+" Last Change:  2012-02-04 19:18:00
+" Version:      2.0
 "
 " Install:      1. Put echofunc.vim to /plugin directory.
 "               2. Use the command below to create tags
@@ -28,25 +28,66 @@
 "               macro name, etc. This works with when
 "               +balloon_eval is compiled in.
 "
+"               Because the message line often cleared by
+"               some other plugins (e.g. ominicomplete), an
+"               other choice is to show message in status line.
+"               First, add  %{EchoFuncGetStatusLine()}  to
+"               your 'statusline' option.
+"               Second, add the following line to your vimrc
+"               let g:EchoFuncShowOnStatus = 1
+"               to avoid echoing function name in message line.
+"
 " Options:      g:EchoFuncLangsDict
 "                 Dictionary to map the Vim file types to
 "                 tags languages that should be used. You do
 "                 not need to touch it in most cases.
+"
 "               g:EchoFuncLangsUsed
 "                 File types to enable echofunc, in case you
 "                 do not want to use EchoFunc on all file
 "                 types supported. Example:
 "                   let g:EchoFuncLangsUsed = ["java","cpp"]
+"
 "               g:EchoFuncMaxBalloonDeclarations
 "                 Maximum lines to display in balloon declarations.
-"               g:EchoFuncKeyNext
-"                 Key to echo the next function
-"               g:EchoFuncKeyPrev
-"                 Key to echo the previous function
 "
-" Thanks:       edyfox minux
+"               g:EchoFuncKeyNext
+"                 Key to echo the next function.
+"
+"               g:EchoFuncKeyPrev
+"                 Key to echo the previous function.
+"
+"               g:EchoFuncShowOnStatus
+"                 Show function name on status line. NOTE,
+"                 you should manually add %{EchoFuncGetStatusLine()}
+"                 to your 'statusline' option.
+"
+"               g:EchoFuncAutoStartBalloonDeclaration
+"                 Automatically start balloon declaration if not 0.
+"
+"               g:EchoFuncPathMappingEnabled
+"               g:EchoFuncPathMapping
+"                 The new feature added by Zhao Cai provides ability
+"                 to shorten file path in some specific directory. e.g.
+"                 /home/username/veryveryvery/long/file/path/blabla
+"                 could be showed as
+"                 ~/veryveryvery/long/file/path/blabla
+"                 If you want to disable this feature, add
+"                 let g:EchoFuncPathMappingEnabled = 0
+"                 to your vimrc. It's enabled by default.
+"                 To add more mappings in g:EchoFuncPathMapping, search
+"                 this script and you will know how to do it.
+"
+"
+" Thanks:       edyfox
+"               minux
+"               Zhao Cai
 "
 "==================================================
+
+if &compatible == 1
+    finish
+endif
 
 " Vim version 7.x is needed.
 if v:version < 700
@@ -54,13 +95,53 @@ if v:version < 700
      finish
 endif
 
+" Change cpoptions to make sure line continuation works
+let s:cpo_save=&cpo
+set cpo&vim
+
 let s:res=[]
 let s:count=1
+
+if !exists("g:EchoFuncPathMapping")
+	" Note: longest match first
+	let g:EchoFuncPathMapping = [
+				\ [expand("$HOME") , '~'],
+				\ [expand("$VIM") , '$VIM']
+				\]
+endif
+
+if !exists("g:EchoFuncPathMappingEnabled")
+	let g:EchoFuncPathMappingEnabled = 1
+endif
+
+func! s:EchoFuncPathMapping(path)
+    if g:EchoFuncPathMappingEnabled != 1
+        return a:path
+    endif
+	let l:path = a:path
+	for item in g:EchoFuncPathMapping
+		"let l:path = substitute(l:path, escape(item[0],'/'), escape(item[1],'/'), 'ge' )
+		let l:path = substitute(l:path, '\V'.escape(item[0],'\'), item[1], 'ge' )
+	endfor
+	return l:path
+endf
+
+function! EchoFuncGetStatusLine()
+    if len(s:res) == 0
+        return ''
+    endif
+    return '[' . substitute(s:res[s:count-1],'^\s*','','') . ']'
+endfunction
 
 function! s:EchoFuncDisplay()
     if len(s:res) == 0
         return
     endif
+    if g:EchoFuncShowOnStatus == 1
+        exec "redrawstatus"
+        return
+    endif
+
     set noshowmode
     let content=s:res[s:count-1]
     let wincols=&columns
@@ -80,11 +161,34 @@ function! s:EchoFuncDisplay()
     echohl Type | echo content | echohl None
 endfunction
 
+" add this function to avoid E432
+function! s:CallTagList(str)
+    let ftags = []
+    try
+        let ftags=taglist(a:str)
+    catch /^Vim\%((\a\+)\)\=:E/
+        " if error occured, reset tagbsearch option and try again.
+        let bak=&tagbsearch
+        set notagbsearch
+        let ftags=taglist(a:str)
+        let &tagbsearch=bak
+    endtry
+    return ftags
+endfunction
+
 function! s:GetFunctions(fun, fn_only)
     let s:res=[]
-    let ftags=taglist('^'.escape(a:fun,'[\*~^').'$')
+    let funpat=escape(a:fun,'[\*~^')
+    let ftags=s:CallTagList('^'.funpat.'$')
+
     if (type(ftags)==type(0) || ((type(ftags)==type([])) && ftags==[]))
-        return
+        if &filetype=='cpp' && funpat!~'^\(catch\|if\|for\|while\|switch\)$'
+            " Namespaces may be omitted
+            let ftags=s:CallTagList('::'.funpat.'$')
+            if (type(ftags)==type(0) || ((type(ftags)==type([])) && ftags==[]))
+                return
+            endif
+        endif
     endif
     let fil_tag=[]
     for i in ftags
@@ -105,8 +209,11 @@ function! s:GetFunctions(fun, fn_only)
             if (!a:fn_only || (i.kind=='p' || i.kind=='f') ||
                         \(i.kind == 'm' && has_key(i,'cmd') &&
                         \                  match(i.cmd,'(') != -1)) &&
-                        \i.name==a:fun
-                let fil_tag+=[i]
+                        \i.name=~funpat
+                if &filetype!='cpp' || !has_key(i,'class') ||
+                            \i.name!~'::' || i.name=~i.class
+                    let fil_tag+=[i]
+                endif
             endif
         else
             if !a:fn_only && i.name == a:fun
@@ -120,11 +227,12 @@ function! s:GetFunctions(fun, fn_only)
     let s:count=1
     for i in fil_tag
         if has_key(i,'kind') && has_key(i,'name') && has_key(i,'signature')
-            let tmppat=escape(i.name,'[\*~^')
+            let tmppat=substitute(escape(i.name,'[\*~^'),'^.*::','','')
             if &filetype == 'cpp'
                 let tmppat=substitute(tmppat,'\<operator ','operator\\s*','')
-                let tmppat=substitute(tmppat,'^\(.*::\)','\\(\1\\)\\?','')
+                "let tmppat=substitute(tmppat,'^\(.*::\)','\\(\1\\)\\?','')
                 let tmppat=tmppat . '\s*(.*'
+                let tmppat='\([A-Za-z_][A-Za-z_0-9]*::\)*'.tmppat
             else
                 let tmppat=tmppat . '\>.*'
             endif
@@ -187,7 +295,7 @@ function! s:GetFunctions(fun, fn_only)
         let name=substitute(name,'^\s\+','','')
         let name=substitute(name,'\s\+$','','')
         let name=substitute(name,'\s\+',' ','g')
-        let file_line=i.filename
+        let file_line=s:EchoFuncPathMapping(i.filename)
         if i.cmd > 0
             let file_line=file_line . ':' . i.cmd
         endif
@@ -258,6 +366,7 @@ endfunction
 
 function! EchoFuncClear()
     echo ''
+    let s:res=[]
     return ''
 endfunction
 
@@ -374,11 +483,27 @@ if !exists("g:EchoFuncMaxBalloonDeclarations")
 endif
 
 if !exists("g:EchoFuncKeyNext")
-    let g:EchoFuncKeyNext='<M-=>'
+    if has ("mac")
+        let g:EchoFuncKeyNext='≠'
+    else
+        let g:EchoFuncKeyNext='<M-=>'
+    endif
 endif
 
 if !exists("g:EchoFuncKeyPrev")
-    let g:EchoFuncKeyPrev='<M-->'
+    if has ("mac")
+        let g:EchoFuncKeyPrev='±'
+    else
+        let g:EchoFuncKeyPrev='<M-->'
+    endif
+endif
+
+if !exists("g:EchoFuncShowOnStatus")
+    let g:EchoFuncShowOnStatus = 0
+endif
+
+if !exists("g:EchoFuncAutoStartBalloonDeclaration")
+    let g:EchoFuncAutoStartBalloonDeclaration = 1
 endif
 
 function! s:CheckTagsLanguage(filetype)
@@ -392,7 +517,7 @@ function! CheckedEchoFuncStart()
 endfunction
 
 function! CheckedBalloonDeclarationStart()
-    if s:CheckTagsLanguage(&filetype)
+    if s:CheckTagsLanguage(&filetype) && g:EchoFuncAutoStartBalloonDeclaration
         call BalloonDeclarationStart()
     endif
 endfunction
@@ -425,5 +550,8 @@ endfunction
 augroup EchoFunc
     autocmd BufRead,BufNewFile * call s:EchoFuncInitialize()
 augroup END
+
+" Restore cpoptions
+let &cpo=s:cpo_save
 
 " vim: set et sts=4 sw=4:

@@ -4,13 +4,13 @@ vim config for linux devices driver development
 
 # 一、配置前注意：
 	1)在配置之前，确保已经安装好vim,
-	  	即之前做过sudo apt-get install vim 这样的操作,如果没有请先安装vim
+  		即之前做过sudo apt-get install vim 这样的操作,如果没有请先安装vim
 	  	
-       安装vim+ctags+cscope+taglist
+		安装vim+ctags+cscope+taglist
 		sudo apt-get install vim ctags cscope
 
 	2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
-	  在执行完sudo ./config.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
+		在执行完sudo ./config.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
 	  
 	3)160125更新：
 	  	增加bundle管理插件，执行脚本前确保联网。bundle用于插件管理，使用bundle安装新的插件。
@@ -25,11 +25,16 @@ vim config for linux devices driver development
 		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理到插件)  
 
 注意：  
-	(a)若vundle管理的插件安装不成功，也可手动安装：  
+	(a)插件更新  
+	若vundle管理的插件安装不成功，也可手动安装：  
 	打开vim，底行模式命令：  
 		:BundleList 查看要安装的插件  
 		:BundleInstall 安装插件  
-	  
+	不在vundle中管理的插件(~/.vim/plugin/下的)更新(使用getscriptPlugin.vim)：  
+	打开vim，底行模式命令:  
+	:GetScripts  
+	或普通模式下,gs  
+
 	(b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
 
 	(c)测试：
