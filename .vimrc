@@ -124,6 +124,7 @@ Bundle 'gmarik/vundle'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'  
 Bundle 'airblade/vim-gitgutter'
+Bundle 'ervandew/supertab'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
