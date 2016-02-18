@@ -34,6 +34,7 @@ function install_vundle_and_plugin()
 	echo "Install vundle now !"
 	git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
 	vim +BundleInstall +qall
+	cp $vimcfig_bundle_dir_path/.vim/bundle_self-define/* ~/.vim/bundle/ -rf
 }
 
 #chown ~/.vim/bundle
