@@ -21,17 +21,18 @@ vim config for linux devices driver development
 # 二、配置步骤：
 
 	1)进入vimconfig_bundle/目录。（脚本中会利用目录下到config.sh获取用户名和用户组）
+	2)输入sudo ./config.sh  
+		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理到插件)  
 
-	2)输入sudo ./config.sh 即可自动完成配置。
-
-	3)打开vim，利用vundle安装几个插件  
-		底行模式命令：  
-			:BundleList 查看要安装的插件  
-			:BundleInstall 安装插件  
+注意：  
+	(a)若vundle管理的插件安装不成功，也可手动安装：  
+	打开vim，底行模式命令：  
+		:BundleList 查看要安装的插件  
+		:BundleInstall 安装插件  
 	  
-	配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
+	(b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
 
-	测试：
+	(c)测试：
         vi a.c
         输入main后，按tab键看是否成功自动补全。
 
