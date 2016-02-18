@@ -137,6 +137,7 @@ Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'lookupfile'
 Bundle 'taglist.vim'
+Bundle 'The-NERD-tree'
 Bundle 'fugitive.vim'
 Bundle 'gitv'
 
