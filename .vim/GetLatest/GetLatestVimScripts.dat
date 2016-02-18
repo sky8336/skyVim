@@ -1,6 +1,5 @@
 ScriptID SourceID Filename
 --------------------------
-1879 11894 :AutoInstall: AutoComplPop
 42 22601 :AutoInstall: BufExplorer
 1735 17383 :AutoInstall: EchoFunc
 197 11399 :AutoInstall: Genutils
