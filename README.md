@@ -346,6 +346,7 @@ vim config for linux devices driver development
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
 
 ## 15、ZoomWinPlugin.vim
+    用于分割窗口的最大化与还原  
 	当多窗口时：  
 	Ctrl+a :缩放当前vim窗口(在终端内全屏或恢复)  
 

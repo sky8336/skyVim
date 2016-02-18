@@ -141,6 +141,7 @@ Bundle 'taglist.vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
+Bundle 'ZoomWin'
 Bundle 'fugitive.vim'
 Bundle 'gitv'
 
