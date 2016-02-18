@@ -7,7 +7,6 @@ ScriptID SourceID Filename
 521 22864 :AutoInstall: MRU
 1218 14455 :AutoInstall: NERD_Commenter
 1658 23731 :AutoInstall: NERD_Tree
-1520 7722 :AutoInstall: OmniCppComplete
 273 19574 :AutoInstall: Taglist
 508 18151 :AutoInstall: ZoomWin
 642 15781 :AutoInstall: getscript.vim

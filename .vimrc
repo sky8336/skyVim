@@ -131,6 +131,7 @@ Bundle 'msanders/snipmate.vim'
 "Bundle 'L9' 
 "Bundle 'FuzzyFinder'
 Bundle 'AutoComplPop'
+Bundle 'OmniCppComplete'
 Bundle 'fugitive.vim'
 Bundle 'gitv'
 
