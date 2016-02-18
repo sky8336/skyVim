@@ -126,6 +126,7 @@ Bundle 'gmarik/vundle'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
+Bundle 'majutsushi/tagbar'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -135,6 +136,7 @@ Bundle 'OmniCppComplete'
 Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'lookupfile'
+Bundle 'taglist.vim'
 Bundle 'fugitive.vim'
 Bundle 'gitv'
 
