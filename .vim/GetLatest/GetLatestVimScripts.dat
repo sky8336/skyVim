@@ -1,8 +1,6 @@
 ScriptID SourceID Filename
 --------------------------
 42 22601 :AutoInstall: BufExplorer
-197 11399 :AutoInstall: Genutils
-1581 7671 :AutoInstall: LookupFile
 521 22864 :AutoInstall: MRU
 1218 14455 :AutoInstall: NERD_Commenter
 1658 23731 :AutoInstall: NERD_Tree

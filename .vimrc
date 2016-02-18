@@ -133,6 +133,8 @@ Bundle 'msanders/snipmate.vim'
 Bundle 'AutoComplPop'
 Bundle 'OmniCppComplete'
 Bundle 'echofunc.vim'
+Bundle 'genutils'
+Bundle 'lookupfile'
 Bundle 'fugitive.vim'
 Bundle 'gitv'
 
