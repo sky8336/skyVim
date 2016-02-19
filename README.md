@@ -30,10 +30,6 @@ vim config for linux devices driver development
 	打开vim，底行模式命令：  
 		:BundleList 查看要安装的插件  
 		:BundleInstall 安装插件  
-	不在vundle中管理的插件(~/.vim/plugin/下的)更新(使用getscriptPlugin.vim)：  
-	打开vim，底行模式命令:  
-	:GetScripts  
-	或普通模式下,gs  
 
 	(b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
 
@@ -47,6 +43,7 @@ vim config for linux devices driver development
 ## 1、插件及功能列表
     vundle  插件管理  
 	TagList  
+	tagbar
     NERDTree  
     MRU  
     LookupFile  
@@ -156,6 +153,17 @@ vim config for linux devices driver development
 	s: 选择排序字段
 	q: 退出taglist窗口
 
+### tagbar插件
+    :Tagbar	打开  
+	:help tagbar
+    更适合面向对象语言使用的显示函数列表插件  
+    简单的列了几点比taglist优化了的地方。  
+	1.支持头文件的函数列表显示  
+	细心的读者可能会发现，tagbar对函数的可见级别也是做了区分的，分别用+ – # 并配合着色来做了区分  
+	2.对面向对象的支持更好  
+	taglist虽然也会列出类列表，但是整体还是很不直观  
+	3.自动根据文件修改时间来重建  
+	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
 ## 6、NERDTree --用于文件浏览(按F3)
 	列出当前路径的目录树。  
