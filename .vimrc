@@ -293,7 +293,6 @@ nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
 "其他映射
 nmap <leader>zz <C-w>o
-nmap <leader>gs :GetScripts<cr>
 ",sa 添加cscope.out库
 ",ss 查找c语言符号（函数名 宏 枚举值）出现的地方
 ",sg 查找函数/宏/枚举等定义的位置，类似ctags的功能
@@ -305,7 +304,6 @@ nmap <leader>gs :GetScripts<cr>
 ",sd 查找本函数调用的函数
 
 "zz  
-",gs 自动安装(更新)插件
 
 """"""""""""""""""""""""""""""
 " BufExplorer.vim 其中有默认配置
