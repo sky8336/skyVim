@@ -161,17 +161,13 @@ filetype plugin indent on     " required!   /** vimrc文件配置结束 **/
 " NOTE: comments after Bundle command are not allowed..  
 " vundle setup end
 
-
-" taglist.vim
-let g:Tlist_Auto_Update=1
-let g:Tlist_Process_File_Always=1
-let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
-let g:Tlist_WinWidth=25
-let g:Tlist_Enable_Fold_Column=0
-let g:Tlist_Auto_Highlight_Tag=1
-"let Tlist_Show_One_File=0
-let g:Tlist_Auto_Open=1
+"tagbar.vim
+"nmap <Leader>tb :TagbarToggle<CR>        "快捷键设置
+let g:tagbar_left=1
+let g:tagbar_ctags_bin='ctags'            "ctags程序的路径
+let g:tagbar_width=30                    "窗口宽度的设置
+autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()    
+"如果是c语言的程序的话，tagbar自动开启
 
 " NERDTree.vim
 let g:NERDTreeWinPos="right"
@@ -270,7 +266,7 @@ function! AutoLoadCTagsAndCScope()
 endf
 " <cr> 回车
 
-nmap  <F2> :TlistToggle<cr>
+nmap  <F2> :Tagbar<CR>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
