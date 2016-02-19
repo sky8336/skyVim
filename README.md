@@ -300,6 +300,18 @@ vim config for linux devices driver development
 
 	:help bufexplorer 帮助 
 
+	回车/双击左键 在当前窗口打开光标下的buffer  
+	b             快速切换buffer 用 b<bufnum>.  
+	d             关闭buffer  
+	D             关闭buffer,?  
+	o             在当前窗口打开buffers  
+	p             文件名和路径名分开显示的开关  
+	q             退出 bufexplorer.  
+	r             改变列出的buffers顺序.  
+	R             相对和绝对路径开关.  
+	s             循环选择以什么顺序列出buffers, buffer number, file name, file extension, most recently used (MRU), or  full path.  
+	S             反向循环选择以什么顺序列出buffers  
+	u             显示未列入buffers的开关  
 
 ## 11、Man命令
 	查看C语言帮助文档。安装有C语言和Posix的帮助手册，  
