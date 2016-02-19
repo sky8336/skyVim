@@ -78,8 +78,8 @@ vim config for linux devices driver development
 	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
 	2)使用vim打开文件按下F5后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F5-Lookup_File.png)
-	3)使用vim打开文件按下F3和F4后的界面:  
-![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-F4-NERDtree-MRU.png)
+	3)使用vim打开文件按下F4后的界面:  
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F4-MRU.png)
 
 ## 3、tags和cscope生成及使用方法
 ### 1)tags和cscope库文件的生成
