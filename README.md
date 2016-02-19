@@ -6,8 +6,8 @@ vim config for linux devices driver development
 	1)在配置之前，确保已经安装好vim,
   		即之前做过sudo apt-get install vim 这样的操作,如果没有请先安装vim
 	  	
-		安装vim+ctags+cscope+taglist
-		sudo apt-get install vim ctags cscope
+		安装vim+ctags+cscope+tagbar  
+		sudo apt-get install vim ctags cscope  
 
 	2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
 		在执行完sudo ./config.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
@@ -42,7 +42,6 @@ vim config for linux devices driver development
 
 ## 1、插件及功能列表
     vundle  插件管理  
-	TagList  
 	tagbar
     NERDTree  
     MRU  
@@ -63,7 +62,7 @@ vim config for linux devices driver development
 ## 2、快捷键说明 
 	vim打开在源码目录打开文件后  
 	普通模式下：  
-	F2    打开TagList  
+	F2    打开tagbar   
 	F3    打开NERDTree  
 	F4    打开MRU  
 	F5    打开LookupFile  
@@ -128,41 +127,19 @@ vim config for linux devices driver development
 	先按F7生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
 	让自己定义的类型、函数以不同的颜色显示  
 
-## 5、TagList(按F2)
+## 5、tagbar(按F2)
 	基于ctags,分割窗口显示当前的代码结构概览		
+    更适合面向对象语言使用的显示函数列表插件  
 
-### 1)底行模式打开:
-	:TlistOpen   打开并将焦点置于标签列表窗口
-	:TlistClose  关闭标签列表窗口
-	:TlistToggle 切换标签列表窗口状态（打开--关闭），标签列表窗口是否获得焦点取决于其他配置
-
-### 2)在TagList窗口操作：
-	回车键： 跳到光标所在标记的定义处
-	o: 新建一个水平分割窗口（上部），跳到标记定义处
-	p: 预览标记定义（焦点仍然在taglist窗口）
-	空格: 在底行显示标记的原型（如函数原型）
-	u: 更新标记列表（比如源文件新增一个函数，保存后，在taglist窗口按u）
-	d: 删除光标所在的taglist文件
-	x: 放大/缩小taglist窗口
-	[[: 将光标移到前一个文件的起点
-	]]: 将光标移到后一个文件的起点
-	+: 展开标记
-	-: 折叠
-	*: 全部展开
-	=: 全部折叠
-	s: 选择排序字段
-	q: 退出taglist窗口
-
-### tagbar插件
     :Tagbar	打开  
 	:help tagbar
-    更适合面向对象语言使用的显示函数列表插件  
-    简单的列了几点比taglist优化了的地方。  
-	1.支持头文件的函数列表显示  
+
+### 简单的列了几点比taglist优化了的地方:  
+	1)支持头文件的函数列表显示  
 	细心的读者可能会发现，tagbar对函数的可见级别也是做了区分的，分别用+ – # 并配合着色来做了区分  
-	2.对面向对象的支持更好  
+	2)对面向对象的支持更好  
 	taglist虽然也会列出类列表，但是整体还是很不直观  
-	3.自动根据文件修改时间来重建  
+	3)自动根据文件修改时间来重建  
 	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
 ## 6、NERDTree --用于文件浏览(按F3)
