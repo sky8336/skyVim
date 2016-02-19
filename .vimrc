@@ -137,7 +137,7 @@ Bundle 'OmniCppComplete'
 Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'lookupfile'
-Bundle 'taglist.vim'
+"Bundle 'taglist.vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
@@ -161,20 +161,24 @@ filetype plugin indent on     " required!   /** vimrc文件配置结束 **/
 " NOTE: comments after Bundle command are not allowed..  
 " vundle setup end
 
-"tagbar.vim
+" tagbar.vim
 "nmap <Leader>tb :TagbarToggle<CR>        "快捷键设置
 let g:tagbar_left=1
 let g:tagbar_ctags_bin='ctags'            "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
-autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()    
 "如果是c语言的程序的话，tagbar自动开启
+autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()    
 
 " NERDTree.vim
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
-"autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
+
+"autocmd BufRead * NERDTree " 打开vim时自动打开NERDTree
+autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx  NERDTree
+" NERDTree是最后一个窗口，它自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " cscope.vim
 if has("cscope")
