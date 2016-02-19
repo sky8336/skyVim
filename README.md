@@ -134,6 +134,30 @@ vim config for linux devices driver development
     :Tagbar	打开  
 	:help tagbar
 
+
+在tagbar 窗口有效的映射:
+    回车  跳到光标下的tags  
+	p     预览;调到光标下的tag,焦点保留在tagbar窗口  
+	P     在预览窗口打开  
+	左键单击折叠图标    折叠开关  
+	左键双击折叠图标    跳到光标下的tag  
+	ctrl+n     跳到下一个顶层tag  
+	ctrl+p     跳到上一个顶层tag  
+	空格键     在命令行显示当前tag的原型  
+	v          Hide tags that are declared non-public. Tags without any  
+	visibility information will still be shown.  
+	+/zo      打开折叠  
+	-/zc      折叠开关  
+	o/za      打开或关闭折叠  
+	*/zR      打开所有的折叠  
+	=/zM      关闭所有的折叠  
+	zj        跳到下一个折叠的开始  
+	zk        调到上一个折叠的结尾  
+	s         切换折叠中tag的排序  
+	c         打开|g:tagbar_autoclose| 选项  
+	x         放大窗口  
+	q         关闭tagbar窗口  
+
 ### 简单的列了几点比taglist优化了的地方:  
 	1)支持头文件的函数列表显示  
 	细心的读者可能会发现，tagbar对函数的可见级别也是做了区分的，分别用+ – # 并配合着色来做了区分  
