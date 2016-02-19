@@ -162,14 +162,15 @@ filetype plugin indent on     " required!   /** vimrc文件配置结束 **/
 " vundle setup end
 
 " tagbar.vim
-"nmap <Leader>tb :TagbarToggle<CR>        "快捷键设置
+nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_left=1
-let g:tagbar_ctags_bin='ctags'            "ctags程序的路径
+let g:tagbar_ctags_bin='ctags'           "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
 "如果是c语言的程序的话，tagbar自动开启
-autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()    
+autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 
 " NERDTree.vim
+nmap  <Leader>nt :NERDTreeToggle<cr>
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
@@ -205,6 +206,10 @@ if has("gdb")
 	run macros/gdb_mappings.vim
 endif
 
+
+" MRU.vim
+nmap  <leader>mr :MRU<cr>
+
 " LookupFile setting
 "let g:LookupFile_TagExpr='"./tags.filename"' "原来的名称不匹配
 let g:LookupFile_TagExpr='"./tags.fn"'
@@ -214,6 +219,18 @@ let g:LookupFile_PreservePatternHistory=1
 let g:LookupFile_AlwaysAcceptFirst=1
 let g:LookupFile_AllowNewFiles=0
 
+" BufExplorer.vim 其中有默认配置
+"let g:bufExplorerDefaultHelp=0       " Do not show default help.
+"let g:bufExplorerShowRelativePath=1  " Show relative paths.
+"let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+"let g:bufExplorerSplitRight=0        " Split left.
+"let g:bufExplorerSplitVertical=1     " Split vertically.
+"let g:bufExplorerSplitVertSize = 30  " Split width
+"let g:bufExplorerUseCurrentWindow=1  " Open in new window.
+"<Leader>be　　全屏方式打来 buffer 列表。
+"<Leader>bs　　水平窗口打来 buffer 列表。
+"<Leader>bv　　垂直窗口打开 buffer 列表。
+
 " Man.vim
 source $VIMRUNTIME/ftplugin/man.vim
 
@@ -221,6 +238,15 @@ source $VIMRUNTIME/ftplugin/man.vim
 let g:snips_author="Du Jianfeng"
 let g:snips_email="cmdxiaoha@163.com"
 let g:snips_copyright="SicMicro, Inc"
+
+" vimdiff hot keys
+" if you know the buffer number, you can use hot key like ",2" 
+" (press comma first, then press two as quickly as possible) to 
+" pull change from buffer number two.set up hot keys:
+map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
+map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
+map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
+map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 
 " plugin shortcuts
 function! RunShell(Msg, Shell)
@@ -270,9 +296,9 @@ function! AutoLoadCTagsAndCScope()
 endf
 " <cr> 回车
 
-nmap  <F2> :Tagbar<CR>
-nmap  <F3> :NERDTreeToggle<cr>
-nmap  <F4> :MRU<cr>
+"nmap  <F2> :Tagbar<CR>
+"nmap  <F3> :NERDTreeToggle<cr>
+"nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 nmap  <F7> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
@@ -305,28 +331,7 @@ nmap <leader>zz <C-w>o
 
 "zz  
 
-""""""""""""""""""""""""""""""
-" BufExplorer.vim 其中有默认配置
-""""""""""""""""""""""""""""""
-"   let g:bufExplorerDefaultHelp=0       " Do not show default help.
-"   let g:bufExplorerShowRelativePath=1  " Show relative paths.
-"   let g:bufExplorerSortBy='mru'        " Sort by most recently used.
-"   let g:bufExplorerSplitRight=0        " Split left.
-"   let g:bufExplorerSplitVertical=1     " Split vertically.
-"   let g:bufExplorerSplitVertSize = 30  " Split width
-"   let g:bufExplorerUseCurrentWindow=1  " Open in new window.
-" <Leader>be　　全屏方式打来 buffer 列表。
-" <Leader>bs　　水平窗口打来 buffer 列表。
-" <Leader>bv　　垂直窗口打开 buffer 列表。
 
-" vimdiff hot keys
-" if you know the buffer number, you can use hot key like ",2" 
-" (press comma first, then press two as quickly as possible) to 
-" pull change from buffer number two.set up hot keys:
-map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
-map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
-map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
-map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 """"""""""""""""""""""""""""""""""""
 set noswapfile
 set tags+=/usr/include/tags

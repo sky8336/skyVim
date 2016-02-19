@@ -62,10 +62,10 @@ vim config for linux devices driver development
 ## 2、快捷键说明 
 	vim打开在源码目录打开文件后  
 	普通模式下：  
-	F2    打开tagbar   
-	F3    打开NERDTree  
-	F4    打开MRU  
-	F5    打开LookupFile  
+	,tb   tagbar开关   
+	,nt   NERDTree开关
+	,mr   打开MRU  
+	F5    LookupFile开关（按2下关）  
 	F6    用vimgrep搜索光标所在的单词  
 	F7    生成tags  
 	F8    生成filename tags(tags.fn)  
@@ -78,8 +78,8 @@ vim config for linux devices driver development
 	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
 	2)使用vim打开文件按下F5后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F5-Lookup_File.png)
-	3)使用vim打开文件按下F4后的界面:  
-![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F4-MRU.png)
+	3)使用vim打开文件按下,mr后的界面:  
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/MRU.png)
 
 ## 3、tags和cscope生成及使用方法
 ### 1)tags和cscope库文件的生成
@@ -127,7 +127,7 @@ vim config for linux devices driver development
 	先按F7生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
 	让自己定义的类型、函数以不同的颜色显示  
 
-## 5、tagbar(按F2)
+## 5、tagbar(按,tb)
 	基于ctags,分割窗口显示当前的代码结构概览		
     更适合面向对象语言使用的显示函数列表插件  
 
@@ -142,7 +142,7 @@ vim config for linux devices driver development
 	3)自动根据文件修改时间来重建  
 	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
-## 6、NERDTree --用于文件浏览(按F3)
+## 6、NERDTree --用于文件浏览(按,nt)
 	列出当前路径的目录树。  
 	浏览项目的总体目录结构和创建删除重命名文件或文件名。  
 	内核中_defconfig  .mk等文件可用nerd tree 打开
@@ -190,7 +190,7 @@ vim config for linux devices driver development
 	q       关闭 NerdTree 窗口  
 	?       切换是否显示 Quick Help	  
 
-## 7、MRU -- Most Recently Used 最近打开文件列表(按F4)
+## 7、MRU -- Most Recently Used 最近打开文件列表(按,mr)
 ###1) 打开一个新窗口，显示最新打开的文件列表。
     :MRU
         在该命令后加空格，然后TAB或者Ctrl+D会自动补全。
