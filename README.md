@@ -463,6 +463,16 @@ vim config for linux devices driver development
 
 ## 21、ctrlp.vim
 	模糊查找ctrl+p  
+	
+	ctrl-f    模糊搜索最近打开的文件(MRU)  
+	ctrl-p    模糊搜索当前目录及其子目录下的所有文件  
+
+	搜索框出来后, 输入关键字, 然后  
+	ctrl + j/k   进行上下选择  
+	ctrl + x     在当前窗口水平分屏打开文件  
+	ctrl + v     同上, 垂直分屏  
+	ctrl + t     在tab中打开  
+
 	Basic Usage  
 
     Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.  
@@ -476,8 +486,6 @@ vim config for linux devices driver development
     Press <c-f> and <c-b> to cycle between modes.  
     Press <c-d> to switch to filename only search instead of full path.  
     Press <c-r> to switch to regexp mode.  
-    Use <c-j>, <c-k> or the arrow keys to navigate the result list.  
-    Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.  
     Use <c-n>, <c-p> to select the next/previous string in the prompt's history.  
     Use <c-y> to create a new file and its parent directories.  
     Use <c-z> to mark/unmark multiple files and <c-o> to open them.  
@@ -489,6 +497,9 @@ vim config for linux devices driver development
     Use :25 to jump to line 25.  
     Use :diffthis when opening multiple files to run :diffthis on the first 4 files.  
 
+### ctrlp的插件ctrlp-funky
+	,fu 进入当前文件的函数列表搜索  
+	,fU 搜索当前光标下单词对应的函数  
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  

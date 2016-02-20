@@ -128,6 +128,8 @@ Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tacahiroy/ctrlp-funky'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -142,7 +144,6 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
 Bundle 'ZoomWin'
-Bundle 'kien/ctrlp.vim'
 "Bundle 'c.vim'
 Bundle 'gitv'
 
@@ -238,12 +239,19 @@ let g:LookupFile_AllowNewFiles=0
 let g:ctrlp_working_path_mode = 'a'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 "let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-"let g:ctrlp_custom_ignore = {
-			"\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-			"\ 'file': '\v\.(exe|so|dll)$',
-			"\ 'link': 'some_bad_symbolic_links',
-			"\ }
+let g:ctrlp_custom_ignore = {
+			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+			\ 'file': '\v\.(exe|so|dll)$',
+			\ 'link': 'some_bad_symbolic_links',
+			\ }
 let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+
+" ctrlp-funky.vim
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+let g:ctrlp_funky_syntax_highlight = 1
+let g:ctrlp_extensions = ['funky']
 
 " Man.vim
 source $VIMRUNTIME/ftplugin/man.vim
