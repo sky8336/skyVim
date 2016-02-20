@@ -327,8 +327,9 @@ fu! Generate_Filename_tags()
         call RunShell("Generate cscope", "cscope -Rbq")
         cs add cscope.out
     endif
+    q
 endf
-nnoremap <silent> <F8> :call Generate_Filename_tags()  | :q<CR>
+nnoremap <silent> <F8> :call Generate_Filename_tags()<CR>
 nmap <leader>mt :call HLUDSync()<cr>
 nmap <F12> :call AutoLoadCTagsAndCScope()<CR>
 "cscope 按键映射
