@@ -316,7 +316,19 @@ function! AutoLoadCTagsAndCScope()
         let i = i + 1
     endwhile
 endf
-" <cr> 回车
+
+" 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope
+fu! Generate_fntags_tags_cscope()
+    call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
+    if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
+        call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
+    else
+        call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
+        call RunShell("Generate cscope (use cscope)", "cscope -Rbq")
+        cs add cscope.out
+    endif
+    q
+endf
 
 "nmap  <F2> :Tagbar<CR>
 "nmap  <F3> :NERDTreeToggle<cr>
@@ -324,15 +336,8 @@ endf
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 "nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-"nmap  <F8> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr> 
-"nmap  <F8> :!make tags ARCH=arm && make cscope ARCH=arm<cr>
-nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-			\:call system('make tags ARCH=arm && make cscope ARCH=arm')<cr>
-			\:q!<cr>
-nmap  <F9> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-			\:call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
-			\:call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
-			\:q!<cr>
+"nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
+nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
 nmap <leader>mt :call HLUDSync()<cr>
 nmap <F12> :call AutoLoadCTagsAndCScope()<CR>
 "cscope 按键映射

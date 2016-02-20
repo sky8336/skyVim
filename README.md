@@ -59,8 +59,9 @@ vim config for linux devices driver development
 	,mr   打开MRU  
 	F5    LookupFile开关（按2下关）  
 	F6    用vimgrep搜索光标所在的单词  
-	F8    在kernel/目录下专用，生成filename(tags.fn)及arm平台的tags(tags.fn)和cscope数据库  
-	F9    通用，生成filename(tags.fn)及tags(tags.fn)和cscope数据库  
+	F8    
+	F9    在kernel/目录或linux-stable/目录下，生成filename(tags.fn)及arm平台的tags(tags.fn)和cscope数据库；  
+	否则，通用，生成filename(tags.fn)及tags(tags.fn)和cscope数据库  
 	,mt   生成tags.usertype文件(tags.ut)
 	F12	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
 	(F10/F11系统占用)
@@ -72,29 +73,29 @@ vim config for linux devices driver development
 	3)使用vim打开文件按下,mr后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/MRU.png)
 
-## 3、tags和cscope生成及使用方法
-### 1)tags和cscope库文件的生成
-#### 方法一：
-	在要生成库的目录下打开vim窗口，按F9；放在那里，生成结束会自动关闭窗口  
+## 3、tags.fn、tags和cscope生成及使用方法
+### 1)tags.fn、tags和cscope库文件的生成
  
-#### 方法二：
-##### kernel/下只生成与arm架构有关的 :（kernel中建议用方法二）  
-	在kernel/目录下打开vim窗口，按F8;放在那里，生成结束会自动关闭窗口  
-	也可在终端手动生成：
+#### kernel/下只生成与arm架构有关的 :  
+	打开vim窗口，按F9,会生成tags.fn,并自动根据当前目录在kernel/或linux-stable使用make生成ctags和  
+	cscope；若不是kernel或linux-stable目录，则使用ctags和cscope命令来生成  
+	放在那里，生成结束会自动关闭窗口  
+
+	也可在终端手动生成：  
    	(1)生成tags文件：   
-   		make tags ARCH=arm
+   		make tags ARCH=arm  
    	
    	(2)生成cscope的库   
-   		make cscope ARCH=arm  
+   		make cscope ARCH=arm    
    		
-##### u-boot64/下生成tags  
-    F9
-	或在终端手动生成:
+#### u-boot64/下生成tags  
+    F9  
+	或在终端手动生成:  
    	ctags -R  
 	cscope -Rbq  
 		
-####注意：
-	在生成tags和cscope前已打开的文件不能跟踪代码，重新打开即可；
+#### 注意：
+	在生成tags和cscope前已打开的文件不能跟踪代码，重新打开即可； 
 		
 ### 2)tags和cscope使用方法
 #### (1)ctags用法：
