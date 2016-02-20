@@ -142,6 +142,7 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
 Bundle 'ZoomWin'
+Bundle 'kien/ctrlp.vim'
 "Bundle 'c.vim'
 Bundle 'gitv'
 
@@ -230,6 +231,19 @@ let g:LookupFile_AllowNewFiles=0
 "<Leader>be　　全屏方式打来 buffer 列表。
 "<Leader>bs　　水平窗口打来 buffer 列表。
 "<Leader>bv　　垂直窗口打开 buffer 列表。
+
+" ctrlp.vim
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'a'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+"let g:ctrlp_custom_ignore = {
+			"\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+			"\ 'file': '\v\.(exe|so|dll)$',
+			"\ 'link': 'some_bad_symbolic_links',
+			"\ }
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 
 " Man.vim
 source $VIMRUNTIME/ftplugin/man.vim
