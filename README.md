@@ -497,9 +497,15 @@ vim config for linux devices driver development
     Use :25 to jump to line 25.  
     Use :diffthis when opening multiple files to run :diffthis on the first 4 files.  
 
+#### 借鉴一张图片演示
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/ctrlp.gif)
+
 ### ctrlp的插件ctrlp-funky
 	,fu 进入当前文件的函数列表搜索  
 	,fU 搜索当前光标下单词对应的函数  
+
+#### 借鉴一张图片演示
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/ctrlp-funky.gif)
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
