@@ -301,12 +301,18 @@ endf
 "nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
-nmap  <F7> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
-nmap  <F8> :call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
+"nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
+"nmap  <F8> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr> 
+"nmap  <F8> :!make tags ARCH=arm && make cscope ARCH=arm<cr>
+nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
+			\:call system('make tags ARCH=arm && make cscope ARCH=arm')<cr>
+			\:q!<cr>
 nmap  <F9> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
+			\:call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
+			\:call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
+			\:q!<cr>
 nmap <leader>mt :call HLUDSync()<cr>
 nmap <F12> :call AutoLoadCTagsAndCScope()<CR>
-"call AutoLoadCTagsAndCScope()
 "cscope 按键映射
 nmap <leader>sa :cs add cscope.out<cr>
 nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
@@ -354,6 +360,4 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 nmap cM :%s/\r$//g<CR>:noh<CR>
 " 启用每行超过90列的字符提示（字体变蓝并加下划线）
 " au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 90 . 'v.\+', -1)
-
-
 

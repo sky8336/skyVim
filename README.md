@@ -67,9 +67,8 @@ vim config for linux devices driver development
 	,mr   打开MRU  
 	F5    LookupFile开关（按2下关）  
 	F6    用vimgrep搜索光标所在的单词  
-	F7    生成tags  
-	F8    生成filename tags(tags.fn)  
-	F9    生成cscope的数据库  
+	F8    在kernel/目录下专用，生成filename(tags.fn)及arm平台的tags(tags.fn)和cscope数据库  
+	F9    通用，生成filename(tags.fn)及tags(tags.fn)和cscope数据库  
 	,mt   生成tags.usertype文件(tags.ut)
 	F12	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
 	(F10/F11系统占用)
@@ -84,10 +83,12 @@ vim config for linux devices driver development
 ## 3、tags和cscope生成及使用方法
 ### 1)tags和cscope库文件的生成
 #### 方法一：
-	在要生成库的目录下打开3个vim，普通模式下，分别按F7、F8、F9 ；等待生成结束即可
+	在要生成库的目录下打开vim窗口，按F9；放在那里，生成结束会自动关闭窗口  
  
 #### 方法二：
 ##### kernel/下只生成与arm架构有关的 :（kernel中建议用方法二）  
+	在kernel/目录下打开vim窗口，按F8;放在那里，生成结束会自动关闭窗口  
+	也可在终端手动生成：
    	(1)生成tags文件：   
    		make tags ARCH=arm
    	
@@ -95,11 +96,13 @@ vim config for linux devices driver development
    		make cscope ARCH=arm  
    		
 ##### u-boot64/下生成tags  
+    F9
+	或在终端手动生成:
    	ctags -R  
 	cscope -Rbq  
 		
-	注意：
-		在生成tags和cscope前已打开的文件不能跟踪代码，重新打开即可；
+####注意：
+	在生成tags和cscope前已打开的文件不能跟踪代码，重新打开即可；
 		
 ### 2)tags和cscope使用方法
 #### (1)ctags用法：
@@ -123,6 +126,7 @@ vim config for linux devices driver development
 
 	回退按：  
 		Ctrl+t
+
 ## 4、hlud.vim -- 生成tags.usertype文件(,mt)
 	先按F7生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
 	让自己定义的类型、函数以不同的颜色显示  
