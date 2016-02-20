@@ -3,19 +3,12 @@ vim config for linux devices driver development
 配置文件是隐藏文件
 
 # 一、配置前注意：
-	1)在配置之前，确保已经安装好vim,
-  		即之前做过sudo apt-get install vim 这样的操作,如果没有请先安装vim
-	  	
-		安装vim+ctags+cscope+tagbar  
-		sudo apt-get install vim ctags cscope  
+	1)执行脚本会先安装vim+ctags+cscope  
 
 	2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
 		在执行完sudo ./config.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
 	  
-	3)160125更新：
-	  	增加bundle管理插件，执行脚本前确保联网。bundle用于插件管理，使用bundle安装新的插件。
-	  	可利用bundle安装vim-gitgutter插件，gitv插件。	  
-	  	vim-gitgutter 可用于查看自己修改的地方。
+	3)执行脚本前确保联网。 
 	  	
 
 # 二、配置步骤：
@@ -38,7 +31,6 @@ vim config for linux devices driver development
         输入main后，按tab键看是否成功自动补全。
 
 # 三、vim使用说明
-	151208
 
 ## 1、插件及功能列表
     vundle  插件管理  
