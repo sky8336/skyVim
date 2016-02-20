@@ -363,20 +363,50 @@ vim config for linux devices driver development
 #### Gitv截图
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
 
-## 14、vimdiff
+## 14、Fugitive.vim
+    a git wrapper for Vim 
+    补充了git 的command line 接口，使工作更流畅
+以下两种方式均可用于vim下的git提交:
+    git               fugitive       	action
+    :Git add % 	      :Gwrite 	    将当前更改或者新增的文件加入到Git的索引中
+    :Git checkout % 	:Gread 	      使用HEAD中的最新内容替换掉当前文件。已添加到缓存区的改动，不受影响
+    :Git rm % 	      :Gremove    	删除当前文件，并通知vim buffer
+    :Git mv % 	      :Gmove 	      重命名当前文件，并通知vim buffer
+
+在vim的command line, % 会扩展为当前文件的绝对路径。
+
+    更多参见help
+    :help cmdline-special
+    :help :_%
+    ctlr-n/ctrl-p keyword autocompletion
+    :help 'complete'
+    :help :Git
+    :help :Gwrite
+    :help :Gread
+    :help :Gremove
+    :help :Gmove
+    :help :Gcommit
+    :help :Gblame     
+    注意：
+    可参见网址：
+      http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
+
+
+
+## 15、vimdiff
 ### 解决 git merge 冲突	
 	当合并时出现 merge conflicts 时:
 		git mergetool
 	vimdiff作为合并工具的界面截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
 
-## 15、ZoomWinPlugin.vim
+## 16、ZoomWinPlugin.vim
     用于分割窗口的最大化与还原  
 	当多窗口时：  
 	Ctrl+a :缩放当前vim窗口(在终端内全屏或恢复)  
 
 
-## 16、SnipMate  代码片段补全
+## 17、SnipMate  代码片段补全
 	代码补全快捷键是Tab  
 	按Tab按可跳到可选择下一个位置，即c.snippets	中${1},${2}...  
 	等表示的位置，输入可直接替换  
@@ -405,18 +435,19 @@ vim config for linux devices driver development
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
-## 17、AutoComplPop和superTab 代码自动补全
+## 18、AutoComplPop和superTab 代码自动补全
 	AutoComplPop:  
 	acp.vim插件，实现代码自动提示,不用每次都按键  
 
 	superTab:  
-	Tab键自动补全
+	Tab键自动补全后，继续输入即可，按回车会换行。
 	shift-Tab 回退选择
-## 18、echofunc.vim
+
+## 19、echofunc.vim
 	打开一个文件，生成tags数据库，在一个函数实现体中调用另外一个函数。
 	当你输入完这个被调用的函数名，在输入左括号的时候在VIM的下方就会显示函数的原型。
 
-## 19、The-NERD-tree --代码注释插件
+## 20、The-NERD-tree --代码注释插件
     可以对多种文件类型的文件进行不同方式地、快速地注释  
     NERD Commenter的常用键绑定(详析:h NERDCommenter):  
 
