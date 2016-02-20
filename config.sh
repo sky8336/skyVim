@@ -53,6 +53,8 @@ function chown_vundle()
 
 vimcfig_bundle_dir_path=$(pwd)
 echo $vimcfig_bundle_dir_path
+echo "Install vim+ctags+cscope now !"
+apt-get install vim ctags cscope -y --force-yes
 bakup_vimconfig
 config_vim
 install_vundle_and_plugin
