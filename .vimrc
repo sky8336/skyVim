@@ -318,13 +318,17 @@ nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 "nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 "nmap  <F8> :call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr> 
 "nmap  <F8> :!make tags ARCH=arm && make cscope ARCH=arm<cr>
-nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-			\:call system('make tags ARCH=arm && make cscope ARCH=arm')<cr>
-			\:q!<cr>
-nmap  <F9> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
-			\:call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")<cr>
-			\:call RunShell("Generate cscope", "cscope -Rbq")<cr>:cs add cscope.out<cr>
-			\:q!<cr>
+fu! Generate_Filename_tags()
+    call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
+    if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel'
+        call system('make tags ARCH=arm && make cscope ARCH=arm')
+    else
+        call RunShell("Generate tags", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
+        call RunShell("Generate cscope", "cscope -Rbq")
+        cs add cscope.out
+    endif
+endf
+nnoremap <silent> <F8> :call Generate_Filename_tags()  | :q<CR>
 nmap <leader>mt :call HLUDSync()<cr>
 nmap <F12> :call AutoLoadCTagsAndCScope()<CR>
 "cscope 按键映射
