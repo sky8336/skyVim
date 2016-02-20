@@ -119,10 +119,10 @@ Bundle 'gmarik/vundle'
 " My Bundles here:  /* 插件配置格式 */  
      
 " original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）  
-"Bundle 'tpope/vim-fugitive'  
 "Bundle 'Lokaltog/vim-easymotion'  
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 "Bundle 'tpope/vim-rails.git'  
+Bundle 'tpope/vim-fugitive'  
 Bundle 'airblade/vim-gitgutter'
 Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
@@ -142,7 +142,7 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
 Bundle 'ZoomWin'
-Bundle 'fugitive.vim'
+"Bundle 'c.vim'
 Bundle 'gitv'
 
 " non github repos   (非上面两种情况的，按下面格式填写)  
