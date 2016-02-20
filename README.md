@@ -364,32 +364,32 @@ vim config for linux devices driver development
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
 
 ## 14、Fugitive.vim
-    a git wrapper for Vim 
-    补充了git 的command line 接口，使工作更流畅
-以下两种方式均可用于vim下的git提交:
-    git               fugitive       	action
-    :Git add % 	      :Gwrite 	    将当前更改或者新增的文件加入到Git的索引中
-    :Git checkout % 	:Gread 	      使用HEAD中的最新内容替换掉当前文件。已添加到缓存区的改动，不受影响
-    :Git rm % 	      :Gremove    	删除当前文件，并通知vim buffer
-    :Git mv % 	      :Gmove 	      重命名当前文件，并通知vim buffer
+    a git wrapper for Vim   
+    补充了git 的command line 接口，使工作更流畅  
+以下两种方式均可用于vim下的git提交:  
+    git               fugitive       	action  
+    :Git add % 	      :Gwrite 	    将当前更改或者新增的文件加入到Git的索引中  
+    :Git checkout % 	:Gread 	      使用HEAD中的最新内容替换掉当前文件。已添加到缓存区的改动，不受影响  
+    :Git rm % 	      :Gremove    	删除当前文件，并通知vim buffer  
+    :Git mv % 	      :Gmove 	      重命名当前文件，并通知vim buffer  
 
-在vim的command line, % 会扩展为当前文件的绝对路径。
+在vim的command line, % 会扩展为当前文件的绝对路径。  
 
-    更多参见help
-    :help cmdline-special
-    :help :_%
-    ctlr-n/ctrl-p keyword autocompletion
-    :help 'complete'
-    :help :Git
-    :help :Gwrite
-    :help :Gread
-    :help :Gremove
-    :help :Gmove
-    :help :Gcommit
+    更多参见help  
+    :help cmdline-special  
+    :help :_%  
+    ctlr-n/ctrl-p keyword autocompletion  
+    :help 'complete'  
+    :help :Git  
+    :help :Gwrite  
+    :help :Gread  
+    :help :Gremove  
+    :help :Gmove  
+    :help :Gcommit  
     :help :Gblame     
-    注意：
-    可参见网址：
-      http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
+    注意：  
+    可参见网址：  
+      http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/  
 
 
 
@@ -440,7 +440,7 @@ vim config for linux devices driver development
 	acp.vim插件，实现代码自动提示,不用每次都按键  
 
 	superTab:  
-	Tab键自动补全后，继续输入即可，按回车会换行。
+	Tab键自动补全后，继续输入即可，按回车会换行。(首次选中不补全，此时按回车补全)
 	shift-Tab 回退选择
 
 ## 19、echofunc.vim
@@ -460,6 +460,35 @@ vim config for linux devices driver development
 	,cu，取消注释  
 	Normal模式下，几乎所有命令前面都可以指定行数  
 	Visual模式下执行命令，会对选中的特定区块进行注释/反注释  
+
+## 21、ctrlp.vim
+	模糊查找ctrl+p  
+	Basic Usage  
+
+    Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.  
+    Run :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode.  
+    Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.  
+
+	Check :help ctrlp-commands and :help ctrlp-extensions for other commands.  
+	Once CtrlP is open:  
+
+    Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.  
+    Press <c-f> and <c-b> to cycle between modes.  
+    Press <c-d> to switch to filename only search instead of full path.  
+    Press <c-r> to switch to regexp mode.  
+    Use <c-j>, <c-k> or the arrow keys to navigate the result list.  
+    Use <c-t> or <c-v>, <c-x> to open the selected entry in a new tab or in a new split.  
+    Use <c-n>, <c-p> to select the next/previous string in the prompt's history.  
+    Use <c-y> to create a new file and its parent directories.  
+    Use <c-z> to mark/unmark multiple files and <c-o> to open them.  
+
+	Run :help ctrlp-mappings or submit ? in CtrlP for more mapping help.  
+
+    Submit two or more dots .. to go up the directory tree by one or multiple levels.  
+    End the input string with a colon : followed by a command to execute it on the opening file(s):  
+    Use :25 to jump to line 25.  
+    Use :diffthis when opening multiple files to run :diffthis on the first 4 files.  
+
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
