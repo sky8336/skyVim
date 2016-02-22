@@ -47,9 +47,21 @@ vim config for linux devices driver development
 	ZoomWinPlugin  窗口缩放插件  
 	SnipMate  代码片段补全  
 	superTab  代码自动补全  
+	neocomplete
 
 	vundle插件列表截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin_vundle.png)
+
+
+   /** vundle命令 **/  
+   Brief help  
+   :BundleList          - list configured bundles  
+   :BundleInstall(!)    - install(update) bundles  
+   :BundleSearch(!) foo - search(or refresh cache first) for foo   
+   :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles  
+     
+   see :h vundle for more details or wiki for FAQ   
+   NOTE: comments after Bundle command are not allowed..  
 
 ## 2、快捷键说明 
 	vim打开在源码目录打开文件后  
@@ -428,24 +440,33 @@ vim config for linux devices driver development
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
-## 18、AutoComplPop、superTab 和OmniCppcomplete代码自动补全
-	AutoComplPop:  
-	acp.vim插件，在输入的同时实时地查询匹配的关键词  
+## 18、neocomplete.vim、superTab 和OmniCppcomplete代码自动补全
+	neocomplete.vim  
+	维护了当前buffer的一个关键词列表，提供强大的关键词补全功能;会自动弹出补全窗口。  
+	需要 if_lua 的支持  
+	Note: neocomplete requires Vim 7.3.885+ compiled with if_lua.   
+	If :echo has("lua") returns 1, then you're done.  
+	ubuntu14.04安装的vim是7.4以上；  
+	ubuntu12.04安装的如果不是7.3.885+,复制下面命令，升级得到vim7.4：  
+	sudo add-apt-repository ppa:fcwu-tw/ppa  
+	sudo apt-get update  
+	sudo apt-get install vim （需要选择Y）  
 
 	superTab:  
-	Tab键自动补全后，继续输入即可，按回车会换行。(首次选中不补全，此时按回车补全)
-	shift-Tab 回退选择
+	Tab键自动补全后，继续输入即可，按回车会换行。(首次选中不补全，此时按回车补全)  
+	shift-Tab 回退选择  
 
-OmniCppComplete：  
-  c/c++代码（类的 . , ->, :: 操作符）的自动补全  
- ta :生成专用于c/c++的ctags文件  
+	OmniCppComplete：  
+	专为 C/C++ 编写的 OmniComplete 一个补全脚本，根据 Ctags 生成的索引文件进行补全  
+	c/c++代码（类的 . , ->, :: 操作符）的自动补全  
+	ta :生成专用于c/c++的ctags文件  
 
 
 ## 19、echofunc.vim
 	打开一个文件，生成tags数据库，在一个函数实现体中调用另外一个函数。
 	当你输入完这个被调用的函数名，在输入左括号的时候在VIM的下方就会显示函数的原型。
 
-## 20、The-NERD-tree --代码注释插件
+## 20、The-NERD-Commenter --代码注释插件
     可以对多种文件类型的文件进行不同方式地、快速地注释  
     NERD Commenter的常用键绑定(详析:h NERDCommenter):  
 
