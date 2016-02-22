@@ -40,11 +40,11 @@ function install_vundle_and_plugin()
 #chown ~/.vim/bundle
 function chown_vundle()
 {
-	#切换到config.sh所在目录，获取非sudo模式下的username and groupname
+	#切换到install.sh所在目录，获取非sudo模式下的username and groupname
 	cd $vimcfig_bundle_dir_path 
 	pwd
-	username=`ls -l config.sh | cut -d ' ' -f3`
-	groupname=`ls -l  config.sh | cut -d ' ' -f4`
+	username=`ls -l install.sh | cut -d ' ' -f3`
+	groupname=`ls -l  install.sh | cut -d ' ' -f4`
 	echo "~/.vim/bundle/ change owner:"
 	echo "username=$username"
 	echo "groupname=$groupname"

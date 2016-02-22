@@ -6,15 +6,15 @@ vim config for linux devices driver development
 	1)执行脚本会先安装vim+ctags+cscope  
 
 	2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
-		在执行完sudo ./config.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
+		在执行完sudo ./install.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
 	  
 	3)执行脚本前确保联网。 
 	  	
 
 # 二、配置步骤：
 
-	1)进入vimconfig_bundle/目录。（脚本中会利用目录下到config.sh获取用户名和用户组）
-	2)输入sudo ./config.sh  
+	1)进入vimconfig_bundle/目录。（脚本中会利用目录下到install.sh获取用户名和用户组）
+	2)输入sudo ./install.sh
 		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理到插件)  
 
 注意：  
