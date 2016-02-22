@@ -197,9 +197,15 @@ endif
 " OmniCppComplete.vim
 "set nocp 
 "filetype plugin on 
-let g:OmniCpp_DefaultNamespaces=["std"]
-let g:OmniCpp_MayCompleteScope=1
-let g:OmniCpp_SelectFirstItem=2
+set completeopt=menu,menuone  
+let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
+let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
+let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
+let OmniCpp_NamespaceSearch=1   " 打开命名空间
+let OmniCpp_GlobalScopeSearch=1  
+let OmniCpp_DefaultNamespace=["std"]  
+let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
+let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 
 " VimGDB.vim
 if has("gdb")
@@ -368,8 +374,9 @@ nmap <leader>zz <C-w>o
 """"""""""""""""""""""""""""""""""""
 set noswapfile
 set tags+=/usr/include/tags
-set tags+=./tags
-map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+set tags+=./tags  "引导omnicppcomplete等找到tags文件
+"生成专用于c/c++的ctags文件
+map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>  
 
 """"""""""""""""""""""""""""""
 "实现vim和终端及gedit等之间复制、粘贴的设置

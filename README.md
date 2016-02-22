@@ -428,13 +428,18 @@ vim config for linux devices driver development
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
-## 18、AutoComplPop和superTab 代码自动补全
+## 18、AutoComplPop、superTab 和OmniCppcomplete代码自动补全
 	AutoComplPop:  
-	acp.vim插件，实现代码自动提示,不用每次都按键  
+	acp.vim插件，在输入的同时实时地查询匹配的关键词  
 
 	superTab:  
 	Tab键自动补全后，继续输入即可，按回车会换行。(首次选中不补全，此时按回车补全)
 	shift-Tab 回退选择
+
+OmniCppComplete：  
+  c/c++代码（类的 . , ->, :: 操作符）的自动补全  
+ ta :生成专用于c/c++的ctags文件  
+
 
 ## 19、echofunc.vim
 	打开一个文件，生成tags数据库，在一个函数实现体中调用另外一个函数。
