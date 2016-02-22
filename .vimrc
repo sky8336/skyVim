@@ -111,13 +111,12 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 " vundle.vim 插件管理器
 set rtp+=~/.vim/bundle/vundle/  
 call vundle#rc()  
-  
-" let Vundle manage Vundle  
-"required!   
+
+filetype plugin indent on     " required!  
+" let Vundle manage Vundle     "required!   
 Bundle 'gmarik/vundle'  
   
 " My Bundles here:  /* 插件配置格式 */  
-     
 " original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）  
 "Bundle 'Lokaltog/vim-easymotion'  
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -126,6 +125,7 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
+Bundle 'Shougo/neocomplete.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'kien/ctrlp.vim'
@@ -134,7 +134,7 @@ Bundle 'tacahiroy/ctrlp-funky'
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
 "Bundle 'FuzzyFinder'
-Bundle 'AutoComplPop'
+"Bundle 'AutoComplPop'
 Bundle 'OmniCppComplete'
 Bundle 'echofunc.vim'
 Bundle 'genutils'
@@ -149,26 +149,16 @@ Bundle 'gitv'
 
 " non github repos   (非上面两种情况的，按下面格式填写)  
 "Bundle 'git://git.wincent.com/command-t.git'  
-" ...   
   
-filetype plugin indent on     " required!   /** vimrc文件配置结束 **/  
-"                                           /** vundle命令 **/  
-" Brief help  
-" :BundleList          - list configured bundles  
-" :BundleInstall(!)    - install(update) bundles  
-" :BundleSearch(!) foo - search(or refresh cache first) for foo   
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles  
-"     
-" see :h vundle for more details or wiki for FAQ   
-" NOTE: comments after Bundle command are not allowed..  
 " vundle setup end
+
 
 " tagbar.vim
 nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_left=1
 let g:tagbar_ctags_bin='ctags'           "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
-"如果是c语言的程序的话，tagbar自动开启
+" 如果是c语言的程序的话，tagbar自动开启
 autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 
 " NERDTree.vim
@@ -177,8 +167,7 @@ let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
-
-"autocmd BufRead * NERDTree " 打开vim时自动打开NERDTree
+" autocmd BufRead * NERDTree " 打开vim时自动打开NERDTree
 autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx  NERDTree
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
@@ -206,6 +195,81 @@ let OmniCpp_GlobalScopeSearch=1
 let OmniCpp_DefaultNamespace=["std"]  
 let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
 let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
+
+
+" neocomplete.vim
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+    \ 'default' : '',
+    \ 'vimshell' : $HOME.'/.vimshell_hist',
+    \ 'scheme' : $HOME.'/.gosh_completions'
+        \ }
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? "\<C-y>" : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+
+" AutoComplPop like behavior.
+"let g:neocomplete#enable_auto_select = 1
+
+" Shell like behavior(not recommended).
+"set completeopt+=longest
+"let g:neocomplete#enable_auto_select = 1
+"let g:neocomplete#disable_auto_complete = 1
+"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+" neocomplete.vim setup end
+
 
 " VimGDB.vim
 if has("gdb")
@@ -329,6 +393,7 @@ fu! Generate_fntags_tags_cscope()
     if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
         call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
     else
+		"生成专用于c/c++的ctags文件
         call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
         call RunShell("Generate cscope (use cscope)", "cscope -Rbq")
         cs add cscope.out
