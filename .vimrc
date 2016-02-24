@@ -50,7 +50,7 @@ set   mouse=a
 set   number
 set   pumheight=10
 set   ruler
-set   scrolloff=5
+set   scrolloff=3
 set   shiftwidth=4
 set   showcmd
 set   smartindent
@@ -168,8 +168,7 @@ let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
-" autocmd BufRead * NERDTree " 打开vim时自动打开NERDTree
-autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx  NERDTree
+autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
