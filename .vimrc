@@ -155,7 +155,6 @@ Bundle 'gitv'
 
 
 " tagbar.vim
-nmap <Leader>tb :TagbarToggle<CR>
 let g:tagbar_left=1
 let g:tagbar_ctags_bin='ctags'           "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
@@ -163,12 +162,11 @@ let g:tagbar_width=30                    "窗口宽度的设置
 autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 
 " NERDTree.vim
-nmap  <Leader>nt :NERDTreeToggle<cr>
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
-autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
+"autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
@@ -401,9 +399,9 @@ fu! Generate_fntags_tags_cscope()
     q
 endf
 
-"nmap  <F2> :Tagbar<CR>
-"nmap  <F3> :NERDTreeToggle<cr>
-"nmap  <F4> :MRU<cr>
+nmap  <F2> :Tagbar<CR>
+nmap  <F3> :NERDTreeToggle<cr>
+nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 "nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
