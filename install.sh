@@ -51,6 +51,27 @@ function chown_vundle()
 	chown -R $username:$groupname ~/.vim/bundle/
 }
 
+function echo_install_time()
+{
+    end_time=$(date +"%s")
+    tdiff=$(($end_time-$start_time))
+    hours=$(($tdiff / 3600 ))
+    mins=$((($tdiff % 3600) / 60))
+    secs=$(($tdiff % 60))
+    echo
+        echo -n -e "#### install completed successfully! "
+    if [ $hours -gt 0 ] ; then
+        echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
+    elif [ $mins -gt 0 ] ; then
+        echo -n -e "($mins:$secs (mm:ss))"
+    elif [ $secs -gt 0 ] ; then
+        echo -n -e "($secs seconds)"
+    fi
+    echo -e " ####"
+    echo
+}
+
+start_time=$(date +"%s")
 vimcfig_bundle_dir_path=$(pwd)
 echo $vimcfig_bundle_dir_path
 echo "====== Install vim+ctags+cscope now ! ======"
@@ -62,4 +83,4 @@ chown_vundle
 # To use vimdiff as default merge tool:
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
-echo "### install completed successfully! ###"
+echo_install_time
