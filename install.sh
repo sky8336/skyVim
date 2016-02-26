@@ -3,7 +3,7 @@
 #备份OS中vim的配置   
 function bakup_vimconfig()
 {
-	echo "Bakup your vimconfig file..."
+	echo "====== Bakup your vimconfig file ! ======"
 	rm   -rf $HOME/.bakvim
 	mkdir $HOME/.bakvim
 	cp 	  $HOME/.vim  $HOME/.bakvim -a 
@@ -14,7 +14,7 @@ function bakup_vimconfig()
 #配置vim
 function config_vim()
 {
-	echo "Config your vim now !"
+	echo "====== Config your vim now ! ======"
 	rm -rf $HOME/.vim 
 	cp ./.vim  $HOME -a 
 	cp ./.vimrc $HOME 
@@ -31,7 +31,7 @@ function config_vim()
 #install vundle
 function install_vundle_and_plugin()
 {
-	echo "Install vundle now !"
+	echo "====== Install vundle now ! ======"
 	git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
 	vim +BundleInstall +qall
 	cp $vimcfig_bundle_dir_path/.vim/bundle_self-define/* ~/.vim/bundle/ -rf
@@ -41,11 +41,11 @@ function install_vundle_and_plugin()
 function chown_vundle()
 {
 	#切换到install.sh所在目录，获取非sudo模式下的username and groupname
+	echo "====== ~/.vim/bundle/ change owner: ======"
 	cd $vimcfig_bundle_dir_path 
 	pwd
 	username=`ls -l install.sh | cut -d ' ' -f3`
 	groupname=`ls -l  install.sh | cut -d ' ' -f4`
-	echo "~/.vim/bundle/ change owner:"
 	echo "username=$username"
 	echo "groupname=$groupname"
 	chown -R $username:$groupname ~/.vim/bundle/
@@ -53,7 +53,7 @@ function chown_vundle()
 
 vimcfig_bundle_dir_path=$(pwd)
 echo $vimcfig_bundle_dir_path
-echo "Install vim+ctags+cscope now !"
+echo "====== Install vim+ctags+cscope now ! ======"
 apt-get install vim ctags cscope -y --force-yes
 bakup_vimconfig
 config_vim
@@ -62,3 +62,4 @@ chown_vundle
 # To use vimdiff as default merge tool:
 git config --global merge.tool vimdiff
 git config --global mergetool.prompt false
+echo "### install completed successfully! ###"
