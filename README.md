@@ -16,6 +16,11 @@ vim config for linux devices driver development
 	1)进入vimconfig_bundle/目录。（脚本中会利用目录下到install.sh获取用户名和用户组）
 	2)输入sudo ./install.sh
 		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理到插件)  
+		插件安装过程受网速影响，放在一边，耐心等待安装完自动关闭vim窗口即可。  
+	3)ubuntu 12.04的系统，vim版本一般为7.3.429,需要升级到7.3.885以上(以支持neocomplete)插件，升级命令：  
+		sudo add-apt-repository ppa:fcwu-tw/ppa  
+		sudo apt-get update  
+		sudo apt-get install vim  
 
 注意：  
 	(a)插件更新  
