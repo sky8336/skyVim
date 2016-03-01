@@ -73,6 +73,32 @@ autocmd BufReadPost *
     \     exe "normal g'\"" |
     \ endif
 
+" some function definition: {{{1
+" 实现递归查找上级目录中的ctags和cscope并自动载入
+function! AutoLoadCTagsAndCScope()
+    let max = 5
+    let dir = './'
+    let i = 0
+    let break = 0
+    while isdirectory(dir) && i < max
+        if filereadable(dir . 'cscope.out') 
+            execute 'cs add ' . dir . 'cscope.out'
+            let break = 1
+        endif
+        if filereadable(dir . 'tags')
+            execute 'set tags =' . dir . 'tags'
+            let break = 1
+        endif
+        if break == 1
+            execute 'lcd ' . dir
+            break
+        endif
+        let dir = dir . '../'
+        let i = i + 1
+    endwhile
+endf
+
+
 " SHORTCUT SETTINGS: {{{1
 " Set mapleader
 let mapleader=","
@@ -177,6 +203,8 @@ if has("cscope")
     set nocsverb
     if filereadable("cscope.out")
         cs add cscope.out
+	else
+		call AutoLoadCTagsAndCScope()
     endif
     set csverb
 endif
@@ -360,30 +388,6 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
-
-" 实现递归查找上级目录中的ctags和cscope并自动载入
-function! AutoLoadCTagsAndCScope()
-    let max = 5
-    let dir = './'
-    let i = 0
-    let break = 0
-    while isdirectory(dir) && i < max
-        if filereadable(dir . 'cscope.out') 
-            execute 'cs add ' . dir . 'cscope.out'
-            let break = 1
-        endif
-        if filereadable(dir . 'tags')
-            execute 'set tags =' . dir . 'tags'
-            let break = 1
-        endif
-        if break == 1
-            execute 'lcd ' . dir
-            break
-        endif
-        let dir = dir . '../'
-        let i = i + 1
-    endwhile
-endf
 
 " 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope
 fu! Generate_fntags_tags_cscope()
