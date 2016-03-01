@@ -184,6 +184,7 @@ Bundle 'gitv'
 let g:tagbar_left=1
 let g:tagbar_ctags_bin='ctags'           "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
+let g:tagbar_sort = 0                    "根据源码中出现的顺序排序
 " 执行vi 文件名，如果是c语言的程序，自动打开tagbar;vimdiff不自动打开tagbar
 if &diff == 0
 	"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
@@ -405,7 +406,7 @@ fu! Generate_fntags_tags_cscope()
     q
 endf
 
-nmap  <F2> :Tagbar<CR>
+nmap  <F2> :TagbarToggle<CR>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
