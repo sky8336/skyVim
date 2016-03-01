@@ -190,6 +190,20 @@ if &diff == 0
 	"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 endif
 
+" taglist.vim
+"let g:Tlist_Auto_Update=1
+"let g:Tlist_Process_File_Always=1
+"let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
+"let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
+"let g:Tlist_WinWidth=25
+"let g:Tlist_Enable_Fold_Column=0
+"let g:Tlist_Auto_Highlight_Tag=1
+""let Tlist_Show_One_File=0
+"if &diff == 0
+	""去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
+	"let g:Tlist_Auto_Open=1
+"endif
+
 " NERDTree.vim
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=25
@@ -407,6 +421,7 @@ fu! Generate_fntags_tags_cscope()
 endf
 
 nmap  <F2> :TagbarToggle<CR>
+"nmap  <F2> :TlistToggle<cr>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <F4> :MRU<cr>
 nmap  <F5> <Plug>LookupFile<cr>
