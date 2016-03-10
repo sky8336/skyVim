@@ -17,10 +17,6 @@ vim config for linux devices driver development
 	2)输入sudo ./install.sh
 		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理到插件)  
 		插件安装过程受网速影响，放在一边，耐心等待安装完自动关闭vim窗口即可。  
-	3)ubuntu 12.04的系统，vim版本一般为7.3.429,需要升级到7.3.885以上(以支持neocomplete)插件，升级命令：  
-		sudo add-apt-repository ppa:fcwu-tw/ppa  
-		sudo apt-get update  
-		sudo apt-get install vim  
 
 注意：  
 	(a)插件更新  
@@ -52,7 +48,7 @@ vim config for linux devices driver development
 	ZoomWinPlugin  窗口缩放插件  
 	SnipMate  代码片段补全  
 	superTab  代码自动补全  
-	neocomplete
+	AutoComplPop
 
 	vundle插件列表截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin_vundle.png)
@@ -445,18 +441,9 @@ vim config for linux devices driver development
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
-## 18、neocomplete.vim、superTab 和OmniCppcomplete代码自动补全
-	neocomplete.vim  
-	维护了当前buffer的一个关键词列表，提供强大的关键词补全功能;会自动弹出补全窗口。  
-	需要 if_lua 的支持  
-	Note: neocomplete requires Vim 7.3.885+ compiled with if_lua.   
-	If :echo has("lua") returns 1, then you're done.  
-	ubuntu14.04安装的vim是7.4以上；  
-	ubuntu12.04安装的如果不是7.3.885+,复制下面命令，升级得到vim7.4：  
-	sudo add-apt-repository ppa:fcwu-tw/ppa  
-	sudo apt-get update  
-	sudo apt-get install vim （需要选择Y）  
-
+## 18、AutoComplPop、superTab 和OmniCppcomplete代码自动补全
+	AutoComplPop:  
+	acp.vim插件，在输入的同时实时地查询匹配的关键词 
 	superTab:  
 	Tab键自动补全后，继续输入即可，按回车会换行。(首次选中不补全，此时按回车补全)  
 	shift-Tab 回退选择  
