@@ -19,6 +19,7 @@ function config_vim()
 	cp ./.vim  $HOME -a 
 	cp ./.vimrc $HOME 
 	cp ./.bashrc $HOME
+	cp ./README.md $HOME/.vim
 
 	#生成tags文件
 	sudo cp ctags /bin 

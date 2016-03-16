@@ -33,6 +33,8 @@ vim config for linux devices driver development
 
 # 三、vim使用说明
 
+	,hm :vim窗口，普通模式下打开README.md查看帮助
+		
 ## 1、插件及功能列表
     vundle  插件管理  
 	tagbar
@@ -69,7 +71,7 @@ vim config for linux devices driver development
 	普通模式下：  
 	F2    tagbar开关   
 	F3    NERDTree开关
-	F4    打开MRU  
+	F4    按F4后,在底行输入项目名，按回车后打开MRU，文件路径匹配输入的项目名  
 	F5    LookupFile开关（按2下关）  
 	F6    用vimgrep搜索光标所在的单词  
 	F8    
@@ -233,10 +235,14 @@ vim config for linux devices driver development
         o：	可以在新窗口打开该文件，
         v：	可以只读打开，
         t：	会在新的tab打开。
+		u： 更新文件列表（MRU窗口一直打开时有用）  
+		q： 退出MRU  
+		
+		,mr : 直接打开MRU，不会匹配当前工程名  
 
 ###2) 打开符合vim正则的文件列表
     :MRU vim
-        打开文件名中包含vim的文件
+        打开文件名中包含vim的文件,指定只显示匹配vim的文件  
         	
 ## 8、LookupFile -- 文件搜索用(按F5)
 	tags.fn 用于文件搜索,包含项目中所有文件名  
