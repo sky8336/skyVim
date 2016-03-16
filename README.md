@@ -7,7 +7,8 @@ vim config for linux devices driver development
 配置文件是隐藏文件  
 
 # 一、配置前注意：
-	1)执行脚本会先安装vim+ctags+cscope  
+	1)执行脚本会先安装vim+ctags+cscope+ranger  
+	ranger :命令行文件管理器，输入ranger回车即可打开。  
 
 	2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
 		在执行完sudo ./install.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
@@ -42,7 +43,7 @@ vim config for linux devices driver development
 ## 1、插件及功能列表
     vundle  插件管理  
 	tagbar
-    NERDTree  
+	VimExplorer
     MRU  
     LookupFile  
 	bufexplorer  
@@ -55,6 +56,7 @@ vim config for linux devices driver development
 	SnipMate  代码片段补全  
 	superTab  代码自动补全  
 	AutoComplPop
+	CCTree
 
 	vundle插件列表截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin_vundle.png)
@@ -74,7 +76,7 @@ vim config for linux devices driver development
 	vim打开在源码目录打开文件后  
 	普通模式下：  
 	F2    tagbar开关   
-	F3    NERDTree开关
+	F3    VimExplorer开关
 	F4    按F4后,在底行输入项目名，按回车后打开MRU，文件路径匹配输入的项目名  
 	F5    LookupFile开关（按2下关）  
 	F6    用vimgrep搜索光标所在的单词  
@@ -89,8 +91,8 @@ vim config for linux devices driver development
 	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
 	2)使用vim打开文件按下F2 F5后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F2-F5-Lookup_File.png)
-	3)使用vim打开文件按下F2 F3 F4后的界面:  
-![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Targbar-NERDTree-MRU.png)
+	3)使用vim打开文件按下F3后的界面:  
+![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-VimExplorer.png)
 
 ## 3、tags.fn、tags和cscope生成及使用方法
 ### 1)tags.fn、tags和cscope库文件的生成
@@ -182,53 +184,13 @@ vim config for linux devices driver development
 	3)自动根据文件修改时间来重建  
 	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
-## 6、NERDTree --用于文件浏览(按F3)
-	列出当前路径的目录树。  
-	浏览项目的总体目录结构和创建删除重命名文件或文件名。  
-	内核中_defconfig  .mk等文件可用nerd tree 打开
+## 6、VimExplorer --文件管理器(按F3)
+	按F3会在当前目录打开（状态栏显示的顶级目录）  
+	可以执行很多文件操作，如复制，删除，移动，预览，搜索等  
 
-### 1)在NERDTree中选中目录，按ma，新建文件或者目录
-	o       在已有窗口中打开文件、目录或书签，并跳到该窗口  
-	go      在已有窗口中打开文件、目录或书签，但不跳到该窗口  
-	t       在新 Tab 中打开选中文件/书签，并跳到新 Tab  
-	T       在新 Tab 中打开选中文件/书签，但不跳到新 Tab  
-	i       split 一个新窗口打开选中文件，并跳到该窗口  
-	gi      split 一个新窗口打开选中文件，但不跳到该窗口  
-	s       vsplit 一个新窗口打开选中文件，并跳到该窗口  
-	gs      vsplit 一个新 窗口打开选中文件，但不跳到该窗口  
-	!       执行当前文件  
-	O       递归打开选中结点下的所有目录  
-	x       合拢选中结点的父目录  
-	X       递归合拢选中结点下的所有目录  
-	e       Edit the current dif  
-
-	双击    相当于 NERDTree-o  
-	中键    对文件相当于 NERDTree-i，对目录相当于 NERDTree-e  
-
-	D       删除当前书签
-
-	P       跳到根结点  
-	p       跳到父结点  
-	K       跳到当前目录下同级的第一个结点  
-	J       跳到当前目录下同级的最后一个结点  
-	k       跳到当前目录下同级的前一个结点  
-	j       跳到当前目录下同级的后一个结点  
-
-	C       将选中目录或选中文件的父目录设为根结点  
-	u       将当前根结点的父目录设为根目录，并变成合拢原根结点  
-	U       将当前根结点的父目录设为根目录，但保持展开原根结点  
-	r       递归刷新选中目录  
-	R       递归刷新根结点  
-	m       显示文件系统菜单 #！！！然后根据提示进行文件的操作如新建，重命名等  
-	cd      将 CWD 设为选中目录  
-
-	I       切换是否显示隐藏文件  
-	f       切换是否使用文件过滤器  
-	F       切换是否显示文件  
-	B       切换是否显示书签  
-
-	q       关闭 NerdTree 窗口  
-	?       切换是否显示 Quick Help	  
+	:VE  启动VimExplorer,然后会询问你开始的文件夹。  
+	:VE [directory]  另一种启动方式(tab键或ctrl-d能自动补全路径)  
+	将会在一个新的tab中打开:有两个窗口，一个是目录树，一个是文件  
 
 ## 7、MRU -- Most Recently Used 最近打开文件列表(按F4)
 ###1) 打开一个新窗口，显示最新打开的文件列表。
@@ -552,6 +514,19 @@ vim config for linux devices driver development
 	<CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent  
 	<CTRL-g>s - same as <CTRL-s>  
 	<CTRL-g>S - same as <CTRL-s><CTRL-s>  
+
+
+## 23、cctree--函数调用视图
+	查看函数调用的视图，以树的形式表示出来提供两个方向的视图,  
+	这个插件也要生成数据库的，在生成cscope数据库的同时也生成cctree的数据库，  
+	但是cctree的数据添加非常缓慢，所以默认打开文件没有添加cctree数据库。  
+
+    快捷键,将光标移到要查询的函数下:  
+    Ctrl-\+> 这个函数为头，查看其下的函数调用情况(先按ctrl+\,再按>)  
+    Ctrl-\+< 这个函数为尾,查看其上的函数  
+    Ctrl-\+w 显示或者关闭cctree窗口  
+
+	cctree窗口提供跳转功能，鼠标双击该函数即可。  
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
