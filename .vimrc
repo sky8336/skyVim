@@ -349,7 +349,7 @@ endf
 nmap  <F2> :TagbarToggle<CR>
 "nmap  <F2> :TlistToggle<cr>
 nmap  <F3> :NERDTreeToggle<cr>
-nmap  <F4> :MRU<cr>
+nmap  <F4> :MRU 
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 "nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
@@ -369,6 +369,7 @@ nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
 "其他映射
 nmap <leader>zz <C-w>o
+nmap <leader>hm :sp ~/.vim/README.md<cr>
 ",sa 添加cscope.out库
 ",ss 查找c语言符号（函数名 宏 枚举值）出现的地方
 ",sg 查找函数/宏/枚举等定义的位置，类似ctags的功能
