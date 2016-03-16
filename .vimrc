@@ -157,6 +157,8 @@ Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
+Bundle 'mbbill/VimExplorer',{'on': 'VE'}
+Bundle 'hari-rangarajan/CCTree'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -204,14 +206,35 @@ endif
 	"let g:Tlist_Auto_Open=1
 "endif
 
-" NERDTree.vim
-let g:NERDTreeWinPos="right"
-let g:NERDTreeWinSize=25
-let g:NERDTreeShowLineNumbers=1
-let g:NERDTreeQuitOnOpen=1
-"autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
-" NERDTree是最后一个窗口，它自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" CCtree --------------------------{{{
+let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree 
+let g:CCTreeKeyTraceReverseTree = '<C-\><'
+let g:CCTreeKeyHilightTree = '<C-\>l' " Static highlighting
+let g:CCTreeKeySaveWindow = '<C-\>y'
+let g:CCTreeKeyToggleWindow = '<C-\>w'
+let g:CCTreeKeyCompressTree = 'zs' " Compress call-tree
+let g:CCTreeKeyDepthPlus = '<C-\>='
+let g:CCTreeKeyDepthMinus = '<C-\>-'
+let CCTreeJoinProgCmd = 'PROG_JOIN JOIN_OPT IN_FILES > OUT_FILE'
+let  g:CCTreeJoinProg = 'cat' 
+let  g:CCTreeJoinProgOpts = ""
+"let g:CCTreeUseUTF8Symbols = 1
+"map <F7> :CCTreeLoadXRefDBFromDisk $CCTREE_DB<cr> 
+"}}}
+
+"" CCTree.vim
+"let g:CCTreeCscopeDb = "cscope.out"
+"let g:CCTreeRecursiveDepth = 3
+"let g:CCTreeMinVisibleDepth = 3
+
+"" NERDTree.vim
+"let g:NERDTreeWinPos="right"
+"let g:NERDTreeWinSize=25
+"let g:NERDTreeShowLineNumbers=1
+"let g:NERDTreeQuitOnOpen=1
+""autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
+"" NERDTree是最后一个窗口，它自动关闭
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " cscope.vim
 if has("cscope")
@@ -348,7 +371,8 @@ endf
 
 nmap  <F2> :TagbarToggle<CR>
 "nmap  <F2> :TlistToggle<cr>
-nmap  <F3> :NERDTreeToggle<cr>
+"nmap  <F3> :NERDTreeToggle<cr>
+nmap  <F3> :silent! VE .<cr>
 nmap  <F4> :MRU 
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
