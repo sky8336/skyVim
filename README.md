@@ -1,6 +1,10 @@
 # vimconfig_bundle
 vim config for linux devices driver development  
-配置文件是隐藏文件
+本vim配置为:  
+    适用于linux 内核/驱动开发的vim配置;  
+	适用于c/c++的应用编程的vim配置;  
+
+配置文件是隐藏文件  
 
 # 一、配置前注意：
 	1)执行脚本会先安装vim+ctags+cscope  
