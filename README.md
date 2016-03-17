@@ -39,6 +39,7 @@ vim config for linux devices driver development
 # 三、vim使用说明
 
 	,hm :vim窗口，普通模式下打开README.md查看帮助
+	,h  :vim窗口，打开my_help文件夹，可选择查看常用帮助，包括git命令，vim命令等
 		
 ## 1、插件及功能列表
     vundle  插件管理  
