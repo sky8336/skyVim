@@ -394,6 +394,7 @@ nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
 "其他映射
 nmap <leader>zz <C-w>o
 nmap <leader>hm :sp ~/.vim/README.md<cr>
+nmap <leader>h  :vsp ~/.vim/my_help/<cr>
 ",sa 添加cscope.out库
 ",ss 查找c语言符号（函数名 宏 枚举值）出现的地方
 ",sg 查找函数/宏/枚举等定义的位置，类似ctags的功能
