@@ -529,6 +529,36 @@ vim config for linux devices driver development
 
 	cctree窗口提供跳转功能，鼠标双击该函数即可。  
 
+## 24、project -- 项目管理工具
+	打开project两种方式：  
+	1)vim +Project  
+	2)打开vim后，输入：Project  
+
+	\C(导入项目，递归读取子目录)  
+	\c(读取当前文件)  
+
+	project窗口下,输入\C（斜杠+大写的C），会出现下面这些信息:  
+	Enter the Name of the Entry: ProjectName （项目名称）  
+	Enter the Absolute Directory to Load:  ProjectPath （项目路径目录）  
+	Enter the CD parameter:  （“.”为当前目录,为空）  
+	Enter the File Filter:  (符合条件的源文件，一般为空)  
+	此后加载项目，加载比较慢  
+
+	project窗口下，常用命令：  
+	\l    (列出所有当前层文件)\L(递归),按任何键停止  
+	\w    (关闭当前层文件)\W(递归)  
+	\g    (在项目当前层文件搜索)\G(递归)  
+	\r    关闭子文件夹并刷新当前文件夹下文件，\R递归打开文件夹并刷新所有文件  
+	s     关闭文件夹并创建，S递归打开文件夹并创建  
+	\s    将文件在水平打开多个窗口显示，打开或关闭文件夹列表  
+	\o    将文件在一个窗口打开，打开或关闭文件夹列表  
+	\v    在右窗口显示指针停留在project窗口的文件内容  
+	空格  扩大project窗口的宽度，恢复宽度  
+	\i    显示文件或文件夹的设置参数，如filter="*"  
+	\I    显示文件或文件夹的决对路径和参数  
+	\1 - \9，\f1-\f9，\F1-\F9执行指定命令，\0查询1-9命令，\f0查询f1-f9，F1-F9命令  
+
+
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
 	(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
