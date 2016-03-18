@@ -159,6 +159,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'mbbill/VimExplorer',{'on': 'VE'}
 Bundle 'hari-rangarajan/CCTree'
+Bundle 'vimplugin/project.vim'
+
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -169,7 +171,7 @@ Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'lookupfile'
 "Bundle 'taglist.vim'
-Bundle 'The-NERD-tree'
+"Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
 Bundle 'ZoomWin'
@@ -331,6 +333,28 @@ map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
 map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
 map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
 map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
+
+
+" project.vim 
+" Project1.4.1插件设置 
+" 切换打开和关闭project窗口
+nmap <silent><Leader>t <Plug>ToggleProject
+" 插件项目窗口宽度. 默认值: 24
+"let g:proj_window_width=24 "//当按空格键 <space> 或者单击鼠标左键/<LeftMouse>时项目窗口宽度增加量,默认值:100
+let g:proj_window_increment=24
+let g:proj_flags='i' "当选择打开一个文件时会在命令行显示文件名和当前工作路径.
+let g:proj_flags='m' "在常规模式下开启 |CTRL-W_o| 和 |CTRL-W_CTRL_O| 映射, 使得当>前缓冲区成为唯一可见的缓冲区, 但是项目窗口仍然可见.
+let g:proj_flags='s' "开启语法高亮.
+let g:proj_flags='t' "用按 <space> 进行窗口加宽.
+let g:proj_flags='c' "设置后, 在项目窗口中打开文件后会自动关闭项目窗口.
+let g:proj_flags='F' "显示浮动项目窗口. 关闭窗口的自动调整大小和窗口替换.
+let g:proj_flags='L' "自动根据CD设置切换目录.
+let g:proj_flags='n' "显示行号.
+let g:proj_flags='S' "启用排序.
+let g:proj_flags='T' "子项目的折叠在更新时会紧跟在当前折叠下方显示(而不是其底部).
+let g:proj_flags='v' "设置后将, 按 /G 搜索时用 :vimgrep 取代 :grep.
+let g:proj_run1='!p4 edit %f' "g:proj_run1 ... g:proj_run9 用法.
+let g:proj_run3='silent !gvim %f'
 
 " plugin shortcuts
 function! RunShell(Msg, Shell)
