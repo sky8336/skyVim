@@ -159,6 +159,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'mbbill/VimExplorer',{'on': 'VE'}
 Bundle 'wesleyche/SrcExpl' 
+Bundle 'wesleyche/Trinity' 
 Bundle 'hari-rangarajan/CCTree'
 Bundle 'vimplugin/project.vim'
 
@@ -171,7 +172,7 @@ Bundle 'OmniCppComplete'
 Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'lookupfile'
-"Bundle 'taglist.vim'
+Bundle 'taglist.vim'
 "Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
@@ -196,14 +197,14 @@ if &diff == 0
 endif
 
 " taglist.vim
-"let g:Tlist_Auto_Update=1
-"let g:Tlist_Process_File_Always=1
-"let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-"let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
-"let g:Tlist_WinWidth=25
-"let g:Tlist_Enable_Fold_Column=0
-"let g:Tlist_Auto_Highlight_Tag=1
-""let Tlist_Show_One_File=0
+let g:Tlist_Auto_Update=1
+let g:Tlist_Process_File_Always=1
+let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
+let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
+let g:Tlist_WinWidth=25
+let g:Tlist_Enable_Fold_Column=0
+let g:Tlist_Auto_Highlight_Tag=1
+"let Tlist_Show_One_File=0
 "if &diff == 0
 	""去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
 	"let g:Tlist_Auto_Open=1
@@ -343,6 +344,21 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 
 " // Set "<F8>" key for displaying the next definition in the jump list 
 let g:SrcExpl_nextDefKey = "<F8>" 
+
+" trinity.vim
+" Open and close all the three plugins on the same time 
+nmap <C-F8>   :TrinityToggleAll<CR> 
+
+" Open and close the srcexpl.vim separately 
+nmap <C-F9>   :TrinityToggleSourceExplorer<CR> 
+
+" Open and close the taglist.vim separately 
+nmap <C-F10>  :TrinityToggleTagList<CR> 
+
+" Open and close the NERD_tree.vim separately 
+nmap <C-F11>  :TrinityToggleNERDTree<CR> 
+
+
 
 " ctrlp.vim
 "let g:ctrlp_map = '<c-p>'

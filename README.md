@@ -1,5 +1,7 @@
 # vimconfig_bundle
 vim config for linux devices driver development  
+大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
+如有问题，欢迎大家及时提出来，共同进步。  
 本vim配置为:  
     适用于linux 内核/驱动开发的vim配置;  
 	适用于c/c++的应用编程的vim配置;  
@@ -49,6 +51,7 @@ vim config for linux devices driver development
     LookupFile  
 	bufexplorer  
 	SrcExpl     代码预览  
+	trinity.vim  模拟source insight窗口  
     用vimgrep搜索光标所在的单词  
     生成 tags  
 	生成 filename tags  
@@ -563,6 +566,10 @@ vim config for linux devices driver development
 	F8  打开/关闭代码预览窗口  
 	回车   跳转到定义的文本  
 	空格   跳转回来  
+
+### trinity.vim -- Ctrl+F8 配合taglist SrcExpl 和NERDTree(内置) 模拟source insight
+	Ctrl+F8: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl
+
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
