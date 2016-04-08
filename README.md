@@ -48,6 +48,7 @@ vim config for linux devices driver development
     MRU  
     LookupFile  
 	bufexplorer  
+	SrcExpl     代码预览  
     用vimgrep搜索光标所在的单词  
     生成 tags  
 	生成 filename tags  
@@ -558,6 +559,10 @@ vim config for linux devices driver development
 	\I    显示文件或文件夹的决对路径和参数  
 	\1 - \9，\f1-\f9，\F1-\F9执行指定命令，\0查询1-9命令，\f0查询f1-f9，F1-F9命令  
 
+## 25、srcExpl --代码预览 F8
+	F8  打开/关闭代码预览窗口  
+	回车   跳转到定义的文本  
+	空格   跳转回来  
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
