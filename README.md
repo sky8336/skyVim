@@ -1,8 +1,13 @@
 # vimconfig_bundle
 vim config for linux devices driver development  
 大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
-如有问题，欢迎大家及时提出来，共同进步。  
-本vim配置为:  
+
+### 温馨提示：
+     (1)如有问题，欢迎大家及时提出来，共同进步。  
+	 (2)本配置会在摸索过程中不断总结使用方法和优化插件组合,大浪淘沙，随着时间推移将越来越功能完善，以提高效率。  
+	 (3)有更好的插件或需求及使用方法总结，记得留言，共同打造属于我们的编辑方案。  
+
+### 本vim配置为:  
     适用于linux 内核/驱动开发的vim配置;  
 	适用于c/c++的应用编程的vim配置;  
 
@@ -25,21 +30,22 @@ vim config for linux devices driver development
 		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理到插件)  
 		插件安装过程受网速影响，放在一边，耐心等待安装完自动关闭vim窗口即可。  
 
-注意：  
-	(a)插件更新  
-	若vundle管理的插件安装不成功，也可手动安装：  
+### 注意：  
+#### (a)插件更新,或仅更新某个功能    
+##### 若vundle管理的插件安装不成功，也可手动安装：  
 	打开vim，底行模式命令：  
 		:BundleList 查看要安装的插件  
 		:BundleInstall 安装插件  
+##### 如果仅仅想添加某个插件，或者恢复到之前的某个插件
+	  可以通过gitk来查看修改记录，单独安装配置需要的插件即可。 
+#### (b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
 
-	(b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
-
-	(c)测试：
-        vi a.c
-        输入main后，按tab键看是否成功自动补全。
+#### (c)测试：
+        vi a.c  
+        输入main后，按tab键看是否成功自动补全。 
 
 # 三、vim使用说明
-
+### 自己总结的帮助文档打开方式
 	,hm :vim窗口，普通模式下打开README.md查看帮助
 	,h  :vim窗口，打开my_help文件夹，可选择查看常用帮助，包括git命令，vim命令等
 		
@@ -79,18 +85,33 @@ vim config for linux devices driver development
 
 ## 2、快捷键说明 
 	vim打开在源码目录打开文件后  
-	普通模式下：  
+
+#### 普通模式下：  
+	
+	F1    帮助:GNOME Terminal Manual
 	F2    tagbar开关   
 	F3    VimExplorer开关
-	F4    按F4后,在底行输入项目名，按回车后打开MRU，文件路径匹配输入的项目名  
+	F4    打开MRU,在路径列表中，光标在工程名处按shift+*,高亮相应工程，便于选择;
+	      :q  退出MRU
+	,m    按,m后，将在终端复制的项目名粘贴到底行，按回车后打开MRU，文件路径匹配输入的项目名  
+	( Ctrl+F1 ~ Ctrl+F4不可用 )
+
 	F5    LookupFile开关（按2下关）  
 	F6    用vimgrep搜索光标所在的单词  
+	F7
 	F8    
+	Ctrl+F8 
+
 	F9    在kernel/目录或linux-stable/目录下，生成filename(tags.fn)及arm平台的tags(tags.fn)和cscope数据库；  
-	否则，通用，生成filename(tags.fn)及tags(tags.fn)和cscope数据库  
+	      否则，通用，生成filename(tags.fn)及tags(tags.fn)和cscope数据库  
+	Ctrl+F9	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
 	,mt   生成tags.usertype文件(tags.ut)
-	F12	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
-	(F10/F11系统占用)
+	( F10/F11系统占用 )  
+	Ctrl+F10   模拟source insight 窗口中的Taglist窗口开关  
+	Ctrl+F11   模拟source insight 窗口中的NERDTree窗口开关  
+	F12        source insight 模拟窗口 
+	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
+
 
 ### 说明：
 	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
@@ -564,8 +585,9 @@ vim config for linux devices driver development
 
 ## 25、srcExpl --代码预览 F8
 	F8  打开/关闭代码预览窗口  
-	回车   跳转到定义的文本  
-	空格   跳转回来  
+	Ctrl+回车：在编辑窗口跳转到Source_Explorer窗口,在Source_Explorer窗口用回车跳转到定义处  
+	在编辑窗口打开;  
+	空格   在编辑窗口回车，跳转回来  
 
 ### trinity.vim -- Ctrl+F8 配合taglist SrcExpl 和NERDTree(内置) 模拟source insight
 	Ctrl+F8: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl

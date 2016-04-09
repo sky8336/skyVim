@@ -276,7 +276,7 @@ endif
 
 
 " MRU.vim
-nmap  <leader>mr :MRU<cr>
+nmap  <leader>m :MRU 
 
 " LookupFile setting
 "let g:LookupFile_TagExpr='"./tags.filename"' "原来的名称不匹配
@@ -302,7 +302,7 @@ let g:LookupFile_AllowNewFiles=0
 
 " srcexpl.vim
 " // The switch of the Source Explorer 
-nmap <F8> :SrcExplToggle<CR> 
+nmap <C-F12> :SrcExplToggle<CR> 
 
 " // Set the height of Source Explorer window 
 let g:SrcExpl_winHeight = 8 
@@ -347,16 +347,16 @@ let g:SrcExpl_nextDefKey = "<F8>"
 
 " trinity.vim
 " Open and close all the three plugins on the same time 
-nmap <C-F8>   :TrinityToggleAll<CR> 
+nmap <F12>   :TrinityToggleAll<CR>
 
 " Open and close the srcexpl.vim separately 
-nmap <C-F9>   :TrinityToggleSourceExplorer<CR> 
+nmap <C-F12>   :TrinityToggleSourceExplorer<CR>
 
 " Open and close the taglist.vim separately 
-nmap <C-F10>  :TrinityToggleTagList<CR> 
+nmap <C-F10>  :TrinityToggleTagList<CR>
 
 " Open and close the NERD_tree.vim separately 
-nmap <C-F11>  :TrinityToggleNERDTree<CR> 
+nmap <C-F11>  :TrinityToggleNERDTree<CR>
 
 
 
@@ -460,15 +460,19 @@ nmap  <F2> :TagbarToggle<CR>
 "nmap  <F2> :TlistToggle<cr>
 "nmap  <F3> :NERDTreeToggle<cr>
 nmap  <F3> :silent! VE .<cr>
-nmap  <F4> :MRU 
+nmap  <F4> :MRU<CR>
+
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 "nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 "nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
+
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
+nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <leader>mt :call HLUDSync()<cr>
-nmap <F12> :call AutoLoadCTagsAndCScope()<CR>
-"cscope 按键映射
+"<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity
+
+"cscope 按键映射及说明
 nmap <leader>sa :cs add cscope.out<cr>
 nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sg :cs find g <C-R>=expand("<cword>")<cr><cr>
@@ -478,10 +482,6 @@ nmap <leader>se :cs find e <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
-"其他映射
-nmap <leader>zz <C-w>o
-nmap <leader>hm :sp ~/.vim/README.md<cr>
-nmap <leader>h  :vsp ~/.vim/my_help/<cr>
 ",sa 添加cscope.out库
 ",ss 查找c语言符号（函数名 宏 枚举值）出现的地方
 ",sg 查找函数/宏/枚举等定义的位置，类似ctags的功能
@@ -492,7 +492,13 @@ nmap <leader>h  :vsp ~/.vim/my_help/<cr>
 ",si 查找包含本文件的文件
 ",sd 查找本函数调用的函数
 
-"zz  
+"其他映射
+nmap <leader>zz <C-w>o
+nmap <leader>hm :sp ~/.vim/README.md<cr>
+nmap <leader>h  :vsp ~/.vim/my_help/<cr>
+",zz  关闭光标所在窗口之外的其他所有窗口
+",hm  水平分割窗口打开帮助文档README.md
+",h   竖直分割窗口，打开帮助文件夹，可选择需要帮助文档
 
 
 """"""""""""""""""""""""""""""""""""
