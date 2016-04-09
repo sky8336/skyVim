@@ -657,15 +657,18 @@ vim config for linux devices driver development
 	\I    显示文件或文件夹的决对路径和参数  
 	\1 - \9，\f1-\f9，\F1-\F9执行指定命令，\0查询1-9命令，\f0查询f1-f9，F1-F9命令  
 
-## 25、srcExpl --代码预览 F8
-	F8  打开/关闭代码预览窗口  
+## 25、srcExpl --代码预览 Ctrl+F12
+	Ctrl+F12  打开/关闭代码预览窗口  
 	Ctrl+回车：在编辑窗口跳转到Source_Explorer窗口,在Source_Explorer窗口用回车跳转到定义处  
 	在编辑窗口打开;  
 	空格   在编辑窗口回车，跳转回来  
 
-### trinity.vim -- Ctrl+F8 配合taglist SrcExpl 和NERDTree(内置) 模拟source insight
-	Ctrl+F8: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl
+### trinity.vim -- F12 配合taglist SrcExpl 和NERDTree(内置) 模拟source insight
 
+	Ctrl+F10   模拟source insight 窗口中的Taglist窗口开关  
+	Ctrl+F11   模拟source insight 窗口中的NERDTree窗口开关  
+	F12: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl
+	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
