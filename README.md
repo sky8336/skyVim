@@ -218,6 +218,80 @@ vim config for linux devices driver development
 	:VE [directory]  另一种启动方式(tab键或ctrl-d能自动补全路径)  
 	将会在一个新的tab中打开:有两个窗口，一个是目录树，一个是文件  
 
+###	快捷键：
+#### Tree Panel Hotkeys
+	?    help，打开帮助文件
+	回车或双击    toggleNode,开关节点。开关/切换到当前节点  
+	r    刷新树形目录窗口  
+	f    查看选中/喜欢的文件夹列表  
+	F    添加当前光标下的文件夹到选中/喜欢的列表中。如果当前光标下没有路径，使用当前工作路径  
+	b    查看浏览历史  
+	t    开关文件窗口  
+	<bs>    即Backspace键，退回上级目录  
+	Ctrl+tab    切换到文件窗口  
+	Ctrl+g    切换到另一个路径，底行输入路径。  
+	Q    退出 VimExplorer  
+
+#### File Panel Hotkeys
+	?    帮助  
+	回车/双击    进入目录，或者打开文件通过默认关联规则  
+	r    刷新  
+	t    开关树形目录窗口  
+	i    切换排序模式(type/data/file/extension)  
+	+f    创建新文件，底行输入文件名。Esc取消  
+	+d    创建新目录  
+	Ctrl+tab    切换到树形目录窗口   
+	Q    退出  
+	H    显示隐藏文件开关  
+	g/    搜索  
+	m{a-z}    将当前路径放入寄存器(a-z),退出后不保持    
+	'{a-z}    跳转到寄存器(a-z)中的路径  
+	J    查看寄存器中的路径  
+	鼠标右键    普通模式下的文件窗口上下文菜单  
+	Backspace    回退到上一级目录  
+	Ctrl+i    gotoForward   
+	Ctrl+o    gotoBackward  
+	f    查看选中的文件夹列表  
+	F	添加当前光标下的文件夹到选中的列表中。如果当前光标下没有路径，使用当前工作路径  
+	b    查看浏览历史  
+	Ctrl+g    切换到其他路径   
+	R    重命名当前光标下的文件  
+	yy    复制光标下的文件   
+	xx    剪切光标下的文件  
+	yl    显示剪切板  
+	dd    删除光标下文件到回收站  
+	DD    强制删除光标下文件  
+	u     打开预览  
+	U     关闭预览  
+	<s-space>    shift+空格，向上移动光标并标记/取消标记  
+	空格    标记/取消标记并向下移动光标  
+	Ctrl+左单击  标记或取消标记  
+	Mr    通过正则表达式标记，在底行输入   
+	Mv    标记所有的vim文件  
+	Md    标记所有的目录  
+	Me    标记所有的可执行文件  
+	Mc    取消所有标记  
+	sd    删除标记的文件到回收站  
+	sD    强制删除标记的文件  
+	sy    复制标记的文件  
+	sx    剪切标记的文件  
+	se    编辑每一个标记的文件，在分开的tab中  
+	p     粘贴  
+	=     比较两个文件  
+	e     编辑文件在新tab中  
+	;r    Open Renamer  
+	;c    从当前路径开始一个shell; exit返回  
+	;e    开始其他的文件管理器(nautilus,konquer,explorer.exe),默认nautilus打开光标所在目录  
+	
+##### Visual Mode Hotkeys
+	空格    标记文件  
+	d     删除文件到回收站  
+	D     强制删除文件  
+	y     复制文件  
+	x     剪切文件  
+	e     在新tab中查看文件  
+
+
 ## 7、MRU -- Most Recently Used 最近打开文件列表(按F4)
 ###1) 打开一个新窗口，显示最新打开的文件列表。
     :MRU
@@ -616,3 +690,7 @@ vim config for linux devices driver development
 		比如:  
 		在"~/project"目录下打开VIM，为了编译"~/project/driver/dma"目录而  
 		切换目录":cd driver/dma"，编译完成后可使用",cd"命令切换到"~/project"目录下  
+	(g) 剪切和复制  
+	    (1) 按住shift键，用鼠标选中复制到vim的"*寄存器(状态栏的文件路径也可复制)，  
+		    粘贴时输入"*p(或鼠标滚轮)即可复制。  
+		(2)	终端选中文字，ctrl+shift+c复制，在vim窗口直接输入p或点击鼠标滚轮即可  
