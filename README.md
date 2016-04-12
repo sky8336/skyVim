@@ -68,6 +68,7 @@ vim config for linux devices driver development
 	superTab  代码自动补全  
 	AutoComplPop
 	CCTree
+	DirDiff.vim
 
 	vundle插件列表截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin_vundle.png)
@@ -669,6 +670,41 @@ vim config for linux devices driver development
 	Ctrl+F11   模拟source insight 窗口中的NERDTree窗口开关  
 	F12: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl
 	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
+
+## 26、DirDiff.vim -- 文件夹比较插件
+### USAGE(使用):
+		
+    :DirDiff ../something/dir1 /usr/bin/somethingelse/dir2  
+
+### MAPS映射:
+#### 在diff窗口使用的命令：
+	回车，o  diff open: 打开光标所在的比较文件  
+	s        同步当前的diff.  
+	         可以选择一个范围（通过visual模式）,并且按s来同步一段范围的差异。  
+			 按s后有6种选择：  
+			 1. A -> B  
+			     复制A来覆盖B  
+				 如果A的文件指向一个文件夹，将会递归的复制A来覆盖B   
+			 2. B -> A  
+			 3. Always A  
+			     对选择剩下的项目，像(1)中那样同步  
+			 4. Always B  
+			 5. Skip  
+			     跳过这个diff 条目  
+			 6. 取消  
+			 
+	u    Diff update: 更新比较窗口  
+	x    设置排除的图案，用,分开  
+	i    设置忽略的图案，用,分开  
+	a    为diff设置额外的参数，eg. -w 忽略空白  
+	q    退出DirDiff  
+
+
+	,dg              Diff get: maps to :diffget<CR>
+	,dp              Diff put: maps to :diffput<CR>
+	,dj              Diff next: (think j for down) 
+	,dk              Diff previous: (think k for up)
+
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  

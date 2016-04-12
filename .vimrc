@@ -162,6 +162,7 @@ Bundle 'wesleyche/SrcExpl'
 Bundle 'wesleyche/Trinity' 
 Bundle 'hari-rangarajan/CCTree'
 Bundle 'vimplugin/project.vim'
+Bundle 'will133/vim-dirdiff'
 
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
@@ -397,6 +398,12 @@ map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
 map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
 map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 
+" dirdiff.vim
+let g:DirDiffExcludes = "CVS,*.class,*.o"
+let g:DirDiffIgnore = "Id:"
+" ignore white space in diff
+let g:DirDiffAddArgs = "-w" 
+let g:DirDiffEnableMappings = 1
 
 " project.vim 
 " Project1.4.1插件设置 
