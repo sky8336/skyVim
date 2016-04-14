@@ -733,3 +733,11 @@ vim config for linux devices driver development
 	    (1) 按住shift键，用鼠标选中复制到vim的"*寄存器(状态栏的文件路径也可复制)，  
 		    粘贴时输入"*p(或鼠标滚轮)即可复制。  
 		(2)	终端选中文字，ctrl+shift+c复制，在vim窗口直接输入p或点击鼠标滚轮即可  
+
+### 帮助说明
+	,hm 打开本README.md  
+	,h  打开my_help/文件夹，可选择打开需要的帮助文件,如下:  
+		git_command.txt  git使用整理  
+		git_push.txt     git提交代码相关流程及命令  
+		vim_command.txt  vim基本命令及使用技巧  
+
