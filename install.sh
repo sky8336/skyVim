@@ -1,5 +1,13 @@
 #!/bin/bash 
 
+#获取开始时间和路径
+function get_start_time_and_dir_path()
+{
+	start_time=$(date +"%s")
+	vimcfig_bundle_dir_path=$(pwd)
+	echo "dir_path: $vimcfig_bundle_dir_path"
+}
+
 #备份OS中vim的配置   
 function bakup_vimconfig()
 {
@@ -9,6 +17,17 @@ function bakup_vimconfig()
 	cp 	  $HOME/.vim  $HOME/.bakvim -a 
 	cp 	  $HOME/.vimrc $HOME/.bakvim 
 	cp 	  $HOME/.bashrc $HOME/.bakvim 
+}
+
+#安装需要的软件包
+function install_packages()
+{
+	echo "====== Install software packages now ! ======"
+	echo "install: vim+ctags+cscope+ranger"
+	apt-get install vim ctags cscope ranger -y --force-yes
+
+	echo "install: vim-gnome+xsel"
+	apt-get install vim-gnome xsel -y --force-yes
 }
 
 #配置vim
@@ -73,12 +92,9 @@ function echo_install_time()
     echo
 }
 
-start_time=$(date +"%s")
-vimcfig_bundle_dir_path=$(pwd)
-echo $vimcfig_bundle_dir_path
-echo "====== Install vim+ctags+cscope now ! ======"
-apt-get install vim ctags cscope ranger -y --force-yes
+get_start_time_and_dir_path
 bakup_vimconfig
+install_packages
 config_vim
 install_vundle_and_plugin
 chown_vundle
