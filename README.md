@@ -734,6 +734,17 @@ vim config for linux devices driver development
 		    粘贴时输入"*p(或鼠标滚轮)即可复制。  
 		(2)	终端选中文字，ctrl+shift+c复制，在vim窗口直接输入p或点击鼠标滚轮即可  
 
+		(3)实现vim和终端及gedit等之间复制、粘贴的设置：  
+        既可以复制单行命令到终端，又可以复制多行到gedit打开的文件中。  
+   
+        vim-->终端/gedit  
+                （1）在vim普通模式下，输入yy可复制当前行到"+寄存器。  
+                （2）在terminal中：Ctrl-Shift-v，粘贴。  
+                     在gedit中ctrl+v粘贴  
+        终端/gedit-->vim：  
+                （1）在终端选中复制内容，用shift+ctrl+v复制；  
+                （2）在vim普通模式下，输入p复制。  
+
 ### 帮助说明
 	,hm 打开本README.md  
 	,h  打开my_help/文件夹，可选择打开需要的帮助文件,如下:  
