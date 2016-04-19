@@ -51,8 +51,10 @@ vim config for linux devices driver development
 		
 ## 1、插件及功能列表
     vundle  插件管理  
-	tagbar
-	VimExplorer
+	taglist  
+	tagbar  
+	NERDTree  
+	VimExplorer  
     MRU  
     LookupFile  
 	bufexplorer  
@@ -74,7 +76,7 @@ vim config for linux devices driver development
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vim-plugin_vundle.png)
 
 
-   /** vundle命令 **/  
+### vundle命令
    Brief help  
    :BundleList          - list configured bundles  
    :BundleInstall(!)    - install(update) bundles  
@@ -90,8 +92,10 @@ vim config for linux devices driver development
 #### 普通模式下：  
 	
 	F1    帮助:GNOME Terminal Manual
-	F2    tagbar开关   
-	F3    VimExplorer开关
+	F2    taglist开关   
+	,F2    tagbar开关   
+	F3   NERDTree开关
+	,F3    VimExplorer开关
 	F4    打开MRU,在路径列表中，光标在工程名处按shift+*,高亮相应工程，便于选择;
 	      :q  退出MRU
 	,m    按,m后，将在终端复制的项目名粘贴到底行，按回车后打开MRU，文件路径匹配输入的项目名  
@@ -172,7 +176,32 @@ vim config for linux devices driver development
 	先按F7生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
 	让自己定义的类型、函数以不同的颜色显示  
 
-## 5、tagbar(按F2)
+## 5、taglist(F2)和tagbar(,F2)
+
+### taglist
+#### 1)底行模式打开:
+	:TlistOpen   打开并将焦点置于标签列表窗口
+	:TlistClose  关闭标签列表窗口
+	:TlistToggle 切换标签列表窗口状态（打开--关闭），标签列表窗口是否获得焦点取决于其他配置
+
+#### 2)在TagList窗口操作：
+	回车键： 跳到光标所在标记的定义处
+	o: 新建一个水平分割窗口（上部），跳到标记定义处
+	p: 预览标记定义（焦点仍然在taglist窗口）
+	空格: 在底行显示标记的原型（如函数原型）
+	u: 更新标记列表（比如源文件新增一个函数，保存后，在taglist窗口按u）
+	d: 删除光标所在的taglist文件
+	x: 放大/缩小taglist窗口
+	[[: 将光标移到前一个文件的起点
+	]]: 将光标移到后一个文件的起点
+	+: 展开标记
+	-: 折叠
+	*: 全部展开
+	=: 全部折叠
+	s: 选择排序字段
+	q: 退出taglist窗口
+
+### tagbar(按,F2)
 	基于ctags,分割窗口显示当前的代码结构概览		
     更适合面向对象语言使用的显示函数列表插件  
 
@@ -180,7 +209,7 @@ vim config for linux devices driver development
 	:help tagbar
 
 
-在tagbar 窗口有效的映射:
+#### 在tagbar 窗口有效的映射:
     回车  跳到光标下的tags  
 	p     预览;调到光标下的tag,焦点保留在tagbar窗口  
 	P     在预览窗口打开  
@@ -203,7 +232,7 @@ vim config for linux devices driver development
 	x         放大窗口  
 	q         关闭tagbar窗口  
 
-### 简单的列了几点比taglist优化了的地方:  
+#### tagbar比taglist优化了的地方:  
 	1)支持头文件的函数列表显示  
 	细心的读者可能会发现，tagbar对函数的可见级别也是做了区分的，分别用+ – # 并配合着色来做了区分  
 	2)对面向对象的支持更好  
@@ -211,16 +240,68 @@ vim config for linux devices driver development
 	3)自动根据文件修改时间来重建  
 	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
-## 6、VimExplorer --文件管理器(按F3)
-	按F3会在当前目录打开（状态栏显示的顶级目录）  
+## 6、NERDTree--文件浏览(按F3)和VimExplorer--文件管理器(按,F3)
+	
+### NERDTree --用于文件浏览(按F3)
+  列出当前路径的目录树。  
+  浏览项目的总体目录结构和创建删除重命名文件或文件名。  
+  内核中_defconfig  .mk等文件可用nerd tree 打开
+
+#### 1)在NERDTree中选中目录，按ma，新建文件或者目录
+	  o       在已有窗口中打开文件、目录或书签，并跳到该窗口  
+	  go      在已有窗口中打开文件、目录或书签，但不跳到该窗口  
+	  t       在新 Tab 中打开选中文件/书签，并跳到新 Tab  
+	  T       在新 Tab 中打开选中文件/书签，但不跳到新 Tab  
+	  i       split 一个新窗口打开选中文件，并跳到该窗口  
+	  gi      split 一个新窗口打开选中文件，但不跳到该窗口  
+	  s       vsplit 一个新窗口打开选中文件，并跳到该窗口  
+	  gs      vsplit 一个新 窗口打开选中文件，但不跳到该窗口  
+	  !       执行当前文件  
+	  O       递归打开选中结点下的所有目录  
+	  x       合拢选中结点的父目录  
+	  X       递归合拢选中结点下的所有目录  
+	  e       Edit the current dif  
+
+	  双击    相当于 NERDTree-o  
+	  中键    对文件相当于 NERDTree-i，对目录相当于 NERDTree-e  
+
+	  D       删除当前书签
+
+	  P       跳到根结点  
+	  p       跳到父结点  
+	  K       跳到当前目录下同级的第一个结点  
+	  J       跳到当前目录下同级的最后一个结点  
+	  k       跳到当前目录下同级的前一个结点  
+	  j       跳到当前目录下同级的后一个结点  
+
+	  C       将选中目录或选中文件的父目录设为根结点  
+	  u       将当前根结点的父目录设为根目录，并变成合拢原根结点  
+	  U       将当前根结点的父目录设为根目录，但保持展开原根结点  
+	  r       递归刷新选中目录  
+	  R       递归刷新根结点  
+	  m       显示文件系统菜单 #！！！然后根据提示进行文件的操作如新建，重命名等  
+	  cd      将 CWD 设为选中目录  
+
+	  I       切换是否显示隐藏文件  
+	  f       切换是否使用文件过滤器  
+	  F       切换是否显示文件  
+	  B       切换是否显示书签  
+
+	  q       关闭 NerdTree 窗口  
+	  ?       切换是否显示 Quick Help	  
+
+
+
+### VimExplorer --文件管理器(按,F3)
+	按,F3会在当前目录打开（状态栏显示的顶级目录）;Q 退出  
 	可以执行很多文件操作，如复制，删除，移动，预览，搜索等  
 
 	:VE  启动VimExplorer,然后会询问你开始的文件夹。  
 	:VE [directory]  另一种启动方式(tab键或ctrl-d能自动补全路径)  
 	将会在一个新的tab中打开:有两个窗口，一个是目录树，一个是文件  
 
-###	快捷键：
-#### Tree Panel Hotkeys
+#### 快捷键：
+##### Tree Panel Hotkeys
 	?    help，打开帮助文件
 	回车或双击    toggleNode,开关节点。开关/切换到当前节点  
 	r    刷新树形目录窗口  
@@ -233,7 +314,7 @@ vim config for linux devices driver development
 	Ctrl+g    切换到另一个路径，底行输入路径。  
 	Q    退出 VimExplorer  
 
-#### File Panel Hotkeys
+##### File Panel Hotkeys
 	?    帮助  
 	回车/双击    进入目录，或者打开文件通过默认关联规则  
 	r    刷新  
@@ -284,7 +365,7 @@ vim config for linux devices driver development
 	;c    从当前路径开始一个shell; exit返回  
 	;e    开始其他的文件管理器(nautilus,konquer,explorer.exe),默认nautilus打开光标所在目录  
 	
-##### Visual Mode Hotkeys
+###### Visual Mode Hotkeys
 	空格    标记文件  
 	d     删除文件到回收站  
 	D     强制删除文件  
@@ -305,7 +386,7 @@ vim config for linux devices driver development
 		u： 更新文件列表（MRU窗口一直打开时有用）  
 		q： 退出MRU  
 		
-		,mr : 直接打开MRU，不会匹配当前工程名  
+		,m : 在底行输入字符串，如工程名，匹配字符串  
 
 ###2) 打开符合vim正则的文件列表
     :MRU vim
@@ -376,6 +457,9 @@ vim config for linux devices driver development
 	:cp    转到前一个位置
 
 ## 10、bufexplorer
+
+	vi *.c 打开多个文件时，可以用,bv切换buffer  
+
 	在各个buffer 之间切换
 	,be 全屏方式打开buffer列表
 	,bs 水平窗口打开buffer列表

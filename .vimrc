@@ -50,7 +50,7 @@ set   mouse=a
 set   number
 set   pumheight=10
 set   ruler
-set   scrolloff=3
+set   scrolloff=2
 set   shiftwidth=4
 set   showcmd
 set   smartindent
@@ -174,7 +174,7 @@ Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'lookupfile'
 Bundle 'taglist.vim'
-"Bundle 'The-NERD-tree'
+Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
 Bundle 'ZoomWin'
@@ -202,14 +202,14 @@ let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
 let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
-let g:Tlist_WinWidth=25
+let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
 "let Tlist_Show_One_File=0
-"if &diff == 0
-	""去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	"let g:Tlist_Auto_Open=1
-"endif
+if &diff == 0
+	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
+	let g:Tlist_Auto_Open=1
+endif
 
 " CCtree --------------------------{{{
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree 
@@ -232,14 +232,14 @@ let  g:CCTreeJoinProgOpts = ""
 "let g:CCTreeRecursiveDepth = 3
 "let g:CCTreeMinVisibleDepth = 3
 
-"" NERDTree.vim
-"let g:NERDTreeWinPos="right"
-"let g:NERDTreeWinSize=25
-"let g:NERDTreeShowLineNumbers=1
-"let g:NERDTreeQuitOnOpen=1
-""autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
-"" NERDTree是最后一个窗口，它自动关闭
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" NERDTree.vim
+let g:NERDTreeWinPos="right"
+let g:NERDTreeWinSize=30
+let g:NERDTreeShowLineNumbers=1
+let g:NERDTreeQuitOnOpen=1
+"autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
+" NERDTree是最后一个窗口，它自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " cscope.vim
 if has("cscope")
@@ -463,10 +463,10 @@ fu! Generate_fntags_tags_cscope()
     q
 endf
 
-nmap  <F2> :TagbarToggle<CR>
-"nmap  <F2> :TlistToggle<cr>
-"nmap  <F3> :NERDTreeToggle<cr>
-nmap  <F3> :silent! VE .<cr>
+nmap  <F2> :TlistToggle<cr>
+nmap  <leader><F2> :TagbarToggle<CR>
+nmap  <F3> :NERDTreeToggle<cr>
+nmap  <leader><F3> :silent! VE .<cr>
 nmap  <F4> :MRU<CR>
 
 nmap  <F5> <Plug>LookupFile<cr>
