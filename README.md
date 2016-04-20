@@ -439,14 +439,16 @@ vim config for linux devices driver development
 	LUPath和LUArgs两个功能。感兴趣的朋友读一下lookupfile的手册。	
 
 ## 7、vimgrep(按F6)
-	在打开vim的目录下递归搜索.c 和 .h 文件
+	F6   在打开vim的目录下递归搜索.c 和 .h 文件
+	,F6  在底行输入路径path/*.c ，回车后在制定路径搜索，  
+		 搜索完后输入:cw  打开quickfix搜索结果  
 
 ### 1)在底行模式
 	:vimgrep 
 
 	在路径和文件名符合{file}的所有文件中,查找符合{pattern}的字符串：  
 	:vimgrep     /{pattern}/[g][j]     {file} ...  
-	:copen    打开quickfix列表查看结果，回车打开对应文件 
+	:cw  或 :copen    打开quickfix列表查看结果，回车打开对应文件 
 
 ### 2)QuickFix 窗口操作：
 	:copen    打开quickfix
