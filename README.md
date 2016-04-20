@@ -629,36 +629,37 @@ vim config for linux devices driver development
 	Normal模式下，几乎所有命令前面都可以指定行数  
 	Visual模式下执行命令，会对选中的特定区块进行注释/反注释  
 
-## 21、ctrlp.vim
-	模糊查找ctrl+p  
+## 21、ctrlp.vim --模糊查找
+	ctrl+p 打开查找窗口;模糊搜索当前目录及其子目录下的所有文件  
+	Esc    退出查找窗口  
 	
-	ctrl-f    模糊搜索最近打开的文件(MRU)  
-	ctrl-p    模糊搜索当前目录及其子目录下的所有文件  
-
-	搜索框出来后, 输入关键字, 然后  
+### 打开ctrlp查找窗口后:  
+	ctrl-f    切换查找方式(Files, Buffers and MRU files)，可模糊搜索最近打开的文件(MRU)  
+	
+	输入关键字, 然后  
 	ctrl + j/k   进行上下选择  
 	ctrl + x     在当前窗口水平分屏打开文件  
 	ctrl + v     同上, 垂直分屏  
 	ctrl + t     在tab中打开  
 
-	Basic Usage  
+### Basic Usage
 
     Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.  
     Run :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode.  
     Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.  
 
 	Check :help ctrlp-commands and :help ctrlp-extensions for other commands.  
-	Once CtrlP is open:  
+#### Once CtrlP is open:
 
-    Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.  
-    Press <c-f> and <c-b> to cycle between modes.  
-    Press <c-d> to switch to filename only search instead of full path.  
-    Press <c-r> to switch to regexp mode.  
-    Use <c-n>, <c-p> to select the next/previous string in the prompt's history.  
-    Use <c-y> to create a new file and its parent directories.  
-    Use <c-z> to mark/unmark multiple files and <c-o> to open them.  
+    <F5>   在ctrlp窗口按，为当前目录更新cache: 更新新的文件，移除删除的文件，适应新忽略的选项.  
+    <c-f>,<c-b>    在模式之间循环切换.  
+    <c-d>   switch to filename only search instead of full path.  
+    <c-r>   切换到正则表达式模式(regexp mode).  
+    <c-n>, <c-p>  选择提示历史中的下一个/上一个字符串.  
+    <c-y>	输入路径和文件名后，按c-y,创建目录及文件，会打开一个垂直窗口用于输入文件内容。  
+    <c-z>   标记或取消标记多个文件， <c-o> 垂直分割窗口打开标记的文件.  
 
-	Run :help ctrlp-mappings or submit ? in CtrlP for more mapping help.  
+	:help ctrlp-mappings   查看映射的帮助  
 
     Submit two or more dots .. to go up the directory tree by one or multiple levels.  
     End the input string with a colon : followed by a command to execute it on the opening file(s):  
