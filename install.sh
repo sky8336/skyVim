@@ -23,10 +23,10 @@ function bakup_vimconfig()
 function install_packages()
 {
 	echo "====== Install software packages now ! ======"
-	echo "install: vim+ctags+cscope+ranger"
+	echo ">> install: vim+ctags+cscope+ranger"
 	apt-get install vim ctags cscope ranger -y --force-yes
 
-	echo "install: vim-gnome+xsel"
+	echo ">> install: vim-gnome+xsel"
 	apt-get install vim-gnome xsel -y --force-yes
 }
 
@@ -72,6 +72,16 @@ function chown_vundle()
 	chown -R $username:$groupname ~/.vim/bundle/
 }
 
+#set merge.tool for git
+function set_merge_tool()
+{
+	echo "====== use vimdiff as default merge tool ======"
+	# To use vimdiff as default merge tool:
+	git config --global merge.tool vimdiff
+	git config --global mergetool.prompt false
+}
+
+#echo install time
 function echo_install_time()
 {
     end_time=$(date +"%s")
@@ -98,7 +108,5 @@ install_packages
 config_vim
 install_vundle_and_plugin
 chown_vundle
-# To use vimdiff as default merge tool:
-git config --global merge.tool vimdiff
-git config --global mergetool.prompt false
+set_merge_tool
 echo_install_time
