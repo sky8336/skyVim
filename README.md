@@ -789,6 +789,9 @@ vim config for linux devices driver development
 	,dj              Diff next: (think j for down) 
 	,dk              Diff previous: (think k for up)
 
+## 25、undotree -- ctrl+F5
+	用可视化的树形结构显示vim的历史操作。  
+	在undotree窗口按?打开帮助  
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
