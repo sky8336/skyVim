@@ -475,7 +475,7 @@ nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 "nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
-nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
+"nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <leader>mt :call HLUDSync()<cr>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity
 
