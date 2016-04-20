@@ -74,7 +74,23 @@ autocmd BufReadPost *
     \ endif
 
 " some function definition: {{{1
-" 实现递归查找上级目录中的ctags和cscope并自动载入
+
+" 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{
+fu! Generate_fntags_tags_cscope()
+    call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
+    if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
+        call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
+    else
+		"生成专用于c/c++的ctags文件
+        call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
+        call RunShell("Generate cscope (use cscope)", "cscope -Rbq")
+        cs add cscope.out
+    endif
+    q
+endf
+"}}}
+
+" 实现递归查找上级目录中的ctags和cscope并自动载入 {{{
 function! AutoLoadCTagsAndCScope()
     let max = 7
     let dir = './'
@@ -97,17 +113,32 @@ function! AutoLoadCTagsAndCScope()
         let i = i + 1
     endwhile
 endf
+"}}}
 
+" cscope add {{{
+if has("cscope")
+    set csto=1
+    set cst
+    set nocsverb
+    if filereadable("cscope.out")
+        cs add cscope.out
+	else
+		call AutoLoadCTagsAndCScope()
+    endif
+    set csverb
+endif
+"}}}
 
 " SHORTCUT SETTINGS: {{{1
 " Set mapleader
 let mapleader=","
 
-" Space to command mode.
+" Space to command mode. {{{
 nnoremap <space> :
 vnoremap <space> :
+"}}}
 
-" Switching between buffers.
+" Switching between buffers. {{{
 nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -116,6 +147,7 @@ inoremap <C-h> <Esc><C-W>h
 inoremap <C-j> <Esc><C-W>j
 inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
+"}}}
 
 " insert mode 光标移动
 " Ctrl + K 插入模式下光标向上移动
@@ -132,9 +164,7 @@ let OpenDir=system("pwd")
 nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 
 
-" PLUGIN SETTINGS: {{{1
-
-" vundle.vim 插件管理器
+" vundle.vim 插件管理器 {{{1
 set rtp+=~/.vim/bundle/vundle/  
 call vundle#rc()  
 
@@ -178,6 +208,7 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
 Bundle 'ZoomWin'
+Bundle 'winmanager'
 "Bundle 'c.vim'
 Bundle 'gitv'
 
@@ -187,7 +218,9 @@ Bundle 'gitv'
 " vundle setup end
 
 
-" tagbar.vim
+" PLUGIN SETTINGS: {{{1
+
+" tagbar.vim {{{
 let g:tagbar_left=1
 let g:tagbar_ctags_bin='ctags'           "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
@@ -196,8 +229,9 @@ let g:tagbar_sort = 0                    "根据源码中出现的顺序排序
 if &diff == 0
 	"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx call tagbar#autoopen()
 endif
+"}}}
 
-" taglist.vim
+" taglist.vim {{{
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
@@ -208,10 +242,29 @@ let g:Tlist_Auto_Highlight_Tag=1
 "let Tlist_Show_One_File=0
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	let g:Tlist_Auto_Open=1
+	"let g:Tlist_Auto_Open=1
 endif
+"}}}
 
-" CCtree --------------------------{{{
+" 设置winmanager.vim {{{
+" 窗口布局，BufExplorer和FileExplorer共用一个窗口，CTRL+N切换
+let g:winManagerWindowLayout = "TagList|FileExplorer,BufExplorer"
+" 0表示主编辑区在窗口右边，1则相反
+let g:defaultExplorer = 0
+let g:bufExplorerMaxHeight=60
+let g:bufExplorerMinHeight=60
+" 保证miniBufExplorer在一个文件时，仍旧保证窗口大小
+"let g:miniBufExplorerMoreThanOne = 0
+"设置winmanager的宽度，默认为25
+let g:winManagerWidth = 30
+"定义打开关闭winmanager快捷键为F8
+nmap <C-W><C-F> :FirstExplorerWindow<cr>
+nmap <C-W><C-B> :BottomExplorerWindow<cr>
+"在进入vim时自动打开winmanager
+let g:AutoOpenWinManager = 1
+"}}}
+
+" CCtree {{{
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree 
 let g:CCTreeKeyTraceReverseTree = '<C-\><'
 let g:CCTreeKeyHilightTree = '<C-\>l' " Static highlighting
@@ -225,14 +278,14 @@ let  g:CCTreeJoinProg = 'cat'
 let  g:CCTreeJoinProgOpts = ""
 "let g:CCTreeUseUTF8Symbols = 1
 "map <F7> :CCTreeLoadXRefDBFromDisk $CCTREE_DB<cr> 
-"}}}
 
 "" CCTree.vim
 "let g:CCTreeCscopeDb = "cscope.out"
 "let g:CCTreeRecursiveDepth = 3
 "let g:CCTreeMinVisibleDepth = 3
+"}}}
 
-" NERDTree.vim
+" NERDTree.vim {{{
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
@@ -241,21 +294,9 @@ let g:NERDTreeDirArrows=0   "目录箭头: 1显示箭头  0传统+-|号
 "autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"}}}
 
-" cscope.vim
-if has("cscope")
-    set csto=1
-    set cst
-    set nocsverb
-    if filereadable("cscope.out")
-        cs add cscope.out
-	else
-		call AutoLoadCTagsAndCScope()
-    endif
-    set csverb
-endif
-
-" OmniCppComplete.vim
+" OmniCppComplete.vim {{{
 "set nocp 
 "filetype plugin on 
 set completeopt=menu,menuone  
@@ -267,20 +308,21 @@ let OmniCpp_GlobalScopeSearch=1
 let OmniCpp_DefaultNamespace=["std"]  
 let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
 let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
+"}}}
 
-
-" VimGDB.vim
+" VimGDB.vim {{{
 if has("gdb")
 	set asm=0
 	let g:vimgdb_debug_file=""
 	run macros/gdb_mappings.vim
 endif
+"}}}
 
-
-" MRU.vim
+" MRU.vim {{{
 nmap  <leader>m :MRU 
+"}}}
 
-" LookupFile setting
+" LookupFile setting {{{
 "let g:LookupFile_TagExpr='"./tags.filename"' "原来的名称不匹配
 let g:LookupFile_TagExpr='"./tags.fn"'
 let g:LookupFile_MinPatLength=2
@@ -288,11 +330,13 @@ let g:LookupFile_PreserveLastPattern=0
 let g:LookupFile_PreservePatternHistory=1
 let g:LookupFile_AlwaysAcceptFirst=1
 let g:LookupFile_AllowNewFiles=0
+"}}}
 
-" undotree.vim
+" undotree.vim {{{
 let g:undotree_WindowLayout = 2 
+"}}}
 
-" BufExplorer.vim 其中有默认配置
+" BufExplorer.vim 其中有默认配置 {{{
 "let g:bufExplorerDefaultHelp=0       " Do not show default help.
 "let g:bufExplorerShowRelativePath=1  " Show relative paths.
 "let g:bufExplorerSortBy='mru'        " Sort by most recently used.
@@ -303,9 +347,9 @@ let g:undotree_WindowLayout = 2
 "<Leader>be　　全屏方式打来 buffer 列表。
 "<Leader>bs　　水平窗口打来 buffer 列表。
 "<Leader>bv　　垂直窗口打开 buffer 列表。
+"}}}
 
-
-" srcexpl.vim
+" srcexpl.vim {{{
 " // The switch of the Source Explorer 
 nmap <C-F12> :SrcExplToggle<CR> 
 
@@ -349,8 +393,9 @@ let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 
 " // Set "<F8>" key for displaying the next definition in the jump list 
 let g:SrcExpl_nextDefKey = "<F8>" 
+"}}}
 
-" trinity.vim
+" trinity.vim {{{
 " Open and close all the three plugins on the same time 
 nmap <F12>   :TrinityToggleAll<CR>
 
@@ -362,10 +407,10 @@ nmap <C-F10>  :TrinityToggleTagList<CR>
 
 " Open and close the NERD_tree.vim separately 
 nmap <C-F11>  :TrinityToggleNERDTree<CR>
+"}}}
 
 
-
-" ctrlp.vim
+" ctrlp.vim {{{
 "let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'a'
@@ -384,16 +429,19 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 let g:ctrlp_funky_syntax_highlight = 1
 let g:ctrlp_extensions = ['funky']
+"}}}
 
-" Man.vim
+" Man.vim {{{
 source $VIMRUNTIME/ftplugin/man.vim
+"}}}
 
-" snipMate
+" snipMate {{{
 let g:snips_author="Du Jianfeng"
 let g:snips_email="cmdxiaoha@163.com"
 let g:snips_copyright="SicMicro, Inc"
+"}}}
 
-" vimdiff hot keys
+" vimdiff hot keys {{{
 " if you know the buffer number, you can use hot key like ",2" 
 " (press comma first, then press two as quickly as possible) to 
 " pull change from buffer number two.set up hot keys:
@@ -401,15 +449,17 @@ map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
 map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
 map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
 map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
+"}}}
 
-" dirdiff.vim
+" dirdiff.vim {{{
 let g:DirDiffExcludes = "CVS,*.class,*.o"
 let g:DirDiffIgnore = "Id:"
 " ignore white space in diff
 let g:DirDiffAddArgs = "-w" 
 let g:DirDiffEnableMappings = 1
+"}}}
 
-" project.vim 
+" project.vim {{{ 
 " Project1.4.1插件设置 
 " 切换打开和关闭project窗口
 nmap <silent><Leader>t <Plug>ToggleProject
@@ -429,15 +479,17 @@ let g:proj_flags='T' "子项目的折叠在更新时会紧跟在当前折叠下�
 let g:proj_flags='v' "设置后将, 按 /G 搜索时用 :vimgrep 取代 :grep.
 let g:proj_run1='!p4 edit %f' "g:proj_run1 ... g:proj_run9 用法.
 let g:proj_run3='silent !gvim %f'
+"}}}
 
-" plugin shortcuts
+" plugin shortcuts {{{
 function! RunShell(Msg, Shell)
 	echo a:Msg . '...'
 	call system(a:Shell)
 	echon 'done'
 endfunction
+"}}}
 
-" ZoomWinPlugin.vim
+" ZoomWinPlugin.vim {{{
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
     if exists('t:zoomed') && t:zoomed
@@ -452,22 +504,11 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
+"}}}
 
-" 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope
-fu! Generate_fntags_tags_cscope()
-    call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
-    if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
-        call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
-    else
-		"生成专用于c/c++的ctags文件
-        call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-        call RunShell("Generate cscope (use cscope)", "cscope -Rbq")
-        cs add cscope.out
-    endif
-    q
-endf
-
-nmap  <F2> :TlistToggle<cr>
+" F2 ~ F12 按键映射 {{{
+"nmap  <F2> :TlistToggle<cr>
+nmap  <F2> :WMToggle<cr>
 nmap  <leader><F2> :TagbarToggle<CR>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <leader><F3> :silent! VE .<cr>
@@ -484,8 +525,9 @@ nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
 "nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <leader>mt :call HLUDSync()<cr>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity
+"}}}
 
-"cscope 按键映射及说明
+"cscope 按键映射及说明 {{{
 nmap <leader>sa :cs add cscope.out<cr>
 nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sg :cs find g <C-R>=expand("<cword>")<cr><cr>
@@ -504,37 +546,41 @@ nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
 ",sf 查找并打开文件，类似vim的find功能
 ",si 查找包含本文件的文件
 ",sd 查找本函数调用的函数
+"}}}
 
-"其他映射
+"其他映射 {{{
 nmap <leader>zz <C-w>o
 nmap <leader>hm :sp ~/.vim/README.md<cr>
 nmap <leader>h  :vsp ~/.vim/my_help/<cr>
 ",zz  关闭光标所在窗口之外的其他所有窗口
 ",hm  水平分割窗口打开帮助文档README.md
 ",h   竖直分割窗口，打开帮助文件夹，可选择需要帮助文档
-
+"}}}
 
 """"""""""""""""""""""""""""""""""""
+" {{{
 set noswapfile
 set tags+=/usr/include/tags
 set tags+=./tags  "引导omnicppcomplete等找到tags文件
 "生成专用于c/c++的ctags文件
 map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>  
+"}}}
 
 """"""""""""""""""""""""""""""
-"实现vim和终端及gedit等之间复制、粘贴的设置
+"实现vim和终端及gedit等之间复制、粘贴的设置 {{{ 
 """"""""""""""""""""""""""""""
 " 让VIM和ubuntu(X Window)共享一个粘贴板
 set clipboard=unnamedplus " 设置vim使用"+寄存器(粘贴板)，"+寄存器是代表ubuntu的粘贴板。
 " VIM退出时，运行xsel命令把"+寄存器中的内容保存到系统粘贴板中;需要安装xsel
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
-
+"}}}
 
 """"""""""""""""""""""""""""""
-" 编辑文件相关配置
+" 编辑文件相关配置 {{{
 """"""""""""""""""""""""""""""
 " 常规模式下输入 cM 清除行尾 ^M 符号
 nmap cM :%s/\r$//g<CR>:noh<CR>
 " 启用每行超过90列的字符提示（字体变蓝并加下划线）
 " au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 90 . 'v.\+', -1)
+"}}}
 

@@ -81,6 +81,18 @@ function set_merge_tool()
 	git config --global mergetool.prompt false
 }
 
+#winmagager添加自动打开和退出功能
+function set_cfg_for_winmanager()
+{
+	echo "====== Set auto open and close WinManager ======"
+	echo "if g:AutoOpenWinManager
+	\"vim进入时自动执行 ToggleWindowsManager ，然后移动一次窗口焦点
+	autocmd VimEnter * nested call s:ToggleWindowsManager()
+	\"|2wincmd w 
+	endif" >> ~/.vim/bundle/winmanager/plugin/winmanager.vim
+	patch ~/.vim/bundle/taglist.vim/plugin/taglist.vim < ./.vim/bundle_self-define/taglist_vim.patch
+}
+
 #echo install time
 function echo_install_time()
 {
@@ -108,5 +120,6 @@ install_packages
 config_vim
 install_vundle_and_plugin
 chown_vundle
+set_cfg_for_winmanager
 set_merge_tool
 echo_install_time

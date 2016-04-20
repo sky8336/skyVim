@@ -1,0 +1,17 @@
+--- /home/maning/.vim/bundle/taglist.vim/plugin/taglist.vim	2016-04-20 19:26:39.196389881 +0800
++++ taglist.vim	2016-04-20 19:26:19.732389887 +0800
+@@ -1414,12 +1414,12 @@
+     " Before quitting Vim, delete the taglist buffer so that
+     " the '0 mark is correctly set to the previous buffer.
+     if v:version < 700
+-	if winbufnr(2) == -1
++	if winbufnr(3) == -1
+ 	    bdelete
+ 	    quit
+ 	endif
+     else
+-	if winbufnr(2) == -1
++	if winbufnr(3) == -1
+ 	    if tabpagenr('$') == 1
+ 		" Only one tag page is present
+ 		bdelete
