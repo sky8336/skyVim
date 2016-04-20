@@ -76,7 +76,7 @@ autocmd BufReadPost *
 " some function definition: {{{1
 " 实现递归查找上级目录中的ctags和cscope并自动载入
 function! AutoLoadCTagsAndCScope()
-    let max = 5
+    let max = 7
     let dir = './'
     let i = 0
     let break = 0
