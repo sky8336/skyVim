@@ -237,6 +237,7 @@ let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeDirArrows=0   "目录箭头: 1显示箭头  0传统+-|号
 "autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
