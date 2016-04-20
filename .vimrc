@@ -163,7 +163,7 @@ Bundle 'wesleyche/Trinity'
 Bundle 'hari-rangarajan/CCTree'
 Bundle 'vimplugin/project.vim'
 Bundle 'will133/vim-dirdiff'
-
+Bundle 'mbbill/undotree'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -287,6 +287,9 @@ let g:LookupFile_PreserveLastPattern=0
 let g:LookupFile_PreservePatternHistory=1
 let g:LookupFile_AlwaysAcceptFirst=1
 let g:LookupFile_AllowNewFiles=0
+
+" undotree.vim
+let g:undotree_WindowLayout = 2 
 
 " BufExplorer.vim 其中有默认配置
 "let g:bufExplorerDefaultHelp=0       " Do not show default help.
@@ -470,6 +473,7 @@ nmap  <leader><F3> :silent! VE .<cr>
 nmap  <F4> :MRU<CR>
 
 nmap  <F5> <Plug>LookupFile<cr>
+nmap  <C-F5> :UndotreeToggle<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 "nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 "nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
