@@ -475,6 +475,7 @@ nmap  <F4> :MRU<CR>
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <C-F5> :UndotreeToggle<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
+nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ 
 "nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 "nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 
