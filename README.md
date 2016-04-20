@@ -66,6 +66,7 @@ vim config for linux devices driver development
 	tagbar  
 	NERDTree  
 	VimExplorer  
+	winmanager  
     MRU  
     LookupFile  
 	bufexplorer  
@@ -89,7 +90,7 @@ vim config for linux devices driver development
 #### 普通模式下：  
 	
 	F1    帮助:GNOME Terminal Manual
-	F2    taglist开关   
+	F2    winmanager开关(包含taglist)   
 	,F2    tagbar开关   
 	F3   NERDTree开关
 	,F3    VimExplorer开关
@@ -175,7 +176,7 @@ vim config for linux devices driver development
 	先按F7生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
 	让自己定义的类型、函数以不同的颜色显示  
 
-## 3、taglist(F2)和tagbar(,F2)
+## 3、taglist和tagbar(,F2)
 
 ### taglist
 #### 1)底行模式打开:
@@ -794,6 +795,12 @@ vim config for linux devices driver development
 ## 25、undotree -- ctrl+F5
 	用可视化的树形结构显示vim的历史操作。  
 	在undotree窗口按?打开帮助  
+
+## 26、winmanager--窗口管理器(F2)
+	vi打开文件时，左侧自动打开taglist,BufExplorer和FileExplorer  
+	BufExplorer和FileExplorer共用一个窗口，通过ctrl+n切换  
+
+
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
