@@ -248,7 +248,8 @@ endif
 
 " 设置winmanager.vim {{{
 " 窗口布局，BufExplorer和FileExplorer共用一个窗口，CTRL+N切换
-let g:winManagerWindowLayout = "TagList|FileExplorer,BufExplorer"
+"let g:winManagerWindowLayout = "TagList|FileExplorer,BufExplorer"
+let g:winManagerWindowLayout = "TagList|BufExplorer,FileExplorer"
 " 0表示主编辑区在窗口右边，1则相反
 let g:defaultExplorer = 0
 let g:bufExplorerMaxHeight=60
