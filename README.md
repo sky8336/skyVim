@@ -800,7 +800,19 @@ vim config for linux devices driver development
 	vi打开文件时，左侧自动打开taglist,BufExplorer和FileExplorer  
 	BufExplorer和FileExplorer共用一个窗口，通过ctrl+n切换  
 
+## 27、Syntastic --语法检查
+	:SyntasticCheck    手动检查(F7)  
+	:Errors    打开location-list窗口查看错误位置(ctrl+F7)  
+	:lclose    关闭(,F7)   
+	:SyntasticReset  清空错误列表  
+	:SyntasticToggleMode  切换是否激活自动检查  
 
+	不必到location-list窗口跳转到不同的错误，有几个内建的命令  
+	如，:lnext  :lprevious
+	:help unimpaired   安装unimpaired后，查看这些命令的映射  
+	常用命令:  
+	[a     :previous
+	]a     :next
 
 ## 其他
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  

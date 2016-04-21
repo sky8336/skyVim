@@ -212,6 +212,7 @@ Bundle 'vimplugin/project.vim'
 Bundle 'will133/vim-dirdiff'
 Bundle 'mbbill/undotree'
 Bundle 'scrooloose/syntastic'
+Bundle 'tpope/vim-unimpaired'
 "Bundle  'bling/vim-airline'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
@@ -347,6 +348,10 @@ let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 "}}}
 
 " configure syntastic syntax checking to check on open as well as save{{{
+let g:syntastic_mode_map = {
+			\ "mode": "passive",
+			\ "active_filetypes": ["ruby", "php"],
+			\ "passive_filetypes": ["puppet"] }
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 let g:syntastic_always_populate_loc_list = 1
@@ -565,7 +570,9 @@ nmap  <F5> <Plug>LookupFile<cr>
 nmap  <C-F5> :UndotreeToggle<cr>
 nmap  <F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ 
-"nmap  <F7> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
+nmap  <F7> :SyntasticCheck<CR>
+nmap  <C-F7> :Errors<CR>
+nmap  <leader><F7> :lclose<CR>
 "nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
