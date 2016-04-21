@@ -211,6 +211,7 @@ Bundle 'hari-rangarajan/CCTree'
 Bundle 'vimplugin/project.vim'
 Bundle 'will133/vim-dirdiff'
 Bundle 'mbbill/undotree'
+Bundle 'scrooloose/syntastic'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -326,6 +327,17 @@ let OmniCpp_GlobalScopeSearch=1
 let OmniCpp_DefaultNamespace=["std"]  
 let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
 let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
+"}}}
+
+" configure syntastic syntax checking to check on open as well as save{{{
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 "}}}
 
 " VimGDB.vim {{{
