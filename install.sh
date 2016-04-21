@@ -55,7 +55,7 @@ function install_vundle_and_plugin()
 	echo "====== Install vundle now ! ======"
 	git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
 	vim +BundleInstall +qall
-	cp $vimcfig_bundle_dir_path/.vim/bundle_self-define/* ~/.vim/bundle/ -rf
+	cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
 }
 
 #chown ~/.vim/bundle
@@ -90,7 +90,7 @@ function set_cfg_for_winmanager()
 	autocmd VimEnter * nested call s:ToggleWindowsManager()
 	\"|2wincmd w 
 	endif" >> ~/.vim/bundle/winmanager/plugin/winmanager.vim
-	patch ~/.vim/bundle/taglist.vim/plugin/taglist.vim < ./.vim/bundle_self-define/taglist_vim.patch
+	patch ~/.vim/bundle/taglist.vim/plugin/taglist.vim < ./.self_mod/.plugin_patch/taglist_vim.patch
 }
 
 #echo install time
