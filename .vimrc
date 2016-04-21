@@ -44,8 +44,7 @@ set   hlsearch
 set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
-"set   statusline=%-10.3n  "buffer number
-set   statusline=%-2.2n%<%f\ %h%m%r%=%-4.(%y[%{&fenc}]%l,%c%V%)\ %P\ %L
+set   statusline+=%-2.2n%f\ \ %h%m%r%=%-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
 set   mouse=a
 set   number
 set   pumheight=10
@@ -74,6 +73,13 @@ autocmd BufReadPost *
     \ endif
 
 " some function definition: {{{1
+
+" 获取当前路径，将$HOME转化为~,for statusline {{{
+function! CurDir()  
+	let curdir = substitute(getcwd(), $HOME, "~", "g")  
+	return curdir  
+endfunction  
+"}}}
 
 " 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{
 fu! Generate_fntags_tags_cscope()
