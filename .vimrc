@@ -212,6 +212,7 @@ Bundle 'vimplugin/project.vim'
 Bundle 'will133/vim-dirdiff'
 Bundle 'mbbill/undotree'
 Bundle 'scrooloose/syntastic'
+"Bundle  'bling/vim-airline'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
@@ -282,6 +283,22 @@ nmap <C-W><C-B> :BottomExplorerWindow<cr>
 "在进入vim时自动打开winmanager
 let g:AutoOpenWinManager = 1
 "}}}
+
+""alrLine Config {{{
+"if !exists('g:airline_symbols')
+	"let g:airline_symbols = {}
+"endif
+"let g:airline_symbols.space = "\ua0"
+"let g:airline_exclude_filename = []
+"let g:Powerline_symbols='fancy'
+"let g:airline_powerline_fonts=0
+"let Powerline_symbols='fancy'
+"let g:bufferline_echo=0
+"set laststatus=2
+"set t_Co=256
+""set fillchars+=stl:\ ,stlnc:\
+"set guifont=Lucida_Console:h10
+""}}}
 
 " CCtree {{{
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree 
