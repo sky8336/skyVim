@@ -74,6 +74,17 @@ autocmd BufReadPost *
 
 " some function definition: {{{1
 
+" set statusline color {{{
+" default the statusline to blue (black character) when entering Vim
+hi StatusLine term=reverse ctermfg=4 ctermbg=8 gui=bold,reverse
+" 状态栏颜色配置:插入模式品红色，普通模式蓝色
+if version >= 700
+  "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
+  au InsertEnter * hi StatusLine term=reverse ctermfg=5 ctermbg=8 gui=undercurl guisp=Magenta
+  au InsertLeave * hi StatusLine term=reverse ctermfg=4 ctermbg=8 gui=bold,reverse
+endif
+"}}}
+ 
 " 获取当前路径，将$HOME转化为~,for statusline {{{
 function! CurDir()  
 	let curdir = substitute(getcwd(), $HOME, "~", "g")  
