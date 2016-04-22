@@ -22,12 +22,12 @@ set   autoread
 set   autowrite
 set   background=dark
 set   backspace=indent,eol,start
-set nobackup
+set   nobackup
 set   cindent
 set   cinoptions=:0
 set   cursorline
 set   completeopt=longest,menuone
-set noexpandtab
+set   noexpandtab
 set   fileencodings=utf-8,gb2312,gbk,gb18030
 set   fileformat=unix
 set   foldenable
