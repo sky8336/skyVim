@@ -44,7 +44,8 @@ set   hlsearch
 set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
-set   statusline+=%-2.2n%f\ \ %h%m%r%=%-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
+set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\ %-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
+hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 set   mouse=a
 set   number
 set   pumheight=10
