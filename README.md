@@ -108,7 +108,6 @@ vim config for linux devices driver development
 	F9    在kernel/目录或linux-stable/目录下，生成filename(tags.fn)及arm平台的tags(tags.fn)和cscope数据库；  
 	      否则，通用，生成filename(tags.fn)及tags(tags.fn)和cscope数据库  
 	Ctrl+F9	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
-	,mt   生成tags.usertype文件(tags.ut)
 	( F10/F11系统占用 )  
 	Ctrl+F10   模拟source insight 窗口中的Taglist窗口开关  
 	Ctrl+F11   模拟source insight 窗口中的NERDTree窗口开关  
@@ -172,11 +171,7 @@ vim config for linux devices driver development
 	回退按：  
 		Ctrl+t
 
-## 2、hlud.vim -- 生成tags.usertype文件(,mt)
-	先按F7生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
-	让自己定义的类型、函数以不同的颜色显示  
-
-## 3、taglist和tagbar(,F2)
+## 2、taglist和tagbar(,F2)
 
 ### taglist
 #### 1)底行模式打开:
@@ -240,7 +235,7 @@ vim config for linux devices driver development
 	3)自动根据文件修改时间来重建  
 	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
-## 4、NERDTree--文件浏览(按F3)和VimExplorer--文件管理器(按,F3)
+## 3、NERDTree--文件浏览(按F3)和VimExplorer--文件管理器(按,F3)
 	
 ### NERDTree --用于文件浏览(按F3)
   列出当前路径的目录树。  
@@ -374,7 +369,7 @@ vim config for linux devices driver development
 	e     在新tab中查看文件  
 
 
-## 5、MRU -- Most Recently Used 最近打开文件列表(按F4)
+## 4、MRU -- Most Recently Used 最近打开文件列表(按F4)
 ###1) 打开一个新窗口，显示最新打开的文件列表。
     :MRU
         在该命令后加空格，然后TAB或者Ctrl+D会自动补全。
@@ -392,7 +387,7 @@ vim config for linux devices driver development
     :MRU vim
         打开文件名中包含vim的文件,指定只显示匹配vim的文件  
         	
-## 6、LookupFile -- 文件搜索用(按F5)
+## 5、LookupFile -- 文件搜索用(按F5)
 	tags.fn 用于文件搜索,包含项目中所有文件名  
 	tab键开始扫描  
 	ctrl+o:	水平分割窗口打开  
@@ -439,7 +434,7 @@ vim config for linux devices driver development
 
 	LUPath和LUArgs两个功能。感兴趣的朋友读一下lookupfile的手册。	
 
-## 7、vimgrep(按F6)
+## 6、vimgrep(按F6)
 	F6   在打开vim的目录下递归搜索.c 和 .h 文件
 	,F6  在底行输入路径path/*.c ，回车后在制定路径搜索，  
 		 搜索完后输入:cw  打开quickfix搜索结果  
@@ -458,7 +453,7 @@ vim config for linux devices driver development
 	:cn    转到下一个位置
 	:cp    转到前一个位置
 
-## 8、bufexplorer
+## 7、bufexplorer
 
 	vi *.c 打开多个文件时，可以用,bv切换buffer  
 
@@ -482,12 +477,12 @@ vim config for linux devices driver development
 	S             反向循环选择以什么顺序列出buffers  
 	u             显示未列入buffers的开关  
 
-## 9、Man命令
+## 8、Man命令
 	查看C语言帮助文档。安装有C语言和Posix的帮助手册，  
 	查看printf函数的帮助文档，  
 	:Man 3 printf  
 
-## 10、vim-gitgutter 的使用(160125)
+## 9、vim-gitgutter 的使用(160125)
 	最左边的标记列:  
     波浪线  ：该行相比HEAD修改过，  
     红色的减号：这里删除了一行，  
@@ -503,7 +498,7 @@ vim config for linux devices driver development
 ### GitGutter 截图
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/GitGutter_screenshot.png)
 
-## 11、gitv 的使用 -- gitk for vim
+## 10、gitv 的使用 -- gitk for vim
 ### 1)浏览模式 Brower mode 
 	:Gitv  
     显示当前分支的提交记录  
@@ -528,7 +523,7 @@ vim config for linux devices driver development
 #### Gitv截图
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
 
-## 12、Fugitive.vim
+## 11、Fugitive.vim
     a git wrapper for Vim   
     补充了git 的command line 接口，使工作更流畅  
 以下两种方式均可用于vim下的git提交:  
@@ -558,20 +553,20 @@ vim config for linux devices driver development
 
 
 
-## 13、vimdiff
+## 12、vimdiff
 ### 解决 git merge 冲突	
 	当合并时出现 merge conflicts 时:
 		git mergetool
 	vimdiff作为合并工具的界面截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
 
-## 14、ZoomWinPlugin.vim
+## 13、ZoomWinPlugin.vim
     用于分割窗口的最大化与还原  
 	当多窗口时：  
 	Ctrl+a :缩放当前vim窗口(在终端内全屏或恢复)  
 
 
-## 15、SnipMate  代码片段补全
+## 14、SnipMate  代码片段补全
 	代码补全快捷键是Tab  
 	按Tab按可跳到可选择下一个位置，即c.snippets	中${1},${2}...  
 	等表示的位置，输入可直接替换  
@@ -600,7 +595,7 @@ vim config for linux devices driver development
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
-## 16、AutoComplPop、superTab 和OmniCppcomplete代码自动补全
+## 15、AutoComplPop、superTab 和OmniCppcomplete代码自动补全
 	AutoComplPop:  
 	acp.vim插件，在输入的同时实时地查询匹配的关键词 
 	superTab:  
@@ -613,11 +608,11 @@ vim config for linux devices driver development
 	ta :生成专用于c/c++的ctags文件  
 
 
-## 17、echofunc.vim
+## 16、echofunc.vim
 	打开一个文件，生成tags数据库，在一个函数实现体中调用另外一个函数。
 	当你输入完这个被调用的函数名，在输入左括号的时候在VIM的下方就会显示函数的原型。
 
-## 18、The-NERD-Commenter --代码注释插件
+## 17、The-NERD-Commenter --代码注释插件
     可以对多种文件类型的文件进行不同方式地、快速地注释  
     NERD Commenter的常用键绑定(详析:h NERDCommenter):  
 
@@ -631,7 +626,7 @@ vim config for linux devices driver development
 	Normal模式下，几乎所有命令前面都可以指定行数  
 	Visual模式下执行命令，会对选中的特定区块进行注释/反注释  
 
-## 19、ctrlp.vim --模糊查找
+## 18、ctrlp.vim --模糊查找
 	ctrl+p 打开查找窗口;模糊搜索当前目录及其子目录下的所有文件  
 	Esc    退出查找窗口  
 	
@@ -678,7 +673,7 @@ vim config for linux devices driver development
 #### 借鉴一张图片演示
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/ctrlp-funky.gif)
 
-## 20、surround.vim
+## 19、surround.vim
     在字符两边插入或改变各种成对的符号在字符两边插入或改变各种成对的符号：单/双引号;大中小括号等
     快捷键的列表：  
 	Normal mode  
@@ -704,7 +699,7 @@ vim config for linux devices driver development
 	<CTRL-g>S - same as <CTRL-s><CTRL-s>  
 
 
-## 21、cctree--函数调用视图
+## 20、cctree--函数调用视图
 	查看函数调用的视图，以树的形式表示出来提供两个方向的视图,  
 	这个插件也要生成数据库的，在生成cscope数据库的同时也生成cctree的数据库，  
 	但是cctree的数据添加非常缓慢，所以默认打开文件没有添加cctree数据库。  
@@ -716,7 +711,7 @@ vim config for linux devices driver development
 
 	cctree窗口提供跳转功能，鼠标双击该函数即可。  
 
-## 22、project -- 项目管理工具
+## 21、project -- 项目管理工具
 	打开project两种方式：  
 	1)vim +Project  
 	2)打开vim后，输入：Project  
@@ -745,7 +740,7 @@ vim config for linux devices driver development
 	\I    显示文件或文件夹的决对路径和参数  
 	\1 - \9，\f1-\f9，\F1-\F9执行指定命令，\0查询1-9命令，\f0查询f1-f9，F1-F9命令  
 
-## 23、srcExpl --代码预览 Ctrl+F12
+## 22、srcExpl --代码预览 Ctrl+F12
 	Ctrl+F12  打开/关闭代码预览窗口  
 	Ctrl+回车：在编辑窗口跳转到Source_Explorer窗口,在Source_Explorer窗口用回车跳转到定义处  
 	在编辑窗口打开;  
@@ -758,7 +753,7 @@ vim config for linux devices driver development
 	F12: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl
 	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
 
-## 24、DirDiff.vim -- 文件夹比较插件
+## 23、DirDiff.vim -- 文件夹比较插件
 ### USAGE(使用):
 		
     :DirDiff ../something/dir1 /usr/bin/somethingelse/dir2  
@@ -792,15 +787,15 @@ vim config for linux devices driver development
 	,dj              Diff next: (think j for down) 
 	,dk              Diff previous: (think k for up)
 
-## 25、undotree -- ctrl+F5
+## 24、undotree -- ctrl+F5
 	用可视化的树形结构显示vim的历史操作。  
 	在undotree窗口按?打开帮助  
 
-## 26、winmanager--窗口管理器(F2)
+## 25、winmanager--窗口管理器(F2)
 	vi打开文件时，左侧自动打开taglist,BufExplorer和FileExplorer  
 	BufExplorer和FileExplorer共用一个窗口，通过ctrl+n切换  
 
-## 27、Syntastic --语法检查
+## 26、Syntastic --语法检查
 	:SyntasticCheck    手动检查(F7)  
 	:Errors    打开location-list窗口查看错误位置(ctrl+F7)  
 	:lclose    关闭(,F7)   
