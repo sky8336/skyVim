@@ -3,6 +3,12 @@
 " Maintainer: Jeffy Du <jeffy.du@163.com>
 "
 " License:    This file is placed in the public domain
+"
+".vimrc中mapping
+"nmap <leader>mt :call HLUDSync()<CR>
+"how to use
+"生成tags.usertype文件(,mt),让自己定义的类型、函数以不同的颜色显示
+"	先生成tags数据库，再按 ,mt (mytype)生成tags.usertype文件(tags.ut)  
 
 if exists('loaded_hlud')
 	finish
