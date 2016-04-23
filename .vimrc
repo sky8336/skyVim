@@ -116,7 +116,7 @@ map ; :call ShowFuncName()<CR>
 	"set title
 "endif
 ""如果把上面代码中的expand("%:p")换成expand("%:t")将不显示路径只显示文件名。
-"{{{
+"}}}
 
 " 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{
 fu! Generate_fntags_tags_cscope()
