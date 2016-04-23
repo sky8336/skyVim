@@ -832,6 +832,7 @@ vim config for linux devices driver development
 		比如:  
 		在"~/project"目录下打开VIM，为了编译"~/project/driver/dma"目录而  
 		切换目录":cd driver/dma"，编译完成后可使用",cd"命令切换到"~/project"目录下  
+		;   在命令行显示当前行所在的函数名称  
 	(g) 剪切和复制  
 	    (1) 按住shift键，用鼠标选中复制到vim的"*寄存器(状态栏的文件路径也可复制)，  
 		    粘贴时输入"*p(或鼠标滚轮)即可复制。  
