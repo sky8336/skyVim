@@ -45,7 +45,7 @@ set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
 "set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\ %-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%l/%L,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)\ %.15{CurDir()}
+set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%l/%L,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
 hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 set   mouse=a
 set   number
@@ -87,12 +87,12 @@ if version >= 700
 endif
 "}}}
  
-" 获取当前路径，将$HOME转化为~,for statusline {{{
-function! CurDir()  
-	let curdir = substitute(getcwd(), $HOME, "~", "g")  
-	return curdir  
-endfunction  
-"}}}
+"" 获取当前路径，将$HOME转化为~,for statusline {{{
+"function! CurDir()  
+	"let curdir = substitute(getcwd(), $HOME, "~", "g")  
+	"return curdir  
+"endfunction  
+""}}}
 
 " show function names in command line{{{ 
 fun! ShowFuncName()  
