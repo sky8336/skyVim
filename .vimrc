@@ -565,7 +565,7 @@ nmap  <F2> :WMToggle<cr>
 nmap  <leader><F2> :TagbarToggle<CR>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <leader><F3> :silent! VE .<cr>
-nmap  <F4> :MRU<CR>
+nmap  <F4> :exec 'MRU' expand('%:p:h')<CR>
 
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <C-F5> :UndotreeToggle<cr>
