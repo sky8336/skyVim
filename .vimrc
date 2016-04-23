@@ -44,7 +44,8 @@ set   hlsearch
 set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\ %-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
+"set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\ %-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
+set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%l/%L,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)\ %.15{CurDir()}
 hi User1 term=inverse,bold cterm=inverse,bold ctermfg=red
 set   mouse=a
 set   number
@@ -92,6 +93,30 @@ function! CurDir()
 	return curdir  
 endfunction  
 "}}}
+
+" show function names in command line{{{ 
+fun! ShowFuncName()  
+	let lnum = line(".")  
+	let col = col(".")  
+	echohl ModeMsg  
+	echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))  
+	echohl None  
+	call search("\\%" . lnum . "l" . "\\%" . col . "c")  
+endfun  
+map ; :call ShowFuncName()<CR>
+"}}}
+
+""vim窗口的最上面显示当前打开文件的路径和文件名{{{
+"let &titlestring = expand("%:t")
+"if &term == "screen"
+	"set t_ts=^[k
+	"set t_fs=^[\
+"endif
+"if &term == "screen" || &term == "xterm"
+	"set title
+"endif
+""如果把上面代码中的expand("%:p")换成expand("%:t")将不显示路径只显示文件名。
+"{{{
 
 " 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{
 fu! Generate_fntags_tags_cscope()
@@ -167,7 +192,7 @@ inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
 "}}}
 
-" insert mode 光标移动
+" insert mode 光标移动 {{{
 " Ctrl + K 插入模式下光标向上移动
 " imap <c-k> <Up>
 " Ctrl + J 插入模式下光标向下移动
@@ -176,6 +201,7 @@ inoremap <C-l> <Esc><C-W>l
 " imap <c-h> <Left>
 " Ctrl + L 插入模式下光标向右移动
 " imap <c-L> <Right>
+"}}}
 
 " "cd" to change to open directory.
 let OpenDir=system("pwd")
