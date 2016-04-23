@@ -852,6 +852,13 @@ vim config for linux devices driver development
                 （1）在终端选中复制内容，用shift+ctrl+v复制；  
                 （2）在vim普通模式下，输入p复制。  
 
+	(h)vim和终端切换  
+		ctrl+z : vim切换到后台  
+		fg     : 切换回前台  
+
+		:sh    从vim切换到终端运行shell  
+		exit   从终端回到vim  
+
 ### 帮助说明
 	,hm 打开本README.md  
 	,h  打开my_help/文件夹，可选择打开需要的帮助文件,如下:  
