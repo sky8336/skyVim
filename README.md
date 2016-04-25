@@ -100,7 +100,9 @@ vim config for linux devices driver development
 	( Ctrl+F1 ~ Ctrl+F4不可用 )
 
 	F5    LookupFile开关（按2下关）  
-	F6    用vimgrep搜索光标所在的单词  
+	F6    用vimgrep在当前文件父目录下的.c和.h中搜索光标所在的单词    
+	Ctrl+F6    用vimgrep在ctrl+g显示的路径下.c和.h中递归搜索光标所在的单词  
+	,F6    用vimgrep在底行输入的路径文件中搜索光标所在的单词  
 	F7
 	F8    
 	Ctrl+F8 
@@ -435,8 +437,9 @@ vim config for linux devices driver development
 	LUPath和LUArgs两个功能。感兴趣的朋友读一下lookupfile的手册。	
 
 ## 6、vimgrep(按F6)
-	F6   在打开vim的目录下递归搜索.c 和 .h 文件
-	,F6  在底行输入路径path/*.c ，回车后在制定路径搜索，  
+	F6    用vimgrep在当前文件父目录下的.c和.h中搜索光标所在的单词  
+	Ctrl+F6    用vimgrep在ctrl+g显示的路径下.c和.h中递归搜索光标所在的单词  
+	,F6  在底行输入路径path/*.c ，回车后在指定路径搜索，  
 		 搜索完后输入:cw  打开quickfix搜索结果  
 
 ### 1)在底行模式
