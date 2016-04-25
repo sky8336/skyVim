@@ -63,7 +63,7 @@ set   whichwrap=h,l
 set   wildignore=*.bak,*.o,*.e,*~
 set   wildmenu
 set   wildmode=list:longest,full
-set nowrap
+set wrap
 
 " AUTO COMMANDS: {{{1
 " auto expand tab to blanks
@@ -241,6 +241,8 @@ Bundle 'mbbill/undotree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 "Bundle  'bling/vim-airline'
+"Plugin 'godlygeek/tabular'
+"Plugin 'plasticboy/vim-markdown'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9' 
