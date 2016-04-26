@@ -78,12 +78,12 @@ autocmd BufReadPost *
 
 " set statusline color {{{
 " default the statusline to blue (black character) when entering Vim
-hi StatusLine term=reverse ctermfg=4 ctermbg=8 gui=bold,reverse
-" 状态栏颜色配置:插入模式品红色，普通模式蓝色
+hi StatusLine term=reverse ctermfg=7 ctermbg=8 gui=bold,reverse
+" 状态栏颜色配置:插入模式品红色，普通模式白色
 if version >= 700
   "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
   au InsertEnter * hi StatusLine term=reverse ctermfg=5 ctermbg=8 gui=undercurl guisp=Magenta
-  au InsertLeave * hi StatusLine term=reverse ctermfg=4 ctermbg=8 gui=bold,reverse
+  au InsertLeave * hi StatusLine term=reverse ctermfg=7 ctermbg=8 gui=bold,reverse
 endif
 "}}}
  
