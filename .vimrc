@@ -181,6 +181,11 @@ nnoremap <space> :
 vnoremap <space> :
 "}}}
 
+" Delete key {{{
+nnoremap <C-d> <DELETE>
+inoremap <C-d> <DELETE>
+"}}}
+
 " Switching between buffers. {{{
 nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
