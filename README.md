@@ -2,7 +2,7 @@
 vim config for linux devices driver development  
 大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
 
-### 温馨提示：
+### 温馨提示：{{{1
      (1)如有问题，欢迎大家及时提出来，共同进步。  
 	 (2)本配置会在摸索过程中不断总结使用方法和优化插件组合,大浪淘沙，随着时间推移将越来越功能完善，以提高效率。  
 	 (3)有更好的插件或需求及使用方法总结，记得留言，共同打造属于我们的编辑方案。  
@@ -13,26 +13,37 @@ vim config for linux devices driver development
 
 配置文件是隐藏文件  
 
-# 一、配置前注意：
+# 一、配置前注意: {{{1
 	1)执行脚本会先安装vim+ctags+cscope+ranger  
 	ranger:命令行文件管理器;命令行输入ranger回车打开。默认使用vim打开文件，支持代码跟踪。 
 
-	2)执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。如果有，
-		在执行完sudo ./install.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。
+	2)现在，在~/.bashrc中追加的内容不会覆盖原先自己添加的内容。  
+	第一次安装时，执行install.sh ,以后若更新本配置，执行update.sh快速更新   
+	如果已安装过，更新时执行install.sh,会重新安装，耗时5分钟，.bashrc中会重复追加，  
+	不影响使用，可手动删除重复内容。  
+
+	如果想安装截至到2016.04.27之前某个节点的配置需要注意:  
+	执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。  
+	如果有，在执行完sudo ./install.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。  
 	  
 	3)执行脚本前确保联网。 
 	  	
 
-# 二、配置步骤：
+# 二、一键安装配置步骤: {{{1
 
-	1)进入vimconfig_bundle/目录。（脚本中会利用目录下到install.sh获取用户名和用户组）
-	2)输入sudo ./install.sh
-		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理到插件)  
-		插件安装过程受网速影响，放在一边，耐心等待安装完自动关闭vim窗口即可。  
+## 一键安装 {{{2
+	在vimconfig_bundle/目录输入：（脚本中会利用目录下到install.sh获取用户名和用户组）
+	sudo ./install.sh
+		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理的插件)  
+		插件安装过程受网速影响，放在一边，耐心等待安装完自动关闭vim窗口即可。一般5分钟左右  
 
-### 注意：  
+## 一键更新.vimrc及插件和帮助文件 {{{2
+	sudo ./update.sh  
+	最短耗时1秒，一般很快  
+
+### 注意：  {{{2
 #### (a)插件更新,或仅更新某个功能    
-##### 若vundle管理的插件安装不成功，也可手动安装：  
+##### 若vundle管理的插件安装不成功，可执行update.sh脚本或手动安装：  
 	打开vim，底行模式命令：  
 		:BundleList 查看要安装的插件  
 		:BundleInstall 安装插件  
@@ -55,12 +66,12 @@ vim config for linux devices driver development
         vi a.c  
         输入main后，按tab键看是否成功自动补全。 
 
-# 三、vim使用说明
-### 自己总结的帮助文档打开方式
+# 三、vim使用说明 {{{1
+### 自己总结的帮助文档打开方式 {{{2
 	,hm :vim窗口，普通模式下打开README.md查看帮助
 	,h  :vim窗口，打开my_help文件夹，可选择查看常用帮助，包括git命令，vim命令等
 		
-## 1、插件列表
+## 1、插件列表 {{{2
     vundle  插件管理  
 	taglist  
 	tagbar  
@@ -84,7 +95,7 @@ vim config for linux devices driver development
 	CCTree
 	DirDiff.vim
 
-## 2、快捷键说明 
+## 2、快捷键说明 {{{2
 	vim打开在源码目录打开文件后  
 
 #### 普通模式下：  
@@ -117,7 +128,7 @@ vim config for linux devices driver development
 	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
 
 
-### 说明：
+### 说明：{{{2
 	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
 	2)使用vim打开文件按下F2 F5后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F2-F5-Lookup_File.png)
@@ -125,10 +136,12 @@ vim config for linux devices driver development
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-VimExplorer.png)
 
 
-# 四、vim插件使用说明
-## 1、tags.fn、tags和cscope生成及使用方法
+# 四、vim插件使用说明 {{{1
+## 1、tags.fn、tags和cscope生成及使用方法 {{{2
 ### 1)tags.fn、tags和cscope库文件的生成
  
+	cindex 终端生成ctags索引文件tags  
+
 #### kernel/下只生成与arm架构有关的 :  
 	打开vim窗口，按F9,会生成tags.fn,并自动根据当前目录在kernel/或linux-stable使用make生成ctags和  
 	cscope；若不是kernel或linux-stable目录，则使用ctags和cscope命令来生成  
@@ -173,7 +186,7 @@ vim config for linux devices driver development
 	回退按：  
 		Ctrl+t
 
-## 2、taglist和tagbar(,F2)
+## 2、taglist和tagbar(,F2) {{{2
 
 ### taglist
 #### 1)底行模式打开:
@@ -237,7 +250,7 @@ vim config for linux devices driver development
 	3)自动根据文件修改时间来重建  
 	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
-## 3、NERDTree--文件浏览(按F3)和VimExplorer--文件管理器(按,F3)
+## 3、NERDTree--文件浏览(按F3)和VimExplorer--文件管理器(按,F3) {{{2
 	
 ### NERDTree --用于文件浏览(按F3)
   列出当前路径的目录树。  
@@ -371,7 +384,7 @@ vim config for linux devices driver development
 	e     在新tab中查看文件  
 
 
-## 4、MRU -- Most Recently Used 最近打开文件列表(按F4)
+## 4、MRU -- Most Recently Used 最近打开文件列表(按F4) {{{2
 ###1) 打开一个新窗口，显示最新打开的文件列表。
     :MRU
         在该命令后加空格，然后TAB或者Ctrl+D会自动补全。
@@ -389,7 +402,7 @@ vim config for linux devices driver development
     :MRU vim
         打开文件名中包含vim的文件,指定只显示匹配vim的文件  
         	
-## 5、LookupFile -- 文件搜索用(按F5)
+## 5、LookupFile -- 文件搜索用(按F5) {{{2
 	tags.fn 用于文件搜索,包含项目中所有文件名  
 	tab键开始扫描  
 	ctrl+o:	水平分割窗口打开  
@@ -436,7 +449,7 @@ vim config for linux devices driver development
 
 	LUPath和LUArgs两个功能。感兴趣的朋友读一下lookupfile的手册。	
 
-## 6、vimgrep(按F6)
+## 6、vimgrep(按F6) {{{2
 	F6    用vimgrep在当前文件父目录下的.c和.h中搜索光标所在的单词  
 	Ctrl+F6    用vimgrep在状态行显示的相对路径父目录下.c和.h中递归搜索光标所在的单词  
 	,F6  在底行输入路径path/*.c ，回车后在指定路径搜索，  
@@ -456,7 +469,7 @@ vim config for linux devices driver development
 	:cn    转到下一个位置
 	:cp    转到前一个位置
 
-## 7、bufexplorer
+## 7、bufexplorer {{{2
 
 	vi *.c 打开多个文件时，可以用,bv切换buffer  
 
@@ -480,12 +493,12 @@ vim config for linux devices driver development
 	S             反向循环选择以什么顺序列出buffers  
 	u             显示未列入buffers的开关  
 
-## 8、Man命令
+## 8、Man命令 {{{2
 	查看C语言帮助文档。安装有C语言和Posix的帮助手册，  
 	查看printf函数的帮助文档，  
 	:Man 3 printf  
 
-## 9、vim-gitgutter 的使用(160125)
+## 9、vim-gitgutter {{{2
 	最左边的标记列:  
     波浪线  ：该行相比HEAD修改过，  
     红色的减号：这里删除了一行，  
@@ -501,7 +514,7 @@ vim config for linux devices driver development
 ### GitGutter 截图
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/GitGutter_screenshot.png)
 
-## 10、gitv 的使用 -- gitk for vim
+## 10、gitv 的使用 -- gitk for vim {{{2
 ### 1)浏览模式 Brower mode 
 	:Gitv  
     显示当前分支的提交记录  
@@ -526,7 +539,7 @@ vim config for linux devices driver development
 #### Gitv截图
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
 
-## 11、Fugitive.vim
+## 11、Fugitive.vim {{{2
     a git wrapper for Vim   
     补充了git 的command line 接口，使工作更流畅  
 以下两种方式均可用于vim下的git提交:  
@@ -556,20 +569,20 @@ vim config for linux devices driver development
 
 
 
-## 12、vimdiff
+## 12、vimdiff {{{2
 ### 解决 git merge 冲突	
 	当合并时出现 merge conflicts 时:
 		git mergetool
 	vimdiff作为合并工具的界面截图：
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/vimdiff-merge-image.png)
 
-## 13、ZoomWinPlugin.vim
+## 13、ZoomWinPlugin.vim {{{2
     用于分割窗口的最大化与还原  
 	当多窗口时：  
 	Ctrl+a :缩放当前vim窗口(在终端内全屏或恢复)  
 
 
-## 14、SnipMate  代码片段补全
+## 14、SnipMate  代码片段补全 {{{2
 	代码补全快捷键是Tab  
 	按Tab按可跳到可选择下一个位置，即c.snippets	中${1},${2}...  
 	等表示的位置，输入可直接替换  
@@ -598,7 +611,7 @@ vim config for linux devices driver development
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
-## 15、AutoComplPop、superTab 和OmniCppcomplete代码自动补全
+## 15、AutoComplPop、superTab 和OmniCppcomplete代码自动补全 {{{2
 	AutoComplPop:  
 	acp.vim插件，在输入的同时实时地查询匹配的关键词 
 	superTab:  
@@ -611,11 +624,11 @@ vim config for linux devices driver development
 	ta :生成专用于c/c++的ctags文件  
 
 
-## 16、echofunc.vim
+## 16、echofunc.vim {{{2
 	打开一个文件，生成tags数据库，在一个函数实现体中调用另外一个函数。
 	当你输入完这个被调用的函数名，在输入左括号的时候在VIM的下方就会显示函数的原型。
 
-## 17、The-NERD-Commenter --代码注释插件
+## 17、The-NERD-Commenter --代码注释插件 {{{2
     可以对多种文件类型的文件进行不同方式地、快速地注释  
     NERD Commenter的常用键绑定(详析:h NERDCommenter):  
 
@@ -629,7 +642,7 @@ vim config for linux devices driver development
 	Normal模式下，几乎所有命令前面都可以指定行数  
 	Visual模式下执行命令，会对选中的特定区块进行注释/反注释  
 
-## 18、ctrlp.vim --模糊查找
+## 18、ctrlp.vim --模糊查找 {{{2
 	ctrl+p 打开查找窗口;模糊搜索当前目录及其子目录下的所有文件  
 	Esc    退出查找窗口  
 	
@@ -676,7 +689,7 @@ vim config for linux devices driver development
 #### 借鉴一张图片演示
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/ctrlp-funky.gif)
 
-## 19、surround.vim
+## 19、surround.vim {{{2
     在字符两边插入或改变各种成对的符号在字符两边插入或改变各种成对的符号：单/双引号;大中小括号等
     快捷键的列表：  
 	Normal mode  
@@ -702,7 +715,7 @@ vim config for linux devices driver development
 	<CTRL-g>S - same as <CTRL-s><CTRL-s>  
 
 
-## 20、cctree--函数调用视图
+## 20、cctree--函数调用视图 {{{2
 	查看函数调用的视图，以树的形式表示出来提供两个方向的视图,  
 	这个插件也要生成数据库的，在生成cscope数据库的同时也生成cctree的数据库，  
 	但是cctree的数据添加非常缓慢，所以默认打开文件没有添加cctree数据库。  
@@ -714,7 +727,7 @@ vim config for linux devices driver development
 
 	cctree窗口提供跳转功能，鼠标双击该函数即可。  
 
-## 21、project -- 项目管理工具
+## 21、project -- 项目管理工具 {{{2
 	打开project两种方式：  
 	1)vim +Project  
 	2)打开vim后，输入：Project  
@@ -743,7 +756,7 @@ vim config for linux devices driver development
 	\I    显示文件或文件夹的决对路径和参数  
 	\1 - \9，\f1-\f9，\F1-\F9执行指定命令，\0查询1-9命令，\f0查询f1-f9，F1-F9命令  
 
-## 22、srcExpl --代码预览 Ctrl+F12
+## 22、srcExpl --代码预览 Ctrl+F12 {{{2
 	Ctrl+F12  打开/关闭代码预览窗口  
 	Ctrl+回车：在编辑窗口跳转到Source_Explorer窗口,在Source_Explorer窗口用回车跳转到定义处  
 	在编辑窗口打开;  
@@ -756,7 +769,7 @@ vim config for linux devices driver development
 	F12: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl
 	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
 
-## 23、DirDiff.vim -- 文件夹比较插件
+## 23、DirDiff.vim -- 文件夹比较插件 {{{2
 ### USAGE(使用):
 		
     :DirDiff ../something/dir1 /usr/bin/somethingelse/dir2  
@@ -790,15 +803,15 @@ vim config for linux devices driver development
 	,dj              Diff next: (think j for down) 
 	,dk              Diff previous: (think k for up)
 
-## 24、undotree -- ctrl+F5
+## 24、undotree -- ctrl+F5 {{{2
 	用可视化的树形结构显示vim的历史操作。  
 	在undotree窗口按?打开帮助  
 
-## 25、winmanager--窗口管理器(F2)
+## 25、winmanager--窗口管理器(F2) {{{2
 	vi打开文件时，左侧自动打开taglist,BufExplorer和FileExplorer  
 	BufExplorer和FileExplorer共用一个窗口，通过ctrl+n切换  
 
-## 26、Syntastic --语法检查
+## 26、Syntastic --语法检查 {{{2
 	:SyntasticCheck    手动检查(F7)  
 	:Errors    打开location-list窗口查看错误位置(ctrl+F7)  
 	:lclose    关闭(,F7)   
@@ -812,7 +825,7 @@ vim config for linux devices driver development
 	[a     :previous
 	]a     :next
 
-## 其他
+## 其他 {{{1
 	(a)常规模式下输入 cM 清除行尾 ^M 符号  
 	(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
 	(c)窗口焦点切换的映射  
@@ -862,7 +875,7 @@ vim config for linux devices driver development
 		:sh    从vim切换到终端运行shell  
 		exit   从终端回到vim  
 
-### 帮助说明
+### 帮助说明 {{{2
 	,hm 打开本README.md  
 	,h  打开my_help/文件夹，可选择打开需要的帮助文件,如下:  
 		git_command.txt  git使用整理  
