@@ -120,7 +120,12 @@ map ; :call ShowFuncName()<CR>
 
 " 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{
 fu! Generate_fntags_tags_cscope()
-    call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
+	if getcwd() == $HOME 
+		let Msg = "$HOME cannot generate tags.fn tags and cscope.out !"
+		echo Msg . '  done !'
+		return
+	endif
+	call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
     if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
         call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
     else
