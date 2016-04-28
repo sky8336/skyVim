@@ -166,8 +166,13 @@ vim config for linux devices driver development
 ### 2)tags和cscope使用方法
 #### (1)ctags用法：
 ##### 用于跟踪源码
+	在vim窗口跟踪光标所在变量或函数等:  
 	跟踪代码：Ctrl+]  
 	回退：	Ctrl+t
+
+	在终端直接查找:  
+	vi -t 变量或函数名  
+	tags在当前目录或vi自动向上查找的目录层级(7级)范围内  
 	
 #### (2)cscoe用法：
 ##### 普通模式下，光标在要查找的符号上，快速按下以下对应快捷键。
