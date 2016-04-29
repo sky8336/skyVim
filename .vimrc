@@ -242,8 +242,8 @@ Bundle 'jlanzarotta/bufexplorer'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'mbbill/VimExplorer',{'on': 'VE'}
-Bundle 'wesleyche/SrcExpl' 
-Bundle 'wesleyche/Trinity' 
+"Bundle 'wesleyche/SrcExpl' 
+"Bundle 'wesleyche/Trinity' 
 Bundle 'hari-rangarajan/CCTree'
 Bundle 'vimplugin/project.vim'
 Bundle 'will133/vim-dirdiff'
@@ -267,7 +267,7 @@ Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
 Bundle 'mru.vim'
 Bundle 'ZoomWin'
-Bundle 'winmanager'
+"Bundle 'winmanager'
 "Bundle 'c.vim'
 Bundle 'gitv'
 
@@ -301,28 +301,27 @@ let g:Tlist_Auto_Highlight_Tag=1
 "let Tlist_Show_One_File=0
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	"let g:Tlist_Auto_Open=1
+	let g:Tlist_Auto_Open=1
 endif
 "}}}
 
-" 设置winmanager.vim {{{
-" 窗口布局，BufExplorer和FileExplorer共用一个窗口，CTRL+N切换
-"let g:winManagerWindowLayout = "TagList|FileExplorer,BufExplorer"
-let g:winManagerWindowLayout = "TagList|BufExplorer,FileExplorer"
-" 0表示主编辑区在窗口右边，1则相反
-let g:defaultExplorer = 0
-let g:bufExplorerMaxHeight=60
-let g:bufExplorerMinHeight=60
-" 保证miniBufExplorer在一个文件时，仍旧保证窗口大小
-"let g:miniBufExplorerMoreThanOne = 0
-"设置winmanager的宽度，默认为25
-let g:winManagerWidth = 30
-"定义打开关闭winmanager快捷键为F8
-nmap <C-W><C-F> :FirstExplorerWindow<cr>
-nmap <C-W><C-B> :BottomExplorerWindow<cr>
-"在进入vim时自动打开winmanager
-let g:AutoOpenWinManager = 1
-"}}}
+"" 设置winmanager.vim {{{
+"" 窗口布局，BufExplorer和FileExplorer共用一个窗口，CTRL+N切换
+""let g:winManagerWindowLayout = "TagList|FileExplorer,BufExplorer"
+"let g:winManagerWindowLayout = "TagList|BufExplorer,FileExplorer"
+"" 0表示主编辑区在窗口右边，1则相反
+"let g:defaultExplorer = 0
+"let g:bufExplorerMaxHeight=60
+"let g:bufExplorerMinHeight=60
+"" 保证miniBufExplorer在一个文件时，仍旧保证窗口大小
+""let g:miniBufExplorerMoreThanOne = 0
+""设置winmanager的宽度，默认为25
+"let g:winManagerWidth = 30
+"nmap <C-W><C-F> :FirstExplorerWindow<cr>
+"nmap <C-W><C-B> :BottomExplorerWindow<cr>
+""在进入vim时自动打开winmanager
+"let g:AutoOpenWinManager = 1
+""}}}
 
 ""alrLine Config {{{
 "if !exists('g:airline_symbols')
@@ -440,65 +439,66 @@ let g:undotree_WindowLayout = 2
 "<Leader>bv　　垂直窗口打开 buffer 列表。
 "}}}
 
-" srcexpl.vim {{{
-" // The switch of the Source Explorer 
-nmap <C-F12> :SrcExplToggle<CR> 
+"" srcexpl.vim {{{
+"" // The switch of the Source Explorer 
+"nmap <C-F12> :SrcExplToggle<CR> 
 
-" // Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 8 
+"" // Set the height of Source Explorer window 
+"let g:SrcExpl_winHeight = 8 
 
-" // Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 100 
+"" // Set 100 ms for refreshing the Source Explorer 
+"let g:SrcExpl_refreshTime = 100 
 
-" // Set "Enter" key to jump into the exact definition context 
-let g:SrcExpl_jumpKey = "<ENTER>" 
+"" // Set "Enter" key to jump into the exact definition context 
+"let g:SrcExpl_jumpKey = "<ENTER>" 
 
-" // Set "Space" key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
+"" // Set "Space" key for back from the definition context 
+"let g:SrcExpl_gobackKey = "<SPACE>" 
 
-" // In order to avoid conflicts, the Source Explorer should know what plugins 
-" // except itself are using buffers. And you need add their buffer names into 
-" // below listaccording to the command ":buffers!" 
-let g:SrcExpl_pluginList = [ 
-			\ "__Tag_List__", 
-			\ "_NERD_tree_" 
-			\ ] 
+"" // In order to avoid conflicts, the Source Explorer should know what plugins 
+"" // except itself are using buffers. And you need add their buffer names into 
+"" // below listaccording to the command ":buffers!" 
+"let g:SrcExpl_pluginList = [ 
+			"\ "__Tag_List__", 
+			"\ "_NERD_tree_" 
+			"\ ] 
 
-" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1 
+"" // Enable/Disable the local definition searching, and note that this is not 
+"" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
+"" // It only searches for a match with the keyword according to command 'gd' 
+"let g:SrcExpl_searchLocalDef = 1 
 
-" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
+"" // Do not let the Source Explorer update the tags file when opening 
+"let g:SrcExpl_isUpdateTags = 0 
 
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" // create/update a tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+"" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
+"" // create/update a tags file 
+"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
 
-" // Set "<F12>" key for updating the tags file artificially 
-"let g:SrcExpl_updateTagsKey = "<F12>" 
+"" // Set "<F12>" key for updating the tags file artificially 
+""let g:SrcExpl_updateTagsKey = "<F12>" 
 
-" // Set "<F7>" key for displaying the previous definition in the jump list 
-"let g:SrcExpl_prevDefKey = "<F7>" 
+"" // Set "<F7>" key for displaying the previous definition in the jump list 
+""let g:SrcExpl_prevDefKey = "<F7>" 
 
-" // Set "<F8>" key for displaying the next definition in the jump list 
-let g:SrcExpl_nextDefKey = "<F8>" 
-"}}}
+"" // Set "<F8>" key for displaying the next definition in the jump list 
+"定义打开关闭winmanager快捷键为F8
+"let g:SrcExpl_nextDefKey = "<F8>" 
+""}}}
 
-" trinity.vim {{{
-" Open and close all the three plugins on the same time 
-nmap <F12>   :TrinityToggleAll<CR>
+"" trinity.vim {{{
+"" Open and close all the three plugins on the same time 
+"nmap <F12>   :TrinityToggleAll<CR>
 
-" Open and close the srcexpl.vim separately 
-nmap <C-F12>   :TrinityToggleSourceExplorer<CR>
+"" Open and close the srcexpl.vim separately 
+"nmap <C-F12>   :TrinityToggleSourceExplorer<CR>
 
-" Open and close the taglist.vim separately 
-nmap <C-F10>  :TrinityToggleTagList<CR>
+"" Open and close the taglist.vim separately 
+"nmap <C-F10>  :TrinityToggleTagList<CR>
 
-" Open and close the NERD_tree.vim separately 
-nmap <C-F11>  :TrinityToggleNERDTree<CR>
-"}}}
+"" Open and close the NERD_tree.vim separately 
+"nmap <C-F11>  :TrinityToggleNERDTree<CR>
+""}}}
 
 
 " ctrlp.vim {{{
@@ -598,8 +598,8 @@ nnoremap <silent> <C-A> :ZoomToggle<CR>
 "}}}
 
 " F2 ~ F12 按键映射 {{{
-"nmap  <F2> :TlistToggle<cr>
-nmap  <F2> :WMToggle<cr>
+nmap  <F2> :TlistToggle<cr>
+"nmap  <F2> :WMToggle<cr>
 nmap  <leader><F2> :TagbarToggle<CR>
 nmap  <F3> :NERDTreeToggle<cr>
 nmap  <leader><F3> :silent! VE .<cr>
@@ -617,7 +617,7 @@ nmap  <leader><F7> :lclose<CR>
 
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
 "nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
-"<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity
+"<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 "}}}
 
 "cscope 按键映射及说明 {{{
