@@ -14,17 +14,17 @@ function bakup_vimconfig()
 	echo "====== Bakup your vimconfig file ! ======"
 	rm   -rf $HOME/.bakvim
 	mkdir $HOME/.bakvim
-	cp 	  $HOME/.vim  $HOME/.bakvim -a 
-	cp 	  $HOME/.vimrc $HOME/.bakvim 
-	cp 	  $HOME/.bashrc $HOME/.bakvim 
+	cp $HOME/.vim  $HOME/.bakvim -a 
+	cp $HOME/.vimrc $HOME/.bakvim 
+	cp $HOME/.bashrc $HOME/.bakvim 
 }
 
 #安装需要的软件包
 function install_packages()
 {
 	echo "====== Install software packages now ! ======"
-	echo ">> install: vim+ctags+cscope+ranger"
-	apt-get install vim ctags cscope ranger -y --force-yes
+	echo ">> install: vim+exuberant-ctags+cscope+ranger"
+	apt-get install vim exuberant-ctags cscope ranger -y --force-yes
 
 	echo ">> install: vim-gnome+xsel"
 	apt-get install vim-gnome xsel -y --force-yes
@@ -123,6 +123,6 @@ install_packages
 config_vim
 install_vundle_and_plugin
 chown_vundle
-set_cfg_for_winmanager
+#set_cfg_for_winmanager
 set_merge_tool
 echo_install_time

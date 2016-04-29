@@ -77,12 +77,12 @@ vim config for linux devices driver development
 	tagbar  
 	NERDTree  
 	VimExplorer  
-	winmanager  
+	winmanager(默认不安装配置)  
     MRU  
     LookupFile  
 	bufexplorer  
-	SrcExpl     代码预览  
-	trinity.vim  模拟source insight窗口  
+	SrcExpl     代码预览(默认不安装配置)  
+	trinity.vim  模拟source insight窗口（默认不安装配置）  
     用vimgrep搜索光标所在的单词  
     生成 tags  
 	生成 filename tags  
@@ -101,7 +101,7 @@ vim config for linux devices driver development
 #### 普通模式下：  
 	
 	F1    帮助:GNOME Terminal Manual
-	F2    winmanager开关(包含taglist)   
+	F2    taglist开关   
 	,F2    tagbar开关   
 	F3   NERDTree开关
 	,F3    VimExplorer开关
@@ -761,13 +761,13 @@ vim config for linux devices driver development
 	\I    显示文件或文件夹的决对路径和参数  
 	\1 - \9，\f1-\f9，\F1-\F9执行指定命令，\0查询1-9命令，\f0查询f1-f9，F1-F9命令  
 
-## 22、srcExpl --代码预览 Ctrl+F12 {{{2
+## 22、srcExpl --代码预览 Ctrl+F12(未安装) {{{2
 	Ctrl+F12  打开/关闭代码预览窗口  
 	Ctrl+回车：在编辑窗口跳转到Source_Explorer窗口,在Source_Explorer窗口用回车跳转到定义处  
 	在编辑窗口打开;  
 	空格   在编辑窗口回车，跳转回来  
 
-### trinity.vim -- F12 配合taglist SrcExpl 和NERDTree(内置) 模拟source insight
+### trinity.vim -- F12 配合taglist SrcExpl(未安装) 和NERDTree(内置) 模拟source insight
 
 	Ctrl+F10   模拟source insight 窗口中的Taglist窗口开关  
 	Ctrl+F11   模拟source insight 窗口中的NERDTree窗口开关  
@@ -812,7 +812,7 @@ vim config for linux devices driver development
 	用可视化的树形结构显示vim的历史操作。  
 	在undotree窗口按?打开帮助  
 
-## 25、winmanager--窗口管理器(F2) {{{2
+## 25、winmanager--窗口管理器(未安装) {{{2
 	vi打开文件时，左侧自动打开taglist,BufExplorer和FileExplorer  
 	BufExplorer和FileExplorer共用一个窗口，通过ctrl+n切换  
 
