@@ -607,6 +607,7 @@ nmap  <F4> :exec 'MRU' expand('%:p:h')<CR>
 
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <C-F5> :UndotreeToggle<cr>
+nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
 nmap  <F6> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'<CR>:copen<CR>
 nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 nmap  <leader><F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ 
