@@ -15,6 +15,7 @@ function bakup_vimrc()
 	cp $HOME/.vimrc $HOME/.bakvim 
 	cp $HOME/.vim/README.md $HOME/.bakvim
 	cp $HOME/.vim/my_help/ $HOME/.bakvim -a
+	cp $HOME/.vim/colors/ $HOME/.bakvim -a
 }
 
 
@@ -25,6 +26,7 @@ function update_vimrc()
 	cp ./.vimrc $HOME 
 	cp ./README.md $HOME/.vim
 	cp ./my_help/ $HOME/.vim -a
+	cp ./.vim/colors/ $HOME/.vim -a
 }
 
 #instal new plugin
