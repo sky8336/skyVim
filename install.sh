@@ -53,6 +53,10 @@ function config_vim()
 	cd /usr/include
 	pwd
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
+
+	#函数名、运算符、括号等高亮
+	cat ./.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
+	cat ./.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
 }
 
 #install vundle
