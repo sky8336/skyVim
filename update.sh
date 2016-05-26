@@ -5,6 +5,9 @@ function get_start_time_and_dir_path()
 {
 	start_time=$(date +"%s")
 	vimcfig_bundle_dir_path=$(pwd)
+	color_failed="\e[0;31m"
+	color_success="\e[0;32m"
+	color_reset="\e[00m"
 	echo "dir_path: $vimcfig_bundle_dir_path"
 }
 
@@ -46,7 +49,7 @@ function echo_install_time()
     mins=$((($tdiff % 3600) / 60))
     secs=$(($tdiff % 60))
     echo
-        echo -n -e "#### install completed successfully! "
+        echo -n -e "${color_success}#### update completed successfully! "
     if [ $hours -gt 0 ] ; then
         echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
     elif [ $mins -gt 0 ] ; then
@@ -54,7 +57,7 @@ function echo_install_time()
     elif [ $secs -gt 0 ] ; then
         echo -n -e "($secs seconds)"
     fi
-    echo -e " ####"
+    echo -e " ####${color_reset}"
     echo
 }
 
