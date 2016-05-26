@@ -23,7 +23,7 @@ syn match cLogicalOperator display "[!<>]=\="
 syn match cLogicalOperator display "=="
 hi cLogicalOperator ctermfg=darkYellow
 " C bit operators
-syn match cBinaryOperator display "\(&\||\|\^\|<<\|>>\)=\="
+syn match cBinaryOperator display "\(&\||\|\^\|<<\|>>\)=\=\|?\|:"
 syn match cBinaryOperator display "\~"
 hi cBinaryOperator ctermfg=darkYellow
 syn match cBinaryOperatorError display "\~="
