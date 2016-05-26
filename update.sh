@@ -30,6 +30,11 @@ function update_vimrc()
 	cp ./README.md $HOME/.vim
 	cp ./my_help/ $HOME/.vim -a
 	cp ./.vim/colors/ $HOME/.vim -a
+
+	#函数名、运算符、括号等高亮
+	# 执行install.sh时是2016-06-26 10:48:05 之前的配置的,打开以下两行执行update.sh
+	#cat ./.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
+	#cat ./.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
 }
 
 #instal new plugin
