@@ -14,7 +14,7 @@ hi cFunction ctermfg=DarkCyan
 syn match cMathOperator display "[-(){}+\%=<>]"
 syn match cMathOperator display "\["
 syn match cMathOperator display "]"
-hi cMathOperator ctermfg=darkGreen
+hi cMathOperator ctermfg=darkBlue
 " C pointer operators
 syn match cPointerOperator display "*\|->\|\."
 hi cPointerOperator ctermfg=darkYellow
