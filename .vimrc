@@ -13,6 +13,7 @@ set nocompatible
 " filetype plugin indent on
 filetype on 
 " Syntax highlighting.
+syntax enable
 syntax on
 " Setting colorscheme
 color mycolor
@@ -64,7 +65,15 @@ set   wildignore=*.bak,*.o,*.e,*~
 set   wildmenu
 set   wildmode=list:longest,full
 set wrap
+set t_Co=256
 
+if version > 700  
+	hi clear  
+	if exists("syntax_on")  
+		syntax reset  
+	endif  
+endif  
+let g:colors_name="nslib_color256"
 " AUTO COMMANDS: {{{1
 " auto expand tab to blanks
 "autocmd FileType c,cpp set expandtab
