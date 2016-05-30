@@ -15,8 +15,18 @@ filetype on
 " Syntax highlighting.
 syntax enable
 syntax on
+
 " Setting colorscheme
+if version > 700
+	hi clear
+	if exists("syntax_on")
+		syntax reset
+	endif
+endif
+"let g:colors_name="nslib_color256"
 color mycolor
+"colorscheme nslib_color256
+
 " Other settings.
 set   autoindent
 set   autoread
@@ -67,13 +77,7 @@ set   wildmode=list:longest,full
 set wrap
 set t_Co=256
 
-if version > 700  
-	hi clear  
-	if exists("syntax_on")  
-		syntax reset  
-	endif  
-endif  
-let g:colors_name="nslib_color256"
+
 " AUTO COMMANDS: {{{1
 " auto expand tab to blanks
 "autocmd FileType c,cpp set expandtab
