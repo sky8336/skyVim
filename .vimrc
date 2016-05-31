@@ -11,7 +11,7 @@
 set nocompatible
 " Enable file type detection.
 " filetype plugin indent on
-filetype on 
+filetype on
 " Syntax highlighting.
 syntax enable
 syntax on
@@ -99,23 +99,23 @@ if version >= 700
   au InsertLeave * hi StatusLine term=reverse ctermfg=7 ctermbg=8 gui=bold,reverse
 endif
 "}}}
- 
+
 "" 获取当前路径，将$HOME转化为~,for statusline {{{
-"function! CurDir()  
-	"let curdir = substitute(getcwd(), $HOME, "~", "g")  
-	"return curdir  
-"endfunction  
+"function! CurDir()
+	"let curdir = substitute(getcwd(), $HOME, "~", "g")
+	"return curdir
+"endfunction
 ""}}}
 
-" show function names in command line{{{ 
-fun! ShowFuncName()  
-	let lnum = line(".")  
-	let col = col(".")  
-	echohl ModeMsg  
-	echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))  
-	echohl None  
-	call search("\\%" . lnum . "l" . "\\%" . col . "c")  
-endfun  
+" show function names in command line{{{
+fun! ShowFuncName()
+	let lnum = line(".")
+	let col = col(".")
+	echohl ModeMsg
+	echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+	echohl None
+	call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
 map ; :call ShowFuncName()<CR>
 "}}}
 
@@ -133,7 +133,7 @@ map ; :call ShowFuncName()<CR>
 
 " 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{
 fu! Generate_fntags_tags_cscope()
-	if getcwd() == $HOME 
+	if getcwd() == $HOME
 		let Msg = "$HOME cannot generate tags.fn tags and cscope.out !"
 		echo Msg . '  done !'
 		return
@@ -158,7 +158,7 @@ function! AutoLoadCTagsAndCScope()
     let i = 0
     let break = 0
     while isdirectory(dir) && i < max
-        if filereadable(dir . 'cscope.out') 
+        if filereadable(dir . 'cscope.out')
             execute 'cs add ' . dir . 'cscope.out'
             let break = 1
         endif
@@ -232,19 +232,19 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 
 
 " vundle.vim 插件管理器 {{{1
-set rtp+=~/.vim/bundle/vundle/  
-call vundle#rc()  
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-filetype plugin indent on     " required!  
-" let Vundle manage Vundle     "required!   
-Bundle 'gmarik/vundle'  
-  
-" My Bundles here:  /* 插件配置格式 */  
-" original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）  
-"Bundle 'Lokaltog/vim-easymotion'  
+filetype plugin indent on     " required!
+" let Vundle manage Vundle     "required!
+Bundle 'gmarik/vundle'
+
+" My Bundles here:  /* 插件配置格式 */
+" original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）
+"Bundle 'Lokaltog/vim-easymotion'
 "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Bundle 'tpope/vim-rails.git'  
-Bundle 'tpope/vim-fugitive'  
+"Bundle 'tpope/vim-rails.git'
+Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
@@ -255,8 +255,8 @@ Bundle 'jlanzarotta/bufexplorer'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'mbbill/VimExplorer',{'on': 'VE'}
-"Bundle 'wesleyche/SrcExpl' 
-"Bundle 'wesleyche/Trinity' 
+"Bundle 'wesleyche/SrcExpl'
+"Bundle 'wesleyche/Trinity'
 Bundle 'hari-rangarajan/CCTree'
 Bundle 'vimplugin/project.vim'
 Bundle 'will133/vim-dirdiff'
@@ -268,7 +268,7 @@ Bundle 'tpope/vim-unimpaired'
 "Plugin 'plasticboy/vim-markdown'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
-"Bundle 'L9' 
+"Bundle 'L9'
 "Bundle 'FuzzyFinder'
 Bundle 'AutoComplPop'
 Bundle 'OmniCppComplete'
@@ -284,9 +284,9 @@ Bundle 'ZoomWin'
 "Bundle 'c.vim'
 Bundle 'gitv'
 
-" non github repos   (非上面两种情况的，按下面格式填写)  
-"Bundle 'git://git.wincent.com/command-t.git'  
-  
+" non github repos   (非上面两种情况的，按下面格式填写)
+"Bundle 'git://git.wincent.com/command-t.git'
+
 " vundle setup end
 
 
@@ -353,7 +353,7 @@ endif
 ""}}}
 
 " CCtree {{{
-let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree 
+let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree
 let g:CCTreeKeyTraceReverseTree = '<C-\><'
 let g:CCTreeKeyHilightTree = '<C-\>l' " Static highlighting
 let g:CCTreeKeySaveWindow = '<C-\>y'
@@ -362,10 +362,10 @@ let g:CCTreeKeyCompressTree = 'zs' " Compress call-tree
 let g:CCTreeKeyDepthPlus = '<C-\>='
 let g:CCTreeKeyDepthMinus = '<C-\>-'
 let CCTreeJoinProgCmd = 'PROG_JOIN JOIN_OPT IN_FILES > OUT_FILE'
-let  g:CCTreeJoinProg = 'cat' 
+let  g:CCTreeJoinProg = 'cat'
 let  g:CCTreeJoinProgOpts = ""
 "let g:CCTreeUseUTF8Symbols = 1
-"map <F7> :CCTreeLoadXRefDBFromDisk $CCTREE_DB<cr> 
+"map <F7> :CCTreeLoadXRefDBFromDisk $CCTREE_DB<cr>
 
 "" CCTree.vim
 "let g:CCTreeCscopeDb = "cscope.out"
@@ -385,15 +385,15 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "}}}
 
 " OmniCppComplete.vim {{{
-"set nocp 
-"filetype plugin on 
-set completeopt=menu,menuone  
+"set nocp
+"filetype plugin on
+set completeopt=menu,menuone
 let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
 let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
 let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
 let OmniCpp_NamespaceSearch=1   " 打开命名空间
-let OmniCpp_GlobalScopeSearch=1  
-let OmniCpp_DefaultNamespace=["std"]  
+let OmniCpp_GlobalScopeSearch=1
+let OmniCpp_DefaultNamespace=["std"]
 let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
 let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 "}}}
@@ -422,7 +422,7 @@ endif
 "}}}
 
 " MRU.vim {{{
-nmap  <leader>m :MRU 
+nmap  <leader>m :MRU
 "}}}
 
 " LookupFile setting {{{
@@ -436,7 +436,7 @@ let g:LookupFile_AllowNewFiles=0
 "}}}
 
 " undotree.vim {{{
-let g:undotree_WindowLayout = 2 
+let g:undotree_WindowLayout = 2
 "}}}
 
 " BufExplorer.vim 其中有默认配置 {{{
@@ -453,63 +453,63 @@ let g:undotree_WindowLayout = 2
 "}}}
 
 "" srcexpl.vim {{{
-"" // The switch of the Source Explorer 
-"nmap <C-F12> :SrcExplToggle<CR> 
+"" // The switch of the Source Explorer
+"nmap <C-F12> :SrcExplToggle<CR>
 
-"" // Set the height of Source Explorer window 
-"let g:SrcExpl_winHeight = 8 
+"" // Set the height of Source Explorer window
+"let g:SrcExpl_winHeight = 8
 
-"" // Set 100 ms for refreshing the Source Explorer 
-"let g:SrcExpl_refreshTime = 100 
+"" // Set 100 ms for refreshing the Source Explorer
+"let g:SrcExpl_refreshTime = 100
 
-"" // Set "Enter" key to jump into the exact definition context 
-"let g:SrcExpl_jumpKey = "<ENTER>" 
+"" // Set "Enter" key to jump into the exact definition context
+"let g:SrcExpl_jumpKey = "<ENTER>"
 
-"" // Set "Space" key for back from the definition context 
-"let g:SrcExpl_gobackKey = "<SPACE>" 
+"" // Set "Space" key for back from the definition context
+"let g:SrcExpl_gobackKey = "<SPACE>"
 
-"" // In order to avoid conflicts, the Source Explorer should know what plugins 
-"" // except itself are using buffers. And you need add their buffer names into 
-"" // below listaccording to the command ":buffers!" 
-"let g:SrcExpl_pluginList = [ 
-			"\ "__Tag_List__", 
-			"\ "_NERD_tree_" 
-			"\ ] 
+"" // In order to avoid conflicts, the Source Explorer should know what plugins
+"" // except itself are using buffers. And you need add their buffer names into
+"" // below listaccording to the command ":buffers!"
+"let g:SrcExpl_pluginList = [
+			"\ "__Tag_List__",
+			"\ "_NERD_tree_"
+			"\ ]
 
-"" // Enable/Disable the local definition searching, and note that this is not 
-"" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-"" // It only searches for a match with the keyword according to command 'gd' 
-"let g:SrcExpl_searchLocalDef = 1 
+"" // Enable/Disable the local definition searching, and note that this is not
+"" // guaranteed to work, the Source Explorer doesn't check the syntax for now.
+"" // It only searches for a match with the keyword according to command 'gd'
+"let g:SrcExpl_searchLocalDef = 1
 
-"" // Do not let the Source Explorer update the tags file when opening 
-"let g:SrcExpl_isUpdateTags = 0 
+"" // Do not let the Source Explorer update the tags file when opening
+"let g:SrcExpl_isUpdateTags = 0
 
-"" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-"" // create/update a tags file 
-"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+"" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
+"" // create/update a tags file
+"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
 
-"" // Set "<F12>" key for updating the tags file artificially 
-""let g:SrcExpl_updateTagsKey = "<F12>" 
+"" // Set "<F12>" key for updating the tags file artificially
+""let g:SrcExpl_updateTagsKey = "<F12>"
 
-"" // Set "<F7>" key for displaying the previous definition in the jump list 
-""let g:SrcExpl_prevDefKey = "<F7>" 
+"" // Set "<F7>" key for displaying the previous definition in the jump list
+""let g:SrcExpl_prevDefKey = "<F7>"
 
-"" // Set "<F8>" key for displaying the next definition in the jump list 
+"" // Set "<F8>" key for displaying the next definition in the jump list
 "定义打开关闭winmanager快捷键为F8
-"let g:SrcExpl_nextDefKey = "<F8>" 
+"let g:SrcExpl_nextDefKey = "<F8>"
 ""}}}
 
 "" trinity.vim {{{
-"" Open and close all the three plugins on the same time 
+"" Open and close all the three plugins on the same time
 "nmap <F12>   :TrinityToggleAll<CR>
 
-"" Open and close the srcexpl.vim separately 
+"" Open and close the srcexpl.vim separately
 "nmap <C-F12>   :TrinityToggleSourceExplorer<CR>
 
-"" Open and close the taglist.vim separately 
+"" Open and close the taglist.vim separately
 "nmap <C-F10>  :TrinityToggleTagList<CR>
 
-"" Open and close the NERD_tree.vim separately 
+"" Open and close the NERD_tree.vim separately
 "nmap <C-F11>  :TrinityToggleNERDTree<CR>
 ""}}}
 
@@ -546,8 +546,8 @@ let g:snips_copyright="SicMicro, Inc"
 "}}}
 
 " vimdiff hot keys {{{
-" if you know the buffer number, you can use hot key like ",2" 
-" (press comma first, then press two as quickly as possible) to 
+" if you know the buffer number, you can use hot key like ",2"
+" (press comma first, then press two as quickly as possible) to
 " pull change from buffer number two.set up hot keys:
 map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
 map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
@@ -559,12 +559,12 @@ map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 let g:DirDiffExcludes = "CVS,*.class,*.o"
 let g:DirDiffIgnore = "Id:"
 " ignore white space in diff
-let g:DirDiffAddArgs = "-w" 
+let g:DirDiffAddArgs = "-w"
 let g:DirDiffEnableMappings = 1
 "}}}
 
-" project.vim {{{ 
-" Project1.4.1插件设置 
+" project.vim {{{
+" Project1.4.1插件设置
 " 切换打开和关闭project窗口
 nmap <silent><Leader>t <Plug>ToggleProject
 " 插件项目窗口宽度. 默认值: 24
@@ -623,7 +623,7 @@ nmap  <C-F5> :UndotreeToggle<cr>
 nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
 nmap  <F6> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'<CR>:copen<CR>
 nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
-nmap  <leader><F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ 
+nmap  <leader><F6> :vimgrep /<C-R>=expand("<cword>")<cr>/
 nmap  <F7> :SyntasticCheck<CR>
 nmap  <C-F7> :Errors<CR>
 nmap  <leader><F7> :lclose<CR>
@@ -670,11 +670,11 @@ set noswapfile
 set tags+=/usr/include/tags
 set tags+=./tags  "引导omnicppcomplete等找到tags文件
 "生成专用于c/c++的ctags文件
-map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>  
+map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "}}}
 
 """"""""""""""""""""""""""""""
-"实现vim和终端及gedit等之间复制、粘贴的设置 {{{ 
+"实现vim和终端及gedit等之间复制、粘贴的设置 {{{
 """"""""""""""""""""""""""""""
 " 让VIM和ubuntu(X Window)共享一个粘贴板
 set clipboard=unnamedplus " 设置vim使用"+寄存器(粘贴板)，"+寄存器是代表ubuntu的粘贴板。
