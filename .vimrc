@@ -689,6 +689,9 @@ autocmd VimLeave * call system("xsel -ib", getreg('+'))
 nmap cM :%s/\r$//g<CR>:noh<CR>
 " 删除行尾空格
 nmap cm :%s/\s\+$//<CR>:noh<CR>
+" 转换成utf-8格式
+nmap cu :set fileencoding=utf-8<CR>:noh<CR>
+
 " 启用每行超过90列的字符提示（字体变蓝并加下划线）
 " au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 90 . 'v.\+', -1)
 "}}}

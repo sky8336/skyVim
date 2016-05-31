@@ -835,7 +835,11 @@ vim config for linux devices driver development
 	]a     :next
 
 ## 其他 {{{1
-	(a)常规模式下输入 cM 清除行尾 ^M 符号;输入 cm 去掉行尾空格  
+	(a)普通模式下:
+		输入 cM 清除行尾 ^M 符号;
+		输入 cm 去掉行尾空格;  
+		输入 cu 转换成utf-8格式;
+
 	(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
 	(c)窗口焦点切换的映射  
 		 普通模式或插入模式下：  
