@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 #获取开始时间和路径
 function get_start_time_and_dir_path()
