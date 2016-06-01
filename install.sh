@@ -73,7 +73,6 @@ function config_vim()
 	cp ./my_help/ $HOME/.vim/ -a
 
 	#生成tags文件
-	sudo cp ctags /bin
 	echo "Make tags in /usr/include"
 	cd /usr/include
 	pwd
