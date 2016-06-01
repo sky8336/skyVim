@@ -29,7 +29,11 @@ let g:colors_name = "mycolor"
 hi Pmenu                ctermbg=Black           ctermfg=Grey
 hi PmenuSel             ctermbg=DarkBlue        ctermfg=LightGreen
 
-hi LineNr               ctermfg=LightBlue       ctermbg=none
+hi Comment              ctermfg=DarkCyan        ctermbg=none
+hi PreProc              ctermfg=DarkBlue        ctermbg=none
+hi Type                 ctermfg=LightGreen      ctermbg=none           cterm=bold
+
+hi LineNr               ctermfg=DarkGrey        ctermbg=none
 hi ColorColumn          ctermbg=darkblue
 hi CursorLine           cterm=underline
 

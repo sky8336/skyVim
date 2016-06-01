@@ -6,7 +6,7 @@
 syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2
 syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
 " hi cFunction gui=NONE guifg=#B5A1FF
-hi cFunction ctermfg=DarkCyan
+hi cFunction ctermfg=DarkGreen
 "========================================================
 " Highlight All Math Operator
 "========================================================
@@ -14,7 +14,7 @@ hi cFunction ctermfg=DarkCyan
 syn match cMathOperator display "[-(){}+\%=<>]"
 syn match cMathOperator display "\["
 syn match cMathOperator display "]"
-hi cMathOperator ctermfg=darkBlue
+hi cMathOperator ctermfg=LightBlue
 " C pointer operators
 syn match cPointerOperator display "*\|->\|\."
 hi cPointerOperator ctermfg=darkYellow
