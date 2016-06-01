@@ -263,6 +263,7 @@ Bundle 'will133/vim-dirdiff'
 Bundle 'mbbill/undotree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
+Bundle 'oplatek/Conque-Shell'
 "Bundle  'bling/vim-airline'
 "Plugin 'godlygeek/tabular'
 "Plugin 'plasticboy/vim-markdown'
@@ -662,6 +663,16 @@ nmap <leader>h  :vsp ~/.vim/my_help/<cr>
 ",zz  关闭光标所在窗口之外的其他所有窗口
 ",hm  水平分割窗口打开帮助文档README.md
 ",h   竖直分割窗口，打开帮助文件夹，可选择需要帮助文档
+
+" Conque-Shell.vim
+" 水平分割出一个bash
+nnoremap <C-\>b :ConqueTermSplit bash<CR>
+" 垂直分割出bash
+nnoremap <C-\>vb :ConqueTermVSplit bash<CR>
+" 在tab中打开一个bash
+nnoremap <C-\>t :ConqueTermTab bash<CR>
+" F9:将选中的文本，发送到Conque-Shell的交互程序中
+
 "}}}
 
 """"""""""""""""""""""""""""""""""""
