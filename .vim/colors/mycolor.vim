@@ -1,3 +1,5 @@
+" Vim color file
+
 "0      Black
 "1      DarkBlue
 "2      DarkGreen
@@ -14,6 +16,15 @@
 "13     Magenta, LightMagenta  浅品红
 "14     Yellow, LightYellow
 "15     White
+
+if version > 700
+	hi clear
+	if exists("syntax_on")
+		syntax reset
+	endif
+endif
+
+let g:colors_name = "mycolor"
 
 hi Pmenu                ctermbg=Black           ctermfg=Grey
 hi PmenuSel             ctermbg=DarkBlue        ctermfg=LightGreen

@@ -17,13 +17,6 @@ syntax enable
 syntax on
 
 " Setting colorscheme
-if version > 700
-	hi clear
-	if exists("syntax_on")
-		syntax reset
-	endif
-endif
-"let g:colors_name="nslib_color256"
 color mycolor
 "colorscheme nslib_color256
 
@@ -666,11 +659,11 @@ nmap <leader>h  :vsp ~/.vim/my_help/<cr>
 
 " Conque-Shell.vim
 " 水平分割出一个bash
-nnoremap <C-\>b :ConqueTermSplit bash<CR>
+nnoremap <C-\>b :ConqueTermSplit bash<CR><CR>
 " 垂直分割出bash
-nnoremap <C-\>vb :ConqueTermVSplit bash<CR>
+nnoremap <C-\>vb :ConqueTermVSplit bash<CR><CR>
 " 在tab中打开一个bash
-nnoremap <C-\>t :ConqueTermTab bash<CR>
+nnoremap <C-\>t :ConqueTermTab bash<CR><CR>
 " F9:将选中的文本，发送到Conque-Shell的交互程序中
 
 "}}}

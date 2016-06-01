@@ -1,3 +1,14 @@
+" Vim color file
+
+if version > 700
+	hi clear
+	if exists("syntax_on")
+		syntax reset
+	endif
+endif
+
+let g:colors_name="nslib_color256"
+
 hi Normal               ctermfg=Grey            ctermbg=Black
 hi ColorColumn          ctermfg=White           ctermbg=Grey
 
