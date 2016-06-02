@@ -24,7 +24,7 @@ if version > 700
 	endif
 endif
 
-let g:colors_name = "mycolor"
+"let g:colors_name = "mycolor"
 
 hi Pmenu                ctermbg=Black           ctermfg=Grey
 hi PmenuSel             ctermbg=DarkBlue        ctermfg=LightGreen
