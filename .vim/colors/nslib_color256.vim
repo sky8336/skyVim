@@ -7,7 +7,7 @@ if version > 700
 	endif
 endif
 
-let g:colors_name="nslib_color256"
+"let g:colors_name="nslib_color256"
 
 hi Normal               ctermfg=Grey            ctermbg=Black
 hi ColorColumn          ctermfg=White           ctermbg=Grey
