@@ -260,6 +260,8 @@ Bundle 'oplatek/Conque-Shell'
 "Bundle  'bling/vim-airline'
 "Plugin 'godlygeek/tabular'
 "Plugin 'plasticboy/vim-markdown'
+Bundle 'jistr/vim-nerdtree-tabs'
+Bundle 'Xuyuanp/nerdtree-git-plugin'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）
 "Bundle 'L9'
@@ -373,9 +375,39 @@ let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
 let g:NERDTreeDirArrows=0   "目录箭头: 1显示箭头  0传统+-|号
+let g:NERDTreeAutoCenter=1
+" 是否显示隐藏文件
+let NERDTreeShowHidden=1
+" 忽略以下文件的显示
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+" 显示书签列表
+let NERDTreeShowBookmarks=1
 "autocmd vimenter * NERDTree "打开vim时自动打开NERDTree
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+"}}}
+
+"  vim-nerdtree-tabs.vim {{{
+" 在终端启动vim时，共享NERDTree
+let g:nerdtree_tabs_open_on_console_startup=1
+" always focus file window after startup
+let g:nerdtree_tabs_smart_startup_focus=2
+"let g:nerdtree_tabs_focus_on_files=1
+"let g:nerdtree_tabs_autofind=1
+"}}}
+
+" nerdtree-git-plugin.vim {{{
+let g:NERDTreeIndicatorMapCustom = {
+			\ "Modified"  : "✹",
+			\ "Staged"    : "✚",
+			\ "Untracked" : "✭",
+			\ "Renamed"   : "➜",
+			\ "Unmerged"  : "═",
+			\ "Deleted"   : "✖",
+			\ "Dirty"     : "✗",
+			\ "Clean"     : "✔︎",
+			\ "Unknown"   : "?"
+			\ }
 "}}}
 
 " OmniCppComplete.vim {{{
@@ -608,7 +640,9 @@ nnoremap <silent> <C-A> :ZoomToggle<CR>
 nmap  <F2> :TlistToggle<cr>
 "nmap  <F2> :WMToggle<cr>
 nmap  <leader><F2> :TagbarToggle<CR>
-nmap  <F3> :NERDTreeToggle<cr>
+"nmap  <F3> :NERDTreeToggle<cr>
+nmap  <F3> :NERDTreeTabsToggle<cr>
+nmap  <C-\><F3> :NERDTreeTabsFind<CR>
 nmap  <leader><F3> :silent! VE .<cr>
 nmap  <F4> :exec 'MRU' expand('%:p:h')<CR>
 

@@ -1,4 +1,4 @@
-# vimconfig_bundle
+j vimconfig_bundle
 vim config for linux devices driver development  
 大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
 
@@ -307,7 +307,21 @@ vim config for linux devices driver development
 	  q       关闭 NerdTree 窗口  
 	  ?       切换是否显示 Quick Help	  
 
+#### vim-nerdtree-tabs.vim 
+	  打开的各个文件共享一个 NERDTree  
 
+#### nerdtree-git-plugin.vim
+	  在 NERDTree 中显示 git 信息  
+
+	  Modified  : "✹",  
+	  Staged    : "✚",  
+	  Untracked : "✭",  
+	  Renamed   : "➜",  
+	  Unmerged  : "═",  
+	  Deleted   : "✖",  
+	  Dirty     : "✗",  
+	  Clean     : "✔︎",  
+	  Unknown   : "?"  
 
 ### VimExplorer --文件管理器(按,F3)
 	按,F3会在当前目录打开（状态栏显示的顶级目录）;Q 退出  
