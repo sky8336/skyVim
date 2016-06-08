@@ -397,6 +397,8 @@ let g:nerdtree_tabs_smart_startup_focus=2
 "}}}
 
 " nerdtree-git-plugin.vim {{{
+" 打开nerdtree,不加载git信息，注释这一行会加载
+let g:loaded_nerdtree_git_status = 0
 let g:NERDTreeIndicatorMapCustom = {
 			\ "Modified"  : "✹",
 			\ "Staged"    : "✚",
