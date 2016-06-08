@@ -389,7 +389,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 "  vim-nerdtree-tabs.vim {{{
 " 在终端启动vim时，共享NERDTree
-let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=0
 " always focus file window after startup
 let g:nerdtree_tabs_smart_startup_focus=2
 "let g:nerdtree_tabs_focus_on_files=1
