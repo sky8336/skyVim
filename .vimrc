@@ -307,7 +307,7 @@ let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前
 let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
-"let Tlist_Show_One_File=0
+let Tlist_Use_Right_Window = 1
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
 	let g:Tlist_Auto_Open=1
@@ -370,7 +370,7 @@ let  g:CCTreeJoinProgOpts = ""
 "}}}
 
 " NERDTree.vim {{{
-let g:NERDTreeWinPos="right"
+let g:NERDTreeWinPos="left"
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
@@ -642,11 +642,11 @@ nnoremap <silent> <C-A> :ZoomToggle<CR>
 nmap  <F2> :TlistToggle<cr>
 "nmap  <F2> :WMToggle<cr>
 nmap  <leader><F2> :TagbarToggle<CR>
-"nmap  <F3> :NERDTreeToggle<cr>
-nmap  <F3> :NERDTreeTabsToggle<cr>
-nmap  <C-\><F3> :NERDTreeTabsFind<CR>
-nmap  <leader><F3> :silent! VE .<cr>
-nmap  <F4> :exec 'MRU' expand('%:p:h')<CR>
+nmap  <F3> :exec 'MRU' expand('%:p:h')<CR>
+"nmap  <F4> :NERDTreeToggle<cr>
+nmap  <F4> :NERDTreeTabsToggle<cr>
+nmap  <C-\><F4> :NERDTreeTabsFind<CR>
+nmap  <leader><F4> :silent! VE .<cr>
 
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <C-F5> :UndotreeToggle<cr>
