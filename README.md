@@ -848,6 +848,14 @@ vim config for linux devices driver development
 	[a     :previous
 	]a     :next
 
+## 27、man.vim
+	在.vimrc中:
+source $VIMRUNTIME/ftplugin/man.vim
+$VIMRUNTIME=/usr/share/vim/vim74/
+
+nmap K :Man <cword>
+K: 在线参考手册中查找
+
 ## 其他 {{{1
 	(a)普通模式下:
 		输入 cM 清除行尾 ^M 符号;
