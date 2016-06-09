@@ -103,9 +103,9 @@ vim config for linux devices driver development
 	F1    帮助:GNOME Terminal Manual
 	F2    taglist开关   
 	,F2    tagbar开关   
-	F3   NERDTree开关
-	,F3    VimExplorer开关
-	F4    打开MRU,在路径列表中，光标在工程名处按shift+*,高亮相应工程，便于选择;
+	F4   NERDTree开关
+	,F4    VimExplorer开关
+	F3    打开MRU,在路径列表中，光标在工程名处按shift+*,高亮相应工程，便于选择;
 	      :q  退出MRU
 	,m    按,m后，将在终端复制的项目名粘贴到底行，按回车后打开MRU，文件路径匹配输入的项目名  
 	( Ctrl+F1 ~ Ctrl+F4不可用 )
@@ -134,7 +134,7 @@ vim config for linux devices driver development
 	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
 	2)使用vim打开文件按下F2 F5后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F2-F5-Lookup_File.png)
-	3)使用vim打开文件按下F3后的界面:  
+	3)使用vim打开文件按下F4后的界面:  
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-VimExplorer.png)
 
 
@@ -257,9 +257,9 @@ vim config for linux devices driver development
 	3)自动根据文件修改时间来重建  
 	taglist在这一点上体验就很不好，其实明明可以通过这种时间戳的方式来实现  
  
-## 3、NERDTree--文件浏览(按F3)和VimExplorer--文件管理器(按,F3) {{{2
+## 3、NERDTree--文件浏览(按F4)和VimExplorer--文件管理器(按,F4) {{{2
 	
-### NERDTree --用于文件浏览(按F3)
+### NERDTree --用于文件浏览(按F4)
   列出当前路径的目录树。  
   浏览项目的总体目录结构和创建删除重命名文件或文件名。  
   内核中_defconfig  .mk等文件可用nerd tree 打开
@@ -323,8 +323,8 @@ vim config for linux devices driver development
 	  Clean     : "✔︎",  
 	  Unknown   : "?"  
 
-### VimExplorer --文件管理器(按,F3)
-	按,F3会在当前目录打开（状态栏显示的顶级目录）;Q 退出  
+### VimExplorer --文件管理器(按,F4)
+	按,F4会在当前目录打开（状态栏显示的顶级目录）;Q 退出  
 	可以执行很多文件操作，如复制，删除，移动，预览，搜索等  
 
 	:VE  启动VimExplorer,然后会询问你开始的文件夹。  
