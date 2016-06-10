@@ -17,11 +17,11 @@ find_git_branch () {
 		if [ -f "$dir/.git/HEAD" ]; then
 			head=$(< "$dir/.git/HEAD")
 			if [[ $head = ref:\ refs/heads/* ]]; then
-				git_branch=" → ${head#*/*/}"
+				git_branch="[${head#*/*/}]"
 			elif [[ $head != '' ]]; then
-				git_branch=" → (detached)"
+				git_branch="[detached]"
 			else
-				git_branch=" → (unknow)"
+				git_branch="[unknow]"
 			fi
 			return
 		fi
@@ -55,4 +55,7 @@ normal=$'\[\e[m\]'
 #PS1="$white[$magenta\u$white@$green\h$white:$cyan\w$yellow\$git_branch$white]\$ $normal"
 
 #两行，显示git分支信息和时间
-PS1="$magenta┌─[$magenta\u@\h$red:$magenta(\t)$dark_yellow\$git_branch\n$magenta└─>$magenta\w$yellow\$ $normal"
+#PS1="$magenta┌─[$magenta\u@\h$red:$magenta(\t)$dark_yellow\$git_branch\n$magenta└─>$magenta\w$yellow\$ $normal"
+
+#一行，显示git分支信息
+PS1="$magenta\u@\h$red:$magenta\w$dark_yellow\$git_branch$dark_yellow\$ $normal"
