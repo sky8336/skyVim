@@ -1,0 +1,58 @@
+
+#
+# add for ctags and terminal(by maning)
+#
+
+alias cindex='ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q'
+
+#获取 Git 分支名称，在 .git 目录下面有个 HEAD 文件，包含当前分支的路径信息：
+#ref: refs/heads/BRANCH-NAME
+
+#(1)读取这个文件，再和对应的路径互相匹配一下获得正确地分支名称。
+
+## Parses out the branch name from .git/HEAD:
+find_git_branch () {
+	local dir=. head
+	until [ "$dir" -ef / ]; do
+		if [ -f "$dir/.git/HEAD" ]; then
+			head=$(< "$dir/.git/HEAD")
+			if [[ $head = ref:\ refs/heads/* ]]; then
+				git_branch=" → ${head#*/*/}"
+			elif [[ $head != '' ]]; then
+				git_branch=" → (detached)"
+			else
+				git_branch=" → (unknow)"
+			fi
+			return
+		fi
+		dir="../$dir"
+	done
+	git_branch=''
+}
+
+#(2)将这个函数加入到 PROMPT_COMMAND 中，保证 Bash 在创建 prompt 之前调用这个函数取得分支名称：
+
+PROMPT_COMMAND="find_git_branch; $PROMPT_COMMAND"
+
+#(3)重新定义 PS1 变量：
+
+# Here is bash color codes you can use
+black=$'\[\e[1;30m\]'
+red=$'\[\e[1;31m\]'
+green=$'\[\e[1;32m\]'
+yellow=$'\[\e[1;33m\]'
+dark_yellow=$'\[\033[0;33m\]'
+blue=$'\[\e[1;34m\]'
+magenta=$'\[\e[1;35m\]'
+cyan=$'\[\e[1;36m\]'
+white=$'\[\e[1;37m\]'
+normal=$'\[\e[m\]'
+
+#无Git分支信息，单行
+#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;35m\]\u@\h\[\033[0;31m\]:\[\033[01;35m\]\w\[\033[00m\]\[\033[0;33m\]$\[\033[0;36m\] '
+
+#单行
+#PS1="$white[$magenta\u$white@$green\h$white:$cyan\w$yellow\$git_branch$white]\$ $normal"
+
+#两行，显示git分支信息和时间
+PS1="$magenta┌─[$magenta\u@\h$red:$magenta(\t)$dark_yellow\$git_branch\n$magenta└─>$magenta\w$yellow\$ $normal"

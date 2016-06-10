@@ -65,10 +65,10 @@ function config_vim()
 	rm -rf $HOME/.vim
 	cp ./.vim  $HOME -a
 	cp ./.vimrc $HOME
-	#cp ./.bashrc $HOME
-	echo "# new add for ctags and treminal
-	alias cindex='ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q'
-	PS1='\${debian_chroot:+(\$debian_chroot)}\[\033[01;35m\]\u@\h\[\033[0;31m\]:\[\033[01;35m\]\w\[\033[00m\]\[\033[0;33m\]$\[\033[0;36m\] '" >> ~/.bashrc
+
+	#追加到.bashrc,不会覆盖.bashrc原有配置
+	cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+
 	cp ./README.md $HOME/.vim
 	cp ./my_help/ $HOME/.vim/ -a
 
