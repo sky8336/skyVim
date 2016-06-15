@@ -9,3 +9,6 @@ find ./ * -exec touch {} \;
 
 搜索文件，执行删除命令
 find private/ -name "*~"| xargs rm
+
+查看linux/目录大小
+du -sh linux/
