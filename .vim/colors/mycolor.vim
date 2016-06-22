@@ -30,11 +30,11 @@ let g:colors_name = "mycolor"
 hi ColorColumn          ctermfg=White           ctermbg=Grey
 
 hi ErrorMsg             term=standout
-hi ErrorMsg             ctermfg=LightBlue       ctermbg=DarkBlue
+hi ErrorMsg             ctermfg=Red             ctermbg=none
 hi WarningMsg           term=standout
-hi WarningMsg           ctermfg=LightBlue       ctermbg=DarkBlue
+hi WarningMsg           ctermfg=Yellow          ctermbg=none
 hi ModeMsg              term=bold               cterm=bold
-hi ModeMsg              ctermfg=LightBlue       ctermbg=Black
+hi ModeMsg              ctermfg=LightBlue       ctermbg=none
 hi MoreMsg              term=bold               ctermfg=LightGreen
 hi MoreMsg              ctermfg=LightBlue       ctermbg=Black
 hi Question             term=standout           gui=bold
@@ -47,8 +47,8 @@ hi ColorColumn          ctermbg=darkblue
 hi CursorLine           cterm=underline
 hi ColorColumn          ctermfg=White           ctermbg=Grey
 
-hi IncSearch            ctermfg=Black           ctermbg=DarkGrey
-hi Search               ctermfg=Black           ctermbg=DarkGrey
+hi IncSearch            ctermfg=DarkYellow      ctermbg=Black
+hi Search               ctermfg=Black           ctermbg=Yellow
 "hi StatusLine           term=bold               cterm=bold
 "hi StatusLine           ctermfg=Black           ctermbg=Grey
 hi StatusLineNC         term=bold               cterm=bold
