@@ -40,7 +40,7 @@ hi MoreMsg              ctermfg=LightBlue       ctermbg=Black
 hi Question             term=standout           gui=bold
 hi Question             ctermfg=LightBlue       ctermbg=Black
 hi Error                term=bold               cterm=bold
-hi Error                ctermfg=LightBlue       ctermbg=Black
+hi Error                ctermfg=Red       ctermbg=Black
 
 hi LineNr               ctermfg=DarkGrey        ctermbg=none
 hi ColorColumn          ctermbg=darkblue
@@ -65,7 +65,7 @@ hi Comment              ctermfg=DarkCyan        ctermbg=none
 hi PreProc              ctermfg=DarkBlue        ctermbg=none
 hi Type                 ctermfg=LightGreen      ctermbg=none           cterm=bold
 hi Constant             ctermfg=Blue            ctermbg=none           cterm=bold
-hi Statement            ctermfg=LightYellow     ctermbg=none           cterm=bold
+hi Statement            ctermfg=Yellow     ctermbg=none           cterm=bold
 hi Special              ctermfg=Red             ctermbg=none           cterm=bold
 hi SpecialKey           ctermfg=Red             ctermbg=none           cterm=bold
 hi Number               ctermfg=Blue            ctermbg=none
@@ -78,10 +78,10 @@ hi Directory            ctermfg=Blue            ctermbg=Black
 hi Folded               ctermfg=DarkBlue        ctermbg=Black          cterm=bold
 hi FoldColumn           ctermfg=LightBlue       ctermbg=Black
 hi Underlined           ctermfg=LightBlue       ctermbg=Black          cterm=underline
-hi Title                ctermfg=LightBlue       ctermbg=Black
+hi Title                ctermfg=Magenta         ctermbg=none
 hi Ignore               ctermfg=LightBlue       ctermbg=Black
 
-hi Directory            ctermfg=LightBlue       ctermbg=Black
+hi Directory            ctermfg=gray            ctermbg=none
 hi browseSynopsis       ctermfg=LightBlue       ctermbg=Black
 hi browseCurDir         ctermfg=LightBlue       ctermbg=Black
 hi favoriteDirectory    ctermfg=LightBlue       ctermbg=Black
@@ -96,7 +96,7 @@ hi TagListComment       ctermfg=LightBlue       ctermbg=Black
 hi TagListFileName      ctermfg=LightBlue       ctermbg=Black
 hi TagListTitle         ctermfg=LightBlue       ctermbg=Black
 hi TagListTagScope      ctermfg=LightBlue       ctermbg=Black
-hi TagListTagName       ctermfg=LightBlue       ctermbg=Black
+hi TagListTagName       ctermfg=Green           ctermbg=Black
 hi Tag                  ctermfg=LightBlue       ctermbg=Black
 
 
