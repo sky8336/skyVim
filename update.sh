@@ -76,6 +76,7 @@ function install_new_plugin()
 {
 	echo "====== install new plugin now ! ======"
 	vim +BundleInstall +qall
+	vim +BundleClean +qall
 }
 
 
