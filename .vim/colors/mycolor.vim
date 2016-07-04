@@ -24,7 +24,7 @@ if version > 700
 	endif
 endif
 
-let g:colors_name = "mycolor"
+"let g:colors_name = "mycolor"
 
 "hi Normal               ctermfg=Grey            ctermbg=Black
 hi ColorColumn          ctermfg=White           ctermbg=Grey
