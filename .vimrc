@@ -1,10 +1,11 @@
 " .vimrc - Vim configuration file.
 "
-" Copyright (c) 2010 Jeffy Du. All Rights Reserved.
+" Copyright (c) 2013 sky8336. All Rights Reserved.
 "
-" Maintainer: Jeffy Du <jeffy.du@gmail.com>
-"    Created: 2010-01-01
-" LastChange: 2010-04-22
+" Maintainer: sky8336 <1919592995@qq.com>
+"    Created: 2013-07-01
+" LastChange: 2016-07-22
+" major.minor.patch-build.desc 
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.
