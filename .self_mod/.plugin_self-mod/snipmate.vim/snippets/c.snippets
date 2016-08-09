@@ -53,6 +53,22 @@ snippet el
 # Ternary conditional
 snippet t
 	${1:/* condition */} ? ${2:a} : ${3:b}
+	
+# switch()
+snippet swi
+	switch (${1:/* cmd */}) {
+	case ${2:/* cst_eps1 */}:
+		${3:/* sentence; */}
+		break;
+	case ${4:/* cst_eps2 */}:
+		${5:/* sentence; */}
+		break;
+
+	default:
+		${6:/* sentence; */}
+		break;
+	}
+	
 # Do While Loop
 snippet do
 	do {
