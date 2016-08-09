@@ -637,9 +637,17 @@ vim config for linux devices driver development
 ## 15、AutoComplPop、superTab 和OmniCppcomplete代码自动补全 {{{2
 	AutoComplPop:  
 	acp.vim插件，在输入的同时实时地查询匹配的关键词 
-	superTab:  
+	superTab: [已去掉20160809] 
 	Tab键自动补全后，继续输入即可，按回车会换行。(首次选中不补全，此时按回车补全)  
 	shift-Tab 回退选择  
+	
+	去掉superTab后：
+	tab键功能：
+		(1)缩进一个tab
+		(2)代码片段补全，c.snippets中定义。如补全main,for等
+	自动补全列表：
+		(1)ctrl+n: 下一个
+		(2)ctrl+p: 上一个
 
 	OmniCppComplete：  
 	专为 C/C++ 编写的 OmniComplete 一个补全脚本，根据 Ctags 生成的索引文件进行补全  
