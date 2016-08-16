@@ -1,5 +1,6 @@
-j vimconfig_bundle
+# vimconfig_bundle
 vim config for linux devices driver development  
+my_help/目录中存放开发中常用的帮助文档
 大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
 
 ### 温馨提示：{{{1
@@ -924,4 +925,11 @@ K: 在线参考手册中查找
 		git_command.txt  git使用整理  
 		git_push.txt     git提交代码相关流程及命令  
 		vim_command.txt  vim基本命令及使用技巧  
+	vih 命令行输入，快速打开my_help/帮助目录
+	vidc 'vi ~/.vim/my_help/debug_cmd.txt'
+	vigc 'vi ~/.vim/my_help/git_command.txt'
+	vigp 'vi ~/.vim/my_help/git_push.txt'
+	vilc 'vi ~/.vim/my_help/linux_command.txt'
+	vivc 'vi ~/.vim/my_help/vim_command.txt'
+
 
