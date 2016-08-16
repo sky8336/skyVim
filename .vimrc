@@ -389,7 +389,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 "  vim-nerdtree-tabs.vim {{{
 " 在终端启动vim时，共享NERDTree
-let g:nerdtree_tabs_open_on_console_startup=0
+let g:nerdtree_tabs_open_on_console_startup=1
 " always focus file window after startup
 let g:nerdtree_tabs_smart_startup_focus=2
 "let g:nerdtree_tabs_focus_on_files=1
@@ -397,8 +397,8 @@ let g:nerdtree_tabs_smart_startup_focus=2
 "}}}
 
 " nerdtree-git-plugin.vim {{{
-" 打开nerdtree,不加载git信息，注释这一行会加载
-let g:loaded_nerdtree_git_status = 0
+" NERDTreeShowGitStatus 为0，不加载git信息;为1,加载，引起打开vim慢（甚至十几秒）
+let g:NERDTreeShowGitStatus = 0
 let g:NERDTreeIndicatorMapCustom = {
 			\ "Modified"  : "✹",
 			\ "Staged"    : "✚",
