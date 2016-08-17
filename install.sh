@@ -107,12 +107,13 @@ function chown_vundle()
 }
 
 #set merge.tool for git
-function set_merge_tool()
+function set_merge_tool_and_editor()
 {
 	echo "====== use vimdiff as default merge tool ======"
 	# To use vimdiff as default merge tool:
 	git config --global merge.tool vimdiff
 	git config --global mergetool.prompt false
+	git config --global core.editor /usr/bin/vim
 }
 
 #winmagager添加自动打开和退出功能
@@ -156,5 +157,5 @@ config_vim
 install_vundle_and_plugin
 chown_vundle
 #set_cfg_for_winmanager
-set_merge_tool
+set_merge_tool_and_editor
 echo_install_time
