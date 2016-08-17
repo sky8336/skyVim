@@ -37,12 +37,28 @@ function check_network()
 }
 
 # update vim to vim7.4
-function update_to_vim74()
+function build_and_install_vim()
 {
-	echo "====== Update vim to vim7.4 ! ======"
-	sudo add-apt-repository ppa:fcwu-tw/ppa
-	sudo apt-get update
-	sudo apt-get install vim -y --force-yes
+	echo "[Need 12 minutes]"
+	git clone https://github.com/vim/vim.git
+
+	cd vim
+	pwd
+
+	echo "====== configure ======"
+	./configure --with-features=huge \
+		--enable-rubyinterp=yes \
+		--enable-pythoninterp=yes \
+		--enable-python3interp=yes \
+		--enable-perlinterp=yes \
+		--enable-luainterp=yes \
+		--enable-gui=gtk2 --enable-cscope --prefix=/usr
+
+	echo "====== make ======"
+	sudo make VIMRUNTIMEDIR=/usr/share/vim/vim74
+	sudo make install
+
+	vim --version | grep Vi
 }
 
 #echo install time
@@ -54,7 +70,7 @@ function echo_install_time()
     mins=$((($tdiff % 3600) / 60))
     secs=$(($tdiff % 60))
     echo
-        echo -n -e "${color_success}#### update vim to vim7.4 successfully! "
+	echo -n -e "${color_success}#### install completed successfully! "
     if [ $hours -gt 0 ] ; then
         echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
     elif [ $mins -gt 0 ] ; then
@@ -68,5 +84,5 @@ function echo_install_time()
 
 get_start_time_and_dir_path
 check_network
-update_to_vim74
+build_and_install_vim
 echo_install_time
