@@ -661,6 +661,8 @@ nmap  <leader><F7> :lclose<CR>
 
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
 nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
+nmap <C-F10> :bn<CR>
+nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 "}}}
 
