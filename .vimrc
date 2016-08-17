@@ -5,7 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
 " LastChange: 2016-07-22
-" major.minor.patch-build.desc 
+" major.minor.patch-build.desc (linux kernel format)
+" Version: v0.6.2
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.
