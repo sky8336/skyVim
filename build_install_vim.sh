@@ -59,6 +59,7 @@ function build_and_install_vim()
 	sudo make install
 
 	vim --version | grep Vi
+	cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
 }
 
 #echo install time
