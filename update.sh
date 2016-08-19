@@ -64,6 +64,7 @@ function update_vimrc()
 
 	##追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+	cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
 
 	#函数名、运算符、括号等高亮
 	# 执行install.sh时是2016-06-26 10:48:05 之前的配置的,打开以下两行执行update.sh
