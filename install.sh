@@ -14,6 +14,9 @@ function get_start_time_and_dir_path()
 #shell脚本下载数据时，先检测网络的畅通性
 function check_network()
 {
+	#标识网络连接状态
+	online=1
+
 	#超时时间
 	timeout=5
 
@@ -27,12 +30,12 @@ function check_network()
 		#网络畅通
 		echo -e "====== The Internet is connected ! ======"
 	else
-		#网络不畅通
+		#网络不畅通,安装.vimcfg_offline中版本
 		echo
-		echo -e "${color_failed}>>> Error: the connection is lost ! "
+		echo -e "${color_failed}>>> Warnning: the connection is lost ! "
 		echo -e "Please check your Internet connection.${color_reset}"
-		echo
-		exit
+		echo -e "It will be installed offline，maybe not the latest !${color_reset}"
+		online=0
 	fi
 }
 
@@ -63,14 +66,24 @@ function config_vim()
 {
 	echo "====== Config your vim now ! ======"
 	rm -rf $HOME/.vim
-	cp ./.vim  $HOME -a
-	cp ./.vimrc $HOME
 
-	#追加到.bashrc,不会覆盖.bashrc原有配置
-	cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+	if [ $online -eq 1 ];then
+		cp ./.vim  $HOME -a
+		cp ./.vimrc $HOME
 
-	cp ./README.md $HOME/.vim
-	cp ./my_help/ $HOME/.vim/ -a
+		#追加到.bashrc,不会覆盖.bashrc原有配置
+		cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+
+		cp ./README.md $HOME/.vim
+		cp ./my_help/ $HOME/.vim/ -a
+
+	else
+		cp ./.vimcfg_offline/.vim  $HOME -a
+		cp ./.vimcfg_offline/.vimrc $HOME
+
+		#追加到.bashrc,不会覆盖.bashrc原有配置
+		cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+	fi
 
 	#生成tags文件
 	echo "Make tags in /usr/include"
@@ -86,24 +99,32 @@ function config_vim()
 #install vundle
 function install_vundle_and_plugin()
 {
-	echo "====== Install vundle now ! ======"
-	git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
-	vim +BundleInstall +qall
-	cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
+	if [ $online -eq 1 ];then
+		echo "====== Install vundle now ! ======"
+		git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
+		vim +BundleInstall +qall
+		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
+	else
+		echo
+	fi
 }
 
 #chown ~/.vim/bundle
 function chown_vundle()
 {
-	#切换到install.sh所在目录，获取非sudo模式下的username and groupname
-	echo "====== ~/.vim/bundle/ change owner: ======"
-	cd $vimcfig_bundle_dir_path
-	pwd
-	username=`ls -l install.sh | cut -d ' ' -f3`
-	groupname=`ls -l  install.sh | cut -d ' ' -f4`
-	echo "username=$username"
-	echo "groupname=$groupname"
-	chown -R $username:$groupname ~/.vim/bundle/
+	if [ $online -eq 1 ];then
+		#切换到install.sh所在目录，获取非sudo模式下的username and groupname
+		echo "====== ~/.vim/bundle/ change owner: ======"
+		cd $vimcfig_bundle_dir_path
+		pwd
+		username=`ls -l install.sh | cut -d ' ' -f3`
+		groupname=`ls -l  install.sh | cut -d ' ' -f4`
+		echo "username=$username"
+		echo "groupname=$groupname"
+		chown -R $username:$groupname ~/.vim/bundle/
+	else
+		echo
+	fi
 }
 
 #set merge.tool for git

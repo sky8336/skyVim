@@ -1,0 +1,55 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1581
+
+Now requires Vim 7.1 version.
+
+Lookupfile is a very simple approach to opening files by typing a pattern to
+represent the file you are looking for, and selecting a file from the completion
+dropdown to open in the current Vim session. It provides a consistent interface
+to lookup files by various means (tags, path, buffers, external tools etc.). It
+uses the new Vim7 insert-mode completion mechanism to show matching files.
+
+The most part of the plugin is autoloaded so it doesn't increase the startup time and doesn't take up Vim resources until it is used for the first time.
+
+Here are the list of commands that the plugin defines:
+        LookupFile      Lookup files from tag files. This is a like a fast GNU
+                        find on name. It can lookup files from any Vim
+                        compatible tag file (which includes those from ctags),
+                        but at the moment it is advisable to generate
+                        specialized tag files using :find command (see
+                        |lookupfile-tags|).
+        LUPath          Lookup files from 'path' using |globpath()|. The :find
+                        command while being able to lookup files from 'path', it
+                        doesn't provide any completion mechanism, and it is
+                        clumsy when there are multiple files with the same name.
+                        The :find command doesn't even accept a pattern.
+        LUBufs          Lookup loaded files (buffers) using |bufname()|. This is
+                        a great addition to whatever buffer-explorer you are
+                        using. When there are too many buffers open, this
+                        sometimes makes it easy to find the right buffer, by
+                        typing part of its name.
+        LUWalk          Lookup files using |glob()|. This works like the Emacs
+                        ido.el, allowing you to walk up and down a path looking
+                        for files. If you use the filename completion with :edit
+                        command, then you will find this a lot more convenient
+                        and faster to use.
+        LUArgs          Lookup files from |:args| list.
+
+It is also very easy to add new commands to or customize the plugin at various
+levels. At the simplest, you can create custom command on top of the above that
+either pass dynamic arguments or tmporarily change the settings (e.g., you could
+have a command that will start LUPath with the 'path' temporarily changed to
+find only the include header files). You can also take advantage of the the
+|lookupfile-extend| features to add new commands that lookup files from a
+completely new source. You can even add commands that lookup something
+completely different than a file (like e.g., a spelling using spellsuggest()).
+
+For more information install the plugin and type :h lookupfile after running :heptags command.
+
+Here is what users have to say about the plugin:
+    - I am thoroughly enjoying your lookupfile script -- it's just awesome! -- Reva Revadigar (regarding :LookupFile and :LUWalk commands)
+    - I use Lookupfile a couple of hundred times a day -- Max Dyckhoff (regarding :LookupFile command)
+    - I tried the new plugin. Excellent! Exactly what I want. -- Eddy Zhao (regarding :LUWalk command)
+
+
+
+Search_Key_Words: lookupfile util utils lookup complete completion filename open edit file tags path ctags glob globpath Hari Krishna Dara

@@ -3,10 +3,10 @@
 " Copyright (c) 2013 sky8336. All Rights Reserved.
 "
 " Maintainer: sky8336 <1919592995@qq.com>
-"    Created: 2013-07-01
-" LastChange: 2016-07-22
+"    Created: 2013-08-17
+" LastChange: 2016-08-17
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.2
+" Version: v0.6.2    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.

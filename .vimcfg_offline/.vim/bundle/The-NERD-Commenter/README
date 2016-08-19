@@ -1,0 +1,89 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1218
+
+Grab the latest dev version from github: https://github.com/scrooloose/nerdcommenter.
+
+The following key mappings are provided by default (there is also a menu
+provided that contains menu items corresponding to all the below mappings):
+
+Most of the following mappings are for normal/visual mode only. The
+|NERDComInsertComment| mapping is for insert mode only.
+
+,cc |NERDComComment| 
+Comments out the current line or text selected in visual mode.
+
+,cn |NERDComNestedComment| 
+Same as |NERDComComment| but forces nesting.
+
+,c<space> |NERDComToggleComment| 
+Toggles the comment state of the selected line(s). If the topmost selected
+line is commented, all selected lines are uncommented and vice versa.
+
+,cm |NERDComMinimalComment| 
+Comments the given lines using only one set of multipart delimiters if
+possible. 
+
+,ci |NERDComInvertComment| 
+Toggles the comment state of the selected line(s) individually. Each selected
+line that is commented is uncommented and vice versa.
+
+,cs |NERDComSexyComment| 
+Comments out the selected lines ``sexily''
+
+,cy |NERDComYankComment|
+Same as |NERDComComment| except that the commented line(s) are yanked
+before commenting.
+
+,c$ |NERDComEOLComment| 
+Comments the current line from the cursor to the end of line.
+
+,cA |NERDComAppendComment| 
+Adds comment delimiters to the end of line and goes into insert mode between
+them.
+
+,cI |NERDComPrependComment| 
+Adds comment delimiters to the start of line and goes into insert mode between
+them.
+
+|NERDComInsertComment| 
+Adds comment delimiters at the current cursor position and inserts between.
+Disabled by default.
+
+,ca |NERDComAltDelim| 
+Switches to the alternative set of delimiters.
+
+,cl OR ,cr OR ,cb |NERDComAlignedComment| 
+Same as |NERDComComment| except that the delimiters are aligned down the
+left side (,cl), the right side (,cr) or both sides
+(,cb).
+
+,cu |NERDComUncommentLine| 
+Uncomments the selected line(s).
+
+Filetypes that can be commented by this plugin:
+abaqus abc acedb ada ahdl amiga aml ampl ant apache apachestyle asm68k asm asn
+aspvbs atlas autohotkey autoit automake ave awk basic b bc bdf bib bindzone bst
+btm caos catalog c cfg cg ch changelog cl clean clipper cmake conf config
+context cpp crontab cs csc csp css cterm cupl csv cvs dcl debchangelog
+debcontrol debsources def diff django docbk dns dosbatch dosini dot dracula dsl
+dtd dtml dylan ecd eiffel elf elmfilt erlang eruby eterm expect exports
+fetchmail fgl focexec form fortran foxpro fstab fvwm fx gdb gdmo geek
+gentoo-package-keywords' gentoo-package-mask' gentoo-package-use' gnuplot gtkrc
+haskell hb h help hercules hog html htmldjango htmlos ia64 icon idlang idl
+indent inform inittab ishd iss ist jam java javascript jess jgraph jproperties
+jproperties jsp kconfig kix kscript lace lex lftp lifelines lilo lisp lite
+lotos lout lprolog lscript lss lua lynx m4 mail make maple masm master matlab
+mel mf mib mma model moduala.  modula2 modula3 monk mush muttrc named nasm
+nastran natural ncf netdict netrw nqc nroff nsis ocaml occam omlet omnimark
+openroad opl ora otl ox pascal passwd pcap pccts perl pfmain php phtml pic pike
+pilrc pine plaintex plm plsql po postscr pov povini ppd ppwiz procmail progress
+prolog psf ptcap python python qf radiance ratpoison r rc readline rebol
+registry remind rexx robots rpl rtf ruby sa samba sas sather scheme scilab
+screen scsh sdl sed selectbuf sgml sgmldecl sgmllnx sicad simula sinda skill
+slang sl slrnrc sm smarty smil smith sml snnsnet snnspat snnsres snobol4 spec
+specman spice sql sqlforms sqlj sqr squid st stp strace svn systemverilog tads
+taglist tags tak tasm tcl terminfo tex text plaintex texinfo texmf tf tidy tli
+trasys tsalt tsscl tssgm uc uil vb verilog verilog_systemverilog vgrindefs vhdl
+vim viminfo virata vo_base vrml vsejcl webmacro wget winbatch wml [^w]*sh
+wvdial xdefaults xf86conf xhtml xkb xmath xml xmodmap xpm2 xpm xslt yacc yaml
+z8a 
+
