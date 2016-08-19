@@ -1,13 +1,30 @@
 #!/bin/bash
 
+#set color
+function set_color()
+{
+	color_failed="\e[0;31m"
+	color_success="\e[0;32m"
+	color_reset="\e[00m"
+}
+
+#检查root权限
+function check_root_privileges()
+{
+	if [ $UID -eq 0 ]; then
+		echo "You have root privileges!"
+	else
+		echo -e "${color_failed}>>> Error: You don't have root privileges!"
+		echo -e "Please input \"sudo ./install.sh\"${color_reset}"
+		exit
+	fi
+}
+
 #获取开始时间和路径
 function get_start_time_and_dir_path()
 {
 	start_time=$(date +"%s")
 	vimcfig_bundle_dir_path=$(pwd)
-	color_failed="\e[0;31m"
-	color_success="\e[0;32m"
-	color_reset="\e[00m"
 	echo "dir_path: $vimcfig_bundle_dir_path"
 }
 
@@ -183,6 +200,8 @@ function echo_install_time()
     echo
 }
 
+set_color
+check_root_privileges
 get_start_time_and_dir_path
 check_network
 bakup_vimconfig
