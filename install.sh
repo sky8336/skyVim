@@ -72,7 +72,10 @@ function config_vim()
 		cp ./.vimrc $HOME
 
 		#追加到.bashrc,不会覆盖.bashrc原有配置
-		cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+		#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+		cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
+		echo "source ~/.bashrc_my" >> ~/.bashrc
+		
 
 		cp ./README.md $HOME/.vim
 		cp ./my_help/ $HOME/.vim/ -a
@@ -82,7 +85,9 @@ function config_vim()
 		cp ./.vimcfg_offline/.vimrc $HOME
 
 		#追加到.bashrc,不会覆盖.bashrc原有配置
-		cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+		#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+		cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
+		echo "source ~/.bashrc_my" >> ~/.bashrc
 	fi
 
 	#生成tags文件
