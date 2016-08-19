@@ -71,12 +71,6 @@ function config_vim()
 		cp ./.vim  $HOME -a
 		cp ./.vimrc $HOME
 
-		#追加到.bashrc,不会覆盖.bashrc原有配置
-		#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
-		cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
-		echo "source ~/.bashrc_my" >> ~/.bashrc
-		
-
 		cp ./README.md $HOME/.vim
 		cp ./my_help/ $HOME/.vim/ -a
 
@@ -84,11 +78,12 @@ function config_vim()
 		cp ./.vimcfg_offline/.vim  $HOME -a
 		cp ./.vimcfg_offline/.vimrc $HOME
 
-		#追加到.bashrc,不会覆盖.bashrc原有配置
-		#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
-		cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
-		echo "source ~/.bashrc_my" >> ~/.bashrc
 	fi
+
+	#追加到.bashrc,不会覆盖.bashrc原有配置
+	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
+	cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
+	echo "source ~/.bashrc_my" >> ~/.bashrc
 
 	#生成tags文件
 	echo "Make tags in /usr/include"
@@ -97,8 +92,21 @@ function config_vim()
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
 
 	#函数名、运算符、括号等高亮
-	cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
-	cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
+	grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
+	if [ $? -eq 0 ]; then
+		echo "Found! c.vim have been modified."
+	else
+		echo "Not found! Modify c.vim now."
+		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
+	fi
+
+	grep "my_vim_highlight_config" /usr/share/vim/vim73/syntax/c.vim
+	if [ $? -eq 0 ]; then
+		echo "Found! c.vim have been modified."
+	else
+		echo "Not found! Modify c.vim now."
+		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
+	fi
 }
 
 #install vundle

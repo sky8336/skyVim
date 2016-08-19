@@ -67,9 +67,22 @@ function update_vimrc()
 	cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
 
 	#函数名、运算符、括号等高亮
-	# 执行install.sh时是2016-06-26 10:48:05 之前的配置的,打开以下两行执行update.sh
-	#cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
-	#cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
+	grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
+	if [ $? -eq 0 ]; then
+		echo "Found! c.vim have been modified."
+	else
+		echo "Not found! Modify c.vim now."
+		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
+	fi
+
+	grep "my_vim_highlight_config" /usr/share/vim/vim73/syntax/c.vim
+	if [ $? -eq 0 ]; then
+		echo "Found! c.vim have been modified."
+	else
+		echo "Not found! Modify c.vim now."
+		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
+	fi
+
 }
 
 #instal new plugin

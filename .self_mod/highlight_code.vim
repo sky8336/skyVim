@@ -1,4 +1,5 @@
 
+" my_vim_highlight_config
 " zhang bei add 160526
 "========================================================
 " Highlight All Function
