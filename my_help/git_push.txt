@@ -75,7 +75,23 @@ commit 后发现有错误：{{{1
 commit后发现有漏修改或漏commit的文件 {{{1
     git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到
 	index file一级。如果还要提交，直接commit即可
+----------------------------------------------------------------------
+git删除错误提交的commit 
 
+	git reset --hard <commit_id>
+	git push origin HEAD --force
+
+其他:
+    –soft –mixed –hard，对working tree和index和HEAD进行重置:
+
+    git reset –mixed：默认，不带参数的git reset，即这方式，它回退到某个版本，只保留源码，回退commit和index信息
+    git reset –soft：回退到某个版本，只回退commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可.
+    git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容.
+
+
+    HEAD 最近一个提交
+    HEAD^ 上一次
+    <commit_id> 每次commit的SHA1值.
 ----------------------------------------------------------------------
 整体更新代码，全编 {{{1
 在工程根目录下：
