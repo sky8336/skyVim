@@ -89,13 +89,13 @@ function config_vim()
 		cp ./.vimrc $HOME
 
 		cp ./README.md $HOME/.vim
-		cp ./my_help/ $HOME/.vim/ -a
 
 	else
 		cp ./.vimcfg_offline/.vim  $HOME -a
 		cp ./.vimcfg_offline/.vimrc $HOME
 
 	fi
+		cp ./my_help/ $HOME/.vim/ -a
 
 	#追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
