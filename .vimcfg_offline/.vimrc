@@ -3,8 +3,8 @@
 " Copyright (c) 2013 sky8336. All Rights Reserved.
 "
 " Maintainer: sky8336 <1919592995@qq.com>
-"    Created: 2013-08-17
-" LastChange: 2016-08-17
+"    Created: 2013-07-01
+" LastChange: 2016-08-31
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.2    offline
 
@@ -308,7 +308,7 @@ let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前
 let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
-let Tlist_Use_Right_Window = 1
+let Tlist_Use_Right_Window = 0
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
 	let g:Tlist_Auto_Open=1
@@ -371,7 +371,7 @@ let  g:CCTreeJoinProgOpts = ""
 "}}}
 
 " NERDTree.vim {{{
-let g:NERDTreeWinPos="left"
+let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
 let g:NERDTreeQuitOnOpen=1
@@ -390,7 +390,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 
 "  vim-nerdtree-tabs.vim {{{
 " 在终端启动vim时，共享NERDTree
-let g:nerdtree_tabs_open_on_console_startup=1
+let g:nerdtree_tabs_open_on_console_startup=0
 " always focus file window after startup
 let g:nerdtree_tabs_smart_startup_focus=2
 "let g:nerdtree_tabs_focus_on_files=1
