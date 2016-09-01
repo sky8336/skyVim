@@ -1,7 +1,62 @@
 git command
 ----------------------------------------------------------------------
-git log -p  显示每一次提交与其父节点提交内容之间的快照差异
+Git学习教程（六）Git 日志 {{{1
 
+查看每一次提交的补丁内容
+	git log -p
+	--显示每一次提交与其父节点提交内容之间的快照差异
+
+查看统计数字,添加或删除了多少行
+	git log --stat
+
+调整显示格式:
+	git log --pretty=format
+	--将提交历史显示成你想要的格式:oneline, short, medium, full, fuler, email, raw
+
+分支拓扑图:
+	git log --pretty=oneline --graph
+	--显示提交历史及图像化分支拓扑
+
+
+利用提交查询过滤器，查询符合某些条件的提交信息:
+日期区间:
+	git log --before="2 weeks ago" --after="2016-05-20" --pretty=oneline
+	--查看5月20号之后，2个星期之前的提交内容
+
+贡献者过滤器:
+	--查看某个作者发起的提交：--author --commiter
+	git log --author=liu,shuang --since="14 days ago" --pretty=oneline
+	--查找作者在过去两周内的所有提交条目
+
+可以指定完整人名或email地址来搜索
+	git log --author=ningx.ma@intel.com
+
+查找提交信息:
+	git log --grep='C90' --pretty=oneline
+	--搜索提交信息中有C90的所有提交内容
+
+查看指定文件的提交历史:
+	git log --pretty=oneline -- .vimrc
+查看目录或文件的提交历史
+	git log --pretty=oneline -- t/lib-httpd/ notes.c
+
+查看未合并的提交历史记录
+	git log --grep='c90' --pretty=oneline --no-merges
+
+-N 查看满足条件的最近N条历史记录
+
+查看两条提交信息之间的提交历史:
+	git log --pretty=oneline 710f0f..8a5cbc
+	--commit号710f0f(前6位)到commit号8a5cbc之间的提交历史
+查找一个分支上的提交时:
+	目前在'master'分支上，想查看'experiment'分支上还没有合并的提交记录：
+	git log master..experiment --pretty=oneline
+	--告诉你，如果现在合并的话，所有列出的这些提交都会被合并
+	可以不写某一端的分支名，git会判断目前在哪个分支上。
+	git log ..experiment --pretty=oneline
+
+	如果在experiment分支上，也想看到相同的信息，即还没有合并到master的提交:
+	git log master.. --pretty=oneline
 
 ----------------------------------------------------------------------
 Git学习教程（七）Git差异比对 {{{1
@@ -12,14 +67,10 @@ git diff HEAD  显示最后一次提交之后的所有变更。(包括变更的�
 git diff 'tag' -- README.md   查看tag标签后，README.md文件所发生的修改
 git diff v1.0 v2.0  两次提交的差异比对
 git diff v1.0 v2.0  显示两个版本之间差异的统计数字
-git diff v1.0 v2.0 -- file.c   显示file.c在两个版本之间的比对结果 
+git diff v1.0 v2.0 -- file.c   显示file.c在两个版本之间的比对结果
 git diff master...dev  创建分支dev之后，在这条分支上的差异对比 ，用dev与
                     master 所交的分岐点和现在dev分支上最后一个快照比对
 
 ----------------------------------------------------------------------
-查看指定文件的提交记录和修改详情 {{{1
-查看某个文件的提交记录
-	git log --pretty=oneline .vimrc
-
 查看某次改动的具体修改:
 	git show git提交版本号 文件名
