@@ -56,6 +56,8 @@ adb shell中:
 	<3> 查看内核打印信息
 		cat /proc/kmsg | grep key
 
+		dmesg
+
 ------------
 (2)ioctl方法
 	ioctl是作用于文件描述符之上的一个系统调用,需要另一个程序调用

@@ -46,7 +46,7 @@ function check_network()
 	else
 		#网络不畅通
 		echo
-		echo -e "${color_failed}>>> Error: the connection is lost ! "
+		echo -e "${color_failed}>>> Error: Network connection is unavailable! "
 		echo -e "Please check your Internet connection.${color_reset}"
 		echo
 		exit

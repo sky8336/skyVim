@@ -49,7 +49,7 @@ function check_network()
 	else
 		#网络不畅通,安装.vimcfg_offline中版本
 		echo
-		echo -e "${color_failed}>>> Warnning: the connection is lost ! "
+		echo -e "${color_failed}>>> Warnning: Network connection is unavailable! "
 		echo -e "Please check your Internet connection."
 		echo -e "It will be installed offline，maybe not the latest !${color_reset}"
 		online=0

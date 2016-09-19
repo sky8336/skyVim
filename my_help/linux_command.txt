@@ -12,3 +12,10 @@ find private/ -name "*~"| xargs rm
 
 查看linux/目录大小
 du -sh linux/
+
+远程拷贝文件:
+scp [参数] 原路径 目标路径
+	-r: 递归复制整个目录
+
+二进制转换,以ascii码查看:
+od -t c fileName 
