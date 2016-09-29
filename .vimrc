@@ -706,10 +706,10 @@ nnoremap <C-\>t :ConqueTermTab bash<CR><CR>
 " F9:将选中的文本，发送到Conque-Shell的交互程序中
 
 " window-resize
-nmap w= :res +5<CR>
-nmap w- :res -5<CR>
-nmap w, :vertical res +5<CR>
-nmap w. :vertical res -5<CR>
+nmap w= :res +15<CR>
+nmap w- :res -15<CR>
+nmap w, :vertical res +30<CR>
+nmap w. :vertical res -30<CR>
 "}}}
 
 """"""""""""""""""""""""""""""""""""
