@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-08-31
+" LastChange: 2016-09-29
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.2    online
 
@@ -706,10 +706,10 @@ nnoremap <C-\>t :ConqueTermTab bash<CR><CR>
 " F9:将选中的文本，发送到Conque-Shell的交互程序中
 
 " window-resize
-nmap w= :res +5<CR>
-nmap w- :res -5<CR>
-nmap w, :vertical res +5<CR>
-nmap w. :vertical res -5<CR>
+nmap w= :res +15<CR>
+nmap w- :res -15<CR>
+nmap w, :vertical res +30<CR>
+nmap w. :vertical res -30<CR>
 "}}}
 
 """"""""""""""""""""""""""""""""""""
