@@ -81,6 +81,37 @@ autocmd BufReadPost *
     \     exe "normal g'\"" |
     \ endif
 
+" create file settings
+autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
+func SetTitle()
+	if expand("%:e") == 'sh'
+		call setline(1,"\#!/bin/bash")
+		call append(line("."), "")
+    elseif expand("%:e") == 'py'
+        call setline(1,"#!/usr/bin/env python")
+        call append(line("."),"# coding=utf-8")
+	    call append(line(".")+1, "")
+    elseif expand("%:e") == 'cpp'
+		call setline(1,"#include <iostream>")
+		call append(line("."), "")
+    elseif expand("%:e") == 'cc'
+		call setline(1,"#include <iostream>")
+		call append(line("."), "")
+    elseif expand("%:e") == 'c'
+		call setline(1,"#include <stdio.h>")
+		call append(line("."), "")
+    elseif expand("%:e") == 'h'
+		call setline(1, "#ifndef _".toupper(expand("%:r"))."_H")
+		call setline(2, "#define _".toupper(expand("%:r"))."_H")
+		call setline(3, "#endif")
+    elseif expand("%:e") == 'hpp'
+		call setline(1, "#ifndef _".toupper(expand("%:r"))."_H")
+		call setline(2, "#define _".toupper(expand("%:r"))."_H")
+		call setline(3, "#endif")
+	endif
+endfunc
+autocmd BufNewFile * normal G
+
 " some function definition: {{{1
 
 " set statusline color {{{
