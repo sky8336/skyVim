@@ -16,7 +16,7 @@ file 文件名
     git pull && git status
     ---同步并显示修改文件路径
 
-    git add private/a10/JX_s07_KS/vendor/sprd/GSTCustomize 
+    git add private/a10/JX_s07_KS/vendor/sprd/GSTCustomize
     ---要提交的本地修改添加到缓存区;  空格隔开多个文件路径
 
     git commit -m "[GST05][JX_S07_KS]增加客户的开关机动画铃声/客户提供的apk"
@@ -39,7 +39,7 @@ file 文件名
     ---同步，并重新基于当前分支将本地修改移至节点树的最前面;
         (origin 可省略)
     ---将本地仓库HEAD 中的改动提交到远端仓库
-    gitk & 
+    gitk &
     检查确认一下
 此时.若无冲突，结束。
 ----------------------------------------------------------------------
@@ -52,7 +52,7 @@ gitk查看，若出现分支，显示merge： {{{1
 1. git stash
     >>>将冲突放一边（暂且这么说）
 2. git pull --rebase origin
-    >>>重新来过 
+    >>>重新来过
     git push
     >>>重新来过，此时就不会有冲突了
     gitk &
@@ -76,7 +76,7 @@ commit后发现有漏修改或漏commit的文件 {{{1
     git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到
 	index file一级。如果还要提交，直接commit即可
 ----------------------------------------------------------------------
-git删除错误提交的commit 
+git删除错误提交的commit{{{1
 
 	git reset --hard <commit_id>
 	git push origin HEAD --force
@@ -84,8 +84,12 @@ git删除错误提交的commit
 其他:
     –soft –mixed –hard，对working tree和index和HEAD进行重置:
 
-    git reset –mixed：默认，不带参数的git reset，即这方式，它回退到某个版本，只保留源码，回退commit和index信息
-    git reset –soft：回退到某个版本，只回退commit的信息，不会恢复到index file一级。如果还要提交，直接commit即可.
+    git reset –mixed：默认，不带参数的git reset，即这方式，它回退到某个版本，只保
+	留源码，回退commit和index信息
+
+    git reset –soft：回退到某个版本，只回退commit的信息，不会恢复到index file一级。
+	如果还要提交，直接commit即可.
+
     git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容.
 
 
@@ -103,4 +107,31 @@ git pull          从服务器 pull（同步）新的改动
 ----------------------------------------------------------------------
 查看git地址: {{{1
 git remote -v
+
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+intel提交代码命令：{{{1
+VR_MRD
+
+
+一、建立本地分支（必须）
+	repo start  --all xxx
+二、在本地分支下进行上传：
+	1、git status (查看修改状态)
+	2、git add （将要提交的文件添加进缓存）
+	3、git commit （写添加改动信息）
+		git commit -s   在改动信息中添加 修改人信息
+		在 commit 中要写明修改原因，修复什么样的问题，
+		在Tracked-on：中要写修复bug的链接，或者bug号
+	4,提交修改：
+		repo upload
+
+
+git 命令：
+
+	git am xxx.patch
+	(xxx.patch 是由 git format-patch 生成的)
+
+	git commit -s –amend 修改上次的提交
 
