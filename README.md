@@ -667,7 +667,10 @@ my_help/目录中存放开发中常用的帮助文档
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
 	
-## 15、AutoComplPop、superTab 和OmniCppcomplete代码自动补全 {{{2
+## 15、YouCompleteMe、AutoComplPop、superTab 和OmniCppcomplete代码自动补全 {{{2
+###	YouCompleteMe:
+	
+### AutoComplPop、superTab 和OmniCppcomplete
 	AutoComplPop:  
 	acp.vim插件，在输入的同时实时地查询匹配的关键词 
 	superTab: [已去掉20160809] 
