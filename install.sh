@@ -76,6 +76,8 @@ function install_packages()
 
 	echo ">> install: vim-gnome+xsel"
 	apt-get install vim-gnome xsel -y --force-yes
+	echo ">> install: nautilus-open-terminal"
+	sudo apt-get install nautilus-open-terminal -y --force-yes
 }
 
 #配置vim
