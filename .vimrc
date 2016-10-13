@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-08
+" LastChange: 2016-10-13
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.2    online
 
@@ -740,7 +740,8 @@ nmap cm :%s/\s\+$//<CR>:noh<CR>
 " 转换成utf-8格式
 nmap cu :set fileencoding=utf-8<CR>:noh<CR>
 
-" 启用每行超过80列的字符提示（字体变蓝并加下划线）
-au BufWinEnter * let w:m2=matchadd('Underlined', '\%>' . 80 . 'v.\+', -1)
+" 启用每行超过80列的字符提示（背景变black）
+highlight MyGroup ctermbg=black guibg=black
+au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 "}}}
 
