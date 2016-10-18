@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-13
+" LastChange: 2016-10-18
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.2    online
 
@@ -395,7 +395,6 @@ let  g:CCTreeJoinProgOpts = ""
 "let g:CCTreeUseUTF8Symbols = 1
 "map <F7> :CCTreeLoadXRefDBFromDisk $CCTREE_DB<cr>
 
-"" CCTree.vim
 "let g:CCTreeCscopeDb = "cscope.out"
 "let g:CCTreeRecursiveDepth = 3
 "let g:CCTreeMinVisibleDepth = 3
@@ -693,6 +692,7 @@ nmap  <leader><F7> :lclose<CR>
 
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
 nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
+nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
 nmap <C-F10> :bn<CR>
 nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)

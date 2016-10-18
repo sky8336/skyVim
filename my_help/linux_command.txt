@@ -7,6 +7,8 @@ linux command
 使用touch命令递归修改文件时间戳:
 find ./ * -exec touch {} \;
 
+grep -niR "xxx" files
+
 搜索文件，执行删除命令
 find private/ -name "*~"| xargs rm
 
