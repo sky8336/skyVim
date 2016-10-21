@@ -6,7 +6,7 @@
 "    Created: 2013-07-01
 " LastChange: 2016-10-21
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.2    online
+" Version: v0.6.3    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.
@@ -680,10 +680,11 @@ nmap  <leader><F4> :silent! VE .<cr>
 
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <C-F5> :UndotreeToggle<cr>
-nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
+"nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
 nmap  <F6> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'<CR>:copen<CR>
 nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
 nmap  <leader><F6> :vimgrep /<C-R>=expand("<cword>")<cr>/
+nmap  <C-\><F6> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
 nmap  <F7> :SyntasticCheck<CR>
 nmap  <C-F7> :Errors<CR>
 nmap  <leader><F7> :lclose<CR>
