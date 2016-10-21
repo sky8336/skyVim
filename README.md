@@ -8,11 +8,23 @@ my_help/目录中存放开发中常用的帮助文档
 	 (2)本配置会在摸索过程中不断总结使用方法和优化插件组合,大浪淘沙，随着时间推移将越来越功能完善，以提高效率。  
 	 (3)有更好的插件或需求及使用方法总结，记得留言，共同打造属于我们的编辑方案。  
 
-### 本vim配置为:  
+	配置文件是隐藏文件  
+### 本vim配置为:  {{{2
     适用于linux 内核/驱动开发的vim配置;  
 	适用于c/c++的应用编程的vim配置;  
 
-配置文件是隐藏文件  
+### 帮助说明 {{{2
+	,hm 打开本README.md  
+	,h  打开my_help/文件夹，可选择打开需要的帮助文件,如下:  
+		git_command.txt  git使用整理  
+		git_push.txt     git提交代码相关流程及命令  
+		vim_command.txt  vim基本命令及使用技巧  
+	vih 命令行输入，快速打开my_help/帮助目录
+	vidc 'vi ~/.vim/my_help/debug_cmd.txt'
+	vigc 'vi ~/.vim/my_help/git_command.txt'
+	vigp 'vi ~/.vim/my_help/git_push.txt'
+	vilc 'vi ~/.vim/my_help/linux_command.txt'
+	vivc 'vi ~/.vim/my_help/vim_command.txt'
 
 # 一、配置前注意: {{{1
 	1)执行脚本会先安装vim+ctags+cscope+ranger  
@@ -172,6 +184,8 @@ my_help/目录中存放开发中常用的帮助文档
 	在vim窗口跟踪光标所在变量或函数等:  
 	跟踪代码：Ctrl+]  
 	回退：	Ctrl+t
+	使用tags查找符号:  
+	:tag xxx  
 
 	在终端直接查找:  
 	vi -t 变量或函数名  
@@ -179,6 +193,7 @@ my_help/目录中存放开发中常用的帮助文档
 	
 #### (2)cscoe用法：
 ##### 普通模式下，光标在要查找的符号上，快速按下以下对应快捷键。
+	在当前窗口跳转:  
 	,sc	 查找调用本函数的函数  
 	,sd	 查找本函数调用的函数  
 	,se	 查找egrep模式，相当于egrep功能，但查找速度快多了  
@@ -187,6 +202,18 @@ my_help/目录中存放开发中常用的帮助文档
 	,si	 查找包含本文件的文件  
 	,ss	 查找C语言符号，即查找函数名、宏、枚举值等出现的地方  
 	,st	 查找指定的字符串  
+
+	跳转时，打开一个垂直分割窗口(第一次跳转时使用):  
+	命令中的s变成v, 即:  
+	,vc  
+	,vd  
+	...  
+
+	底行模式中输入要查找的变量，字符串或文件等:  
+	命令中的s变成f, 即:  
+	,fc   
+	,fd  
+	...  
 
 	注意：
 		按的慢，如按下,s停顿后，会删除一个字符进入插入模式，只依次需按Esc u即可恢复（回到普通模式，撤销）。
@@ -760,7 +787,10 @@ my_help/目录中存放开发中常用的帮助文档
     Ctrl-\+< 这个函数为尾,查看其上的函数  
     Ctrl-\+w 显示或者关闭cctree窗口  
 
-	cctree窗口提供跳转功能，鼠标双击该函数即可。  
+	cctree窗口提供跳转功能:  
+	1.鼠标双击该函数  
+	2.按Enter  
+	3.ctrl+p  
 
 ## 21、project -- 项目管理工具 {{{2
 	打开project两种方式：  
@@ -860,7 +890,7 @@ my_help/目录中存放开发中常用的帮助文档
 	[a     :previous
 	]a     :next
 
-## 27、man.vim
+## 27、man.vim{{{2
 	在.vimrc中:
 source $VIMRUNTIME/ftplugin/man.vim
 $VIMRUNTIME=/usr/share/vim/vim74/
@@ -868,7 +898,7 @@ $VIMRUNTIME=/usr/share/vim/vim74/
 nmap K :Man <cword>
 K: 在线参考手册中查找
 
-## 其他 {{{1
+## 其他 {{{2
 	(a)普通模式下:
 		输入 cM 清除行尾 ^M 符号;
 		输入 cm 去掉行尾空格;  
@@ -928,17 +958,59 @@ K: 在线参考手册中查找
 		w, : 宽度增加5行  
 		w. : 宽度减小5行  
 		
-### 帮助说明 {{{2
-	,hm 打开本README.md  
-	,h  打开my_help/文件夹，可选择打开需要的帮助文件,如下:  
-		git_command.txt  git使用整理  
-		git_push.txt     git提交代码相关流程及命令  
-		vim_command.txt  vim基本命令及使用技巧  
-	vih 命令行输入，快速打开my_help/帮助目录
-	vidc 'vi ~/.vim/my_help/debug_cmd.txt'
-	vigc 'vi ~/.vim/my_help/git_command.txt'
-	vigp 'vi ~/.vim/my_help/git_push.txt'
-	vilc 'vi ~/.vim/my_help/linux_command.txt'
-	vivc 'vi ~/.vim/my_help/vim_command.txt'
+
+# vim Usage: 使用习惯及场景应用 -- 快速使用{{{1   
+
+## vim 窗口中操作:  
+
+### 源码跟踪：{{{2
+	见 1、tags.fn、tags和cscope生成及使用方法  
+
+	cscope
+	ctags  
+
+	函数调用视图: CCTree  
+	ctrl-\+F9  
+	ctrl-\+<	调用函数  
+
+### 源码预览{{{2
+
+### 查找文件{{{2
+	1.查找文件：  
+		crtl+p			ctrlP			模糊查找   
+		F5				LookupFile		
+
+	2.查找最近使用的文件:  
+		,bv  
+		F3	MRU  
+	3.利用NERDTree查找  
+	4.tabf查找当前目录文件并用标签打开  
+### 查找字符串{{{2
+	F6  
+	,F6  
+	Ctrl+F6  
+
+### 查找变量和函数{{{2
+	1.cscope 正则查找  
+		,fe pattern   
+	2.cscope 查找:  
+		,s  
+
+### 窗口布局 | 多文件编辑{{{2
+	1.窗口分割：  
+		sp  
+		vsp  
+	2.多标签切换  
+		:tabnew filename  
+		:tabs  显示已打开标签页列表，> 标识当前页， +标识已更改的页面  
+		:tabdo 同时在多个标签页中执行命令  
+		:tabdo %s/food/drink/g 一次完成对所有文件的替换操作  
+
+	3.bufexplorer使用  
+		,bv  
+
+## vim 与终端交互 | 执行bash 命令 
+		vim 和终端切换: ctrl+z  <--> fg  
+
 
 
