@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-18
+" LastChange: 2016-10-21
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.2    online
 
@@ -485,7 +485,6 @@ nmap  <leader>m :MRU
 "}}}
 
 " LookupFile setting {{{
-"let g:LookupFile_TagExpr='"./tags.filename"' "原来的名称不匹配
 let g:LookupFile_TagExpr='"./tags.fn"'
 let g:LookupFile_MinPatLength=2
 let g:LookupFile_PreserveLastPattern=0
@@ -708,6 +707,25 @@ nmap <leader>se :cs find e <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
+
+
+nmap <leader>vs :vert scs find s <C-R>=expand("<cword>")<cr><cr>
+nmap <leader>vg :vert scs find g <C-R>=expand("<cword>")<cr><cr>
+nmap <leader>vc :vert scs find c <C-R>=expand("<cword>")<cr><cr>
+nmap <leader>vt :vert scs find t <C-R>=expand("<cword>")<cr><cr>
+nmap <leader>ve :vert scs find e <C-R>=expand("<cword>")<cr><cr>
+nmap <leader>vf :vert scs find f <C-R>=expand("<cfile>")<cr><cr>
+nmap <leader>vi :vert scs find i <C-R>=expand("<cfile>")<cr><cr>
+nmap <leader>vd :vert scs find d <C-R>=expand("<cword>")<cr><cr>
+
+nmap <leader>fs :cs find s 
+nmap <leader>fg :cs find g 
+nmap <leader>fc :cs find c 
+nmap <leader>ft :cs find t 
+nmap <leader>fe :cs find e 
+nmap <leader>ff :cs find f 
+nmap <leader>fi :cs find i 
+nmap <leader>fd :cs find d 
 ",sa 添加cscope.out库
 ",ss 查找c语言符号（函数名 宏 枚举值）出现的地方
 ",sg 查找函数/宏/枚举等定义的位置，类似ctags的功能
