@@ -17,6 +17,9 @@ Git学习教程（六）Git 日志 {{{1
 	git log --pretty=oneline --graph
 	--显示提交历史及图像化分支拓扑
 
+	git log --graph
+	git log --graph --decorate --pretty=oneline --abbrev-commit --all
+
 
 利用提交查询过滤器，查询符合某些条件的提交信息:
 日期区间:
@@ -74,3 +77,15 @@ git diff master...dev  创建分支dev之后，在这条分支上的差异对比
 ----------------------------------------------------------------------
 查看某次改动的具体修改:
 	git show git提交版本号 文件名
+
+================================================================================
+git branch
+
+显示本地分支及分支头commit号、commit信息
+git branch -v
+
+显示本地、远程分支及分支头commit号、commit信息
+git branch -va
+
+对应的显示本地、远程分支及分支头commit号、commit信息
+git branch -vv
