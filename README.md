@@ -15,7 +15,7 @@ my_help/目录中存放开发中常用的帮助文档
 
 ### 帮助说明 {{{2
 	,hm 打开本README.md  
-	,h  打开my_help/文件夹，可选择打开需要的帮助文件,如下:  
+	,hd  打开my_help/文件夹(directory)，可选择打开需要的帮助文件,如下:  
 		git_command.txt  git使用整理  
 		git_push.txt     git提交代码相关流程及命令  
 		vim_command.txt  vim基本命令及使用技巧  
@@ -712,12 +712,15 @@ my_help/目录中存放开发中常用的帮助文档
 	
 ### 打开ctrlp查找窗口后:  
 	ctrl-f    切换查找方式(Files, Buffers and MRU files)，可模糊搜索最近打开的文件(MRU)  
+	vsp 打开其他路径下文件，ctrl+p会从打开文件所在目录开始递归查找文件  
 	
 	输入关键字, 然后  
 	ctrl + j/k   进行上下选择  
+	ctrl + o	 can select tab/vertical/horizontal/replace/hidden  
 	ctrl + x     在当前窗口水平分屏打开文件  
 	ctrl + v     同上, 垂直分屏  
 	ctrl + t     在tab中打开  
+	ctrl + u 	 删除所有输入  
 
 ### Basic Usage
 
