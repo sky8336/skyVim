@@ -755,10 +755,10 @@ nmap cm :%s/\s\+$//<CR>:noh<CR>
 nmap cu :set fileencoding=utf-8<CR>:noh<CR>
 
 " 全部缩进(indent)对齐
-nmap ci ggVG=
+nmap ci ggVG=<C-o><C-o>
 
 " 复制全部
-nmap cy ggVGy
+nmap cy ggVGy<C-o><C-o>
 
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
