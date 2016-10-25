@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-21
+" LastChange: 2016-10-25
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.4    online
 
@@ -714,11 +714,11 @@ nmap <leader>fd :cs find d
 
 "其他映射 {{{2
 nmap <leader>zz <C-w>o
-nmap <leader>hm :sp ~/.vim/README.md<cr>
-nmap <leader>h  :vsp ~/.vim/my_help/<cr>
+nmap <leader>hm :tabnew ~/.vim/README.md<cr>
+nmap <leader>hd :tabnew ~/.vim/my_help/<cr>
 ",zz  关闭光标所在窗口之外的其他所有窗口
-",hm  水平分割窗口打开帮助文档README.md
-",h   竖直分割窗口，打开帮助文件夹，可选择需要帮助文档
+",hm  tab标签页,打开帮助文档README.md
+",hd  tab标签页,打开my_help directory，可选择需要帮助文档
 
 " window-resize {{{2
 nmap w= :res +15<CR>
