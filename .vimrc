@@ -6,7 +6,7 @@
 "    Created: 2013-07-01
 " LastChange: 2016-10-25
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.4    online
+" Version: v0.6.4    offline
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -753,6 +753,12 @@ nmap cm :%s/\s\+$//<CR>:noh<CR>
 
 " 转换成utf-8格式
 nmap cu :set fileencoding=utf-8<CR>:noh<CR>
+
+" 全部缩进(indent)对齐
+nmap ci ggVG=
+
+" 复制全部
+nmap cy ggVGy
 
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
