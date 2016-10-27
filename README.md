@@ -133,8 +133,8 @@ my_help/目录中存放开发中常用的帮助文档
 	F8    
 	Ctrl+F8 
 
-	F9    在kernel/目录或linux-stable/目录下，生成filename(tags.fn)及arm平台的tags(tags.fn)和cscope数据库；  
-	      否则，通用，生成filename(tags.fn)及tags(tags.fn)和cscope数据库  
+	F9    在kernel/目录或linux-stable/目录下，生成filename(tags.o.fn)及arm平台的tags(tags.o.fn)和cscope数据库；  
+	      否则，通用，生成filename(tags.o.fn)及tags(tags.o.fn)和cscope数据库  
 	Ctrl+F9	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
 	( F10/F11系统占用 )  
 	Ctrl+F10   模拟source insight 窗口中的Taglist窗口开关  
@@ -152,13 +152,13 @@ my_help/目录中存放开发中常用的帮助文档
 
 
 # 四、vim插件使用说明 {{{1
-## 1、tags.fn、tags和cscope生成及使用方法 {{{2
-### 1)tags.fn、tags和cscope库文件的生成 {{{3
+## 1、tags.o.fn、tags和cscope生成及使用方法 {{{2
+### 1)tags.o.fn、tags和cscope库文件的生成 {{{3
  
 	cindex 终端生成ctags索引文件tags  
 
 #### kernel/下只生成与arm架构有关的 :  
-	打开vim窗口，按F9,会生成tags.fn,并自动根据当前目录在kernel/或linux-stable使用make生成ctags和  
+	打开vim窗口，按F9,会生成tags.o.fn,并自动根据当前目录在kernel/或linux-stable使用make生成ctags和  
 	cscope；若不是kernel或linux-stable目录，则使用ctags和cscope命令来生成  
 	放在那里，生成结束会自动关闭窗口  
 
@@ -457,7 +457,7 @@ my_help/目录中存放开发中常用的帮助文档
         打开文件名中包含vim的文件,指定只显示匹配vim的文件  
         	
 ## 5、LookupFile -- 文件搜索用(按F5) {{{2
-	tags.fn 用于文件搜索,包含项目中所有文件名  
+	tags.o.fn 用于文件搜索,包含项目中所有文件名  
 	tab键开始扫描  
 	ctrl+o:	水平分割窗口打开  
 
@@ -974,7 +974,7 @@ K: 在线参考手册中查找
 ## vim 窗口中操作:  
 
 ### 源码跟踪：{{{2
-	见 1、tags.fn、tags和cscope生成及使用方法  
+	见 1、tags.o.fn、tags和cscope生成及使用方法  
 
 	cscope
 	ctags  

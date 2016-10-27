@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-25
+" LastChange: 2016-10-27
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.4    offline
+" Version: v0.6.5    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -301,6 +301,8 @@ Bundle 'ZoomWin'
 "Bundle 'winmanager'
 "Bundle 'c.vim'
 Bundle 'gitv'
+"Bundle 'DrawIt'
+"Bundle 'gdbmgr'
 
 " non github repos   (非上面两种情况的，按下面格式填写){{{2
 "Bundle 'git://git.wincent.com/command-t.git'
@@ -464,7 +466,7 @@ endif
 nmap  <leader>m :MRU
 
 " LookupFile setting {{{2
-let g:LookupFile_TagExpr='"./tags.fn"'
+let g:LookupFile_TagExpr='"./tags.o.fn"'
 let g:LookupFile_MinPatLength=2
 let g:LookupFile_PreserveLastPattern=0
 let g:LookupFile_PreservePatternHistory=1
