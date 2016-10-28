@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-27
+" LastChange: 2016-10-28
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.5    online
 
@@ -757,10 +757,10 @@ nmap cm :%s/\s\+$//<CR>:noh<CR>
 nmap cu :set fileencoding=utf-8<CR>:noh<CR>
 
 " 全部缩进(indent)对齐
-nmap ci ggVG=<C-o><C-o>
+nmap ci ggVG=
 
 " 复制全部
-nmap cy ggVGy<C-o><C-o>
+nmap cy ggVGy
 
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
