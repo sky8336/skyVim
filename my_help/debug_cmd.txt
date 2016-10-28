@@ -30,6 +30,10 @@ linux 系统监控、诊断工具top
 	--显示10个
 
 ------------
+pidof 是Linux系统中用来查找正在运行进程的进程号（pid)的工具
+pidof bash | wc -w
+
+------------
 busybox
 adb shell中:
 	busybox linux命令
