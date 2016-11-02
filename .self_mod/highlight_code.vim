@@ -1,13 +1,14 @@
 
 " my_vim_highlight_config
 " zhang bei add 160526
+" LastChange: 2016-11-02
 "========================================================
 " Highlight All Function
 "========================================================
 syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>[^()]*)("me=e-2
 syn match cFunction "\<[a-zA-Z_][a-zA-Z_0-9]*\>\s*("me=e-1
 " hi cFunction gui=NONE guifg=#B5A1FF
-hi cFunction ctermfg=DarkGreen
+hi cFunction ctermfg=LightGreen cterm=bold
 "========================================================
 " Highlight All Math Operator
 "========================================================

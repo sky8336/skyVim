@@ -24,7 +24,7 @@ if version > 700
 	endif
 endif
 
-"let g:colors_name = "mycolor"
+let g:colors_name = "mycolor"
 
 "hi Normal               ctermfg=Grey            ctermbg=Black
 hi ColorColumn          ctermfg=White           ctermbg=Grey
@@ -63,7 +63,7 @@ hi PmenuSel             ctermbg=DarkBlue        ctermfg=LightGreen
 
 hi Comment              ctermfg=DarkCyan        ctermbg=none
 hi PreProc              ctermfg=DarkBlue        ctermbg=none
-hi Type                 ctermfg=LightGreen      ctermbg=none           cterm=bold
+hi Type                 ctermfg=DarkGreen      ctermbg=none           cterm=bold
 hi Constant             ctermfg=Blue            ctermbg=none           cterm=bold
 hi Statement            ctermfg=Yellow     ctermbg=none           cterm=bold
 hi Special              ctermfg=Red             ctermbg=none           cterm=bold
