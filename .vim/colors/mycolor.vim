@@ -67,11 +67,11 @@ hi Type                 ctermfg=DarkGreen      ctermbg=none           cterm=bold
 hi Constant             ctermfg=Blue            ctermbg=none           cterm=bold
 hi Statement            ctermfg=Yellow     ctermbg=none           cterm=bold
 hi Special              ctermfg=Red             ctermbg=none           cterm=bold
-hi SpecialKey           ctermfg=Red             ctermbg=none           cterm=bold
+"hi SpecialKey           ctermfg=Red             ctermbg=none           cterm=bold
 hi Number               ctermfg=Blue            ctermbg=none
 hi cCppString           ctermfg=Magenta         ctermbg=none
 hi String               ctermfg=Magenta         ctermbg=none
-hi Identifier           ctermfg=Red             ctermbg=none           cterm=bold
+"hi Identifier           ctermfg=Red             ctermbg=none           cterm=bold
 hi Todo                 ctermfg=Black           ctermbg=Gray           cterm=bold
 hi NonText              ctermfg=LightBlue       ctermbg=none
 hi Directory            ctermfg=Blue            ctermbg=Black
@@ -96,7 +96,7 @@ hi TagListComment       ctermfg=LightBlue       ctermbg=Black
 hi TagListFileName      ctermfg=LightBlue       ctermbg=Black
 hi TagListTitle         ctermfg=LightBlue       ctermbg=Black
 hi TagListTagScope      ctermfg=LightBlue       ctermbg=Black
-hi TagListTagName       ctermfg=Green           ctermbg=Black
+hi TagListTagName       ctermfg=LightGreen           ctermbg=Black cterm=bold
 hi Tag                  ctermfg=LightBlue       ctermbg=Black
 
 
