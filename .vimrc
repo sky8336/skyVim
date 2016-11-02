@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-28
+" LastChange: 2016-11-02
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.5    online
+" Version: v0.6.6    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -674,6 +674,10 @@ nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
 nmap <C-F10> :bn<CR>
 nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
+
+" Linux Programmer's Manual
+nmap <C-m> :Man <C-R>=expand("<cword>")<cr><cr>
+nmap <C-\>2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
 "cscope 按键映射及说明 {{{2
 nmap <leader>sa :cs add cscope.out<cr>

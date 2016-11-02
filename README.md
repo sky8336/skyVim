@@ -905,6 +905,9 @@ $VIMRUNTIME=/usr/share/vim/vim74/
 
 nmap K :Man <cword>
 K: 在线参考手册中查找
+### linux programmer's Manual
+	ctrl+m    :Man <cword>  
+	ctrl-\+2  :Man 2 <cword>  
 
 ## 其他 {{{2
 	(a)普通模式下:
