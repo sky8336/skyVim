@@ -140,3 +140,20 @@ git 命令：
 
 	git commit -s –amend 修改上次的提交
 
+	abandon local branch(删除本地分支):
+		repo abandon local_branch
+
+	查看分支：
+		repo branch
+
+	checkout:
+		git fetch ssh://nma1x@ctegerrit.sh.intel.com:29418/a/bsp/vendor/intel/ish-sensors refs/changes/02/15902/4 && git checkout FETCH_HEAD
+
+	cherry pich:(将gerrit 上的patch 打到自己本地)：
+		git fetch ssh://nma1x@ctegerrit.sh.intel.com:29418/a/bsp/vendor/intel/ish-sensors refs/changes/02/15902/4 && git cherry-pick FETCH_HEAD
+	format patch:
+		git fetch ssh://nma1x@ctegerrit.sh.intel.com:29418/a/bsp/vendor/intel/ish-sensors refs/changes/02/15902/4 && git format-patch -1 --stdout FETCH_HEAD
+	pull:
+		git pull ssh://nma1x@ctegerrit.sh.intel.com:29418/a/bsp/vendor/intel/ish-sensors refs/changes/02/15902/4
+
+
