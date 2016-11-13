@@ -89,3 +89,11 @@ git branch -va
 
 对应的显示本地、远程分支及分支头commit号、commit信息
 git branch -vv
+
+获取,映射远程分支到本地:
+(1)将远程分支信息获取到本地:
+	git fetch
+
+(2)将远程分支映射到本地命名为local-branchname的分支:
+	git checkout -b local-branchname origin/remote_branchname
+
