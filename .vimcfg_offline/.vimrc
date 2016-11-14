@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-10-21
+" LastChange: 2016-11-14
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.4    offline
+" Version: v0.6.8    offline
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -264,6 +264,7 @@ Bundle 'airblade/vim-gitgutter'
 "Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
 Bundle 'tpope/vim-surround'
+"Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
@@ -301,6 +302,8 @@ Bundle 'ZoomWin'
 "Bundle 'winmanager'
 "Bundle 'c.vim'
 Bundle 'gitv'
+Bundle 'DrawIt'
+"Bundle 'gdbmgr'
 
 " non github repos   (非上面两种情况的，按下面格式填写){{{2
 "Bundle 'git://git.wincent.com/command-t.git'
@@ -426,6 +429,29 @@ let g:NERDTreeIndicatorMapCustom = {
 			\ "Unknown"   : "?"
 			\ }
 
+
+"" YCM {{{2
+"let g:ycm_confirm_extra_conf = 0
+"let g:ycm_error_symbol = '>>'
+"let g:ycm_warning_symbol = '>*'
+"let g:ycm_seed_identifiers_with_syntax = 1
+"let g:ycm_complete_in_comments = 1
+"let g:ycm_complete_in_strings = 1
+""let g:ycm_cache_omnifunc = 0
+"nnoremap <leader>u :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>i :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>o :YcmCompleter GoToInclude<CR>
+"nmap <F5> :YcmDiags<CR>
+
+"" ctags
+""set tags+=/usr/include/tags
+""set tags+=~/.vim/systags
+""set tags+=~/.vim/x86_64-linux-gnu-systags
+"let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_semantic_triggers = {}
+"let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
+""}}}
+
 " OmniCppComplete.vim {{{2
 "set nocp
 "filetype plugin on
@@ -464,7 +490,7 @@ endif
 nmap  <leader>m :MRU
 
 " LookupFile setting {{{2
-let g:LookupFile_TagExpr='"./tags.fn"'
+let g:LookupFile_TagExpr='"./tags.o.fn"'
 let g:LookupFile_MinPatLength=2
 let g:LookupFile_PreserveLastPattern=0
 let g:LookupFile_PreservePatternHistory=1
@@ -673,6 +699,10 @@ nmap <C-F10> :bn<CR>
 nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 
+" Linux Programmer's Manual
+nmap <C-m> :Man <C-R>=expand("<cword>")<cr><cr>
+nmap <C-\>2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
+
 "cscope 按键映射及说明 {{{2
 nmap <leader>sa :cs add cscope.out<cr>
 nmap <leader>ss :cs find s <C-R>=expand("<cword>")<cr><cr>
@@ -714,11 +744,11 @@ nmap <leader>fd :cs find d
 
 "其他映射 {{{2
 nmap <leader>zz <C-w>o
-nmap <leader>hm :sp ~/.vim/README.md<cr>
-nmap <leader>h  :vsp ~/.vim/my_help/<cr>
+nmap <leader>hm :tabnew ~/.vim/README.md<cr>
+nmap <leader>hd :tabnew ~/.vim/my_help/<cr>
 ",zz  关闭光标所在窗口之外的其他所有窗口
-",hm  水平分割窗口打开帮助文档README.md
-",h   竖直分割窗口，打开帮助文件夹，可选择需要帮助文档
+",hm  tab标签页,打开帮助文档README.md
+",hd  tab标签页,打开my_help directory，可选择需要帮助文档
 
 " window-resize {{{2
 nmap w= :res +15<CR>
@@ -753,6 +783,12 @@ nmap cm :%s/\s\+$//<CR>:noh<CR>
 
 " 转换成utf-8格式
 nmap cu :set fileencoding=utf-8<CR>:noh<CR>
+
+" 全部缩进(indent)对齐
+nmap ci ggVG=
+
+" 复制全部
+nmap cy ggVGy
 
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
