@@ -264,7 +264,7 @@ Bundle 'airblade/vim-gitgutter'
 "Bundle 'ervandew/supertab'
 Bundle 'msanders/snipmate.vim'
 Bundle 'tpope/vim-surround'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
@@ -430,28 +430,27 @@ let g:NERDTreeIndicatorMapCustom = {
 			\ }
 
 
-" YCM {{{2
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_error_symbol = '>>'
-let g:ycm_warning_symbol = '>*'
-let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_complete_in_comments = 1
-let g:ycm_complete_in_strings = 1
-"let g:ycm_cache_omnifunc = 0
-let mapleader = ","
-nnoremap <leader>u :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>i :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>o :YcmCompleter GoToInclude<CR>
-nmap <F5> :YcmDiags<CR>
+"" YCM {{{2
+"let g:ycm_confirm_extra_conf = 0
+"let g:ycm_error_symbol = '>>'
+"let g:ycm_warning_symbol = '>*'
+"let g:ycm_seed_identifiers_with_syntax = 1
+"let g:ycm_complete_in_comments = 1
+"let g:ycm_complete_in_strings = 1
+""let g:ycm_cache_omnifunc = 0
+"nnoremap <leader>u :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>i :YcmCompleter GoToDefinition<CR>
+"nnoremap <leader>o :YcmCompleter GoToInclude<CR>
+"nmap <F5> :YcmDiags<CR>
 
-" ctags
-"set tags+=/usr/include/tags
-"set tags+=~/.vim/systags
-"set tags+=~/.vim/x86_64-linux-gnu-systags
-let g:ycm_collect_identifiers_from_tags_files = 1
-let g:ycm_semantic_triggers = {}
-let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
-"}}}
+"" ctags
+""set tags+=/usr/include/tags
+""set tags+=~/.vim/systags
+""set tags+=~/.vim/x86_64-linux-gnu-systags
+"let g:ycm_collect_identifiers_from_tags_files = 1
+"let g:ycm_semantic_triggers = {}
+"let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
+""}}}
 
 " OmniCppComplete.vim {{{2
 "set nocp
