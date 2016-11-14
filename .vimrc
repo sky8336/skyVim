@@ -6,7 +6,7 @@
 "    Created: 2013-07-01
 " LastChange: 2016-11-14
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.7    online
+" Version: v0.6.8    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -302,7 +302,7 @@ Bundle 'ZoomWin'
 "Bundle 'winmanager'
 "Bundle 'c.vim'
 Bundle 'gitv'
-"Bundle 'DrawIt'
+Bundle 'DrawIt'
 "Bundle 'gdbmgr'
 
 " non github repos   (非上面两种情况的，按下面格式填写){{{2
