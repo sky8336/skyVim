@@ -161,7 +161,7 @@ function config_vim()
 		echo "Found my_vim_highlight_config! c.vim have been modified."
 	else
 		echo "Not found my_vim_highlight_config! Modify c.vim now."
-		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim83/syntax/c.vim
+		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim80/syntax/c.vim
 	fi
 
 	grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
