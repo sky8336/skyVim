@@ -156,19 +156,27 @@ function config_vim()
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
 
 	#函数名、运算符、括号等高亮
+	grep "my_vim_highlight_config" /usr/share/vim/vim80/syntax/c.vim
+	if [ $? -eq 0 ]; then
+		echo "Found my_vim_highlight_config! c.vim have been modified."
+	else
+		echo "Not found my_vim_highlight_config! Modify c.vim now."
+		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim83/syntax/c.vim
+	fi
+
 	grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
 	if [ $? -eq 0 ]; then
-		echo "Found! c.vim have been modified."
+		echo "Found my_vim_highlight_config! c.vim have been modified."
 	else
-		echo "Not found! Modify c.vim now."
+		echo "Not found my_vim_highlight_config! Modify c.vim now."
 		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
 	fi
 
 	grep "my_vim_highlight_config" /usr/share/vim/vim73/syntax/c.vim
 	if [ $? -eq 0 ]; then
-		echo "Found! c.vim have been modified."
+		echo "Found my_vim_highlight_config! c.vim have been modified."
 	else
-		echo "Not found! Modify c.vim now."
+		echo "Not found my_vim_highlight_config! Modify c.vim now."
 		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
 	fi
 }
@@ -267,11 +275,11 @@ get_start_time_and_dir_path
 check_network
 bakup_vimconfig
 install_packages
-build_vim_by_source
+#build_vim_by_source
 config_vim
 install_vundle_and_plugin
 chown_vundle
-install_ycm
+#install_ycm
 #set_cfg_for_winmanager
 git_config
 echo_install_time
