@@ -69,6 +69,7 @@ alias vilc='vi ~/.vim/my_help/linux_command.txt'
 alias vivc='vi ~/.vim/my_help/vim_command.txt'
 alias vi='vim'
 alias tagsc='rm cscope.*.out cscope.out tags tags.o.fn'
+alias exchkey=$HOME/.vim/my_help/locktoesc.sh
 
 # git commit -a 提交代码时，编辑器默认为vim的另一种方法
 #export EDITOR=/usr/bin/vim

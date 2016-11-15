@@ -1,4 +1,13 @@
 # vimconfig_bundle
+ 
+" Copyright (c) 2013 sky8336. All Rights Reserved.
+"
+" Maintainer: sky8336 <1919592995@qq.com>
+"    Created: 2013-07-01
+" LastChange: 2016-11-15
+" Version: v0.6.8    online
+
+
 vim config for linux devices driver development  
 my_help/目录中存放开发中常用的帮助文档
 大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
@@ -25,6 +34,7 @@ my_help/目录中存放开发中常用的帮助文档
 	vigp 'vi ~/.vim/my_help/git_push.txt'
 	vilc 'vi ~/.vim/my_help/linux_command.txt'
 	vivc 'vi ~/.vim/my_help/vim_command.txt'
+	exchkey : 交换 Caps_Lock 和 Escape 键  
 
 # 一、配置前注意: {{{1
 	1)执行脚本会先安装vim+ctags+cscope+ranger  
@@ -912,6 +922,34 @@ K: 在线参考手册中查找
 	ctrl+m    :Man <cword>  
 	ctrl-\+2  :Man 2 <cword>  
 
+## 28、drawit.vim{{{2
+Vim画图插件（可在vim中画基本示意图）  
+###使用
+####1）启动和退出DrawIt:
+		,di    启动  
+		,ds    关闭  
+
+####2）画图
+	在visual block（可视块）模式下，Ctrl-v进入可视块模式。选择一个矩形框，然后:  
+		,b    矩形框  
+		,e    椭圆  
+
+####3）箭头
+		^     上箭头    
+		,^    粗大上箭头    
+		v     下箭头      
+		,v    粗大下箭头  
+		>     右箭头  
+		,>    粗大右箭头  
+		<     左箭头  
+		,<    粗大左箭头  
+
+####4）斜线
+		PgUp    右上斜线  
+		PgDn    右下斜线  
+		End     左下斜线  
+		Home    左上斜线  
+
 ## 其他 {{{2
 	(a)普通模式下:
 		输入 cM 清除行尾 ^M 符号;
@@ -921,18 +959,18 @@ K: 在线参考手册中查找
 		输入 cy 全部复制  
 
 	(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
-	(c)窗口焦点切换的映射  
+	(c)窗口焦点切换的映射(insert/normal mode)  
 		 普通模式或插入模式下：  
 		 ctrl+h    焦点移到左边窗口  
 		 ctrl+j 		   下边  
 		 ctrl+k 		   上边  
 		 ctrl+l			   右边  
 
-	(d)插入模式下光标移动(暂时未启用，与当前窗口处于插入模式，窗口焦点切换冲突)：  
-		光标向上移动 ctrl+K  
-		光标向下移动 ctrl+J  
-		光标向左移动 ctrl+H (不生效，哪里映射成了backspace)  
-		光标向右移动 ctrl+L  
+	(d)插入模式下光标移动：  
+		光标向上移动 alt+k  
+		光标向下移动 alt+j  
+		光标向左移动 alt+h   
+		光标向右移动 alt+l  
 
 	(e).bashrc 中更改命令提示行颜色  
 	(f)快捷键映射
