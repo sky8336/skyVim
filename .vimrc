@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-11-14
+" LastChange: 2016-11-15
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.8    online
 
@@ -232,13 +232,13 @@ inoremap <C-l> <Esc><C-W>l
 
 " insert mode 光标移动 {{{2
 " Ctrl + K 插入模式下光标向上移动
-" imap <c-k> <Up>
+imap k <Up>
 " Ctrl + J 插入模式下光标向下移动
-" imap <c-j> <Down>
+imap j <Down>
 " Ctrl + H 插入模式下光标向左移动
-" imap <c-h> <Left>
+imap h <Left>
 " Ctrl + L 插入模式下光标向右移动
-" imap <c-L> <Right>
+imap l <Right>
 "}}}
 
 " "cd" to change to open directory.{{{2
