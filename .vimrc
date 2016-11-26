@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-11-15
+" LastChange: 2016-11-26
 " major.minor.patch-build.desc (linux kernel format)
 " Version: v0.6.8    online
 
@@ -50,8 +50,7 @@ set   hlsearch
 set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
-"set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\ %-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%l/%L,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
+set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
 set   mouse=v
 set   number
 set   pumheight=10
