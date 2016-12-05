@@ -583,6 +583,7 @@ my_help/目录中存放开发中常用的帮助文档
 ## 10、gitv 的使用 -- gitk for vim {{{2
 ### 1)浏览模式 Brower mode 
 	:Gitv  
+	:Gitv local_branch
     显示当前分支的提交记录  
     类似gitk 功能，左边显示提交信息，右边显示具体修改。  
     退出时，回到原来的窗口  
