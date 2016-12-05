@@ -327,7 +327,7 @@ endif
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
+let g:Tlist_Show_One_File=0 "不同时显示多个文件的tag，只显示当前文件的
 let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
