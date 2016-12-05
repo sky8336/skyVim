@@ -156,4 +156,7 @@ git 命令：
 	pull:
 		git pull ssh://nma1x@ctegerrit.sh.intel.com:29418/a/bsp/vendor/intel/ish-sensors refs/changes/02/15902/4
 
+	create local branch, and switch to it:
+		git checkout -b MS/VR/HMD remotes/origin/c/MS/VR/HMD
+
 
