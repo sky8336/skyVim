@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-11-14
+" LastChange: 2016-12-05
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.8    offline
+" Version: v0.6.9    offline
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -50,8 +50,7 @@ set   hlsearch
 set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
-"set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\ %-4.(%P:%l/%L,%c\ %V%<\ %{fugitive#statusline()}%y[%{&fenc}]%)\ %.15{CurDir()}
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%l/%L,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
+set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
 set   mouse=v
 set   number
 set   pumheight=10
@@ -165,7 +164,7 @@ fu! Generate_fntags_tags_cscope()
     else
 		"生成专用于c/c++的ctags文件
         call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-        call RunShell("Generate cscope (use cscope)", "cscope -Rbq")
+        call RunShell("Generate cscope (use cscope)", "cscope -Rbq -P " . getcwd())
         cs add cscope.out
     endif
     q
@@ -231,14 +230,14 @@ inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
 
 " insert mode 光标移动 {{{2
-" Ctrl + K 插入模式下光标向上移动
-" imap <c-k> <Up>
-" Ctrl + J 插入模式下光标向下移动
-" imap <c-j> <Down>
-" Ctrl + H 插入模式下光标向左移动
-" imap <c-h> <Left>
-" Ctrl + L 插入模式下光标向右移动
-" imap <c-L> <Right>
+" alt + k 插入模式下光标向上移动
+imap k <Up>
+" alt + j 插入模式下光标向下移动
+imap j <Down>
+" alt + h 插入模式下光标向左移动
+imap h <Left>
+" alt + l 插入模式下光标向右移动
+imap l <Right>
 "}}}
 
 " "cd" to change to open directory.{{{2
