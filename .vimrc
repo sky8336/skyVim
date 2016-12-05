@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-11-26
+" LastChange: 2016-12-05
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.8    online
+" Version: v0.6.9    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -164,7 +164,7 @@ fu! Generate_fntags_tags_cscope()
     else
 		"生成专用于c/c++的ctags文件
         call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-        call RunShell("Generate cscope (use cscope)", "cscope -Rbq")
+        call RunShell("Generate cscope (use cscope)", "cscope -Rbq -P " . getcwd())
         cs add cscope.out
     endif
     q
@@ -186,7 +186,7 @@ function! AutoLoadCTagsAndCScope()
             let break = 1
         endif
         if break == 1
-            execute 'lcd ' . dir
+            "execute 'lcd ' . dir
             break
         endif
         let dir = dir . '../'
@@ -196,6 +196,7 @@ endf
 
 " cscope add {{{2
 if has("cscope")
+	set csre
     set csto=1
     set cst
     set nocsverb
