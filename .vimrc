@@ -6,7 +6,7 @@
 "    Created: 2013-07-01
 " LastChange: 2016-12-06
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.1    online
+" Version: v0.7.2    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -797,3 +797,16 @@ au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 " Highlight unwanted spaces
 highlight ExtraWhitespace ctermbg=red guibg=red
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
+
+" Highlight variable under cursor in Vim
+let g:no_highlight_group_for_current_word=["Statement", "Comment", "Type", "PreProc"]
+function s:HighlightWordUnderCursor()
+	let l:syntaxgroup = synIDattr(synIDtrans(synID(line("."), stridx(getline("."), expand('<cword>')) + 1, 1)), "name")
+
+	if (index(g:no_highlight_group_for_current_word, l:syntaxgroup) == -1)
+		exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+	else
+		exe 'match IncSearch /\V\<\>/'
+	endif
+endfunction
+autocmd CursorMoved * call s:HighlightWordUnderCursor()
