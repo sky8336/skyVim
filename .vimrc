@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-12-05
+" LastChange: 2016-12-06
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.0    online
+" Version: v0.7.1    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -794,3 +794,6 @@ nmap cy ggVGy
 highlight MyGroup ctermbg=black guibg=black
 au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 
+" Highlight unwanted spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
