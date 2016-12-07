@@ -47,8 +47,8 @@ hi ColorColumn          ctermbg=darkblue
 hi CursorLine           cterm=underline
 hi ColorColumn          ctermfg=White           ctermbg=Grey
 
-hi IncSearch            ctermfg=DarkYellow      ctermbg=Black
-hi Search               ctermfg=Black           ctermbg=Yellow
+hi IncSearch            ctermfg=DarkYellow      ctermbg=Black  cterm=bold
+hi Search               ctermfg=Black           ctermbg=Yellow cterm=bold
 "hi StatusLine           term=bold               cterm=bold
 "hi StatusLine           ctermfg=Black           ctermbg=Grey
 hi StatusLineNC         term=bold               cterm=bold
