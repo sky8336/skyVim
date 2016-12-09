@@ -67,6 +67,35 @@ vi编辑器的启动与退出 {{{2
     (2) 强制避免对文件进行修改：
 		vim -M file
 --------------------------------------------------------------------------------
+J	combine two rows
+
+D	delete to the end of line
+
+--------------------------------------------------------------------------------
+1. Scrolling downwards					*scroll-down*
+ctrl-e
+ctrl-f
+--------------------------------------------------------------------------------
+2. Scrolling upwards					*scroll-up*
+ctrl-y
+ctrl-u
+ctrl-b
+--------------------------------------------------------------------------------
+3. Scrolling relative to cursor				*scroll-cursor*
+
+z<CR>	Redraw, cursor line at top of window. Put cursor at first non-blank in the line.
+zt		Like "z<CR>", but leave the cursor in the same column.
+
+z.		Redraw, cursor line at center of window. Put cursor at first non-blank in the
+		line. 
+zz		Like "z.", but leave the cursor in the same column.
+		Careful: If caps-lock is on, this command becomes
+		"ZZ": write buffer and exit!
+
+z-		Redraw, cursor line at bottom of window. Put cursor at first non-blank in the
+		line.
+zb		Like "z-", but leave the cursor in the same column.
+--------------------------------------------------------------------------------
 VISUAL mode + ctrl+g -> SELECT mode
 Q	Switch to "Ex" mode.  Use the ":vi" command |:visual| to exit "Ex" mode.
 
