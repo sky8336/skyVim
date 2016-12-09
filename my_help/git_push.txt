@@ -122,6 +122,7 @@ VR_MRD
 
 一、建立本地分支（必须）
 	repo start  --all xxx
+	repo start xxx .
 二、在本地分支下进行上传：
 	1、git status (查看修改状态)
 	2、git add （将要提交的文件添加进缓存）
