@@ -700,7 +700,8 @@ nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 
 " Linux Programmer's Manual
-nmap <C-m> :Man <C-R>=expand("<cword>")<cr><cr>
+" <C-m> is Enter in quickfix window
+nmap <C-\>a :Man <C-R>=expand("<cword>")<cr><cr>
 nmap <C-\>2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
 "cscope 按键映射及说明 {{{2
