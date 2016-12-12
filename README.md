@@ -920,7 +920,7 @@ $VIMRUNTIME=/usr/share/vim/vim74/
 nmap K :Man <cword>
 K: 在线参考手册中查找
 ### linux programmer's Manual
-	ctrl+m    :Man <cword>  
+	ctrl-\+a    :Man <cword>  
 	ctrl-\+2  :Man 2 <cword>  
 
 ## 28、drawit.vim{{{2
