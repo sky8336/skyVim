@@ -1,5 +1,9 @@
 #!/bin/bash
 
+vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
+vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
+vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
+
 #获取开始时间和路径
 function get_start_time_and_dir_path()
 {
@@ -35,6 +39,24 @@ function check_network()
 		exit
 	fi
 }
+
+
+#函数名、运算符、括号等高亮
+function add_hilight_code_to_c_vim()
+{
+	if [ -f $1 ]; then
+		grep "my_vim_highlight_config" $1
+		if [ $? -eq 0 ]; then
+			echo "Found my_vim_highlight_config! $1 have been modified."
+		else
+			echo "Not found my_vim_highlight_config! Modify $1 now."
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> $1
+		fi
+	else
+		echo "can not found $1"
+	fi
+}
+
 
 # update vim to vim7.4
 function build_and_install_vim()
@@ -97,6 +119,7 @@ function build_vim_by_source()
 			make VIMRUNTIMEDIR=/usr/share/vim/vim80
 			sudo make install
 			cd -
+			add_hilight_code_to_c_vim $vim80_c_vim
 		else
 			sudo apt-get install -y vim
 		fi
