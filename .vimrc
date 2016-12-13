@@ -229,6 +229,8 @@ inoremap <C-h> <Esc><C-W>h
 inoremap <C-j> <Esc><C-W>j
 inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
+" switch to normal
+inoremap jk <Esc>
 
 " insert mode 光标移动 {{{2
 " alt + k 插入模式下光标向上移动
