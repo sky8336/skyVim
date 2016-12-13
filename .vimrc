@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-12-12
+" LastChange: 2016-12-13
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.3    online
+" Version: v0.7.4    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -797,7 +797,7 @@ au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 
 " Highlight unwanted spaces
 highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
 
 " Highlight variable under cursor in Vim
 let g:HlUnderCursor=1
@@ -809,7 +809,8 @@ function s:HighlightWordUnderCursor()
 		"exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 		exe exists("g:HlUnderCursor")?g:HlUnderCursor?printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\')):'match none':""
 	else
-		exe 'match IncSearch /\V\<\>/'
+		"exe 'match IncSearch /\V\<\>/'
+		exe 'match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/'
 	endif
 endfunction
 autocmd CursorMoved * call s:HighlightWordUnderCursor()
