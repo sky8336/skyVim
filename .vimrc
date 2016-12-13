@@ -138,7 +138,7 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map ; :call ShowFuncName()<CR>
+map \ :call ShowFuncName()<CR>
 
 ""vim窗口的最上面显示当前打开文件的路径和文件名{{{2
 "let &titlestring = expand("%:t")
