@@ -6,7 +6,7 @@
 "    Created: 2013-07-01
 " LastChange: 2016-12-13
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.4    online
+" Version: v0.7.5    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -138,7 +138,7 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map \ :call ShowFuncName()<CR>
+"map \ :call ShowFuncName()<CR>
 
 ""vim窗口的最上面显示当前打开文件的路径和文件名{{{2
 "let &titlestring = expand("%:t")
@@ -806,6 +806,7 @@ let g:HlUnderCursor=1
 let g:no_highlight_group_for_current_word=["Statement", "Comment", "Type", "PreProc"]
 function s:HighlightWordUnderCursor()
 	let l:syntaxgroup = synIDattr(synIDtrans(synID(line("."), stridx(getline("."), expand('<cword>')) + 1, 1)), "name")
+	call ShowFuncName()
 
 	if (index(g:no_highlight_group_for_current_word, l:syntaxgroup) == -1)
 		"exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
