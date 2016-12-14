@@ -1,4 +1,10 @@
 git command
+
+
+----------------------------------------------------------------------
+Git学习教程（5）Git tag {{{1
+git push origin :refs/tags/v0.7.5
+
 ----------------------------------------------------------------------
 Git学习教程（六）Git 日志 {{{1
 
@@ -98,4 +104,8 @@ git branch -vv
 
 (2)将远程分支映射到本地命名为local-branchname的分支:
 	git checkout -b local-branchname origin/remote_branchname
+
+================================================================================
+git revert {{{1
+git revert commit-id
 
