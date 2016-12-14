@@ -980,7 +980,7 @@ Vim画图插件（可在vim中画基本示意图）
 		比如:  
 		在"~/project"目录下打开VIM，为了编译"~/project/driver/dma"目录而  
 		切换目录":cd driver/dma"，编译完成后可使用",cd"命令切换到"~/project"目录下  
-		\   在命令行显示当前行所在的函数名称(now, auto display)  
+		\   在命令行显示当前行所在的函数名称  
 		;   after "fx" in normal mode, press ; repeat the cmd
 		:pwd      显示当前路径(相对路径之前的路径)  
 		ctrl+g    在底行显示文件相对路径  
