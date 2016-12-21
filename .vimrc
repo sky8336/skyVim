@@ -4,9 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-12-06
+" LastChange: 2016-12-13
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.2    online
+" Version: v0.7.4    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -138,7 +138,7 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map ; :call ShowFuncName()<CR>
+map \ :call ShowFuncName()<CR>
 
 ""vim窗口的最上面显示当前打开文件的路径和文件名{{{2
 "let &titlestring = expand("%:t")
@@ -229,6 +229,8 @@ inoremap <C-h> <Esc><C-W>h
 inoremap <C-j> <Esc><C-W>j
 inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
+" switch to normal
+inoremap jk <Esc>
 
 " insert mode 光标移动 {{{2
 " alt + k 插入模式下光标向上移动
@@ -700,7 +702,8 @@ nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 
 " Linux Programmer's Manual
-nmap <C-m> :Man <C-R>=expand("<cword>")<cr><cr>
+" <C-m> is Enter in quickfix window
+nmap <C-\>a :Man <C-R>=expand("<cword>")<cr><cr>
 nmap <C-\>2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
 "cscope 按键映射及说明 {{{2
@@ -796,7 +799,7 @@ au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 
 " Highlight unwanted spaces
 highlight ExtraWhitespace ctermbg=red guibg=red
-autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
 
 " Highlight variable under cursor in Vim
 let g:HlUnderCursor=1
@@ -808,7 +811,8 @@ function s:HighlightWordUnderCursor()
 		"exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 		exe exists("g:HlUnderCursor")?g:HlUnderCursor?printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\')):'match none':""
 	else
-		exe 'match IncSearch /\V\<\>/'
+		"exe 'match IncSearch /\V\<\>/'
+		exe 'match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/'
 	endif
 endfunction
 autocmd CursorMoved * call s:HighlightWordUnderCursor()
