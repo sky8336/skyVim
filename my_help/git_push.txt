@@ -17,6 +17,8 @@ file 文件名
     ---同步并显示修改文件路径
 
     git add private/a10/JX_s07_KS/vendor/sprd/GSTCustomize
+	git add -A .
+	git add -A :/
     ---要提交的本地修改添加到缓存区;  空格隔开多个文件路径
 
     git commit -m "[GST05][JX_S07_KS]增加客户的开关机动画铃声/客户提供的apk"
