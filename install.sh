@@ -125,11 +125,33 @@ function build_vim_by_source()
 
 }
 
+#函数名、运算符、括号等高亮
+function add_hilight_code_to_c_vim()
+{
+	if [ -f $1 ]; then
+		grep "my_vim_highlight_config" $1
+		if [ $? -eq 0 ]; then
+			echo "Found my_vim_highlight_config! $1 have been modified."
+		else
+			echo "Not found my_vim_highlight_config! Modify $1 now."
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> $1
+		fi
+	else
+		echo "can not found $1"
+	fi
+}
+
 #配置vim
 function config_vim()
 {
 	echo "====== Config your vim now ! ======"
 	rm -rf $HOME/.vim/README.mk  $HOME/.vim/colors/ $HOME/.vim/macros/ $HOME/.vim/my_help/ $HOME/.vim/shell/
+
+	grep -n --color "Maintainer: sky8336" ~/.vimrc
+	if [ $? -ne 0 ];then
+		echo "remove .vim/ completely"
+		rm $HOME/.vim/ -rf
+	fi
 
 	if [ $online -eq 1 ];then
 		cp ./.vim  $HOME -a
@@ -155,30 +177,13 @@ function config_vim()
 	pwd
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
 
-	#函数名、运算符、括号等高亮
-	grep "my_vim_highlight_config" /usr/share/vim/vim80/syntax/c.vim
-	if [ $? -eq 0 ]; then
-		echo "Found my_vim_highlight_config! c.vim have been modified."
-	else
-		echo "Not found my_vim_highlight_config! Modify c.vim now."
-		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim80/syntax/c.vim
-	fi
+	vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
+	vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
+	vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
 
-	grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
-	if [ $? -eq 0 ]; then
-		echo "Found my_vim_highlight_config! c.vim have been modified."
-	else
-		echo "Not found my_vim_highlight_config! Modify c.vim now."
-		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
-	fi
-
-	grep "my_vim_highlight_config" /usr/share/vim/vim73/syntax/c.vim
-	if [ $? -eq 0 ]; then
-		echo "Found my_vim_highlight_config! c.vim have been modified."
-	else
-		echo "Not found my_vim_highlight_config! Modify c.vim now."
-		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
-	fi
+	add_hilight_code_to_c_vim $vim80_c_vim
+	add_hilight_code_to_c_vim $vim74_c_vim
+	add_hilight_code_to_c_vim $vim73_c_vim
 }
 
 #install vundle
