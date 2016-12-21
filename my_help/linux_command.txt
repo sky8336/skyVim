@@ -11,6 +11,7 @@ grep -niR "xxx" files
 
 搜索文件，执行删除命令
 find private/ -name "*~"| xargs rm
+find . -name "*.c" | xargs chmod a-x
 
 查看linux/目录大小
 du -sh linux/
@@ -25,3 +26,7 @@ od -t c fileName
 管理进程:
 top
 htop
+
+display picture:
+display a.jpg
+eog a.jpg
