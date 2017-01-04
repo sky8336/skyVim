@@ -30,3 +30,9 @@ htop
 display picture:
 display a.jpg
 eog a.jpg
+------------------------------------------------------------
+add new user:
+adduser username
+usermod -G root -a username //?
+sudo vi /etc/sudoers
+在 %root ALL=(ALL:ALL) ALL 下面添加%username ALL=(ALL:ALL) ALL
