@@ -59,7 +59,7 @@ normal=$'\[\e[m\]'
 
 #一行，显示git分支信息
 #PS1="$magenta\u@\h$red:$magenta\w$dark_yellow\$git_branch$dark_yellow\$ $normal"
-PS1="$magenta\u$cyan@\h$red:$blue\w$dark_yellow\$git_branch$dark_yellow\$ $normal"
+PS1="$magenta\u$cyan@\h$red:$blue\w$dark_yellow\$git_branch$red\$ $normal"
 
 #add some alias
 alias vih='vi ~/.vim/my_help/'
