@@ -36,3 +36,6 @@ adduser username
 usermod -G root -a username //?
 sudo vi /etc/sudoers
 在 %root ALL=(ALL:ALL) ALL 下面添加%username ALL=(ALL:ALL) ALL
+
+------------------------------------------------------------
+sudo find -name "* *" -type f | sudo rename 's/ /_/g'
