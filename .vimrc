@@ -6,7 +6,7 @@
 "    Created: 2013-07-01
 " LastChange: 2016-12-13
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.4    online
+" Version: v0.7.5    online
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
