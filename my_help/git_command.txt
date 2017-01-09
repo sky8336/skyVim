@@ -109,3 +109,38 @@ git branch -vv
 git revert {{{1
 git revert commit-id
 
+================================================================================
+How to create and apply a patch with Git {{{1
+
+
+If you fix a bug or create a new feature – do it in a separate branch!
+FYI: I’m assuming you made a few commits in the fix_empty_poster branch and
+did not yet merge it back in to the master branch.
+
+--------------------------------------------------------------------------------
+Creating the patch. {{{2
+This will create a new file fix_empty_poster.patch with all changes from the
+current (fix_empty_poster) against master.
+
+	git format-patch master --stdout > fix_empty_poster.patch
+
+--------------------------------------------------------------------------------
+Applying the patch {{{2
+
+(1) take a look at what changes are in the patch.
+not apply the patch, but only shows you the stats about what it’ll do.
+After peeking into the patch file with your favorite editor,
+you can see what the actual changes are.
+
+	git apply --stat fix_empty_poster.patch
+
+(2) test the patch
+If you don’t get any errors, the patch can be applied cleanly.
+
+	git apply --check fix_empty_poster.patch
+
+(3) apply the patch, I’ll use git am instead of git apply.
+	(git am allows you to sign off an applied patch.)
+	Patches were applied cleanly and your master branch has been updated.
+
+	git am --signoff < fix_empty_poster.patch
