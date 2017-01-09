@@ -72,7 +72,13 @@ function install_packages()
 {
 	echo "====== Install software packages now ! ======"
 	echo ">> install: vim+exuberant-ctags+cscope+ranger"
-	apt-get install vim exuberant-ctags cscope ranger -y --force-yes
+	vim --version | grep "Vi IMproved 8.0" --color
+	if [ $? -eq 0 ]; then
+		echo "vim8.0 has been installed!"
+	else
+		apt-get install vim -y --force-yes
+	fi
+	apt-get install exuberant-ctags cscope ranger -y --force-yes
 
 	echo ">> install: vim-gnome+xsel"
 	apt-get install vim-gnome xsel -y --force-yes
