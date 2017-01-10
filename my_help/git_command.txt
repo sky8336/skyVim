@@ -111,7 +111,7 @@ git revert commit-id
 
 ================================================================================
 How to create and apply a patch with Git {{{1
-
+git format-patch生成的Git专用Patch
 
 If you fix a bug or create a new feature – do it in a separate branch!
 FYI: I’m assuming you made a few commits in the fix_empty_poster branch and
@@ -144,3 +144,15 @@ If you don’t get any errors, the patch can be applied cleanly.
 	Patches were applied cleanly and your master branch has been updated.
 
 	git am --signoff < fix_empty_poster.patch
+
+================================================================================
+git diff生成的标准patch {{{1
+
+(1) 把git diff输出变为一个Patch
+	git diff master > patch
+
+(2) 使用git apply应用patch
+	建立一个专门处理新交来的patch的分支:
+	git checkout -b PATCH
+	git apply patch
+	git commit -a -m "Patch Apply"
