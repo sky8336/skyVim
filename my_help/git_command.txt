@@ -124,6 +124,12 @@ current (fix_empty_poster) against master.
 
 	git format-patch master --stdout > fix_empty_poster.patch
 
+>>针对每次提交生成一个patch
+	git format-patch -M master
+	-M选项表示这个patch要和那个分支比对
+用git am来应用
+	git am 0001-Fix1.patch
+	git commit -a -m "PATCH apply"
 --------------------------------------------------------------------------------
 Applying the patch {{{2
 
