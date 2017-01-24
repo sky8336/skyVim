@@ -39,3 +39,11 @@ sudo vi /etc/sudoers
 
 ------------------------------------------------------------
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
+
+------------------------------------------------------------
+从命令行打开pdf文件和html文件 {{{
+	打开当前目录下的hdfs_design.pdf文件：
+		evince hdfs_design.pdf
+	打开google网站：
+		firefox http://www.google.com
+
