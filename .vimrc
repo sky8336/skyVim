@@ -4,9 +4,11 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-12-13
+" LastChange: 2017-02-04
+"    Version: v0.7.6-online
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.5    online
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -287,6 +289,7 @@ Bundle 'oplatek/Conque-Shell'
 "Plugin 'plasticboy/vim-markdown'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
+Bundle 'Stormherz/tablify'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
