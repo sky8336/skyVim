@@ -339,7 +339,7 @@ let g:Tlist_Auto_Highlight_Tag=1
 let Tlist_Use_Right_Window = 0
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	let g:Tlist_Auto_Open=1
+	let g:Tlist_Auto_Open=0
 endif
 
 "" 设置winmanager.vim {{{2
