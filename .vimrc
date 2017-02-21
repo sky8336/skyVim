@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2017-02-04
-"    Version: v0.7.6-online
+" LastChange: 2017-02-21
+"    Version: v0.7.7-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -117,12 +117,12 @@ autocmd BufNewFile * normal G
 
 " set statusline color {{{2
 " default the statusline to blue (black character) when entering Vim
-hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+hi StatusLine term=reverse ctermfg=Green ctermbg=Black gui=bold,reverse
 " 状态栏颜色配置:插入模式品红色，普通模式白色
 if version >= 700
   "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
   au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
-  au InsertLeave * hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+  au InsertLeave * hi StatusLine term=reverse ctermfg=Green ctermbg=Black gui=bold,reverse
 endif
 
 "" 获取当前路径，将$HOME转化为~,for statusline {{{2
