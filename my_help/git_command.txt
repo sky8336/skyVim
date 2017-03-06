@@ -12,6 +12,11 @@ Git学习教程（六）Git 日志 {{{1
 	git log -p
 	--显示每一次提交与其父节点提交内容之间的快照差异
 
+	git log dir/
+	:!git show commit-id
+
+--	!command             Execute the shell command with $SHELL.
+
 查看统计数字,添加或删除了多少行
 	git log --stat
 

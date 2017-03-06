@@ -52,7 +52,7 @@ set   hlsearch
 set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
+set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%L,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
 set   mouse=v
 set   number
 set   pumheight=10
