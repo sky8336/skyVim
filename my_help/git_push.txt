@@ -163,3 +163,26 @@ git 命令：
 		git checkout -b MS/VR/HMD remotes/origin/c/MS/VR/HMD
 
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+remove a local commit, like this:
+commit 1 (current)
+commit 2 (need to remove)
+
+------
+git log
+git reflog
+git branch -l
+git checkout dma_test_drv
+
+git log
+git reset 1e9f2f
+
+git status
+git stash
+git log
+git reset --hard HEAD~1
+git log
+git stash pop
+git log
+
+
