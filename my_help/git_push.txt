@@ -135,6 +135,7 @@ VR_MRD
 	4,提交修改：
 		repo upload
 
+//git push origin HEAD:refs/for/branch-name
 
 git 命令：
 
@@ -164,7 +165,7 @@ git 命令：
 
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-remove a local commit, like this:
+remove a local commit, like this:{{{1
 commit 1 (current)
 commit 2 (need to remove)
 
@@ -185,4 +186,23 @@ git log
 git stash pop
 git log
 
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+repo sync{{{1
+
+case 1:
+1) git checkout -b temp
+2) save the change file as local commit
+   git add .
+   git commit -e
+3) git reset HEAD^
+4) repo sync
+5) git checkout -b new_branch
+6) git checkout temp
+   git log
+7) git checkout new_branch
+	git cherry-pick commit-id
+8) if you just want it stay in local, make it not staged for comiit
+	git reset last-but-one-commit-id
+
+case 2:
 
