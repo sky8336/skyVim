@@ -206,3 +206,23 @@ case 1:
 
 case 2:
 
+*****************************
+patch {{{1
+1) patch apply:
+	patch -p1 < ~/Desktop/6834367d.diff 
+	git status
+	git diff
+	git add .
+	git commit -e 
+	same Change-ID  I21fc35e67b56f0589387971e29db819291fc1bdd
+	git push origin HEAD:refs/for/integ/bxtp_ivi_m
+
+2) patch update:
+	patch -p1 < ~/disk2/nma1x-wk/b414b1d8.diff 
+	patching file sound/hda/hdac_stream.c
+	Reversed (or previously applied) patch detected!  Assume -R? [n] y
+	patching file sound/hda/hdac_sysfs.c
+	Reversed (or previously applied) patch detected!  Assume -R? [n] y
+
+	then again:
+	patch -p1 < ~/disk2/nma1x-wk/b414b1d8.diff 
