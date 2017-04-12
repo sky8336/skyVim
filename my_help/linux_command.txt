@@ -9,6 +9,10 @@ find ./ * -exec touch {} \;
 
 grep -niR "xxx" files
 
+grep -nR --color=always "xxx" . | less -rN
+grep -nR --color=always "xxx" . | more
+ls --color=always | more
+
 搜索文件，执行删除命令
 find private/ -name "*~"| xargs rm
 find . -name "*.c" | xargs chmod a-x
