@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2017-02-21
+" LastChange: 2017-05-10
 "    Version: v0.7.7-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -795,6 +795,9 @@ nmap ci ggVG=
 
 " 复制全部
 nmap cy ggVGy
+
+" open mouse function
+nmap <leader>om :set mouse=a<cr>
 
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
