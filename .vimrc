@@ -4,7 +4,7 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2017-05-10
+" LastChange: 2017-05-11
 "    Version: v0.7.7-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -332,14 +332,14 @@ endif
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-let g:Tlist_Show_One_File=0 "不同时显示多个文件的tag，只显示当前文件的
+let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
 let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
 let Tlist_Use_Right_Window = 0
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	let g:Tlist_Auto_Open=0
+	let g:Tlist_Auto_Open=1
 endif
 
 "" 设置winmanager.vim {{{2
