@@ -2,7 +2,8 @@ linux command
 --maning
 --20160429
 ============================================================
-
+gnome-screenshot  -h	Show help options
+gnome-screenshot  -a	Grab an area of the screen instead of the entire screen
 ------------------------------------------------------------
 使用touch命令递归修改文件时间戳:
 find ./ * -exec touch {} \;
