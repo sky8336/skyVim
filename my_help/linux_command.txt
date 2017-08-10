@@ -3,6 +3,9 @@ linux command
 --20160429
 ============================================================
 
+gnome-screenshot  -h	Show help options
+gnome-screenshot  -a	Grab an area of the screen instead of the entire screen
+------------------------------------------------------------
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
 
 使用touch命令递归修改文件时间戳:
@@ -49,6 +52,10 @@ adduser username
 usermod -G root -a username //?
 sudo vi /etc/sudoers
 在 %root ALL=(ALL:ALL) ALL 下面添加%username ALL=(ALL:ALL) ALL
+
+------------------------------------------------------------
+yes - output a string repeatedly until killed
+man yes
 
 ------------------------------------------------------------
 从命令行打开pdf文件和html文件 {{{
