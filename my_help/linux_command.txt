@@ -42,9 +42,11 @@ eog a.jpg
 readelf
 
 nm
+nm trusty.ko | grep asan
 
 二进制转换,以ascii码查看:
 od -t c fileName 
+od -c file
 
 ------------------------------------------------------------
 add new user:
