@@ -15,8 +15,19 @@ find ./ * -exec touch {} \;
 find private/ -name "*~"| xargs rm
 find . -name "*.c" | xargs chmod a-x
 
+I usually don't let grep do the recursion itself. There are usually a few
+directories you want to skip (.git, .svn...)
+You can do clever aliases with stances like that one:
+find . \( -name .svn -o -name .git \) -prune -o -type f -exec grep -Hn pattern {} \;
+
 ------------------------------------------------------------
 grep -niR "xxx" files
+grep -nsR "xxx" files
+use the -s or --no-messages flag to suppress errors.
+
+Errors like that are usually sent to the "standard error" stream, which you can
+pipe to a file or just make disappear on most commands:
+grep -nsR "xxx" files 2>/dev/null
 
 grep -nR --color=always "xxx" . | less -rN
 grep -nR --color=always "xxx" . | more
@@ -32,6 +43,13 @@ scp [参数] 原路径 目标路径
 管理进程:
 top
 htop
+
+
+------------------------------------------------------------
+how to output text to both screen and file inside a shell script?
+command | tee -a "$log_file"
+tee saves input to a file (use -a to append rather than overwrite), and copies
+the input to standard output as well.
 
 ------------------------------------------------------------
 display picture:
