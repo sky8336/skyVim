@@ -40,6 +40,8 @@ du -sh linux/
 scp [参数] 原路径 目标路径
 	-r: 递归复制整个目录
 
+sshpass -p "password" scp -r user@example.com:/some/remote/path /some/local/path
+
 管理进程:
 top
 htop
