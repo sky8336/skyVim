@@ -5,10 +5,10 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
 " LastChange: 2016-11-15
-" Version: v0.6.8    online
+" Version: v0.7.6    online
 
 
-vim config for linux devices driver development  
+vim config for linux devices driver development and C development  
 my_help/目录中存放开发中常用的帮助文档
 大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
 
@@ -1118,7 +1118,8 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 		fg     : 切换回前台  
 
 		:sh    从vim切换到终端运行shell  
-		exit   从终端回到vim  
+		Ctrl + D(or exit)  从终端回到vim(to kill the shell and return to vim)  
+		
 
 	(i)改变窗口大小(window-resize)  
 		w= : 高度增加5行  
