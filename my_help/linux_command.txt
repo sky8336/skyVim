@@ -75,6 +75,41 @@ usermod -G root -a username //?
 sudo vi /etc/sudoers
 在 %root ALL=(ALL:ALL) ALL 下面添加%username ALL=(ALL:ALL) ALL
 
+-------------------------------------------
+How to safely change username and hostname?
+1. To change the hostname
+You need to edit the computer name in two files as root user:
+/etc/hostname 
+and
+/etc/hosts
+
+
+2. To change username
+(1) At the start screen press Ctrl+Alt+F1.
+(2) Log in using your username and password.
+(3) Set a password for the "root" account.
+	sudo passwd root
+(4) Log out.
+	exit
+
+(5) Log in using the "root" account and the password you have previously set.
+(6) Change the username and the home folder to the new name that you want.
+	usermod -l <newname> -d /home/<newname> -m <oldname>
+	( usermod -l newUsername oldUsername
+	To change home-folder, use
+	usermod -d /home/newHomeDir -m newUsername)
+(7) Change the group name to the new name that you want.
+	groupmod -n <newgroup> <oldgroup>
+(8) Lock the "root" account.
+	passwd -l root
+(9) If you were using ecryptfs (encrypted home directory). Mount your encrypted
+	directory using ecryptfs-recover-private and edit
+	<mountpoint>/.ecryptfs/Private.mnt to reflect your new home directory.
+(10) Log out.
+	exit
+(11) Press Ctrl+Alt+F7.
+And now you can log in using your new username.
+
 ------------------------------------------------------------
 yes - output a string repeatedly until killed
 man yes
