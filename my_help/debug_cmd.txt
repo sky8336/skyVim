@@ -263,3 +263,21 @@ IBM 为基于 IA-32 结构的Linux 发布的一种调试工具
 objdump
 反汇编模块函数,只能对磁盘上的文件复本进行处理,不能对运行中的模块进行处理
 --参阅objdump手册页
+
+============================================================
+Unable to read /proc/kallsyms...
+That's because your system may be preventing the program from reading kernel
+symbols in /proc/kallsyms due to /proc/sys/kernel/kptr_restrict set to 1. The
+following command will do the tricky:
+	sudo sh -c " echo 0 > /proc/sys/kernel/kptr_restrict"
+--------------------------------------------------------------------------------
+yocto linux 插入usb后，dmesg,看到新增sda1
+ls /dev/sda1 节点出现。
+mount usb 设备：
+mkdir /tmp/sda
+mount -t ntfs /dev/sda1 /tmp/sda
+
+拔出前， umount
+cd 出usb中的目录
+umount /tmp/sda
+
