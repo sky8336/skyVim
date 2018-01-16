@@ -287,3 +287,6 @@ umount /tmp/sda
 linux version
 cat /proc/version
 uname -a
+--------------------------------------------------------------------------------
+$ cat /proc/cmdline 
+BOOT_IMAGE=/boot/vmlinuz-4.4.0-109-generic root=UUID=ae3e2a39-4213-4d87-b823-5d20bdd81b88 ro quiet splash vt.handoff=7
