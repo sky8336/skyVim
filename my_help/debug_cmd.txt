@@ -270,6 +270,7 @@ That's because your system may be preventing the program from reading kernel
 symbols in /proc/kallsyms due to /proc/sys/kernel/kptr_restrict set to 1. The
 following command will do the tricky:
 	sudo sh -c " echo 0 > /proc/sys/kernel/kptr_restrict"
+before run this command, the addr in kallsyms is zero.
 --------------------------------------------------------------------------------
 yocto linux 插入usb后，dmesg,看到新增sda1
 ls /dev/sda1 节点出现。
@@ -281,3 +282,8 @@ mount -t ntfs /dev/sda1 /tmp/sda
 cd 出usb中的目录
 umount /tmp/sda
 
+
+--------------------------------------------------------------------------------
+linux version
+cat /proc/version
+uname -a
