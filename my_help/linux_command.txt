@@ -213,3 +213,4 @@ usr.tar，此时压缩文件的扩展名为.tar.gz。
 ================================================================================
 use "ip:port" to access local dir
 python -m SimpleHTTPServer
+port=8000
