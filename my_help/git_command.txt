@@ -167,3 +167,14 @@ git diff生成的标准patch {{{1
 	git checkout -b PATCH
 	git apply patch
 	git commit -a -m "Patch Apply"
+
+
+================================================================================
+git diff生成的标准patch {{{1
+chmod a+x  .git/hooks/commit-ms
+
+================================================================================
+git diff生成的标准patch {{{1
+generate "Change-Id" to make it can be updated in one patch:
+"Uploaded patch set 1."
+"Uploaded patch set 2."
