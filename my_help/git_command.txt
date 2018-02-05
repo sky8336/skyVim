@@ -178,3 +178,8 @@ git diff生成的标准patch {{{1
 generate "Change-Id" to make it can be updated in one patch:
 "Uploaded patch set 1."
 "Uploaded patch set 2."
+================================================================================
+错误执行git commit --amend 之后想回退
+git reflog
+git reset commid
+
