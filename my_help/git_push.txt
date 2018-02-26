@@ -207,7 +207,7 @@ case 1:
 case 2:
 
 *****************************
-patch {{{1
+patch -p1 {{{1
 1) patch apply:
 	patch -p1 < ~/Desktop/6834367d.diff 
 	git status
@@ -226,3 +226,44 @@ patch {{{1
 
 	then again:
 	patch -p1 < ~/disk2/nma1x-wk/b414b1d8.diff 
+
+create and apply a patch with git {{{1
+If you fix a bug or create a new feature – do it in a separate branch!
+
+-----------------
+Before you start:
+clone repository and create a new branch for the fix you have in mind.
+	git checkout -b fix_empty_poster
+
+Now, in the new fix_empty_poster branch you can hack whatever you need
+to fix.  Write tests, update code etc. etc.
+
+------------------
+Creating the patch:
+FYI: I’m assuming you made a few commits in the fix_empty_poster branch and did
+not yet merge it back in to the master branch.
+
+git format-patch master --stdout > fix_empty_poster.patch
+
+This will create a new file fix_empty_poster.patch with all changes from the
+current (fix_empty_poster) against master. 
+
+------------------
+Apllying the patch
+(1) take a look at what changes are in the patch.
+	git apply --stat fix_empty_poster.patch
+
+(2) how troublesome the patch is going to be. Test the patch before you actually apply it.
+	git apply --check fix_empty_poster.patch
+
+	If you don’t get any errors, the patch can be applied cleanly.
+	Otherwise you may see what trouble you’ll run into. 
+
+(3) To apply the patch, I’ll use git am instead of git apply. The reason for
+this is that git am allows you to sign off an applied patch. This may be useful
+for later reference.
+	git am --signoff < fix_empty_poster.patch
+
+	run your tests again to make sure nothing got borked.
+
+
