@@ -15,7 +15,7 @@ function check_root_privileges()
 		echo "You have root privileges!"
 	else
 		echo -e "${color_failed}>>> Error: You don't have root privileges!"
-		echo -e "Please input \"sudo ./install.sh\"${color_reset}"
+		echo -e "Please run \"sudo ./install.sh\"${color_reset}"
 		exit
 	fi
 }
