@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2017-05-11
-"    Version: v0.7.7-online
+" LastChange: 2018-03-15
+"    Version: v0.7.8-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -52,7 +52,7 @@ set   hlsearch
 set   ignorecase
 set   incsearch
 set   laststatus=2 "show the status line
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%L,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
+set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
 set   mouse=v
 set   number
 set   pumheight=10
@@ -116,13 +116,13 @@ autocmd BufNewFile * normal G
 " some function definition: {{{1
 
 " set statusline color {{{2
-" default the statusline to blue (black character) when entering Vim
-hi StatusLine term=reverse ctermfg=Green ctermbg=Black gui=bold,reverse
-" 状态栏颜色配置:插入模式品红色，普通模式白色
+" default the statusline to White (black character) when entering Vim
+hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+" 状态栏颜色配置:插入模式品红色，普通模式White
 if version >= 700
   "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
   au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
-  au InsertLeave * hi StatusLine term=reverse ctermfg=Green ctermbg=Black gui=bold,reverse
+  au InsertLeave * hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
 endif
 
 "" 获取当前路径，将$HOME转化为~,for statusline {{{2
