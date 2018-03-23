@@ -266,4 +266,12 @@ for later reference.
 
 	run your tests again to make sure nothing got borked.
 
+========================
+gitlab push {{{1
+	git clone git@121.196.213.107:RDA600/git-repo.git
+	cd git-repo
+	touch README.md
+	git add README.md
+	git commit -m "add README"
+	git push -u origin master
 
