@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
 " LastChange: 2018-03-15
-"    Version: v0.7.8-online
+"    Version: v0.7.9-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -290,6 +290,7 @@ Bundle 'oplatek/Conque-Shell'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'Stormherz/tablify'
+"Bundle 'vim-scripts/TxtBrowser'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
