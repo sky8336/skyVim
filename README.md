@@ -1205,3 +1205,5 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	在终端直接查找:  
 		vi -t 变量或函数名  
 		Man xxx  
+
+ga命令可以查看，当前光标所在位置的字符的编码，将显示在屏幕下方。（参见：h ga）
