@@ -3,9 +3,9 @@
 " Copyright (c) 2013 sky8336. All Rights Reserved.
 "
 " Maintainer: sky8336 <1919592995@qq.com>
-"    Created: 2013-07-01
-" LastChange: 2018-03-15
-"    Version: v0.7.9-online
+"    Created: 2013-06-28
+" LastChange: 2018-08-31
+"    Version: v0.8.0-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -18,7 +18,10 @@ set nocompatible
 filetype on
 " Syntax highlighting.{{{2
 syntax enable
-syntax on
+syntax on "syntax highlighting on
+
+filetype plugin on
+au BufRead,BufNewFile *.txt setlocal ft=txt "syntax highlight for txt
 
 " Setting colorscheme{{{2
 color mycolor
