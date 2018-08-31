@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2018-08-31
-"    Version: v0.8.0-online
+"    Version: v0.8.1-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -75,6 +75,10 @@ set   wildmode=list:longest,full
 set wrap
 set t_Co=256
 
+" splitting a window will put the new window below the currentone
+" splitting a window will put the new window right of the current on
+" set splitbelow
+" set splitright
 
 " AUTO COMMANDS: {{{1
 " auto expand tab to blanks
