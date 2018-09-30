@@ -182,7 +182,11 @@ git reflog
 git reset commid
 
 use vimdiff {{{1
+in terminal:
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 git config --global alias.d difftool
 // git d //open files to diff
+
+gui:
+//git config --global diff.tool meld 
