@@ -181,3 +181,8 @@ generate "Change-Id" to make it can be updated in one patch:
 git reflog
 git reset commid
 
+use vimdiff {{{1
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+git config --global alias.d difftool
+// git d //open files to diff
