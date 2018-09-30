@@ -79,6 +79,8 @@ function install_packages()
 		apt-get install vim -y --force-yes
 	fi
 	apt-get install exuberant-ctags cscope ranger -y --force-yes
+	# install libc++ man page
+	apt install sudo apt install libstdc++6-4.7-doc -y --force-yes
 
 	echo ">> install: vim-gnome+xsel"
 	apt-get install vim-gnome xsel -y --force-yes
