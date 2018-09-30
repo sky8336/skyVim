@@ -275,3 +275,39 @@ gitlab push {{{1
 	git commit -m "add README"
 	git push -u origin master
 
+
+create your-repo on gitlab {{{1
+================================
+Create a new repository
+-----------------------
+
+	git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
+	cd your-repo
+	touch README.md
+	git add README.md
+	git commit -m "add README"
+	git push -u origin master
+
+
+
+Existing_folder
+---------------
+create your-repo 
+	cd existing_folder
+	git init
+	git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
+	git add .
+	git commit -m "Initial commit"
+	git push -u origin master
+
+
+
+Existing Git repository
+-----------------------
+
+	cd existing_repo
+	git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
+	git push -u origin --all
+	git push -u origin --tags
+
+
