@@ -73,6 +73,7 @@ alias tagsc='rm cscope.*.out cscope.out tags tags.o.fn'
 alias exchkey=$HOME/.vim/my_help/locktoesc.sh
 alias mgrep='grep --exclude={cscope*,tags*}'
 alias week='date +%V.%u'
+alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
 
 # git commit -a 提交代码时，编辑器默认为vim的另一种方法
 #export EDITOR=/usr/bin/vim
