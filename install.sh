@@ -245,6 +245,11 @@ function git_config()
 	git config --global core.editor /usr/bin/vim
 	git config --global push.default simple
 
+	# git d //open files to diff
+	git config --global diff.tool vimdiff
+	git config --global difftool.prompt false
+	git config --global alias.d difftool
+
 	# git lg 列出 git 分支图
 	git config --global alias.lg "log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 }

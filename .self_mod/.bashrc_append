@@ -74,6 +74,12 @@ alias exchkey=$HOME/.vim/my_help/locktoesc.sh
 alias mgrep='grep --exclude={cscope*,tags*}'
 alias week='date +%V.%u'
 alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
+alias gls='git log --graph --decorate --pretty=short --abbrev-commit --all'
+alias glm='git log --graph --decorate --pretty=medium --abbrev-commit --all'
+alias glf='git log --graph --decorate --pretty=full --abbrev-commit --all'
+alias glfr='git log --graph --decorate --pretty=fuller --abbrev-commit --all'
+alias gle='git log --graph --decorate --pretty=email --abbrev-commit --all'
+#git lg #already used
 
 # git commit -a 提交代码时，编辑器默认为vim的另一种方法
 #export EDITOR=/usr/bin/vim
