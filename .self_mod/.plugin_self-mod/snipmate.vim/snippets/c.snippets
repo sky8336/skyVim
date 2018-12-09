@@ -120,7 +120,10 @@ snippet tde
 # unfortunately version this isn't as nice as TextMates's, given the lack of a
 # dynamic `...`
 snippet pr
-	printf("${1:%s}\n"${2});${3}
+	printf("#mn: [%s][%d] ${1:%s}\n",__func__, __LINE__${2});${3}
+# printk
+snippet prk
+	printk("#mn: [%s][%d] ${1:%s}\n",__func__, __LINE__${2});${3}
 # fprintf (again, this isn't as nice as TextMate's version, but it works)
 snippet fpr
 	fprintf(${1:stderr}, "${2:%s}\n"${3});${4}

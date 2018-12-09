@@ -4,9 +4,11 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
-" LastChange: 2016-12-05
+" LastChange: 2018-03-15
+"    Version: v0.7.8-offline
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.6.9    offline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -114,9 +116,9 @@ autocmd BufNewFile * normal G
 " some function definition: {{{1
 
 " set statusline color {{{2
-" default the statusline to blue (black character) when entering Vim
+" default the statusline to White (black character) when entering Vim
 hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
-" 状态栏颜色配置:插入模式品红色，普通模式白色
+" 状态栏颜色配置:插入模式品红色，普通模式White
 if version >= 700
   "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
   au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
@@ -138,7 +140,7 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map ; :call ShowFuncName()<CR>
+map \ :call ShowFuncName()<CR>
 
 ""vim窗口的最上面显示当前打开文件的路径和文件名{{{2
 "let &titlestring = expand("%:t")
@@ -186,7 +188,7 @@ function! AutoLoadCTagsAndCScope()
             let break = 1
         endif
         if break == 1
-            execute 'lcd ' . dir
+            "execute 'lcd ' . dir
             break
         endif
         let dir = dir . '../'
@@ -196,6 +198,7 @@ endf
 
 " cscope add {{{2
 if has("cscope")
+	set csre
     set csto=1
     set cst
     set nocsverb
@@ -228,6 +231,8 @@ inoremap <C-h> <Esc><C-W>h
 inoremap <C-j> <Esc><C-W>j
 inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
+" switch to normal
+inoremap jk <Esc>
 
 " insert mode 光标移动 {{{2
 " alt + k 插入模式下光标向上移动
@@ -682,8 +687,8 @@ nmap  <leader><F4> :silent! VE .<cr>
 nmap  <F5> <Plug>LookupFile<cr>
 nmap  <C-F5> :UndotreeToggle<cr>
 "nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
-nmap  <F6> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'<CR>:copen<CR>
-nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:cw<cr>
+nmap  <F6> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'<CR>:botright cwindow<CR>
+nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:botright cwindow<cr>
 nmap  <leader><F6> :vimgrep /<C-R>=expand("<cword>")<cr>/
 nmap  <C-\><F6> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
 nmap  <F7> :SyntasticCheck<CR>
@@ -699,7 +704,8 @@ nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 
 " Linux Programmer's Manual
-nmap <C-m> :Man <C-R>=expand("<cword>")<cr><cr>
+" <C-m> is Enter in quickfix window
+nmap <C-\>a :Man <C-R>=expand("<cword>")<cr><cr>
 nmap <C-\>2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
 "cscope 按键映射及说明 {{{2
@@ -789,7 +795,31 @@ nmap ci ggVG=
 " 复制全部
 nmap cy ggVGy
 
+" open mouse function
+nmap <leader>om :set mouse=a<cr>
+
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
 au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 
+" Highlight unwanted spaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+"autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
+
+" Highlight variable under cursor in Vim
+let g:HlUnderCursor=1
+let g:no_highlight_group_for_current_word=["Statement", "Comment", "Type", "PreProc"]
+function s:HighlightWordUnderCursor()
+	let l:syntaxgroup = synIDattr(synIDtrans(synID(line("."), stridx(getline("."), expand('<cword>')) + 1, 1)), "name")
+
+	if (index(g:no_highlight_group_for_current_word, l:syntaxgroup) == -1)
+		"exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+		exe exists("g:HlUnderCursor")?g:HlUnderCursor?printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\')):'match none':""
+	else
+		"exe 'match IncSearch /\V\<\>/'
+		exe 'match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/'
+	endif
+endfunction
+autocmd CursorMoved * call s:HighlightWordUnderCursor()
+" define a shortcut key for enabling/disabling highlighting:
+nnoremap  <C-\><F3> :exe "let g:HlUnderCursor=exists(\"g:HlUnderCursor\")?g:HlUnderCursor*-1+1:1"<CR>

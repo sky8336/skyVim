@@ -1,0 +1,9 @@
+adb command
+
+========================================
+disable SELinux, like so:
+adb root
+adb shell setenforce 0
+# restart the process with adb shell kill $PID
+# if it is a system service, or may be adb shell stop; adb shell start.
+

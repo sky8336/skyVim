@@ -131,6 +131,7 @@ function build_vim_by_source()
 		sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel git
 	fi
 
+	ln /usr/bin/vim /usr/bin/vi
 }
 
 #echo install time

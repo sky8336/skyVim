@@ -12,6 +12,11 @@ Git学习教程（六）Git 日志 {{{1
 	git log -p
 	--显示每一次提交与其父节点提交内容之间的快照差异
 
+	git log dir/
+	:!git show commit-id
+
+--	!command             Execute the shell command with $SHELL.
+
 查看统计数字,添加或删除了多少行
 	git log --stat
 
@@ -80,6 +85,10 @@ git diff v1.0 v2.0 -- file.c   显示file.c在两个版本之间的比对结果
 git diff master...dev  创建分支dev之后，在这条分支上的差异对比 ，用dev与
                     master 所交的分岐点和现在dev分支上最后一个快照比对
 
+
+You can quickly review the changes made to a file using the diff command:
+git diff <commit hash> <filename>
+
 ----------------------------------------------------------------------
 查看某次改动的具体修改:
 	git show git提交版本号 文件名
@@ -108,4 +117,128 @@ git branch -vv
 ================================================================================
 git revert {{{1
 git revert commit-id
+
+================================================================================
+How to create and apply a patch with Git {{{1
+git format-patch生成的Git专用Patch
+
+If you fix a bug or create a new feature – do it in a separate branch!
+FYI: I’m assuming you made a few commits in the fix_empty_poster branch and
+did not yet merge it back in to the master branch.
+
+--------------------------------------------------------------------------------
+Creating the patch. {{{2
+This will create a new file fix_empty_poster.patch with all changes from the
+current (fix_empty_poster) against master.
+
+	git format-patch master --stdout > fix_empty_poster.patch
+
+>>针对每次提交生成一个patch
+	git format-patch -M master
+	-M选项表示这个patch要和那个分支比对
+用git am来应用
+	git am 0001-Fix1.patch
+	git commit -a -m "PATCH apply"
+--------------------------------------------------------------------------------
+Applying the patch {{{2
+
+(1) take a look at what changes are in the patch.
+not apply the patch, but only shows you the stats about what it’ll do.
+After peeking into the patch file with your favorite editor,
+you can see what the actual changes are.
+
+	git apply --stat fix_empty_poster.patch
+
+(2) test the patch
+If you don’t get any errors, the patch can be applied cleanly.
+
+	git apply --check fix_empty_poster.patch
+
+(3) apply the patch, I’ll use git am instead of git apply.
+	(git am allows you to sign off an applied patch.)
+	Patches were applied cleanly and your master branch has been updated.
+
+	git am --signoff < fix_empty_poster.patch
+
+================================================================================
+git diff生成的标准patch {{{1
+
+(1) 把git diff输出变为一个Patch
+	git diff master > patch
+
+(2) 使用git apply应用patch
+	建立一个专门处理新交来的patch的分支:
+	git checkout -b PATCH
+	git apply patch
+	git commit -a -m "Patch Apply"
+
+
+================================================================================
+git diff生成的标准patch {{{1
+chmod a+x  .git/hooks/commit-msg
+
+generate "Change-Id" to make it can be updated in one patch:
+"Uploaded patch set 1."
+"Uploaded patch set 2."
+================================================================================
+错误执行git commit --amend 之后想回退
+git reflog
+git reset commid
+
+git d: use vimdiff {{{1
+in terminal:
+git config --global diff.tool vimdiff
+git config --global difftool.prompt false
+git config --global alias.d difftool
+// git d //open files to diff
+
+git d{{{1
+gitt d AmbaConfig
+gitt d --cached  AmbaConfig
+
+gui:
+//git config --global diff.tool meld 
+
+忽略文件权限或者拥有者改变导致的git状态变化 {{{1
+1) 在当前git仓库下执行：
+	git config core.filemode false
+	git config --list
+2) 对全局git库生效
+	git config --global core.filemode false
+or:
+	也可以在命令行下对文件进行编辑:
+	vi ~/.gitconfig
+	filemode = false
+
+----
+已经clone下来的项目,在使用全局设置后无用, 需要对当前项目做单独设置?
+need to check?
+	git config core.filemode false
+or:
+	vi ~/xxx_prj/.git/config
+	filemode = false
+
+3)删除配置
+	git config --unset --global core.filemode false
+
+git diff的时候忽略换行符的差异：{{{1
+1)
+	git config --global core.whitespace cr-at-eol
+2)
+更好的方法是每个项目都有一个.gitattributes文件，里面配好了换行符的设置，参考
+https://help.github.com/articles/dealing-with-line-endings
+
+撤消 git add 操作{{{1
+	use the following cmd to unstage
+	git reset HEAD <file>...
+
+Reset or revert a specific file to a specific revision using Git {{{1
+(1)	Assuming the hash of the commit you want is c5f567:
+
+	git checkout c5f567 -- file1/to/restore file2/to/restore
+
+	The git checkout man page gives more information.
+	If you want to revert to the commit before c5f567, append ~1 (works with any number):
+
+		git checkout c5f567~1 -- file1/to/restore file2/to/restore
 
