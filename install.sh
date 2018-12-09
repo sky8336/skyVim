@@ -71,17 +71,15 @@ function bakup_vimconfig()
 function install_packages()
 {
 	echo "====== Install software packages now ! ======"
-	echo ">> install: vim+exuberant-ctags+cscope+ranger"
-	apt-get install vim exuberant-ctags cscope ranger -y --force-yes
+	echo ">> install: exuberant-ctags+cscope+ranger"
+	apt-get install exuberant-ctags cscope ranger -y --force-yes
 
-	echo ">> install: vim-gnome+xsel"
-	apt-get install vim-gnome xsel -y --force-yes
 	echo ">> install: nautilus-open-terminal"
 	sudo apt-get install nautilus-open-terminal -y --force-yes
 }
 
 #build vim
-function build_vim_by_source()
+function build_vim_from_source()
 {
 
 	if which apt-get > /dev/null
@@ -101,8 +99,13 @@ function build_vim_by_source()
 			sudo rm -rf ~/vim
 			sudo rm -rf /usr/share/vim/vim74
 			sudo rm -rf /usr/share/vim/vim80
+			sudo rm -rf /usr/share/vim/vim81
 
-			git clone https://github.com/vim/vim.git ~/vim
+			# check if a directory doesn't exist:
+			if [ ! -d "${HOME}/vim" ]; then
+				git clone https://github.com/vim/vim.git ~/vim
+			fi
+			git remote -v | grep "https://github.com/vim/vim.git"
 			cd ~/vim
 			./configure --with-features=huge \
 				--enable-multibyte \
@@ -112,7 +115,7 @@ function build_vim_by_source()
 				--enable-perlinterp \
 				--enable-luainterp \
 				--enable-gui=gtk2 --enable-cscope --prefix=/usr
-			make VIMRUNTIMEDIR=/usr/share/vim/vim80
+			make VIMRUNTIMEDIR=/usr/share/vim/vim81
 			sudo make install
 			cd -
 		else
@@ -123,6 +126,14 @@ function build_vim_by_source()
 		sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel git
 	fi
 
+}
+
+
+function install_vim()
+{
+	build_vim_from_source
+	echo ">> install: vim-gnome+xsel"
+	apt-get install vim-gnome xsel -y --force-yes
 }
 
 #函数名、运算符、括号等高亮
@@ -177,10 +188,12 @@ function config_vim()
 	pwd
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
 
+	vim81_c_vim="/usr/share/vim/vim81/syntax/c.vim"
 	vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
 	vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
 	vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
 
+	add_hilight_code_to_c_vim $vim81_c_vim
 	add_hilight_code_to_c_vim $vim80_c_vim
 	add_hilight_code_to_c_vim $vim74_c_vim
 	add_hilight_code_to_c_vim $vim73_c_vim
@@ -280,7 +293,7 @@ get_start_time_and_dir_path
 check_network
 bakup_vimconfig
 install_packages
-#build_vim_by_source
+install_vim
 config_vim
 install_vundle_and_plugin
 chown_vundle

@@ -92,7 +92,10 @@ function build_vim_by_source()
 	then
 		sudo apt-get install -y ctags build-essential cmake python-dev python3-dev fontconfig git
 		var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE")
-		systemVersion='DISTRIB_RELEASE=16.04'
+		#systemVersion='DISTRIB_RELEASE=16.04'
+
+                # fix issue: vim: error while loading shared libraries: libruby-2.3.so.2.3: cannot open shared object file: No such file or directory
+                systemVersion='DISTRIB_RELEASE=18.04'
 		if [ $var == $systemVersion ]
 		then
 			sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
