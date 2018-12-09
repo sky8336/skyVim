@@ -58,7 +58,8 @@ normal=$'\[\e[m\]'
 #PS1="$magenta┌─[$magenta\u@\h$red:$magenta(\t)$dark_yellow\$git_branch\n$magenta└─>$magenta\w$yellow\$ $normal"
 
 #一行，显示git分支信息
-PS1="$magenta\u@\h$red:$magenta\w$dark_yellow\$git_branch$dark_yellow\$ $normal"
+#PS1="$magenta\u@\h$red:$magenta\w$dark_yellow\$git_branch$dark_yellow\$ $normal"
+PS1="$magenta\u$cyan@\h$red:$magenta\w$dark_yellow\$git_branch$red\$ $normal"
 
 #add some alias
 alias vih='vi ~/.vim/my_help/'
@@ -70,6 +71,16 @@ alias vivc='vi ~/.vim/my_help/vim_command.txt'
 alias vi='vim'
 alias tagsc='rm cscope.*.out cscope.out tags tags.o.fn'
 alias exchkey=$HOME/.vim/my_help/locktoesc.sh
+alias mgrep='grep --exclude={cscope*,tags*}'
+alias week='date +%V.%u'
+alias gl='git log --graph --decorate --pretty=oneline --abbrev-commit --all'
+alias gls='git log --graph --decorate --pretty=short --abbrev-commit --all'
+alias glm='git log --graph --decorate --pretty=medium --abbrev-commit --all'
+alias glf='git log --graph --decorate --pretty=full --abbrev-commit --all'
+alias glfr='git log --graph --decorate --pretty=fuller --abbrev-commit --all'
+alias gle='git log --graph --decorate --pretty=email --abbrev-commit --all'
+alias gh='echo "gl, gls, glm, glf, glfr, gle"'
+#git lg #already used
 
 # git commit -a 提交代码时，编辑器默认为vim的另一种方法
 #export EDITOR=/usr/bin/vim

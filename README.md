@@ -5,10 +5,10 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-07-01
 " LastChange: 2016-11-15
-" Version: v0.6.8    online
+" Version: v0.7.6    online
 
 
-vim config for linux devices driver development  
+vim config for linux devices driver development and C development  
 my_help/目录中存放开发中常用的帮助文档
 大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
 
@@ -951,6 +951,118 @@ Vim画图插件（可在vim中画基本示意图）
 		End     左下斜线  
 		Home    左上斜线  
 
+## 29、Tablify.vim(表格转化插件）{{{2
+Tablify is a VIM plugin that turns simple structured data into nice-looking tables.  
+
+###Usage
+	There is a small list of commands you need to know before starting  
+	making tables out of your text. Assuming your <Leader> is ,:  
+	,tl or ,tt - turns selected lines into table (left-aligned text)  
+	,tc - turns selected lines into table (centered text)  
+	,tr - turns selected lines into table (right-aligned text)  
+	,tu - convert selected table back into raw text format in case you   
+	want to add some changes in it  
+
+	,ta - select formed table with cursor anywhere inside of it (also   
+			selects structured text for future tables)  
+
+####Operations with formed and selected table:
+	,ts - sort table (column number will be prompted), supports text and  
+	numeric sorting  
+
+Every line of your future table is a text line with cells, separated by | symbol   
+(or any other symbol you choose forg:tablify_raw_delimiter variable in your .vimrc file).  
+
+####Let's assume we have a few lines of text we would like to see as table:
+Artist | Song | Album | Year  
+Tool | Useful idiot | Ænima | 1996  
+Pantera | Cemetery Gates | Cowboys from Hell | 1990  
+Ozzy Osbourne | Let Me Hear You Scream | Scream | 2010  
+
+
+Now select these lines and press ,tt to make a table:  
++---------------+------------------------+-------------------+------+  
+| Artist        | Song                   | Album             | Year |  
++---------------+------------------------+-------------------+------+  
+| Tool          | Useful idiot           | Ænima             | 1996 |  
++---------------+------------------------+-------------------+------+  
+| Pantera       | Cemetery Gates         | Cowboys from Hell | 1990 |  
++---------------+------------------------+-------------------+------+  
+| Ozzy Osbourne | Let Me Hear You Scream | Scream            | 2010 |  
++---------------+------------------------+-------------------+------+  
+
+
+I bet it was pretty simple. Now you can press u to undo making of table or select table   
+and press ,tu to return to the text you're started from. After that you can try ,tc and  
+,tr to see what it looks like to have aligned text in table.  
+
+####It is obvious that our table here have some kind of header and it will be great to visually
+distinguish it from table data. To do so, just separate the header cells with # symbol (or   
+		any other symbol you choose for g:tablify_header_delimiter variable in your.vimrc file):  
+
+Artist # Song # Album # Year  
+Tool | Useful idiot | Ænima | 1996  
+Pantera | Cemetery Gates | Cowboys from Hell | 1990  
+Ozzy Osbourne | Let Me Hear You Scream | Scream | 2010  
+
+
+And that's what we get after tablification:  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+| Artist        | Song                   | Album             | Year |  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+| Tool          | Useful idiot           | Ænima             | 1996 |  
++---------------+------------------------+-------------------+------+  
+| Pantera       | Cemetery Gates         | Cowboys from Hell | 1990 |  
++---------------+------------------------+-------------------+------+  
+| Ozzy Osbourne | Let Me Hear You Scream | Scream            | 2010 |  
++---------------+------------------------+-------------------+------+  
+
+
+There is no problem of making tables out of commonly prefixed text lines, like:  
+/**  
+ * Artist#Song#Album#Year  
+ * Tool|Useful idiot|Ænima|1996  
+ * Pantera|Cemetery Gates|Cowboys from Hell|1990  
+ * Ozzy Osbourne|Let Me Hear You Scream|Scream|2010  
+ *  
+ */  
+
+
+####Multiline cell content is also supported, just place \n where line 
+break should occur, and tablify will do the rest:  
+Artist # Song # Album # Year  
+Pantera | Cemetery Gates | Cowboys from Hell | 1990  
+Tool \n (great perfomance)| Useful idiot | Ænima | 1996  
+Ozzy Osbourne | Let Me Hear You \n Scream | Scream | 2010  
+
+
+The sample above transforms to table:  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+| Artist             | Song            | Album             | Year |  
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  
+| Pantera            | Cemetery Gates  | Cowboys from Hell | 1990 |  
++--------------------+-----------------+-------------------+------+  
+| Tool               | Useful idiot    | Ænima             | 1996 |  
+| (great perfomance) |                 |                   |      |  
++--------------------+-----------------+-------------------+------+  
+| Ozzy Osbourne      | Let Me Hear You | Scream            | 2010 |  
+|                    | Scream          |                   |      |  
++--------------------+-----------------+-------------------+------+  
+
+###Configuration
+Tablify behaviour can be configured on per-buffer basis with the folowing variables:  
+g:loaded_tablify - set to 1 to disable loading of the plugin  
+b:tablify_headerDelimiter - default value is #, symbol that separates header cells in text  
+b:tablify_delimiter - default value is |, symbol that separated value cells in text  
+  
+b:tablify_vertDelimiter - default value is |, vertical delimiter symbol for filling up table rows  
+b:tablify_horDelimiter - default value is -, horizontal delimiter symbol for filling up table rows  
+b:tablify_horHeaderDelimiter - default value is ~, horizontal delimiter symbol for filling up tabls header rows  
+b:tablify_divideDelimiter - default value is +, symbol at the row/column intersection  
+
+b:tablify_cellLeftPadding - default value is 1, number of spaces used for left cell padding  
+b:tablify_cellRightPadding - default value is 1, number of spaces used for right cell padding  
+
 ## 其他 {{{2
 	(a)普通模式下:
 		输入 cM 清除行尾 ^M 符号;
@@ -1006,7 +1118,8 @@ Vim画图插件（可在vim中画基本示意图）
 		fg     : 切换回前台  
 
 		:sh    从vim切换到终端运行shell  
-		exit   从终端回到vim  
+		Ctrl + D(or exit)  从终端回到vim(to kill the shell and return to vim)  
+		
 
 	(i)改变窗口大小(window-resize)  
 		w= : 高度增加5行  
@@ -1092,3 +1205,5 @@ Vim画图插件（可在vim中画基本示意图）
 	在终端直接查找:  
 		vi -t 变量或函数名  
 		Man xxx  
+
+ga命令可以查看，当前光标所在位置的字符的编码，将显示在屏幕下方。（参见：h ga）

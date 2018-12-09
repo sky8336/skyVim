@@ -3,10 +3,12 @@
 " Copyright (c) 2013 sky8336. All Rights Reserved.
 "
 " Maintainer: sky8336 <1919592995@qq.com>
-"    Created: 2013-07-01
-" LastChange: 2016-12-13
+"    Created: 2013-06-28
+" LastChange: 2018-12-09
+"    Version: v0.8.2-online
 " major.minor.patch-build.desc (linux kernel format)
-" Version: v0.7.4    online
+"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 " GENERAL SETTINGS: {{{1
 " To use VIM settings, out of VI compatible mode.{{{2
@@ -16,7 +18,10 @@ set nocompatible
 filetype on
 " Syntax highlighting.{{{2
 syntax enable
-syntax on
+syntax on "syntax highlighting on
+
+filetype plugin on
+au BufRead,BufNewFile *.txt setlocal ft=txt "syntax highlight for txt
 
 " Setting colorscheme{{{2
 color mycolor
@@ -70,6 +75,10 @@ set   wildmode=list:longest,full
 set wrap
 set t_Co=256
 
+" splitting a window will put the new window below the currentone
+" splitting a window will put the new window right of the current on
+" set splitbelow
+" set splitright
 
 " AUTO COMMANDS: {{{1
 " auto expand tab to blanks
@@ -114,9 +123,9 @@ autocmd BufNewFile * normal G
 " some function definition: {{{1
 
 " set statusline color {{{2
-" default the statusline to blue (black character) when entering Vim
+" default the statusline to White (black character) when entering Vim
 hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
-" 状态栏颜色配置:插入模式品红色，普通模式白色
+" 状态栏颜色配置:插入模式品红色，普通模式White
 if version >= 700
   "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
   au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
@@ -287,6 +296,8 @@ Bundle 'oplatek/Conque-Shell'
 "Plugin 'plasticboy/vim-markdown'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
+Bundle 'Stormherz/tablify'
+"Bundle 'vim-scripts/TxtBrowser'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
@@ -329,7 +340,7 @@ endif
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-let g:Tlist_Show_One_File=0 "不同时显示多个文件的tag，只显示当前文件的
+let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
 let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
@@ -792,6 +803,9 @@ nmap ci ggVG=
 
 " 复制全部
 nmap cy ggVGy
+
+" open mouse function
+nmap <leader>om :set mouse=a<cr>
 
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
