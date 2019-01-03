@@ -12,7 +12,7 @@ function set_color()
 function check_root_privileges()
 {
 	if [ $UID -eq 0 ]; then
-		echo "You have root privileges!"
+		echo "====== You have root privileges! ======"
 	else
 		echo -e "${color_failed}>>> Error: You don't have root privileges!"
 		echo -e "Please run \"sudo ./install.sh\"${color_reset}"
@@ -60,58 +60,104 @@ function check_network()
 function bakup_vimconfig()
 {
 	echo "====== Bakup your vimconfig file ! ======"
-	rm   -rf $HOME/.bakvim
+
+	if [ -d "${HOME}/.bakvim" ]; then
+		rm   -rf $HOME/.bakvim
+	fi
 	mkdir $HOME/.bakvim
-	cp $HOME/.vim  $HOME/.bakvim -a
-	cp $HOME/.vimrc $HOME/.bakvim
-	cp $HOME/.bashrc $HOME/.bakvim
+
+	if [ -d "${HOME}/.vim" ]; then
+		cp $HOME/.vim  $HOME/.bakvim -a
+	fi
+
+	if [ -d "${HOME}/.vimrc" ]; then
+		cp $HOME/.vimrc $HOME/.bakvim
+	fi
+	if [ -d "${HOME}/.bashrc" ]; then
+		cp $HOME/.bashrc $HOME/.bakvim
+	fi
+
+	if [ -d "${HOME}/.bashrc_my" ]; then
+		cp $HOME/.bashrc_my $HOME/.bakvim
+	fi
 }
 
 #安装需要的软件包
 function install_packages()
 {
 	echo "====== Install software packages now ! ======"
-	echo ">> install: vim+exuberant-ctags+cscope+ranger"
-	vim --version | grep "Vi IMproved 8.0" --color
-	if [ $? -eq 0 ]; then
-		echo "vim8.0 has been installed!"
-	else
-		apt-get install vim -y --force-yes
-	fi
-	apt-get install exuberant-ctags cscope ranger -y --force-yes
-	# install libc++ man page
-	apt install sudo apt install libstdc++6-4.7-doc -y --force-yes
+	echo -n ">> install: exuberant-ctags+cscope+ranger ... "
+	apt-get install exuberant-ctags cscope ranger --allow-unauthenticated > /dev/null
+	echo "done!"
 
-	echo ">> install: vim-gnome+xsel"
-	apt-get install vim-gnome xsel -y --force-yes
-	echo ">> install: nautilus-open-terminal"
-	sudo apt-get install nautilus-open-terminal -y --force-yes
+	# install libc++ man page
+	echo -n ">> libstdc++6-4.7-doc ... "
+	sudo apt install libstdc++6-4.7-doc --allow-unauthenticated > /dev/null
+	echo "done!"
+
+	#echo ">> install: nautilus-open-terminal" #installed by default
+	#sudo apt-get install nautilus-open-terminal --allow-unauthenticated > /dev/null
 }
 
 #build vim
-function build_vim_by_source()
+function build_vim_from_source()
 {
+	if which apt-get > /dev/null ; then
+		echo -n ">> install ctags build-essential cmake python-dev python3-dev fontconfig git ... "
+		sudo apt-get install -y ctags build-essential cmake python-dev \
+			python3-dev fontconfig git > /dev/null
+		echo "done!"
 
-	if which apt-get > /dev/null
-	then
-		sudo apt-get install -y ctags build-essential cmake python-dev python3-dev fontconfig git
-		var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE")
-		systemVersion='DISTRIB_RELEASE=16.04'
-		if [ $var == $systemVersion ]
-		then
+		var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE" --color)
+		#systemVersion='DISTRIB_RELEASE=16.04'
+		systemVersion='DISTRIB_RELEASE=18.04'
+		if [ $var == $systemVersion ]; then
+			sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE" --color
+			echo -n ">> install libncurses5-dev libgnome2-dev libgnomeui-dev "\
+				"libgtk2.0-dev libatk1.0-dev libbonoboui2-dev " \
+				"libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev "\
+				"python3-dev ruby-dev lua5.1 lua5.1-dev ... "
 			sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
 				libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 				libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-				python3-dev ruby-dev lua5.1 lua5.1-dev
-			sudo apt-get remove -y vim vim-runtime gvim
-			sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox
+				python3-dev ruby-dev lua5.1 lua5.1-dev > /dev/null
+			echo "done!"
 
-			sudo rm -rf ~/vim
-			sudo rm -rf /usr/share/vim/vim74
-			sudo rm -rf /usr/share/vim/vim80
+			sudo apt-get remove -y vim vim-runtime gvim > /dev/null
+			sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox > /dev/null
 
-			git clone https://github.com/vim/vim.git ~/vim
+			if [ -d "/usr/share/vim/vim74" ]; then
+				sudo rm -rf /usr/share/vim/vim74 > /dev/null
+			fi
+
+			if [ -d "/usr/share/vim/vim80" ]; then
+				sudo rm -rf /usr/share/vim/vim80 > /dev/null
+			fi
+			if [ -d "/usr/share/vim/vim81" ]; then
+				sudo rm -rf /usr/share/vim/vim81 > /dev/null
+			fi
+
+			# check if a directory doesn't exist:
+			if [ ! -d "${HOME}/vim" ]; then
+				echo -n ">> clone vim ... "
+				git clone https://github.com/vim/vim.git ~/vim > /dev/null
+				echo "done! [path: ~/vim]"
+			fi
+
 			cd ~/vim
+			git remote -v | grep "https://github.com/vim/vim.git" --color
+
+			if [ $? -eq 0 ]; then
+				echo "vim source code has been cloned in ${HOME}/vim!"
+				git pull > /dev/null
+			else
+				cd -
+				echo -n ">> clone vim ..."
+				git clone https://github.com/vim/vim.git /tmp/vim
+				echo "done! [path: /tmp/vim]"
+				cd /tmp/vim/
+			fi
+
 			./configure --with-features=huge \
 				--enable-multibyte \
 				--enable-rubyinterp \
@@ -119,18 +165,43 @@ function build_vim_by_source()
 				--with-python-config-dir=/usr/lib/python2.7/config \
 				--enable-perlinterp \
 				--enable-luainterp \
-				--enable-gui=gtk2 --enable-cscope --prefix=/usr
-			make VIMRUNTIMEDIR=/usr/share/vim/vim80
-			sudo make install
+				--enable-gui=gtk2 --enable-cscope --prefix=/usr > /dev/null
+			echo -n ">> vim: make ... "
+			make VIMRUNTIMEDIR=/usr/share/vim/vim81 > /dev/null
+			echo "done!"
+			echo -n ">> vim: make install ... "
+			sudo make install > /dev/null
+			echo "done!"
 			cd -
 		else
-			sudo apt-get install -y vim
+			echo ">> instll vim using apt ... "
+			sudo apt-get install -y vim > /dev/null
+			echo "done!"
 		fi
 	elif which yum > /dev/null
 	then
-		sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel git
+		sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake \
+		python-devel python3-devel git > /dev/null
 	fi
 
+}
+
+
+function install_vim()
+{
+	echo "====== install vim now! ======"
+	echo "force enter build_vim_from_source?: $1"
+	vim --version | grep "Vi IMproved 8.1" --color
+	if [ $? -eq 0 ] && [ $1 -eq 0 ]; then
+		echo "Vi IMproved 8.1 has been installed!"
+	else
+		echo "enter build_vim_from_source"
+		build_vim_from_source
+	fi
+
+	echo -n ">> install: vim-gnome+xsel ... "
+	apt-get install vim-gnome xsel --allow-unauthenticated > /dev/null
+	echo "done!"
 }
 
 #函数名、运算符、括号等高亮
@@ -141,8 +212,8 @@ function add_hilight_code_to_c_vim()
 		if [ $? -eq 0 ]; then
 			echo "Found my_vim_highlight_config! $1 have been modified."
 		else
-			echo "Not found my_vim_highlight_config! Modify $1 now."
-			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> $1
+			echo "add my_vim_highlight_config to $1 now."
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> $1 > /dev/null
 		fi
 	else
 		echo "can not found $1"
@@ -153,7 +224,8 @@ function add_hilight_code_to_c_vim()
 function config_vim()
 {
 	echo "====== Config your vim now ! ======"
-	rm -rf $HOME/.vim/README.mk  $HOME/.vim/colors/ $HOME/.vim/macros/ $HOME/.vim/my_help/ $HOME/.vim/shell/
+	rm -rf $HOME/.vim/README.mk  $HOME/.vim/colors/ $HOME/.vim/macros/ \
+		$HOME/.vim/my_help/ $HOME/.vim/shell/ > /dev/null
 
 	grep -n --color "Maintainer: sky8336" ~/.vimrc
 	if [ $? -ne 0 ];then
@@ -183,15 +255,29 @@ function config_vim()
 	echo "Make tags in /usr/include"
 	cd /usr/include
 	pwd
-	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q
+	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q > /dev/null
 
+	vim81_c_vim="/usr/share/vim/vim81/syntax/c.vim"
 	vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
 	vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
 	vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
 
-	add_hilight_code_to_c_vim $vim80_c_vim
-	add_hilight_code_to_c_vim $vim74_c_vim
-	add_hilight_code_to_c_vim $vim73_c_vim
+
+	if [ -f "$vim81_c_vim" ]; then
+		add_hilight_code_to_c_vim $vim81_c_vim
+	fi
+
+	if [ -f "$vim80_c_vim" ]; then
+		add_hilight_code_to_c_vim $vim80_c_vim
+	fi
+
+	if [ -f "$vim74_c_vim" ]; then
+		add_hilight_code_to_c_vim $vim74_c_vim
+	fi
+
+	if [ -f "$vim73_c_vim" ]; then
+		add_hilight_code_to_c_vim $vim73_c_vim
+	fi
 }
 
 #install vundle
@@ -199,7 +285,9 @@ function install_vundle_and_plugin()
 {
 	if [ $online -eq 1 ];then
 		echo "====== Install vundle now ! ======"
-		git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle
+		if [ ! -d "${HOME}/.vim/bundle/vundle" ]; then
+			git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle > /dev/null
+		fi
 		vim +BundleInstall +qall
 		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
 	else
@@ -231,7 +319,7 @@ function install_ycm()
 	cp .ycm_extra_conf.py ~
 
 	cd ~/.vim/bundle/YouCompleteMe
-	sudo ./install.py --clang-completer
+	sudo ./install.py --clang-completer > /dev/null
 }
 
 # git config
@@ -287,13 +375,16 @@ function echo_install_time()
     echo
 }
 
+# !!note:y ou can modify force_build_vim to build vim from source
+force_build_vim=0
+
 set_color
 check_root_privileges
 get_start_time_and_dir_path
 check_network
 bakup_vimconfig
 install_packages
-#build_vim_by_source
+install_vim ${force_build_vim}
 config_vim
 install_vundle_and_plugin
 chown_vundle
