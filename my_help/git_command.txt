@@ -85,6 +85,10 @@ git diff v1.0 v2.0 -- file.c   显示file.c在两个版本之间的比对结果
 git diff master...dev  创建分支dev之后，在这条分支上的差异对比 ，用dev与
                     master 所交的分岐点和现在dev分支上最后一个快照比对
 
+
+You can quickly review the changes made to a file using the diff command:
+git diff <commit hash> <filename>
+
 ----------------------------------------------------------------------
 查看某次改动的具体修改:
 	git show git提交版本号 文件名
@@ -181,12 +185,16 @@ generate "Change-Id" to make it can be updated in one patch:
 git reflog
 git reset commid
 
-use vimdiff {{{1
+git d: use vimdiff {{{1
 in terminal:
 git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 git config --global alias.d difftool
 // git d //open files to diff
+
+git d{{{1
+gitt d AmbaConfig
+gitt d --cached  AmbaConfig
 
 gui:
 //git config --global diff.tool meld 
@@ -241,4 +249,46 @@ The best way to automatically configure your repository's line endings is to fir
 
     git commit -m "Normalize all the line endings"
 
+忽略文件权限或者拥有者改变导致的git状态变化 {{{1
+1) 在当前git仓库下执行：
+	git config core.filemode false
+	git config --list
+2) 对全局git库生效
+	git config --global core.filemode false
+or:
+	也可以在命令行下对文件进行编辑:
+	vi ~/.gitconfig
+	filemode = false
+
+----
+已经clone下来的项目,在使用全局设置后无用, 需要对当前项目做单独设置?
+need to check?
+	git config core.filemode false
+or:
+	vi ~/xxx_prj/.git/config
+	filemode = false
+
+3)删除配置
+	git config --unset --global core.filemode false
+
+git diff的时候忽略换行符的差异：{{{1
+1)
+	git config --global core.whitespace cr-at-eol
+2)
+更好的方法是每个项目都有一个.gitattributes文件，里面配好了换行符的设置，参考
+https://help.github.com/articles/dealing-with-line-endings
+
+撤消 git add 操作{{{1
+	use the following cmd to unstage
+	git reset HEAD <file>...
+
+Reset or revert a specific file to a specific revision using Git {{{1
+(1)	Assuming the hash of the commit you want is c5f567:
+
+	git checkout c5f567 -- file1/to/restore file2/to/restore
+
+	The git checkout man page gives more information.
+	If you want to revert to the commit before c5f567, append ~1 (works with any number):
+
+		git checkout c5f567~1 -- file1/to/restore file2/to/restore
 
