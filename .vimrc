@@ -121,6 +121,22 @@ endfunc
 autocmd BufNewFile * normal G
 
 " some function definition: {{{1
+" thanks to http://vimcasts.org/e/4
+function! WhitespaceStripTrailing()
+	let previous_search=@/
+	let previous_cursor_line=line('.')
+	let previous_cursor_column=col('.')
+	%s/\s\+$//e
+	let @/=previous_search
+	call cursor(previous_cursor_line, previous_cursor_column)
+endfunction
+
+"{{{3 whitespace  去除文件的行尾空白
+autocmd BufWritePre     *.py        call WhitespaceStripTrailing()
+autocmd BufWritePre     *.h         call WhitespaceStripTrailing()
+autocmd BufWritePre     *.c         call WhitespaceStripTrailing()
+autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
+"}}}
 
 " set statusline color {{{2
 " default the statusline to White (black character) when entering Vim

@@ -190,3 +190,55 @@ git config --global alias.d difftool
 
 gui:
 //git config --global diff.tool meld 
+
+
+Dealing with line endings{{{1
+git diff 忽略换行符差异：
+
+git config --global core.whitespace cr-at-eol
+
+更好的方法是每个项目都有一个.gitattributes文件
+note:
+Windows用CR LF来定义换行，Linux用LF。
+CR全称是Carriage Return ,或者表示为\r, 意思是回车。
+LF全称是Line Feed，它才是真正意义上的换行表示符。
+如果用git diff的时候看到^M字符，就说明两个文件在换行符上有所差别。
+
+Refreshing a repository after changing line endings
+
+After you've set the core.autocrlf option and committed a .gitattributes file, you may find that Git wants to commit files that you have not modified. At this point, Git is eager to change the line endings of every file for you.
+
+The best way to automatically configure your repository's line endings is to first backup your files with Git, delete every file in your repository (except the .git directory), and then restore the files all at once.
+
+    Save your current files in Git, so that none of your work is lost.
+
+    git add . -u
+    git commit -m "Saving files before refreshing line endings"
+
+    Remove the index and force Git to rescan the working directory.
+
+    rm .git/index
+
+    Rewrite the Git index to pick up all the new line endings.
+
+    git reset
+
+    Show the rewritten, normalized files.
+
+    git status
+
+    Add all your changed files back, and prepare them for a commit. This is your chance to inspect which files, if any, were unchanged.
+
+    git add -u
+    # It is perfectly safe to see a lot of messages here that read
+    # "warning: CRLF will be replaced by LF in file."
+
+    Rewrite the .gitattributes file.
+
+    git add .gitattributes
+
+    Commit the changes to your repository.
+
+    git commit -m "Normalize all the line endings"
+
+
