@@ -311,3 +311,7 @@ dd2e86 - 946992 - 9143a9 - a6fd86 - 5a6057 [master]
 	git rebase --onto master 76cada^
 	76cada^ 表示从 76cada 的 commit 开始合并（作为新的commit）。
 	这样就完成了 76cada 到 62ecb3 合并到 master。
+
+删除远程分支{{{1
+    git push origin --delete Chapater6       
+可以删除远程分支Chapater6
