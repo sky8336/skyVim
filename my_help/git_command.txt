@@ -185,6 +185,8 @@ generate "Change-Id" to make it can be updated in one patch:
 git reflog
 git reset commid
 
+用 git reset HEAD <file>... 的方式取消暂存(取消git add)
+
 git d: use vimdiff {{{1
 in terminal:
 git config --global diff.tool vimdiff
@@ -292,3 +294,20 @@ Reset or revert a specific file to a specific revision using Git {{{1
 
 		git checkout c5f567~1 -- file1/to/restore file2/to/restore
 
+git合并分支上指定的commit {{{1
+假设分支结构如下：
+dd2e86 - 946992 - 9143a9 - a6fd86 - 5a6057 [master]
+                  \
+				   76cada-62ecb3-b886a0[feature]
+(1) cherry pick 合并单个 commit:
+	git checkout master
+	git cherry-pick 62ecb3
+	62ecb3 已经应用在 master 上了（作为一个新的commit）。
+
+(2) cherry pick 连续多个commit
+合并多个要用 rebase。
+假设想要把 76cada 和 62ecb3 合并到 master 上:
+	git checkout -b newbranch 62ecb3
+	git rebase --onto master 76cada^
+	76cada^ 表示从 76cada 的 commit 开始合并（作为新的commit）。
+	这样就完成了 76cada 到 62ecb3 合并到 master。
