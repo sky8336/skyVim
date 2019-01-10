@@ -315,3 +315,41 @@ dd2e86 - 946992 - 9143a9 - a6fd86 - 5a6057 [master]
 删除远程分支{{{1
     git push origin --delete Chapater6       
 可以删除远程分支Chapater6
+
+Git 修改commit message{{{1
+
+1、 查看最近n次的提交
+	git log --oneline -5
+    查看最近5次commit的简要信息，输出信息为：简短commitID commit_message，
+
+    git log -5，输出相对详细信息，完整commitID，加上--oneline查看简短commitID
+
+2、git rebase -i <简短commitID>
+    修改从上往下第n个commit_message，简短commitID为第n+1个.
+
+    弹出窗口，显示最近n次的提交信息.
+
+3、要修改的提交前的pick改为reword; 修改多个，将对应的多个pick改为reword
+
+4、保存退出; 5、在弹出窗口中，修改commit_message;
+   修改多个pick为reword，会多次弹出修改界面
+
+5、查看修改结果
+   git log --oneline -5
+   or
+   git log -5，
+
+6、最后强制push上去git push --force
+
+
+快捷操作：
+---------
+1，修改最近一次的commit 信息
+　　git commit --amend
+
+2，比如要修改的commit是倒数第三条，使用下述命令：
+　　git rebase -i HEAD~3
+    退出保存
+3，执行 git rebase --continue
+4，执行 git push -f 推送到服务端。
+
