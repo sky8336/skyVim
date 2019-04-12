@@ -34,9 +34,12 @@ set autowrite
 set background=dark
 set backspace=indent,eol,start
 set nobackup
-set cindent
+set cindent " enable specific indenting for C code
 set cinoptions=:0
-set cinoptions+=g0 "Avoiding "visibility" modifiers indenting in C++
+"set cinoptions+=j1,(0,ws,Ws " enable partial c++11 (lambda) support
+" Avoiding "visibility" modifiers indenting in C++
+" public, namespace,
+set cinoptions+=g0,N-s
 "set cinoptions+=L0 "tell vim not to de-indent labels
 set cursorline
 set completeopt=longest,menuone
