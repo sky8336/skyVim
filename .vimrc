@@ -28,50 +28,52 @@ color mycolor
 "colorscheme nslib_color256
 
 " Other settings.{{{2
-set   autoindent
-set   autoread
-set   autowrite
-set   background=dark
-set   backspace=indent,eol,start
-set   nobackup
-set   cindent
-set   cinoptions=:0
-set   cursorline
-set   completeopt=longest,menuone
-set   noexpandtab
-set   fileencodings=utf-8,gb2312,gbk,gb18030
-set   fileformat=unix
-set   foldenable
-set   foldmethod=marker
-set   guioptions-=T
-set   guioptions-=m
-set   guioptions-=r
-set   guioptions-=l
-set   helpheight=10
-set   helplang=cn
-set   hidden
-set   history=100
-set   hlsearch
-set   ignorecase
-set   incsearch
-set   laststatus=2 "show the status line
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
-set   mouse=v
-set   number
-set   pumheight=10
-set   ruler
-set   scrolloff=2
-set   shiftwidth=4
-set   showcmd
-set   smartindent
-set   smartcase
-set   tabstop=4
-set   termencoding=utf-8
-set   textwidth=80
-set   whichwrap=h,l
-set   wildignore=*.bak,*.o,*.e,*~
-set   wildmenu
-set   wildmode=list:longest,full
+set autoindent
+set autoread
+set autowrite
+set background=dark
+set backspace=indent,eol,start
+set nobackup
+set cindent
+set cinoptions=:0
+set cinoptions+=g0 "Avoiding "visibility" modifiers indenting in C++
+"set cinoptions+=L0 "tell vim not to de-indent labels
+set cursorline
+set completeopt=longest,menuone
+set noexpandtab
+set fileencodings=utf-8,gb2312,gbk,gb18030
+set fileformat=unix
+set foldenable
+set foldmethod=marker
+set guioptions-=T
+set guioptions-=m
+set guioptions-=r
+set guioptions-=l
+set helpheight=10
+set helplang=cn
+set hidden
+set history=100
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2 "show the status line
+set statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
+set mouse=v
+set number
+set pumheight=10
+set ruler
+set scrolloff=2
+set shiftwidth=4
+set showcmd
+set smartindent
+set smartcase
+set tabstop=4
+set termencoding=utf-8
+set textwidth=80
+set whichwrap=h,l
+set wildignore=*.bak,*.o,*.e,*~
+set wildmenu
+set wildmode=list:longest,full
 set wrap
 set t_Co=256
 
@@ -356,7 +358,7 @@ endif
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
+let g:Tlist_Show_One_File=0 "不同时显示多个文件的tag，只显示当前文件的
 let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
