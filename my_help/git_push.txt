@@ -268,7 +268,7 @@ for later reference.
 
 ========================
 gitlab push {{{1
-	git clone git@121.196.213.107:RDA600/git-repo.git
+	git clone git@xxx.xxx.xxx.xxx:prj_name/git-repo.git
 	cd git-repo
 	touch README.md
 	git add README.md
