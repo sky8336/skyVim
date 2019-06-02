@@ -8,9 +8,16 @@
 " Version: v0.7.6    online
 
 
-vim config for linux devices driver development and C development  
-my_help/目录中存放开发中常用的帮助文档
-大家记得点击右上角的star和watch给个星星支持一下,本配置将持续更新，致力于顺手好用。  
+vim config for linux devices driver development and C development，C++ development   
+鉴于vim的学习曲线，小白慎用…  
+my_help/目录中存放开发中常用的帮助文档  
+未试用，请勿随意点击右上角star和watch。  
+配置会更新，但无固定更新计划，全凭心情和性质…  
+配置致力于顺手好用，单不保证对你顺手，对你好用…  
+配置问题，欢迎提出，虽然我不一定保证解决，但是会努力解决…  
+最后，再啰嗦🦜一句：  
+  点赞👍是个好习惯，但是不对你做如此高的要求，因为你可能无法体会点赞的乐趣…  
+  
 
 ### 温馨提示：{{{1
      (1)如有问题，欢迎大家及时提出来，共同进步。  
