@@ -1,11 +1,13 @@
 # vimconfig_bundle
  
-" Copyright (c) 2013 sky8336. All Rights Reserved.
-"
-" Maintainer: sky8336 <1919592995@qq.com>
-"    Created: 2013-07-01
-" LastChange: 2016-11-15
-" Version: v0.7.6    online
+
+由于之前西安的一位不认识的朋友，对我说换去军工单位后，无法联网， 
+我几年前特意加入了offline对的支持。也就是： 
+你总会安装成功，要么是在线安装的，要么是offline 安装的方式，不过，不会太影响使用。  
+两个版本号mark 一下：
+   v1.0.0-online  
+   v0.7.8-offline  
+不要问我有什么区别，无差别使用影响并不大  
 
 
 vim config for linux devices driver development and C development，C++ development   
