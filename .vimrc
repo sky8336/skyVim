@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2018-12-09
-"    Version: v1.0.0-online
+"    Version: v1.0.1-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -98,32 +98,95 @@ autocmd BufReadPost *
 autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
 func SetTitle()
 	if expand("%:e") == 'sh'
-		call setline(1,"\#!/bin/bash")
-		call append(line("."), "")
+		call append(0,"\#!/bin/bash")
+		call append(1,"#")
+		call append(2,"# ".expand("%:t"))
+		call append(3,"#")
+		call append(4,"# Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(5,"#")
+		call append(6,"# History:")
+		call append(7,"#    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(8,"#")
     elseif expand("%:e") == 'py'
-        call setline(1,"#!/usr/bin/env python")
-        call append(line("."),"# coding=utf-8")
-	    call append(line(".")+1, "")
+        call append(0,"#!/usr/bin/env python")
+        call append(1,"# coding=utf-8")
+		call append(2,"#")
+		call append(3,"# ".expand("%:t"))
+		call append(4,"#")
+		call append(5,"# Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(6,"#")
+		call append(7,"# History:")
+		call append(8,"#    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(9,"#")
     elseif expand("%:e") == 'cpp'
-		call setline(1,"#include <iostream>")
-		call append(line("."), "")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9,"#include <iostream>")
+		"call append(line("."), "")
     elseif expand("%:e") == 'cc'
-		call setline(1,"#include <iostream>")
-		call append(line("."), "")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9,"#include <iostream>")
+		"call append(line("."), "")
     elseif expand("%:e") == 'c'
-		call setline(1,"#include <stdio.h>")
-		call append(line("."), "")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9,"#include <stdio.h>")
+		"call append(line("."), "")
     elseif expand("%:e") == 'h'
-		call setline(1, "#ifndef _".toupper(expand("%:r"))."_H")
-		call setline(2, "#define _".toupper(expand("%:r"))."_H")
-		call setline(3, "#endif")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9, "#ifndef _".toupper(expand("%:r"))."_H")
+		call append(10, "#define _".toupper(expand("%:r"))."_H")
+		call append(11, "#endif")
     elseif expand("%:e") == 'hpp'
-		call setline(1, "#ifndef _".toupper(expand("%:r"))."_H")
-		call setline(2, "#define _".toupper(expand("%:r"))."_H")
-		call setline(3, "#endif")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9, "#ifndef _".toupper(expand("%:r"))."_H")
+		call append(10, "#define _".toupper(expand("%:r"))."_H")
+		call append(11, "#endif")
 	endif
+	echohl WarningMsg | echo "Successful in adding copyright." | echohl None
 endfunc
 autocmd BufNewFile * normal G
+
+" insert time
+ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
 " some function definition: {{{1
 " thanks to http://vimcasts.org/e/4
