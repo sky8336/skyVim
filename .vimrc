@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
-" LastChange: 2018-12-09
-"    Version: v1.0.1-online
+" LastChange: 2019-06-17
+"    Version: v1.0.2-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -164,8 +164,10 @@ func SetTitle()
 		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
 		call append(7," *")
 		call append(8," */")
-		call append(9, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
-		call append(10, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(9, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(10, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		call append(9, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(10, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
 		call append(11, "#endif")
     elseif expand("%:e") == 'hpp'
 		call append(0,"/*")
@@ -177,8 +179,10 @@ func SetTitle()
 		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
 		call append(7," *")
 		call append(8," */")
-		call append(9, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
-		call append(10, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(9, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(10, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		call append(9, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(10, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
 		call append(11, "#endif")
 	endif
 	echohl WarningMsg | echo "Successful in adding copyright." | echohl None
