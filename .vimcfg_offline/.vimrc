@@ -3,9 +3,9 @@
 " Copyright (c) 2013 sky8336. All Rights Reserved.
 "
 " Maintainer: sky8336 <1919592995@qq.com>
-"    Created: 2013-07-01
-" LastChange: 2018-03-15
-"    Version: v0.7.8-offline
+"    Created: 2016-08-19
+" LastChange: 2019-06-17
+"    Version: v1.0.2-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -18,60 +18,72 @@ set nocompatible
 filetype on
 " Syntax highlighting.{{{2
 syntax enable
-syntax on
+syntax on "syntax highlighting on
+
+filetype plugin on
+au BufRead,BufNewFile *.txt setlocal ft=txt "syntax highlight for txt
 
 " Setting colorscheme{{{2
 color mycolor
 "colorscheme nslib_color256
 
 " Other settings.{{{2
-set   autoindent
-set   autoread
-set   autowrite
-set   background=dark
-set   backspace=indent,eol,start
-set   nobackup
-set   cindent
-set   cinoptions=:0
-set   cursorline
-set   completeopt=longest,menuone
-set   noexpandtab
-set   fileencodings=utf-8,gb2312,gbk,gb18030
-set   fileformat=unix
-set   foldenable
-set   foldmethod=marker
-set   guioptions-=T
-set   guioptions-=m
-set   guioptions-=r
-set   guioptions-=l
-set   helpheight=10
-set   helplang=cn
-set   hidden
-set   history=100
-set   hlsearch
-set   ignorecase
-set   incsearch
-set   laststatus=2 "show the status line
-set   statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
-set   mouse=v
-set   number
-set   pumheight=10
-set   ruler
-set   scrolloff=2
-set   shiftwidth=4
-set   showcmd
-set   smartindent
-set   smartcase
-set   tabstop=4
-set   termencoding=utf-8
-set   textwidth=80
-set   whichwrap=h,l
-set   wildignore=*.bak,*.o,*.e,*~
-set   wildmenu
-set   wildmode=list:longest,full
+set autoindent
+set autoread
+set autowrite
+set background=dark
+set backspace=indent,eol,start
+set nobackup
+set cindent " enable specific indenting for C code
+set cinoptions=:0
+"set cinoptions+=j1,(0,ws,Ws " enable partial c++11 (lambda) support
+" Avoiding "visibility" modifiers indenting in C++
+" public, namespace,
+set cinoptions+=g0,N-s
+"set cinoptions+=L0 "tell vim not to de-indent labels
+set cursorline
+set completeopt=longest,menuone
+set noexpandtab
+set fileencodings=utf-8,gb2312,gbk,gb18030
+set fileformat=unix
+set foldenable
+set foldmethod=marker
+set guioptions-=T
+set guioptions-=m
+set guioptions-=r
+set guioptions-=l
+set helpheight=10
+set helplang=cn
+set hidden
+set history=100
+set hlsearch
+set ignorecase
+set incsearch
+set laststatus=2 "show the status line
+set statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
+set mouse=v
+set number
+set pumheight=10
+set ruler
+set scrolloff=2
+set shiftwidth=4
+set showcmd
+set smartindent
+set smartcase
+set tabstop=4
+set termencoding=utf-8
+set textwidth=80
+set whichwrap=h,l
+set wildignore=*.bak,*.o,*.e,*~
+set wildmenu
+set wildmode=list:longest,full
 set wrap
 set t_Co=256
 
+" splitting a window will put the new window below the currentone
+" splitting a window will put the new window right of the current on
+" set splitbelow
+" set splitright
 
 " AUTO COMMANDS: {{{1
 " auto expand tab to blanks
@@ -86,34 +98,117 @@ autocmd BufReadPost *
 autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
 func SetTitle()
 	if expand("%:e") == 'sh'
-		call setline(1,"\#!/bin/bash")
-		call append(line("."), "")
+		call append(0,"\#!/bin/bash")
+		call append(1,"#")
+		call append(2,"# ".expand("%:t"))
+		call append(3,"#")
+		call append(4,"# Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(5,"#")
+		call append(6,"# History:")
+		call append(7,"#    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(8,"#")
     elseif expand("%:e") == 'py'
-        call setline(1,"#!/usr/bin/env python")
-        call append(line("."),"# coding=utf-8")
-	    call append(line(".")+1, "")
+        call append(0,"#!/usr/bin/env python")
+        call append(1,"# coding=utf-8")
+		call append(2,"#")
+		call append(3,"# ".expand("%:t"))
+		call append(4,"#")
+		call append(5,"# Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(6,"#")
+		call append(7,"# History:")
+		call append(8,"#    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(9,"#")
     elseif expand("%:e") == 'cpp'
-		call setline(1,"#include <iostream>")
-		call append(line("."), "")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9,"#include <iostream>")
+		"call append(line("."), "")
     elseif expand("%:e") == 'cc'
-		call setline(1,"#include <iostream>")
-		call append(line("."), "")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9,"#include <iostream>")
+		"call append(line("."), "")
     elseif expand("%:e") == 'c'
-		call setline(1,"#include <stdio.h>")
-		call append(line("."), "")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		call append(9,"#include <stdio.h>")
+		"call append(line("."), "")
     elseif expand("%:e") == 'h'
-		call setline(1, "#ifndef _".toupper(expand("%:r"))."_H")
-		call setline(2, "#define _".toupper(expand("%:r"))."_H")
-		call setline(3, "#endif")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		"call append(9, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(10, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		call append(9, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(10, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(11, "#endif")
     elseif expand("%:e") == 'hpp'
-		call setline(1, "#ifndef _".toupper(expand("%:r"))."_H")
-		call setline(2, "#define _".toupper(expand("%:r"))."_H")
-		call setline(3, "#endif")
+		call append(0,"/*")
+		call append(1," * ".expand("%:t"))
+		call append(2," *")
+		call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>")
+		call append(4," *")
+		call append(5," * History:")
+		call append(6," *    ".strftime("%Y/%m/%d")." - [Eric MA] Created file")
+		call append(7," *")
+		call append(8," */")
+		"call append(9, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(10, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		call append(9, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(10, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(11, "#endif")
 	endif
+	echohl WarningMsg | echo "Successful in adding copyright." | echohl None
 endfunc
 autocmd BufNewFile * normal G
 
+" insert time
+ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+
 " some function definition: {{{1
+" thanks to http://vimcasts.org/e/4
+function! WhitespaceStripTrailing()
+	let previous_search=@/
+	let previous_cursor_line=line('.')
+	let previous_cursor_column=col('.')
+	%s/\s\+$//e
+	let @/=previous_search
+	call cursor(previous_cursor_line, previous_cursor_column)
+endfunction
+
+"{{{3 whitespace  去除文件的行尾空白
+autocmd BufWritePre     *.py        call WhitespaceStripTrailing()
+autocmd BufWritePre     *.h         call WhitespaceStripTrailing()
+autocmd BufWritePre     *.c         call WhitespaceStripTrailing()
+autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
+"}}}
 
 " set statusline color {{{2
 " default the statusline to White (black character) when entering Vim
@@ -289,6 +384,8 @@ Bundle 'oplatek/Conque-Shell'
 "Plugin 'plasticboy/vim-markdown'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
+Bundle 'Stormherz/tablify'
+"Bundle 'vim-scripts/TxtBrowser'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
@@ -331,7 +428,7 @@ endif
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-let g:Tlist_Show_One_File=1 "不同时显示多个文件的tag，只显示当前文件的
+let g:Tlist_Show_One_File=0 "不同时显示多个文件的tag，只显示当前文件的
 let g:Tlist_WinWidth=30
 let g:Tlist_Enable_Fold_Column=0
 let g:Tlist_Auto_Highlight_Tag=1
