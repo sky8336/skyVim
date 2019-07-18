@@ -1221,3 +1221,13 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 		Man xxx  
 
 ga命令可以查看，当前光标所在位置的字符的编码，将显示在屏幕下方。（参见：h ga）
+
+## 复制粘贴问题{{{2  
+### 复制  
+	,mv -> 鼠标选中 -> 鼠标右键copy  
+	,mv 是:set mouse=v 的映射，visual mode 可以用鼠标复制，可以需要复制的时候，切换成visual mode,   
+	复制完后，再通过,ma 切换成鼠标模式；  
+
+## 粘贴：  
+	当粘贴时，有时会文本乱掉，不能保持原来的格式， 通过设置paste模式后再粘贴，可以保持格式不乱。  
+	即,p 后粘贴；粘贴完后,np 退出粘贴模式。  
