@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2019-07-18
-"    Version: v1.0.3-online
+"    Version: v1.0.4-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -413,6 +413,9 @@ Bundle 'DrawIt'
 
 
 " PLUGIN SETTINGS: {{{1
+"
+" echofunc.vim
+"let g:EchoFuncAutoStartBalloonDeclaration=1
 
 " tagbar.vim {{{2
 let g:tagbar_left=1
@@ -893,8 +896,13 @@ nmap ci ggVG=
 " 复制全部
 nmap cy ggVGy
 
-" open mouse function
-nmap <leader>om :set mouse=a<cr>
+" set mouse mode, see :help mouse
+nmap <leader>ma :set mouse=a<cr>
+nmap <leader>mv :set mouse=v<cr>
+
+" set paste mode
+nmap <leader>p :set paste<cr>
+nmap <leader>np :set nopaste<cr>
 
 " 启用每行超过80列的字符提示（背景变black）
 highlight MyGroup ctermbg=black guibg=black
