@@ -774,32 +774,52 @@ endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
 
+
 " F2 ~ F12 按键映射 {{{2
+nmap  <leader>f1 :TagbarToggle<CR>
+
 nmap  <F2> :TlistToggle<cr>
+nmap  <leader>f2 :TlistToggle<CR>
 "nmap  <F2> :WMToggle<cr>
-nmap  <leader><F2> :TagbarToggle<CR>
+
 nmap  <F3> :exec 'MRU' expand('%:p:h')<CR>
+nmap  <leader>f3 :exec 'MRU' expand('%:p:h')<CR>
+
 "nmap  <F4> :NERDTreeToggle<cr>
 nmap  <F4> :NERDTreeTabsToggle<cr>
+nmap  <leader>f4 :NERDTreeTabsToggle<cr>
+
 nmap  <C-\><F4> :NERDTreeTabsFind<CR>
 nmap  <leader><F4> :silent! VE .<cr>
 
 nmap  <F5> <Plug>LookupFile<cr>
+nmap  <leader>f5 :LookupFile<cr>
+
 nmap  <C-F5> :UndotreeToggle<cr>
 "nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
+
 nmap  <F6> :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'<CR>:botright cwindow<CR>
+nmap  <leader>f6 :execute 'vimgrep /'.expand('<cword>').'/gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'<CR>:botright cwindow<CR>
+
 nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:botright cwindow<cr>
 nmap  <leader><F6> :vimgrep /<C-R>=expand("<cword>")<cr>/
 nmap  <C-\><F6> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
+
 nmap  <F7> :SyntasticCheck<CR>
+nmap  <leader>f7 :SyntasticCheck<CR>
+
 nmap  <C-F7> :Errors<CR>
 nmap  <leader><F7> :lclose<CR>
-"nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 
+"nmap  <F8> :
+
+" f9
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
 nmap  <leader>f9 :call Generate_fntags_tags_cscope()<CR>
+
 nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
+
 nmap <C-F10> :bn<CR>
 nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
