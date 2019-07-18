@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
-" LastChange: 2019-06-17
-"    Version: v1.0.2-offline
+" LastChange: 2019-07-18
+"    Version: v1.0.3-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -392,7 +392,7 @@ Bundle 'Stormherz/tablify'
 "Bundle 'FuzzyFinder'
 Bundle 'AutoComplPop'
 Bundle 'OmniCppComplete'
-Bundle 'echofunc.vim'
+"Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'lookupfile'
 Bundle 'taglist.vim'
@@ -794,6 +794,7 @@ nmap  <leader><F7> :lclose<CR>
 "nmap  <F8> :call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")<cr>
 
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
+nmap  <leader>f9 :call Generate_fntags_tags_cscope()<CR>
 nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
 nmap <C-F10> :bn<CR>
