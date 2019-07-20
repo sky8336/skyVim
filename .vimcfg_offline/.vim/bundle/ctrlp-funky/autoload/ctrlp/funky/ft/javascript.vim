@@ -4,6 +4,8 @@
 
 function! ctrlp#funky#ft#javascript#filters()
   let filters = [
+        \ { 'pattern': '\v\S+\s+\=\s+(\(?\S+.*\)?|\(\))\s+\=\>',
+        \   'formatter': ['\v(^\s*(const|let|var)\s*)|(\s*\{.*\ze \t#)', '', 'g'] },
         \ { 'pattern': '\v\w+\s*\(.*\)\s*\{',
         \   'formatter': ['\v(^\s*)|(\s*\{.*\ze \t#)', '', 'g'] },
         \ { 'pattern': '\v\s*function\s+\w+\s*\(',
@@ -20,5 +22,6 @@ endfunction
 
 function! ctrlp#funky#ft#javascript#post_extract_hook(list)
   " wtf??
-  return filter(copy(a:list), "v:val !~# '^[\\t ]*\\(\\(else\\)\\?[\\t ]*if\\|switch[\\t ]*\\)'")
+  let l = filter(copy(a:list), "v:val !~# '^[\\t ]*\\(\\(else\\)\\?[\\t ]*if\\|switch[\\t ]*\\)'")
+  return filter(l, "v:val !~# '^[\\t ]*for[\\t ]\\+('")
 endfunction

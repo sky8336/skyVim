@@ -8,6 +8,37 @@ set cpo&vim
 
 " Public functions {{{1
 
+function! syntastic#preprocess#bandit(errors) abort " {{{2
+    let out = []
+    let json = s:_decode_JSON(join(a:errors, ''))
+
+    if type(json) == type({}) && has_key(json, 'results') && type(json['results']) == type([])
+        for issue in json['results']
+            if type(issue) == type({})
+                try
+                    call add(out,
+                        \ issue['filename'] . ':' .
+                        \ issue['line_number'] . ':' .
+                        \ { 'LOW': 'I', 'MEDIUM': 'W', 'HIGH': 'E' }[issue['issue_severity']] . ':' .
+                        \ issue['test_id'][1:] . ':' .
+                        \ issue['issue_text'] .
+                        \ ' [' . issue['test_name'] .  '] (confidence: ' . issue['issue_confidence'] . ')')
+                catch /\m^Vim\%((\a\+)\)\=:E716/
+                    call syntastic#log#warn('checker python/bandit: unrecognized error item ' . string(issue))
+                    let out = []
+                    break
+                endtry
+            else
+                call syntastic#log#warn('checker python/bandit: unrecognized error item ' . string(issue))
+            endif
+        endfor
+    else
+        call syntastic#log#warn('checker python/bandit: unrecognized error format (crashed checker?)')
+    endif
+
+    return out
+endfunction " }}}2
+
 function! syntastic#preprocess#cabal(errors) abort " {{{2
     let out = []
     let star = 0
@@ -95,6 +126,35 @@ function! syntastic#preprocess#dockerfile_lint(errors) abort " {{{2
     else
         call syntastic#log#warn('checker dockerfile/dockerfile_lint: unrecognized error format (crashed checker?)')
     endif
+    return out
+endfunction " }}}2
+
+function! syntastic#preprocess#dscanner(errors) abort " {{{2
+    let idx = 0
+    while idx < len(a:errors) && a:errors[idx][0] !=# '{'
+        let idx += 1
+    endwhile
+    let errs = s:_decode_JSON(join(a:errors[idx :], ''))
+
+    let out = []
+    if type(errs) == type({}) && has_key(errs, 'issues') && type(errs['issues']) == type([])
+        for issue in errs['issues']
+            try
+                call add(out,
+                    \ issue['fileName'] . ':' .
+                    \ issue['line'] . ':' .
+                    \ issue['column'] . ':' .
+                    \ issue['message'] . ' [' . issue['key'] . ']')
+            catch /\m^Vim\%((\a\+)\)\=:E716/
+                call syntastic#log#warn('checker d/dscanner: unrecognized error item ' . string(issue))
+                let out = []
+                break
+            endtry
+        endfor
+    else
+        call syntastic#log#warn('checker d/dscanner: unrecognized error format (crashed checker?)')
+    endif
+
     return out
 endfunction " }}}2
 
@@ -191,6 +251,44 @@ function! syntastic#preprocess#killEmpty(errors) abort " {{{2
     return filter(copy(a:errors), 'v:val !=# ""')
 endfunction " }}}2
 
+function! syntastic#preprocess#lynt(errors) abort " {{{2
+    let errs = join(a:errors, '')
+    if errs ==# ''
+        return []
+    endif
+
+    let json = s:_decode_JSON(errs)
+
+    let out = []
+    if type(json) == type([])
+        for err in json
+            if type(err) == type({}) && type(get(err, 'filePath')) == type('') && type(get(err, 'errors')) == type([])
+                let fname = get(err, 'filePath')
+
+                for e in get(err, 'errors')
+                    if type(e) == type({})
+                        try
+                            let line = e['line']
+                            let col  = e['column']
+                            let ecol = line == get(e, 'endLine') ? get(e, 'endColumn') : 0
+                            let msg  = e['message'] . ' [' . e['ruleName'] . ']'
+
+                            cal add(out, join([fname, line, col, ecol, msg], ':'))
+                        catch /\m^Vim\%((\a\+)\)\=:E716/
+                            call syntastic#log#warn('checker javascript/lynt: unrecognized error item ' . string(e))
+                        endtry
+                    else
+                        call syntastic#log#warn('checker javascript/lynt unrecognized error item ' . string(e))
+                    endif
+                endfor
+            endif
+        endfor
+    else
+        call syntastic#log#warn('checker javascript/lynt unrecognized error format (crashed checker?)')
+    endif
+    return out
+endfunction " }}}2
+
 function! syntastic#preprocess#perl(errors) abort " {{{2
     let out = []
 
@@ -204,13 +302,55 @@ function! syntastic#preprocess#perl(errors) abort " {{{2
     return syntastic#util#unique(out)
 endfunction " }}}2
 
-function! syntastic#preprocess#prospector(errors) abort " {{{2
+function! syntastic#preprocess#perl6(errors) abort " {{{2
+    if a:errors[0] ==# 'Syntax OK'
+        return []
+    endif
+
     let errs = s:_decode_JSON(join(a:errors, ''))
 
     let out = []
-    if type(errs) == type({}) && has_key(errs, 'messages')
-        if type(errs['messages']) == type([])
-            for e in errs['messages']
+    if type(errs) == type({})
+        try
+            for val in values(errs)
+                let line = get(val, 'line', 0)
+                let pos = get(val, 'pos', 0)
+                if pos && has('byte_offset')
+                    let line_pos = byte2line(pos + 1)
+                    let column = line_pos > 0 ? pos - line2byte(line_pos) + 2 : 0
+                else
+                    let column = 0
+                endif
+
+                call add(out, join([
+                    \ get(val, 'filename', ''),
+                    \ line,
+                    \ column,
+                    \ get(val, 'message', '') ], ':'))
+            endfor
+        catch /\m^Vim\%((\a\+)\)\=:E716/
+            call syntastic#log#warn('checker perl6/perl6: unrecognized error item ' . string(val))
+            let out = []
+        endtry
+    else
+        call syntastic#log#warn('checker perl6/perl6: unrecognized error format')
+    endif
+
+    return out
+endfunction " }}}2
+
+function! syntastic#preprocess#prospector(errors) abort " {{{2
+    let errs = join(a:errors, '')
+    if errs ==# ''
+        return []
+    endif
+
+    let json = s:_decode_JSON(errs)
+
+    let out = []
+    if type(json) == type({}) && has_key(json, 'messages')
+        if type(json['messages']) == type([])
+            for e in json['messages']
                 if type(e) == type({})
                     try
                         if e['source'] ==# 'pylint'
@@ -240,6 +380,8 @@ function! syntastic#preprocess#prospector(errors) abort " {{{2
         else
             call syntastic#log#warn('checker python/prospector: unrecognized error format (crashed checker?)')
         endif
+    else
+        call syntastic#log#warn('checker python/prospector: unrecognized error format (crashed checker?)')
     endif
 
     return out
@@ -278,6 +420,49 @@ function! syntastic#preprocess#rparse(errors) abort " {{{2
             let fname = matchstr(e, '\m^Lint checking: \zs.*')
         elseif match(e, '\m^Error in ') == 0
             call add(out, substitute(e, '\m^Error in .\+ : .\+\ze:\d\+:\d\+: ', 'E:' . fname, ''))
+        endif
+    endfor
+
+    return out
+endfunction " }}}2
+
+function! syntastic#preprocess#remark_lint(errors) abort " {{{2
+    let out = []
+    let fname = expand('%', 1)
+
+    for err in a:errors
+        if err =~# '\m^\f\+$'
+            let fname = err
+
+        elseif err =~# '\v^\s+\d+:\d+\s+%(warning|error)\s.*remark-lint$'
+            let parts = matchlist(err, '\v^\s+(\d+):(\d+)\s+([ew])\S+\s+(.{-})\s+(\S+)\s+remark-lint$')
+            if len(parts) >6
+                let line    = str2nr(parts[1])
+                let col     = str2nr(parts[2])
+                let type    = parts[3]
+                let message = parts[4] . ' [' . parts[5] . ']'
+                call add(out, join([fname, type, line, col, message], ':'))
+            else
+                call syntastic#log#warn('checker markdown/remark_lint: unrecognized error item ' . string(err))
+            endif
+
+        elseif err =~# '\v^\s+\d+:\d+-\d+:\d+\s+%(warning|error)\s.*remark-lint$'
+            let parts = matchlist(err, '\v^\s+(\d+):(\d+)-(\d+):(\d+)\s+([ew])\S+\s+(.{-})\s+(\S+)\s+remark-lint$')
+            if len(parts) >8
+                let line1   = str2nr(parts[1])
+                let col1    = str2nr(parts[2])
+                let line2   = str2nr(parts[3])
+                let col2    = str2nr(parts[4]) - 1
+                let type    = parts[5]
+                let message = parts[6] . ' [' . parts[7] . ']'
+                if line1 == line2
+                    call add(out, join([fname, type, line1, col1, col2, message], ':'))
+                else
+                    call add(out, join([fname, type, line1, col1, message], ':'))
+                endif
+            else
+                call syntastic#log#warn('checker markdown/remark_lint: unrecognized error item ' . string(err))
+            endif
         endif
     endfor
 
@@ -406,7 +591,7 @@ echomsg string(out)
 endfunction " }}}2
 
 function! syntastic#preprocess#tslint(errors) abort " {{{2
-    return map(copy(a:errors), 'substitute(v:val, ''\m^\(([^)]\+)\)\s\(.\+\)$'', ''\2 \1'', "")')
+    return map(copy(a:errors), 'substitute(v:val, ''\v^((ERROR|WARNING): )?\zs(\([^)]+\))\s(.+)$'', ''\4 \3'', "")')
 endfunction " }}}2
 
 function! syntastic#preprocess#validator(errors) abort " {{{2
@@ -530,17 +715,27 @@ endfunction " }}}2
 function! syntastic#preprocess#mypy(errors) abort " {{{2
     let out = []
     for e in a:errors
-        " new format
-        let parts = matchlist(e, '\v^(.{-1,}):(\d+): error: (.+)')
-        if len(parts) > 3
-            call add(out, join(parts[1:3], ':'))
+        " column numbers
+        let parts = matchlist(e, '\v^(.{-1,}):(\d+):(\d+): ([ew])%(rror|arning): (.+)')
+        if len(parts) > 5
+            let parts[3] += 1
+            call add(out, join(parts[1:5], ':'))
             continue
         endif
 
-        " old format
+        " no column numbers
+        let parts = matchlist(e, '\v^(.{-1,}):(\d+): ([ew])%(rror|arning): (.+)')
+        if len(parts) > 4
+            call add(out, join(parts[1:4], ':'))
+            continue
+        endif
+
+        " obsolete format
         let parts = matchlist(e, '\v^(.{-1,}), line (\d+): (.+)')
         if len(parts) > 3
-            call add(out, join(parts[1:3], ':'))
+            let parts[4] = parts[3]
+            let parts[3] = 'e'
+            call add(out, join(parts[1:4], ':'))
         endif
     endfor
     return out

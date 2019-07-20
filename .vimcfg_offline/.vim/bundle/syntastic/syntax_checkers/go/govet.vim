@@ -19,10 +19,12 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 function! SyntaxCheckers_go_govet_GetLocList() dict
+    let buf = bufnr('')
     let makeprg = self.getExecEscaped() . ' vet'
 
     let errorformat =
         \ '%Evet: %.%\+: %f:%l:%c: %m,' .
+        \ '%f:%l:%c: %m,' .
         \ '%W%f:%l: %m,' .
         \ '%-G%.%#'
 
@@ -33,7 +35,7 @@ function! SyntaxCheckers_go_govet_GetLocList() dict
     return SyntasticMake({
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
-        \ 'cwd': expand('%:p:h', 1),
+        \ 'cwd': fnamemodify(bufname(buf), ':p:h'),
         \ 'defaults': {'type': 'w'} })
 endfunction
 

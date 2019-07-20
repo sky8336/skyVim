@@ -1,6 +1,6 @@
 "============================================================================
 "File:        ansible_lint.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  Erik Zaadi <erik.zaadi at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -29,6 +29,7 @@ function! SyntaxCheckers_ansible_ansible_lint_GetLocList() dict
     let makeprg = self.makeprgBuild({ 'args_after': '-p' })
 
     let errorformat =
+        \ '%f:%l: [E%n] %m,' .
         \ '%f:%l: [EANSIBLE%n] %m,' .
         \ '%f:%l: [ANSIBLE%n] %m'
 

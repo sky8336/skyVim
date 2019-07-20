@@ -1,6 +1,6 @@
 "============================================================================
 "File:        fsc.vim
-"Description: Syntax checking plugin for syntastic.vim
+"Description: Syntax checking plugin for syntastic
 "Maintainer:  Gregor Uhlenheuer <kongo2002 at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
 "             to the extent permitted by applicable law. You can redistribute
@@ -24,9 +24,10 @@ function! SyntaxCheckers_scala_fsc_GetLocList() dict
     " fsc has some serious problems with the
     " working directory changing after being started
     " that's why we better pass an absolute path
+    let buf = bufnr('')
     let makeprg = self.makeprgBuild({
         \ 'args': '-Ystop-after:parser',
-        \ 'fname': syntastic#util#shexpand('%:p') })
+        \ 'fname': syntastic#util#shescape(fnamemodify(bufname(buf), ':p')) })
 
     let errorformat =
         \ '%E%f:%l: %trror: %m,' .

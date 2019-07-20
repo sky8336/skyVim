@@ -1,11 +1,13 @@
 " === plugin configuration variables === {{{
 "
-" open NERDTree on gvim/macvim startup
+" Open NERDTree on gvim/macvim startup. When set to `2`,
+" open only if directory was given as startup argument.
 if !exists('g:nerdtree_tabs_open_on_gui_startup')
   let g:nerdtree_tabs_open_on_gui_startup = 1
 endif
 
-" open NERDTree on console vim startup (off by default)
+" Open NERDTree on console vim startup (off by default). When set to `2`,
+" open only if directory was given as startup argument.
 if !exists('g:nerdtree_tabs_open_on_console_startup')
   let g:nerdtree_tabs_open_on_console_startup = 0
 endif
@@ -141,6 +143,10 @@ fun! s:NERDTreeOpenAllTabs()
   let l:current_tab = tabpagenr()
   tabdo call s:NERDTreeMirrorOrCreate()
   exe 'tabn ' . l:current_tab
+  if g:nerdtree_tabs_autofind
+    call s:NERDTreeUnfocus()
+    call s:NERDTreeFindFile()
+  endif
 endfun
 
 " }}}
@@ -450,7 +456,9 @@ fun! s:LoadPlugin()
     autocmd VimEnter * call <SID>VimEnterHandler()
     autocmd TabEnter * call <SID>TabEnterHandler()
     autocmd TabLeave * call <SID>TabLeaveHandler()
-    autocmd WinEnter * call <SID>WinEnterHandler()
+    " We enable nesting for this autocommand (see :h autocmd-nested) so that
+    " exiting Vim when NERDTree is the last window triggers the VimLeave event.
+    autocmd WinEnter * nested call <SID>WinEnterHandler()
     autocmd WinLeave * call <SID>WinLeaveHandler()
     autocmd BufWinEnter * call <SID>BufWinEnterHandler()
     autocmd BufRead * call <SID>BufReadHandler()
@@ -463,13 +471,12 @@ endfun
 " s:VimEnterHandler() {{{
 "
 fun! s:VimEnterHandler()
-  " if the argument to vim is a directory, cd into it
-  if g:nerdtree_tabs_startup_cd && isdirectory(argv(0))
-    exe 'cd ' . escape(argv(0), '\ ')
-  endif
+  let l:open_nerd_tree_on_startup = (g:nerdtree_tabs_open_on_console_startup == 1 && !has('gui_running')) ||
+                                  \ (g:nerdtree_tabs_open_on_gui_startup == 1 && has('gui_running'))
 
-  let l:open_nerd_tree_on_startup = (g:nerdtree_tabs_open_on_console_startup && !has('gui_running')) ||
-                                  \ (g:nerdtree_tabs_open_on_gui_startup && has('gui_running'))
+  let l:open_directory_on_startup = isdirectory(argv(0)) &&
+			  \ ((g:nerdtree_tabs_open_on_console_startup == 2 && !has('gui_running')) ||
+			  \ (g:nerdtree_tabs_open_on_gui_startup == 2 && has('gui_running')))
 
   if g:nerdtree_tabs_no_startup_for_diff && &diff
       let l:open_nerd_tree_on_startup = 0
@@ -478,7 +485,13 @@ fun! s:VimEnterHandler()
   " this makes sure that globally_active is true when using 'gvim .'
   let s:nerdtree_globally_active = l:open_nerd_tree_on_startup
 
-  if l:open_nerd_tree_on_startup
+  " if the argument to vim is a directory, cd into it
+  if l:open_directory_on_startup || g:nerdtree_tabs_startup_cd && isdirectory(argv(0))
+    exe 'cd ' . escape(argv(0), '\ ')
+  endif
+
+
+  if l:open_nerd_tree_on_startup || l:open_directory_on_startup
     let l:focus_file = !s:IfFocusOnStartup()
     let l:main_bufnr = bufnr('%')
 
@@ -486,8 +499,25 @@ fun! s:VimEnterHandler()
       call s:NERDTreeOpenAllTabs()
     endif
 
-    if (l:focus_file && g:nerdtree_tabs_smart_startup_focus == 1) || g:nerdtree_tabs_smart_startup_focus == 2
+    if (l:focus_file && g:nerdtree_tabs_smart_startup_focus == 1) ||
+			    \ g:nerdtree_tabs_smart_startup_focus == 2 ||
+			    \ l:open_directory_on_startup
       exe bufwinnr(l:main_bufnr) . "wincmd w"
+    endif
+
+    if l:open_directory_on_startup
+      " close buffer not connected to NERDTree and open connected one
+      new
+      exe bufwinnr(l:main_bufnr) . "wincmd w"
+      quit
+
+      if g:nerdtree_tabs_smart_startup_focus != 2
+        NERDTreeFocus
+      endif
+    endif
+    if g:nerdtree_tabs_autofind
+      call s:NERDTreeFindFile()
+      call s:NERDTreeUnfocus()
     endif
   endif
 endfun
@@ -549,9 +579,14 @@ fun! s:WinEnterHandler()
     return
   endif
 
+  " We need to handle VimLeave properly.
+  " But we shouldn't nest redefined autocmds
+  let s:ei = &eventignore
+  let &eventignore = 'VimEnter,TabEnter,TabLeave,WinEnter,WinLeave,BufWinEnter,BufRead'
   if g:nerdtree_tabs_autoclose
     call s:CloseIfOnlyNerdTreeLeft()
   endif
+  let &eventignore = s:ei
 endfun
 
 " }}}
