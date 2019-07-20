@@ -1080,7 +1080,7 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 ## 30. asyncrun.vim -
 
 ### 使用 :AsyncRun 类似！运行各种 shell 命令，只不过是放到后台运行，同时输出（stdout+stderr）重定向到当前 quickfix窗口.
-	在 Quickfix 窗口可以实时看到后台命令的输出。
+	在 Quickfix 窗口实时看到后台命令的输出。
 		比如：后台异步运行编译任务，编译当前文件或者工程:AsyncRun gcc % -o %<
 	:AsyncRun g++ -O3 % -o %< -lpthread 
 	:AsyncRun make
@@ -1105,6 +1105,19 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 		打开quickfix窗口：
 		:botright copen 10
 		:cclose 关闭F10上
+## 31. UltiSnips - 代码片段终极解决方案  
+	这个补全引擎非常快，而且有非常惊艳的表现，需要配合 vim-snippets 一起使用.
+	 UltiSnips 是补全引擎，真正的补全模板在 vim-snippets  
+	 连续按下两次i触发代码补全
+	 代码片段维护在 vim-snippets 项目里面，~/.vim/bundle/vim-snippets/
+	只需要关注其中的 UltiSnips 和 snippets 这两个文件夹，snippets 这里面是 snipMate 格式的补全代码，不推荐使用，新入坑的同学应该始终选择 UltiSnips 格式，因为其更灵活.
+
+###	UltiSnips 风格规则:  
+    代码片段以 snippets 代码片段触发的缩写 "代码片段描述" 开始，以 endsnippet 结束
+    ${x} 定义了跳转点，使用 <c-j> 和 <c-k> 进行切换(请参看我的配置文件)
+    ${0} 比较特殊，它实际上是最后一个跳转点，而不是第一个
+    ${x:statement} 其中的 statement 可以替换成默认显示的文本.
+
 
 ## 其他 {{{2
 	(a)普通模式下:
@@ -1326,5 +1339,3 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 	一个红色记号指示出一个断点, 而当前执行行用蓝色背景高亮.
 	在窗口顶部的一个工具条可用于单步调试代码而不改变焦点.
 	一个气球（Vim中的弹出窗口——译者注）为在鼠标指针下的符号显示信息.
-
-
