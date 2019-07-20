@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2019-07-20
-"    Version: v1.1.0-online
+"    Version: v1.1.1-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -399,6 +399,7 @@ Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'Stormherz/tablify'
 "Bundle 'vim-scripts/TxtBrowser'
+Bundle 'skywind3000/asyncrun.vim'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
@@ -807,7 +808,7 @@ nmap  <C-\><F4> :NERDTreeTabsFind<CR>
 nmap  <leader><F4> :silent! VE .<cr>
 
 nmap  <F5> <Plug>LookupFile<cr>
-nmap  <leader>f5 :LookupFile<cr>
+nmap  <leader>f5 <Plug>LookupFile<cr>
 
 nmap  <C-F5> :UndotreeToggle<cr>
 "nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
@@ -819,12 +820,17 @@ nmap  <C-F6> :vimgrep /<C-R>=expand("<cword>")<cr>/ **/*.c **/*.h<cr><C-o>:botri
 nmap  <leader><F6> :vimgrep /<C-R>=expand("<cword>")<cr>/
 nmap  <C-\><F6> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
 
+" F7
 nmap  <F7> :SyntasticCheck<CR>
 nmap  <leader>f7 :SyntasticCheck<CR>
 
 nmap  <C-F7> :Errors<CR>
 nmap  <leader><F7> :lclose<CR>
 
+" quickfix
+nmap  <leader>7f ::botright copen 10<CR>
+
+" F8
 nmap  <C-F8> :vert terminal<CR>
 nmap  <leader>f8 :vert terminal<CR>
 nmap  <leader>8f :packadd termdebug<CR>:Termdebug<CR>
@@ -837,7 +843,9 @@ nmap  <leader>9f :call AutoLoadCTagsAndCScope()<CR>
 nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
 
+" F10
 nmap <C-F10> :bn<CR>
+" F11
 nmap <C-F11> :bp<CR>
 "<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 

@@ -1077,6 +1077,35 @@ b:tablify_divideDelimiter - default value is +, symbol at the row/column interse
 b:tablify_cellLeftPadding - default value is 1, number of spaces used for left cell padding  
 b:tablify_cellRightPadding - default value is 1, number of spaces used for right cell padding  
 
+## 30. asyncrun.vim -
+
+### 使用 :AsyncRun 类似！运行各种 shell 命令，只不过是放到后台运行，同时输出（stdout+stderr）重定向到当前 quickfix窗口.
+	在 Quickfix 窗口可以实时看到后台命令的输出。
+		比如：后台异步运行编译任务，编译当前文件或者工程:AsyncRun gcc % -o %<
+	:AsyncRun g++ -O3 % -o %< -lpthread 
+	:AsyncRun make
+	:AsyncRun make -f makefile
+
+	在 Vim 里面异步提交工程，并把提交结果实时显示在 Quickfix中：
+		:AsyncRun git push origin master
+
+		绑定 F7为异步编译当前文件：
+		:noremap <F7> :AsyncRun gcc % -o %< <cr> 命令的参数接受下面这些宏（和vim里面的 expand函数类似）：
+		%:p     - File name of current buffer with full path
+		%:t     - File name of current buffer without path
+		%:p:h   - File path of current buffer without file name
+		%:e     - File extension of current buffer
+		%:t:r   - File name of current buffer without path and extension
+		%       - File name relativize to current directory
+		%:h:.   - File path relativize to current directory
+		<cwd>   - Current directory
+		<cword> - Current word under cursor
+		<cfile> - Current file name under cursor
+		
+		打开quickfix窗口：
+		:botright copen 10
+		:cclose 关闭F10上
+
 ## 其他 {{{2
 	(a)普通模式下:
 		输入 cM 清除行尾 ^M 符号;
