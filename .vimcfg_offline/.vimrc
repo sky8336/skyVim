@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
 " LastChange: 2019-07-20
-"    Version: v1.1.4-offline
+"    Version: v1.1.5-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -64,7 +64,7 @@ set ignorecase
 set incsearch
 set laststatus=2 "show the status line
 set statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
-set mouse=v
+set mouse=a
 set number
 set pumheight=10
 set ruler
@@ -737,7 +737,10 @@ source $VIMRUNTIME/ftplugin/man.vim
 " utilsnips.vim {{{2
 "autocmd FileType * call UltiSnips#FileTypeChanged()
 " 连续按下两次i触发代码补全
-let g:UltiSnipsExpandTrigger="ii"
+let g:UltiSnipsExpandTrigger="<tab>"
+"let g:UltiSnipsListSnippets="<c-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " snipMate {{{2
 "let g:snips_author="Du Jianfeng"
