@@ -1234,11 +1234,11 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 
 
 ## vim8.1: 新特性{{{1  
-### 支持在 Vim 窗口中运行终端	-	:term  
-		当编辑文本时在终端窗口运行 make
-
-### 使用新的终端调试器插件在 Vim 中进行调试		-	TODO  
-	用新的终端 debugger 插件在 Vim 内部 debugging. 通过ssh连接进行编辑时，打开其他终端是不可能或不现实的, 这时这个功能尤其有用. 在旅行时, 我用它来在Vim中修复项目bug.  
+### 1) 支持在 Vim 窗口中运行终端  
+		打开	-	<F8> or ,f8 or :vert term
+		关闭	-	ctrl+w+q  
+		切换	-	ctrl+w+h/j/k/l  
+		:help terminal  
 
 #### Opening a vertical terminal in Vim 8.1:  
 	You can use the :vert[ical] command modifier:  
@@ -1247,13 +1247,48 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 	:vert copen  
 	:vert help vert  
 
+### 2) 使用新的终端调试器插件在 Vim 中进行调试  
+	用新的终端 debugger 插件在 Vim 内部 debugging. 通过ssh连接进行编辑时，打开其他终端是不可能或不现实的, 
+	这时这个功能尤其有用. 在旅行时, 我用它来在Vim中修复项目bug.  
 
-#### termdebug 模式  
+	打开	-	,8f		This opens two windows: gdb window and program window
+	关闭	-	ctrl-d  
+	切换	-	ctrl+w+h/j/k/l  
+	:help termdebug  
 
-	用来进行GDB调试  
+	The top-left window runs gdb, you can type any gdb command here.
+	The bottom-left window runs the debugged program in its own terminal, so that it does not interfere with gdb commands. 
+	On the right a window shows the source code, where all the Vim commands can be used to navigate and make changes.
+	A red marker indicates a breakpoint and the currently executed line is highlighted with a blue background.
+	A toolbar at the top of the window can be used to step through the code without changing focus.
+	A balloon shows information for the symbol under the mouse pointer. 
+
+#### termdebug 模式 - GDB调试  
 
 	加载termdebug插件	-	:packadd termdebug  
 	打开termdebug 模式	-	:Termdebug  
+
+	gcc -g  
+
+#### example:  
+	command:  
+	$ cd vimcfg_bundle/test/gdb_test/short_connection    
+	$ make    
+	$ vi  
+	,8f (vim normal mode)  
+	gdb window: pwd  
+	(1) gdb window: file tcp_server  
+	(2) gdb window: list  
+		gdb window: list  
+		gdb window: list  
+	(3) gdb window: break 20  
+		gdb window: break 23  
+	(4) gdb window: run  
+	(5) source window now shows the tcp_server.c file  
+	Let's use the mouse: click on the "Next" button in the window toolbar.  You will see the highlighting move as the  
+	debugger executes a line of source code.  
+
+
 
 #### 检测到的错误会被捕获并加到一个 quickfix 列表, 因此你可以直接跳转到问题的成因.
 	左上窗口运行 gdb, 在这里你可以键入任何 gdb 命令.
