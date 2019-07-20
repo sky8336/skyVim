@@ -1,5 +1,7 @@
 #!/bin/bash
 
+new_vim=vim81
+newvim_c_vim="/usr/share/vim/$new_vim/syntax/c.vim"
 vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
 vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
 vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
@@ -96,8 +98,7 @@ function build_vim_by_source()
 
                 # fix issue: vim: error while loading shared libraries: libruby-2.3.so.2.3: cannot open shared object file: No such file or directory
                 systemVersion='DISTRIB_RELEASE=18.04'
-		if [ $var == $systemVersion ]
-		then
+		if [ $var == $systemVersion ]; then
 			sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
 				libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 				libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
@@ -105,11 +106,12 @@ function build_vim_by_source()
 			sudo apt-get remove -y vim vim-runtime gvim
 			sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox
 
-			sudo rm -rf ~/vim
-			sudo rm -rf /usr/share/vim/vim74
-			sudo rm -rf /usr/share/vim/vim80
+			#sudo mv ~/vim ~/vim.bak
+			#sudo mv /usr/share/vim/vim74 /usr/share/vim/vim74.bak
+			#sudo mv /usr/share/vim/vim80 /usr/share/vim/vim80.bak
+			sudo mv /usr/share/vim/$new_vim /usr/share/vim/$new_vim.bak
 
-			git clone https://github.com/vim/vim.git ~/vim
+			#git clone https://github.com/vim/vim.git ~/vim
 			cd ~/vim
 			./configure --with-features=huge \
 				--enable-multibyte \
@@ -119,10 +121,10 @@ function build_vim_by_source()
 				--enable-perlinterp \
 				--enable-luainterp \
 				--enable-gui=gtk2 --enable-cscope --prefix=/usr
-			make VIMRUNTIMEDIR=/usr/share/vim/vim80
+			make VIMRUNTIMEDIR=/usr/share/vim/$new_vim
 			sudo make install
 			cd -
-			add_hilight_code_to_c_vim $vim80_c_vim
+			add_hilight_code_to_c_vim $newvim_c_vim
 		else
 			sudo apt-get install -y vim
 		fi
@@ -155,8 +157,15 @@ function echo_install_time()
     echo
 }
 
-get_start_time_and_dir_path
-check_network
-#build_and_install_vim
-build_vim_by_source
-echo_install_time
+main()
+{
+	clone_vim=$1
+
+	get_start_time_and_dir_path
+	check_network
+	#build_and_install_vim
+	build_vim_by_source
+	echo_install_time
+}
+
+main "$@"
