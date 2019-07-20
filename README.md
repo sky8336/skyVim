@@ -809,6 +809,16 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	<CTRL-g>s - same as <CTRL-s>  
 	<CTRL-g>S - same as <CTRL-s><CTRL-s>  
 
+### examples   
+	Details follow on the exact semantics, but first, consider the following
+	examples.  An asterisk (*) is used to denote the cursor position.
+
+	  Old text                  Command     New text ~
+	  "Hello *world!"           ds"         Hello world!
+	  [123+4*56]/2              cs])        (123+456)/2
+	  "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
+	  if *x>3 {                 ysW(        if ( x>3 ) {
+	  my $str = *whee!;         vllllS'     my $str = 'whee!';
 
 ## 20、cctree--函数调用视图 {{{2
 	查看函数调用的视图，以树的形式表示出来提供两个方向的视图,  
