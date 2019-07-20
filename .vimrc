@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2019-07-20
-"    Version: v1.1.3-online
+"    Version: v1.1.4-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -339,7 +339,24 @@ tnoremap <C-h> <C-W>h
 tnoremap <C-j> <C-W>j
 tnoremap <C-k> <C-W>k
 tnoremap <C-l> <C-W>l
-tnoremap <C-n> <C-W>N
+
+" 括号自动补全
+inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {<CR>}<ESC>O
+
+"设置跳出自动补全的括号
+func SkipPair()
+    if getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == "'" || getline('.')[col('.') - 1] == '}'
+        return "\<ESC>la"
+    else
+        return "\t"
+    endif
+endfunc
+" 将tab键绑定为跳出括号
+inoremap <TAB> <c-r>=SkipPair()<CR>
 
 
 " insert mode 光标移动 {{{2
