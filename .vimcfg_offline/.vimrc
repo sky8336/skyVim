@@ -356,7 +356,7 @@ func SkipPair()
     endif
 endfunc
 " 将tab键绑定为跳出括号
-inoremap <TAB> <c-r>=SkipPair()<CR>
+inoremap jj <c-r>=SkipPair()<CR>
 
 
 " insert mode 光标移动 {{{2
