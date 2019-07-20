@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
 " LastChange: 2019-07-20
-"    Version: v1.1.2-offline
+"    Version: v1.1.3-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -374,7 +374,9 @@ Bundle 'gmarik/vundle'
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
 "Bundle 'ervandew/supertab'
-Bundle 'msanders/snipmate.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'honza/vim-snippets'
+"Bundle 'msanders/snipmate.vim'
 Bundle 'tpope/vim-surround'
 "Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
@@ -426,9 +428,10 @@ Bundle 'DrawIt'
 " vundle setup end
 
 
-" PLUGIN SETTINGS: {{{1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGIN_SETTINGS begin: {{{1
 "
-" echofunc.vim
+" echofunc.vim {{{2
 "let g:EchoFuncAutoStartBalloonDeclaration=1
 
 " tagbar.vim {{{2
@@ -714,10 +717,15 @@ let g:ctrlp_extensions = ['funky']
 " Man.vim {{{2
 source $VIMRUNTIME/ftplugin/man.vim
 
+" utilsnips.vim {{{2
+"autocmd FileType * call UltiSnips#FileTypeChanged()
+" 连续按下两次i触发代码补全
+let g:UltiSnipsExpandTrigger="ii"
+
 " snipMate {{{2
-let g:snips_author="Du Jianfeng"
-let g:snips_email="cmdxiaoha@163.com"
-let g:snips_copyright="SicMicro, Inc"
+"let g:snips_author="Du Jianfeng"
+"let g:snips_email="cmdxiaoha@163.com"
+"let g:snips_copyright="SicMicro, Inc"
 
 " Conque-Shell.vim {{{2
 " 水平分割出一个bash
@@ -787,7 +795,9 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
+" PLUGIN_SETTINGS end
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 按键映射 {{{1
 " F2 ~ F12 按键映射 {{{2
