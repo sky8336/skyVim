@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
-" LastChange: 2019-07-18
-"    Version: v1.0.5-online
+" LastChange: 2019-07-20
+"    Version: v1.1.0-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -26,6 +26,9 @@ au BufRead,BufNewFile *.txt setlocal ft=txt "syntax highlight for txt
 " Setting colorscheme{{{2
 color mycolor
 "colorscheme nslib_color256
+
+" termdebug setting {{{2
+let g:termdebug_wide = 163
 
 " Other settings.{{{2
 set autoindent
@@ -322,12 +325,22 @@ nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
 nnoremap <C-l> <C-W>l
+
 inoremap <C-h> <Esc><C-W>h
 inoremap <C-j> <Esc><C-W>j
 inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
+
 " switch to normal
 inoremap jk <Esc>
+
+" terminal mode mappings
+tnoremap <C-h> <C-W>h
+tnoremap <C-j> <C-W>j
+tnoremap <C-k> <C-W>k
+tnoremap <C-l> <C-W>l
+tnoremap <C-n> <C-W>N
+
 
 " insert mode 光标移动 {{{2
 " alt + k 插入模式下光标向上移动
