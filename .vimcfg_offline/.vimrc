@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
 " LastChange: 2019-07-18
-"    Version: v1.0.4-offline
+"    Version: v1.0.5-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -775,6 +775,7 @@ command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
 
 
+" 按键映射 {{{1
 " F2 ~ F12 按键映射 {{{2
 nmap  <leader>f1 :TagbarToggle<CR>
 
@@ -811,11 +812,14 @@ nmap  <leader>f7 :SyntasticCheck<CR>
 nmap  <C-F7> :Errors<CR>
 nmap  <leader><F7> :lclose<CR>
 
-"nmap  <F8> :
+nmap  <C-F8> :vert terminal<CR>
+nmap  <leader>f8 :vert terminal<CR>
+nmap  <leader>8f :packadd termdebug<CR>:Termdebug<CR>
 
 " f9
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
 nmap  <leader>f9 :call Generate_fntags_tags_cscope()<CR>
+nmap  <leader>9f :call AutoLoadCTagsAndCScope()<CR>
 
 nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>

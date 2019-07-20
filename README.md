@@ -1231,3 +1231,36 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 ## 粘贴：  
 	当粘贴时，有时会文本乱掉，不能保持原来的格式， 通过设置paste模式后再粘贴，可以保持格式不乱。  
 	即,p 后粘贴；粘贴完后,np 退出粘贴模式。  
+
+
+## vim8.1: 新特性{{{1  
+### 支持在 Vim 窗口中运行终端	-	:term  
+		当编辑文本时在终端窗口运行 make
+
+### 使用新的终端调试器插件在 Vim 中进行调试		-	TODO  
+	用新的终端 debugger 插件在 Vim 内部 debugging. 通过ssh连接进行编辑时，打开其他终端是不可能或不现实的, 这时这个功能尤其有用. 在旅行时, 我用它来在Vim中修复项目bug.  
+
+#### Opening a vertical terminal in Vim 8.1:  
+	You can use the :vert[ical] command modifier:  
+	:vert term  
+	:vertical works with any command that splits a window, for example:  
+	:vert copen  
+	:vert help vert  
+
+
+#### termdebug 模式  
+
+	用来进行GDB调试  
+
+	加载termdebug插件	-	:packadd termdebug  
+	打开termdebug 模式	-	:Termdebug  
+
+#### 检测到的错误会被捕获并加到一个 quickfix 列表, 因此你可以直接跳转到问题的成因.
+	左上窗口运行 gdb, 在这里你可以键入任何 gdb 命令.
+	左下窗口在它自己的终端运行 debug 过的程序, 以便它不会干扰 gdb 命令.
+	在右侧, 一个窗口显示源代码, 在那里所有 Vim 命令可被用于导航和做改动.
+	一个红色记号指示出一个断点, 而当前执行行用蓝色背景高亮.
+	在窗口顶部的一个工具条可用于单步调试代码而不改变焦点.
+	一个气球（Vim中的弹出窗口——译者注）为在鼠标指针下的符号显示信息.
+
+
