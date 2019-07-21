@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
-" LastChange: 2019-07-20
-"    Version: v1.1.5-online
+" LastChange: 2019-07-21
+"    Version: v1.1.06-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -858,7 +858,7 @@ nmap  <C-F7> :Errors<CR>
 nmap  <leader><F7> :lclose<CR>
 
 " quickfix
-nmap  <leader>7f ::botright copen 10<CR>
+nmap  <leader>7f :botright copen 10<CR>
 
 " F8
 nmap  <C-F8> :vert terminal<CR>
