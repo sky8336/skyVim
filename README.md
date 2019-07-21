@@ -109,28 +109,99 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	,h  :vim窗口，打开my_help文件夹，可选择查看常用帮助，包括git命令，vim命令等
 		
 ## 1、插件列表 {{{2
+	目前在用插件及历史使用过的插件列表  
+	[X] - 已不用
+### 插件管理  
     vundle  插件管理  
+
+### Display tags of a file ordered by scope
 	taglist  
 	tagbar  
+
+###  tree explorer   
 	NERDTree  
+	vim-nerdtree-tabs	-   NERDTree and tabs together in Vim, painlessly  
+	nerdtree-git-plugin
+	The-NERD-Commenter
+
+### 文件管理    
 	VimExplorer  
-	winmanager(默认不安装配置)  
+
+### 窗口管理  
+	winmanager [X 默认不安装配置]  
+	ZoomWinPlugin  窗口缩放插件  
+
+### 最近打开文件  
     MRU  
+
+### 文件搜索  
     LookupFile  
+	ctrlP + ctrlp-funky
+
+
+### Buffer Explorer   
 	bufexplorer  
-	SrcExpl     代码预览(默认不安装配置)  
-	trinity.vim  模拟source insight窗口（默认不安装配置）  
+
+### 
+	SrcExpl     代码预览 [X 默认不安装配置]  
+	trinity.vim  模拟source insight窗口 [X 默认不安装配置]  
+
+### 关键词搜索  
     用vimgrep搜索光标所在的单词  
+
+### tags 和cscope 数据库  
     生成 tags  
 	生成 filename tags  
 	生成 cscope的数据库  
-	vimdiff  
-	ZoomWinPlugin  窗口缩放插件  
-	SnipMate  代码片段补全  
-	superTab  代码自动补全  
-	AutoComplPop
+
+
+### 代码片段补全
+	SnipMate	[X 已不用]	  
+	UltiSnips + vim-snippets [代替SnipMate]
+
+### 自动补全插件  
+	superTab  [X 已不用]  
+	AutoComplPop + OmniCppComplete  
+
+### C Call-Tree Explorer  
 	CCTree
-	DirDiff.vim
+
+### 目录和文件比较  
+	DirDiff.vim		- 	run vim-diff on two directories recursively  
+	vimdiff  		-   starting diff mode
+	vim-dirdiff
+
+### git 相关  
+	vim-fugitive
+	vim-gitgutter
+	gitv
+### 
+	tpope/vim-surround
+
+### 
+	project.vim
+
+###
+	undotree
+
+### 语法检测
+	syntastic
+
+### Pairs of handy bracket mappings
+	vim-unimpaired
+
+### interact with Conque terminals
+	Conque-Shell
+
+### 表格与画图  
+	tablify 	-   turns simple structured data into nice-looking tables
+	DrawIt
+### 
+	asyncrun.vim
+
+### 
+	echofunc.vim	[X 已不用]
+
 
 ## 2、快捷键说明 {{{2
 	vim打开在源码目录打开文件后  
