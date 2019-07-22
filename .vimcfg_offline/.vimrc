@@ -54,6 +54,7 @@ set cinoptions=:0
 " public, namespace,
 set cinoptions+=g0,N-s
 "set cinoptions+=L0 "tell vim not to de-indent labels
+"set cursorcolumn
 set cursorline
 set completeopt=longest,menuone
 set noexpandtab

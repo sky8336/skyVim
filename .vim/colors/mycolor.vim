@@ -27,7 +27,6 @@ endif
 let g:colors_name = "mycolor"
 
 "hi Normal               ctermfg=Grey            ctermbg=Black
-hi ColorColumn          ctermfg=White           ctermbg=Grey
 
 hi ErrorMsg             term=standout
 hi ErrorMsg             ctermfg=Red             ctermbg=none
@@ -43,9 +42,14 @@ hi Error                term=bold               cterm=bold
 hi Error                ctermfg=Red       ctermbg=Black
 
 hi LineNr               ctermfg=DarkGrey        ctermbg=none
-hi ColorColumn          ctermbg=darkblue
+
 hi CursorLine           cterm=underline
-hi ColorColumn          ctermfg=White           ctermbg=Grey
+"hi CursorLine          cterm=bold ctermbg=Black
+"hi CursorLine          cterm=NONE ctermbg=Black
+
+"hi ColorColumn          ctermfg=White           ctermbg=Grey
+"hi ColorColumn          cterm=NONE ctermbg=Black ctermfg=White guibg=NONE guifg=NONE
+"hi ColorColumn          ctermbg=darkblue
 
 hi IncSearch            ctermfg=DarkYellow      ctermbg=Black  cterm=bold
 hi Search               ctermfg=Black           ctermbg=Yellow cterm=bold
