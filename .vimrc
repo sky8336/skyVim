@@ -334,7 +334,7 @@ inoremap <C-l> <Esc><C-W>l
 " switch to normal
 inoremap jk <Esc>
 
-" terminal mode mappings
+" [>= vim8.0]]terminal mode mappings
 tnoremap <C-h> <C-W>h
 tnoremap <C-j> <C-W>j
 tnoremap <C-k> <C-W>k

@@ -13,6 +13,7 @@ opt_clone_build_install="6"
 opt_update_build_install="7"
 
 vim_version="v8.1"
+vim_source=~/vim
 
 # show_header specify content
 VERSION=0.05
@@ -20,7 +21,9 @@ tool_name="Initcall_debug setup tool"
 
 # show_usage Specify content
 usage=(
-"`basename $0` [options]"
+"`basename $0` [options]
+		vim_version: $vim_version
+		vim_source: $vim_source"
 )
 
 options=(
@@ -112,15 +115,17 @@ install_dependent_package()
 #
 clone_vim_from_github()
 {
-	sudo mv ~/vim ~/vim.bak
-	git clone https://github.com/vim/vim.git ~/vim
+	if [[ -d $vim_source ]]; then
+		sudo mv $vim_source $vim_source.bak
+	fi
+	git clone https://github.com/vim/vim.git $vim_source
 }
 
 #
 update_vim_repo()
 {
-	check_dir ~/vim
-	cd ~/vim
+	check_dir $vim_source
+	cd $vim_source
 	git pull
 	cd -
 }
@@ -128,7 +133,7 @@ update_vim_repo()
 #
 build_vim_repo()
 {
-	cd ~/vim
+	cd $vim_source
 
 	if [[ $vim_version = "v8.0" ]]; then
 		blue_log "build $vim_version"
@@ -143,6 +148,7 @@ build_vim_repo()
 			--enable-luainterp \
 			--enable-gui=gtk2 --enable-cscope --prefix=/usr
 
+		make VIMRUNTIMEDIR=/usr/share/vim/$new_vim
 	elif [[ $vim_version = "v8.1" ]]; then
 		blue_log "build $vim_version"
 		# vim8.1 config
@@ -152,6 +158,10 @@ build_vim_repo()
 			--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ \
 			--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
 			--prefix=/usr/local/vim
+
+		#make VIMRUNTIMEDIR=/usr/local/vim/$new_vim
+		make VIMRUNTIMEDIR=/usr/local/vim/share/vim/$new_vim
+
 		# 编译时相关参数说明:
 		# --with-features=huge：支持最大特性
 		# --enable-rubyinterp：打开对 ruby 编写的插件的支持
@@ -169,14 +179,30 @@ build_vim_repo()
 		error_exit "specify which vim version to build"
 	fi
 
-	make VIMRUNTIMEDIR=/usr/share/vim/$new_vim
 	cd -
 }
 
 install_vim_after_built()
 {
-	cd ~/vim
+	cd $vim_source
 	sudo make install
+
+	if [[ $vim_version = "v8.1" ]];then
+		# add the following to ~/.bashrc_my, replace of alias vi=
+		#alias vi='/usr/local/vim/bin/vim'
+		if [ -f ~/.bashrc_my ]; then
+			sed -i "s%^alias vi=.*$%alias vi='/usr/local/vim/bin/vim'%g" ~/.bashrc_my
+			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc_my
+		else
+			cp ~/.bashrc ~/bashrc.bak
+			echo "alias vi='/usr/local/vim/bin/vim'" >> ~/.bashrc
+			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc
+		fi
+
+		cp ~/.gitconfig ~/.gitconfig.bak
+		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
+	fi
+
 	cd -
 }
 
@@ -238,6 +264,7 @@ function build_vim_by_source()
 	fi
 
 	ln /usr/bin/vim /usr/bin/vi
+
 }
 
 
