@@ -794,6 +794,16 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 
 	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
+
+	括号映射改为括号+tab键，跳出括号保持连按jj
+	如下：
+	'+tab
+	"+tab
+	(+tab
+	[+tab
+	{+tab
+
+长时间不按tab, 即保持单括号输入。
 	
 ## 15、YouCompleteMe、AutoComplPop、superTab 和OmniCppcomplete代码自动补全 {{{2
 ###	YouCompleteMe:
