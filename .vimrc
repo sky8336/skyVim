@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2019-07-21
-"    Version: v1.1.06-online
+"    Version: v1.1.07-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -458,7 +458,7 @@ let g:tagbar_width=30                    "窗口宽度的设置
 let g:tagbar_sort = 0                    "根据源码中出现的顺序排序
 " 执行vi 文件名，如果是c语言的程序，自动打开tagbar;vimdiff不自动打开tagbar
 if &diff == 0
-	autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc call tagbar#autoopen()
+	"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc call tagbar#autoopen()
 endif
 
 " taglist.vim {{{2
@@ -472,7 +472,7 @@ let g:Tlist_Auto_Highlight_Tag=1
 let Tlist_Use_Right_Window = 0
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	"let g:Tlist_Auto_Open=1
+	let g:Tlist_Auto_Open=1
 endif
 
 "" 设置winmanager.vim {{{2
