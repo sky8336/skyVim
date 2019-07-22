@@ -135,7 +135,7 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
     MRU  
 
 ### 文件搜索  
-    LookupFile  
+    LookupFile   [X]
 	ctrlP + ctrlp-funky
 
 
@@ -250,7 +250,7 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	,m    按,m后，将在终端复制的项目名粘贴到底行，按回车后打开MRU，文件路径匹配输入的项目名  
 	( Ctrl+F1 ~ Ctrl+F4不可用 )
 
-	F5    LookupFile开关（按2下关）  
+	F5      
 	Ctrl+F5 UndotreeToggle  
 	,F5   在底行//gj的双斜杠中间输入要查找的关键字，用vimgrep在当前文件父目录下的.c和.h中搜索//中输入的关键字  
 	F6    用vimgrep在当前文件父目录下的.c和.h中搜索光标所在的单词    
@@ -1332,8 +1332,7 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 		底行输入查找包含本文件的文件  	  ,ff    
 	2.ctrlP 查找：  
 		模糊查找  crtl+p  
-	3.LookupFile 查找:  
-		F5		
+	3.
 	4.MRU 查找： 
 		最近打开文件列表 F3  
 	5.BufExplorer 查找:  
