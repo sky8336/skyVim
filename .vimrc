@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2019-07-21
-"    Version: v1.1.07-online
+"    Version: v1.1.08-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -26,6 +26,16 @@ au BufRead,BufNewFile *.txt setlocal ft=txt "syntax highlight for txt
 " Setting colorscheme{{{2
 color mycolor
 "colorscheme nslib_color256
+if &diff
+	"colorscheme blue
+	"colorscheme default
+	"colorscheme murphy
+	"colorscheme peachpuff
+	"colorscheme ron
+	"colorscheme torte
+	"colorscheme elflord
+	"colorscheme industry
+endif
 
 " termdebug setting {{{2
 let g:termdebug_wide = 163
@@ -411,7 +421,6 @@ Bundle 'mbbill/undotree'
 Bundle 'scrooloose/syntastic'
 Bundle 'tpope/vim-unimpaired'
 Bundle 'oplatek/Conque-Shell'
-"Bundle  'bling/vim-airline'
 "Plugin 'godlygeek/tabular'
 "Plugin 'plasticboy/vim-markdown'
 Bundle 'jistr/vim-nerdtree-tabs'
@@ -419,6 +428,8 @@ Bundle 'Xuyuanp/nerdtree-git-plugin'
 Bundle 'Stormherz/tablify'
 "Bundle 'vim-scripts/TxtBrowser'
 Bundle 'skywind3000/asyncrun.vim'
+"Bundle 'vim-airline/vim-airline'
+"Bundle 'vim-airline/vim-airline-themes'
 
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
@@ -492,21 +503,6 @@ endif
 ""在进入vim时自动打开winmanager
 "let g:AutoOpenWinManager = 1
 ""}}}
-
-""alrLine Config {{{2
-"if !exists('g:airline_symbols')
-	"let g:airline_symbols = {}
-"endif
-"let g:airline_symbols.space = "\ua0"
-"let g:airline_exclude_filename = []
-"let g:Powerline_symbols='fancy'
-"let g:airline_powerline_fonts=0
-"let Powerline_symbols='fancy'
-"let g:bufferline_echo=0
-"set laststatus=2
-"set t_Co=256
-""set fillchars+=stl:\ ,stlnc:\
-"set guifont=Lucida_Console:h10
 
 " CCtree {{{2
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree
@@ -815,6 +811,14 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
+
+" vim-airline {{{2
+"set laststatus=2  "永远显示状态栏
+"let g:airline_powerline_fonts = 1  " 支持 powerline 字体
+"let g:airline#extensions#tabline#enabled = 1 " 显示窗口tab和buffer
+
+" 使用:AirlineTheme {theme-name}设置主题。
+
 " PLUGIN_SETTINGS end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

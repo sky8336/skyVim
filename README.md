@@ -108,7 +108,7 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	,hm :vim窗口，普通模式下打开README.md查看帮助
 	,h  :vim窗口，打开my_help文件夹，可选择查看常用帮助，包括git命令，vim命令等
 		
-## 1、插件列表 {{{2
+## 1、插件列表 plugin_list {{{2
 	目前在用插件及历史使用过的插件列表  
 	[X] - 已不用
 ### 插件管理  
@@ -202,6 +202,38 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 ### 
 	echofunc.vim	[X 已不用]
 
+### statusline 
+#### default statusline in .vimrc
+	looks like:
+	[+1]build_install_vim.sh                       [61%:339L,0][Git(master)][SH|utf-8]
+
+	状态栏中表示的信息：
+		1.修改未保存时，红色+,保存后消失；[+1]
+		2. buffer id	[+1]
+		3.文件名
+		4. [所在行占总行数百分比: 总行数,光标在一行的位置]
+		5.[git 分支信息]， 不是git仓库时不显示
+		6.[文本类型|字符编码类型]
+		7. 插入模式颜色品红；normal模式白色；
+			分屏时，光标不在的窗口状态栏变灰色；
+
+	.vimrc:
+	set laststatus=2 "show the status line
+	set statusline+=[%1*%M%*%-.2n]%.62f%h%r%=\[%-4.(%P:%LL,%c]%<%{fugitive#statusline()}\[%Y\|%{&fenc}\]%)
+
+	" set statusline color {{{2
+	" default the statusline to White (black character) when entering Vim
+	hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+	" 状态栏颜色配置:插入模式品红色，普通模式White
+	if version >= 700
+	  "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
+	  au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
+	  au InsertLeave * hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+	endif
+
+#### statusline plugin
+	vim-airline
+	vim-airline-themes
 
 ## 2、快捷键说明 {{{2
 	vim打开在源码目录打开文件后  
