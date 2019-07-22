@@ -404,13 +404,16 @@ Bundle 'gmarik/vundle'
 "Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
+" Completion
 "Bundle 'ervandew/supertab'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
-"Bundle 'msanders/snipmate.vim'
-Bundle 'tpope/vim-surround'
 "Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
+"Bundle 'msanders/snipmate.vim'
+
+Bundle 'tpope/vim-surround'
+" display tags
 Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'kien/ctrlp.vim'
@@ -435,6 +438,7 @@ Bundle 'skywind3000/asyncrun.vim'
 "Bundle 'vim-airline/vim-airline'
 "Bundle 'vim-airline/vim-airline-themes'
 Bundle 'liuchengxu/vim-which-key'
+"Bundle 'neoclide/coc.nvim'
 
 "-------------------------
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
