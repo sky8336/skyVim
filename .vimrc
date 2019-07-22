@@ -318,7 +318,7 @@ if has("cscope")
     set csverb
 endif
 
-" SHORTCUT SETTINGS: {{{1
+" SHORTCUT SETTINGS: mappings{{{1
 " Set mapleader
 let mapleader=","
 
@@ -351,11 +351,11 @@ tnoremap <C-k> <C-W>k
 tnoremap <C-l> <C-W>l
 
 " 括号自动补全
-inoremap ' ''<ESC>i
-inoremap " ""<ESC>i
-inoremap ( ()<ESC>i
-inoremap [ []<ESC>i
-inoremap { {<CR>}<ESC>O
+inoremap '<TAB> ''<ESC>i
+inoremap "<TAB> ""<ESC>i
+inoremap (<TAB> ()<ESC>i
+inoremap [<TAB> []<ESC>i
+inoremap {<TAB> {<CR>}<ESC>O
 
 "设置跳出自动补全的括号
 func SkipPair()
