@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2019-07-22
-"    Version: v1.1.09-online
+"    Version: v1.1.10-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -385,7 +385,8 @@ let OpenDir=system("pwd")
 nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 
 
-" vundle.vim 插件管理器 {{{1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plugin_manager: vundle.vim 插件管理器 {{{1
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
@@ -393,6 +394,7 @@ filetype plugin indent on     " required!
 " let Vundle manage Vundle     "required!{{{2
 Bundle 'gmarik/vundle'
 
+"-----------------------
 " My Bundles here:  /* 插件配置格式 */{{{2
 " original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）
 "Bundle 'Lokaltog/vim-easymotion'
@@ -431,6 +433,7 @@ Bundle 'skywind3000/asyncrun.vim'
 "Bundle 'vim-airline/vim-airline'
 "Bundle 'vim-airline/vim-airline-themes'
 
+"-------------------------
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
@@ -452,7 +455,7 @@ Bundle 'DrawIt'
 " non github repos   (非上面两种情况的，按下面格式填写){{{2
 "Bundle 'git://git.wincent.com/command-t.git'
 
-" vundle setup end
+" plugin_manager: vundle setup end
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -468,7 +471,7 @@ let g:tagbar_width=30                    "窗口宽度的设置
 let g:tagbar_sort = 0                    "根据源码中出现的顺序排序
 " 执行vi 文件名，如果是c语言的程序，自动打开tagbar;vimdiff不自动打开tagbar
 if &diff == 0
-	"autocmd BufReadPost *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc call tagbar#autoopen()
+	autocmd VimEnter *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc nested :call tagbar#autoopen(1)
 endif
 
 " taglist.vim {{{2
@@ -482,7 +485,7 @@ let g:Tlist_Auto_Highlight_Tag=1
 let Tlist_Use_Right_Window = 0
 if &diff == 0
 	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	let g:Tlist_Auto_Open=1
+	"let g:Tlist_Auto_Open=1
 endif
 
 "" 设置winmanager.vim {{{2
