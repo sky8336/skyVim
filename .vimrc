@@ -435,6 +435,7 @@ Bundle 'skywind3000/asyncrun.vim'
 "Bundle 'vim-airline/vim-airline'
 "Bundle 'vim-airline/vim-airline-themes'
 Bundle 'liuchengxu/vim-which-key'
+"Bundle 'neoclide/coc.nvim'
 
 "-------------------------
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
