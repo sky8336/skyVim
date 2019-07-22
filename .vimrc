@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
-" LastChange: 2019-07-21
-"    Version: v1.1.08-online
+" LastChange: 2019-07-22
+"    Version: v1.1.09-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -438,7 +438,6 @@ Bundle 'AutoComplPop'
 Bundle 'OmniCppComplete'
 "Bundle 'echofunc.vim'
 Bundle 'genutils'
-Bundle 'lookupfile'
 Bundle 'taglist.vim'
 Bundle 'The-NERD-tree'
 Bundle 'The-NERD-Commenter'
@@ -622,14 +621,6 @@ endif
 
 " MRU.vim {{{2
 nmap  <leader>m :MRU
-
-" LookupFile setting {{{2
-let g:LookupFile_TagExpr='"./tags.o.fn"'
-let g:LookupFile_MinPatLength=2
-let g:LookupFile_PreserveLastPattern=0
-let g:LookupFile_PreservePatternHistory=1
-let g:LookupFile_AlwaysAcceptFirst=1
-let g:LookupFile_AllowNewFiles=0
 
 " undotree.vim {{{2
 let g:undotree_WindowLayout = 2
@@ -841,8 +832,8 @@ nmap  <leader>f4 :NERDTreeTabsToggle<cr>
 nmap  <C-\><F4> :NERDTreeTabsFind<CR>
 nmap  <leader><F4> :silent! VE .<cr>
 
-nmap  <F5> <Plug>LookupFile<cr>
-nmap  <leader>f5 <Plug>LookupFile<cr>
+"nmap  <F5>
+"nmap  <leader>f5
 
 nmap  <C-F5> :UndotreeToggle<cr>
 "nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
