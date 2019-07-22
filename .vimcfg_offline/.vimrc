@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
 " LastChange: 2019-07-22
-"    Version: v1.1.12-offline
+"    Version: v1.1.13-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -434,6 +434,7 @@ Bundle 'Stormherz/tablify'
 Bundle 'skywind3000/asyncrun.vim'
 "Bundle 'vim-airline/vim-airline'
 "Bundle 'vim-airline/vim-airline-themes'
+Bundle 'liuchengxu/vim-which-key'
 
 "-------------------------
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
