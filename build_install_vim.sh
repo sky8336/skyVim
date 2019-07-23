@@ -299,6 +299,7 @@ main()
 		show_header
 		show_usage
 		warning_log "`basename $0` [opt]: opt should be 0, 1, ..., 7"
+		exit
 	elif [ "$1" = $opt_dependent ]; then
 		blue_log "install dependent package"
 		install_dependent_package "$@"
@@ -325,6 +326,7 @@ main()
 		update_build_install_vim "$@"
 	else
 		echo "do nothing"
+		exit
 	fi
 
 
