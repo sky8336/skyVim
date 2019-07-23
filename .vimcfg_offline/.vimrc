@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
 " LastChange: 2019-07-23
-"    Version: v1.1.14-offline
+"    Version: v1.1.15-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -441,13 +441,16 @@ Bundle 'gmarik/vundle'
 "Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
+" Completion
 "Bundle 'ervandew/supertab'
 Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
-"Bundle 'msanders/snipmate.vim'
-Bundle 'tpope/vim-surround'
 "Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
+"Bundle 'msanders/snipmate.vim'
+
+Bundle 'tpope/vim-surround'
+" Code display
 Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
 Bundle 'kien/ctrlp.vim'
@@ -472,6 +475,7 @@ Bundle 'skywind3000/asyncrun.vim'
 "Bundle 'vim-airline/vim-airline'
 "Bundle 'vim-airline/vim-airline-themes'
 Bundle 'liuchengxu/vim-which-key'
+"Bundle 'neoclide/coc.nvim'
 
 "-------------------------
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
@@ -853,6 +857,13 @@ nnoremap <silent> <C-A> :ZoomToggle<CR>
 "let g:airline#extensions#tabline#enabled = 1 " 显示窗口tab和buffer
 
 " 使用:AirlineTheme {theme-name}设置主题。
+" asyncrun {{{2
+" 自动打开 quickfix window ，高度为 6
+let g:asyncrun_open = 6
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
+" 定位到文件所属项目的目录: 从文件所在目录向上递归，直到找到名为 “.git”, “.svn”, “.hg”或者 “.root”文件或者目录
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
 " PLUGIN_SETTINGS end
 
@@ -876,8 +887,25 @@ nmap  <leader>f4 :NERDTreeTabsToggle<cr>
 nmap  <C-\><F4> :NERDTreeTabsFind<CR>
 nmap  <leader><F4> :silent! VE .<cr>
 
-"nmap  <F5>
-"nmap  <leader>f5
+"------map_f5------
+" nmap  <F5>
+"
+" ,f5 ,;5 ,\5	:	单个文件相关命令
+" 设置 ,f5 打开/关闭 Quickfix 窗口
+nnoremap <leader>f5 :call asyncrun#quickfix_toggle(6)<cr>
+" 编译单个文件
+nnoremap <silent><leader>;5 :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+" 运行
+nnoremap <silent><leader>\5 :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+
+" ,5f ,5; ,5\	:	项目相关命令
+" “<root>” 或 “$(VIM_ROOT)”表示项目所在路径，按 ,5f 编译整个项目：
+nnoremap <silent><leader>5f :AsyncRun -cwd=<root> make <cr>
+" 运行当前项目, makefile 中需要定义怎么 run
+nnoremap <silent><leader>5; :AsyncRun -cwd=<root> -raw make run <cr>
+" 测试
+nnoremap <silent><leader>5\ :AsyncRun -cwd=<root> -raw make test <cr>
+"------map_f5------
 
 nmap  <C-F5> :UndotreeToggle<cr>
 "nmap  <leader><F5> :execute 'vimgrep //gj '.expand('%:p:h').'/*.c '.expand('%:p:h').'/*.h'
