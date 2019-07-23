@@ -280,7 +280,9 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 
 
 # 四、vim插件使用说明 {{{1
-## 1、tags.o.fn、tags和cscope生成及使用方法 {{{2
+## C/C++ 符号索引 {{{2
+	ags.o.fn、tags和cscope, gtags生成及使用方法
+	DIY 一套超越市面上任何编辑器（vscode，emacs，vscode）体验的最强静态符号索引系统。
 ### 1)tags.o.fn、tags和cscope库文件的生成 {{{3
  
 	cindex 终端生成ctags索引文件tags  
@@ -353,6 +355,23 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 
 	回退按：  
 		Ctrl+t
+
+### Gtags
+	传统 ctags 系统虽和 vim 结合紧密，但只能查定义无法查引用，
+	cscope 能查引用，但只支持 C 语言，C++都不支持，况且常年不更新。
+	ctags 由于使用文本格式存储数据，虽用了二分查找，但打开 Linux Kernel 
+	这样的大项目时，查询会有卡顿的感觉。
+#### GTagsGNU GLOBAL）比起 ctags 主要的优点
+    a. 不但能查定义，还能查引用
+	b. 原生支持 6 种语言（C，C++，Java，PHP4，Yacc，汇编）
+	c. 扩展支持 50+ 种语言（包括 go/rust/scala 等，基本覆盖所有主流语言）
+	d. 使用性能更好的本地数据库存储符号，而不是 ctags 那种普通文本文件
+	e. 支持增量更新，每次只索引改变过的文件
+	f. 多种输出格式，能更好的同编辑器相集成
+
+### 
+	'ludovicchabant/vim-gutentags'
+
 
 ## 2、taglist和tagbar(,F2) {{{2
 
