@@ -50,7 +50,7 @@ int main(int argc, const char *argv[])
 			printf("[server] receive success\n");
 			/* exchange data */
 			read(new_fd, &ch, 1);
-			printf("get char from client: %c\n", ch);
+			printf("[server] get char from client: %c\n", ch);
 			++ch;
 			write(new_fd, &ch, 1);
 		}
