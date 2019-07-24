@@ -111,6 +111,7 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 ## 1、插件列表 plugin_list {{{2
 	目前在用插件及历史使用过的插件列表  
 	[X] - 已不用
+	<插件类型>
 ### 插件管理  
     vundle  插件管理  
 
@@ -137,7 +138,8 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 
 ### 文件搜索  
     LookupFile   [X]
-	ctrlP + ctrlp-funky
+	ctrlP + ctrlp-funky		[x]		<interface>
+	leaderf		<interface>
 
 
 ### Buffer Explorer   
@@ -867,11 +869,12 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	Normal模式下，几乎所有命令前面都可以指定行数  
 	Visual模式下执行命令，会对选中的特定区块进行注释/反注释  
 
-## 18、ctrlp.vim --模糊查找 {{{2
+## 18、模糊查找 {{{2
+### (1) ctrlp.vim  {{{3
 	ctrl+p 打开查找窗口;模糊搜索当前目录及其子目录下的所有文件  
 	Esc    退出查找窗口  
 	
-### 打开ctrlp查找窗口后:  
+#### 打开ctrlp查找窗口后:  
 	ctrl-f    切换查找方式(Files, Buffers and MRU files)，可模糊搜索最近打开的文件(MRU)  
 	vsp 打开其他路径下文件，ctrl+p会从打开文件所在目录开始递归查找文件  
 	
@@ -883,14 +886,14 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	ctrl + t     在tab中打开  
 	ctrl + u 	 删除所有输入  
 
-### Basic Usage
+#### Basic Usage
 
     Run :CtrlP or :CtrlP [starting-directory] to invoke CtrlP in find file mode.  
     Run :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode.  
     Run :CtrlPMixed to search in Files, Buffers and MRU files at the same time.  
 
 	Check :help ctrlp-commands and :help ctrlp-extensions for other commands.  
-#### Once CtrlP is open:
+##### Once CtrlP is open:
 
     <F5>   在ctrlp窗口按，为当前目录更新cache: 更新新的文件，移除删除的文件，适应新忽略的选项.  
     <c-f>,<c-b>    在模式之间循环切换.  
@@ -907,15 +910,36 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
     Use :25 to jump to line 25.  
     Use :diffthis when opening multiple files to run :diffthis on the first 4 files.  
 
-#### 借鉴一张图片演示
+##### 借鉴一张图片演示
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/ctrlp.gif)
 
-### ctrlp的插件ctrlp-funky
+#### ctrlp的插件ctrlp-funky
 	,fu 进入当前文件的函数列表搜索  
 	,fU 搜索当前光标下单词对应的函数  
 
-#### 借鉴一张图片演示
+##### 借鉴一张图片演示
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/ctrlp-funky.gif)
+
+### (2) leaderf {{{3
+	文件/buffer模糊匹配快速切换	
+	a. 提供函数列表，全异步显示, 不用时不占用屏幕空间，将 ALT+P 绑定到 `:LeaderfFunction!` 
+		targbar补充，tagbar 可现实变量等更多信息
+	b. 支持文件，MRU，Buffer名称搜索
+
+	CTRL+P 在当前项目目录打开文件搜索
+	CTRL+N 打开 MRU 搜索，搜索最近打开的文件
+	ALT+P 打开函数搜索，	//TODO
+	ALT+N 打开 Buffer 搜索  //TODO
+
+	<ESC>		退出
+
+	在模糊匹配模式下按 TAB 可以切换到匹配结果窗口用光标 或 Vim 搜索命令进一步筛选，
+	匹配结果窗口推出	q
+
+	文件/MRU 模糊匹配对于熟悉的项目效率是最高的
+	新的项目，不熟悉文件名,需要文件浏览功能, 参考nerdtree 或 vim-dirvish
+
+	按 i 进入模糊匹配，按TAB切换回列表选择
 
 ## 19、surround.vim {{{2
     在字符两边插入或改变各种成对的符号在字符两边插入或改变各种成对的符号：单/双引号;大中小括号等
