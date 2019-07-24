@@ -383,11 +383,13 @@ inoremap <C-l> <Esc><C-W>l
 " switch to normal
 inoremap jk <Esc>
 
+if version >= 800
 " [>= vim8.0]]terminal mode mappings
 tnoremap <C-h> <C-W>h
 tnoremap <C-j> <C-W>j
 tnoremap <C-k> <C-W>k
 tnoremap <C-l> <C-W>l
+endif
 
 " 括号自动补全
 inoremap '<TAB> ''<ESC>i
