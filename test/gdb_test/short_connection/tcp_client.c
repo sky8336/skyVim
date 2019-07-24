@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-#define DEBUG_INFO "[client]"
+#define DEBUG_INFO "[clientA]mm:"
 
 int main(int argc, const char *argv[])
 {
@@ -36,8 +36,10 @@ int main(int argc, const char *argv[])
 	read(sockfd, &ch, 1);
 	printf(DEBUG_INFO "get char from server: %c\n", ch);
 
-	while (1)
+	while (1) {
 		usleep(1000*1000);
+		break;
+	}
 	/* close the socket */
 	close(sockfd);
 

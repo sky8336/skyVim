@@ -1258,12 +1258,23 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	,5\：项目：运行
 
 #### example:
+##### example1
 		a. cd vimcfg_bundle/test/gdb_test/short_connection
-		b. vi
+		b. vi tcp_client.c
 		c. ,f5	//open quickfix list
 		d. :AsyncRun make
 		f. :AsyncRun make clean
 		g. ,f5
+
+##### example2
+		a. cd vimcfg_bundle/test/gdb_test/short_connection
+		b. vi tcp_client.c
+		c. ,f5	//open quickfix list
+		d. :AsyncRun make
+		f. ,f8 //open terminal
+		g. cd terminal && ./tcp_server
+		h. cd 'tcp_client.c' window
+		i. ,\5 // run tcp_client
 
 ## 31. UltiSnips - 代码片段终极解决方案  
 	这个补全引擎非常快，而且有非常惊艳的表现，需要配合 vim-snippets 一起使用.
