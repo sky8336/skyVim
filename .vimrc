@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
-" LastChange: 2019-07-23
-"    Version: v1.1.15-online
+" LastChange: 2019-07-24
+"    Version: v1.1.16-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -394,13 +394,14 @@ endif
 " 括号自动补全
 inoremap '<TAB> ''<ESC>i
 inoremap "<TAB> ""<ESC>i
+inoremap <<TAB> <><ESC>i
 inoremap (<TAB> ()<ESC>i
 inoremap [<TAB> []<ESC>i
 inoremap {<TAB> {<CR>}<ESC>O
 
 "设置跳出自动补全的括号
 func SkipPair()
-    if getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == "'" || getline('.')[col('.') - 1] == '}'
+    if getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == '>' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == "'" || getline('.')[col('.') - 1] == '}'
         return "\<ESC>la"
     else
         return "\t"
@@ -455,8 +456,10 @@ Bundle 'tpope/vim-surround'
 " Code display
 Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tacahiroy/ctrlp-funky'
+" interface
+Plugin 'yggdroot/leaderf'
+"Bundle 'kien/ctrlp.vim'
+"Bundle 'tacahiroy/ctrlp-funky'
 Bundle 'mbbill/VimExplorer',{'on': 'VE'}
 "Bundle 'wesleyche/SrcExpl'
 "Bundle 'wesleyche/Trinity'
@@ -748,7 +751,25 @@ let g:undotree_WindowLayout = 2
 "nmap <C-F11>  :TrinityToggleNERDTree<CR>
 
 
-" ctrlp.vim {{{2
+" interface: leaderf {{{2
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_ShortcutB = '<m-n>'
+noremap <c-n> :LeaderfMru<cr>
+noremap <m-p> :LeaderfFunction!<cr>
+noremap <m-n> :LeaderfBuffer<cr>
+noremap <m-m> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+"let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+
+" interface: ctrlp.vim {{{2
 "let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'a'
