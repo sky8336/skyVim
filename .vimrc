@@ -454,6 +454,7 @@ let plugin_use_neomake = 0
 let plugin_use_deoplete = 0
 let plugin_use_echodoc = 0
 let plugin_use_echofunc = 0
+let plugin_use_vim_cpp_enhanced_highlight = 0
 
 "-----------------------
 " My Bundles here:  /* 插件配置格式 */{{{2
@@ -476,7 +477,11 @@ else
 endif
 
 Bundle 'tpope/vim-surround'
-" Code display
+" code_display
+if plugin_use_vim_cpp_enhanced_highlight == 1
+Plugin 'octol/vim-cpp-enhanced-highlight'
+endif
+
 Bundle 'majutsushi/tagbar'
 
 Bundle 'jlanzarotta/bufexplorer'
@@ -570,6 +575,39 @@ let g:echodoc#type = "echo" " Default value
 set noshowmode
 let g:echodoc_enable_at_startup = 1
 endif
+
+" code_display {{{2
+
+if plugin_use_vim_cpp_enhanced_highlight == 1
+" vim-cpp-enhanced-highlight {{{3
+"Highlighting of class scope is disabled by default. To enable set
+let g:cpp_class_scope_highlight = 1
+
+"Highlighting of member variables is disabled by default. To enable set
+let g:cpp_member_variable_highlight = 1
+
+"Highlighting of class names in declarations is disabled by default. To enable set
+let g:cpp_class_decl_highlight = 1
+
+"There are two ways to highlight template functions. Either
+let g:cpp_experimental_simple_template_highlight = 1
+
+"which works in most cases, but can be a little slow on large files. Alternatively set
+let g:cpp_experimental_template_highlight = 1
+
+"Highlighting of library concepts is enabled by
+let g:cpp_concepts_highlight = 1
+
+"This will highlight the keywords concept and requires as well as all named
+"requirements (like DefaultConstructible) in the standard library.
+"Highlighting of user defined functions can be disabled by
+let g:cpp_no_function_highlight = 1
+
+"Vim tend to a have issues with flagging braces as errors, see for
+"example https://github.com/vim-jp/vim-cpp/issues/16. A workaround is to set
+let c_no_curly_error=1
+endif
+
 
 " tagbar.vim {{{2
 let g:tagbar_left=1
