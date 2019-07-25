@@ -452,6 +452,8 @@ endif
 
 let plugin_use_neomake = 0
 let plugin_use_deoplete = 0
+let plugin_use_echodoc = 0
+let plugin_use_echofunc = 0
 
 "-----------------------
 " My Bundles here:  /* 插件配置格式 */{{{2
@@ -519,6 +521,9 @@ Bundle 'skywind3000/asyncrun.vim'
 "Bundle 'vim-airline/vim-airline-themes'
 Bundle 'liuchengxu/vim-which-key'
 "Bundle 'neoclide/coc.nvim'
+if plugin_use_echodoc == 1
+	Plugin 'shougo/echodoc'
+endif
 
 "-------------------------
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
@@ -530,7 +535,9 @@ if plugin_use_deoplete == 0
 	Bundle 'OmniCppComplete'
 endif
 
-"Bundle 'echofunc.vim'
+if plugin_use_echofunc == 1
+	Bundle 'echofunc.vim'
+endif
 Bundle 'genutils'
 Bundle 'taglist.vim'
 Bundle 'The-NERD-tree'
@@ -552,8 +559,17 @@ Bundle 'DrawIt'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN_SETTINGS begin: {{{1
 "
+if plugin_use_echofunc == 1
 " echofunc.vim {{{2
 "let g:EchoFuncAutoStartBalloonDeclaration=1
+endif
+
+if plugin_use_echodoc == 1
+" echodoc {{{2
+let g:echodoc#type = "echo" " Default value
+set noshowmode
+let g:echodoc_enable_at_startup = 1
+endif
 
 " tagbar.vim {{{2
 let g:tagbar_left=1
