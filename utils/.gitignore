@@ -4,3 +4,5 @@ global-6.6/
 GPATH
 GRTAGS
 GTAGS
+
+ctags/
