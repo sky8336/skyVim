@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 " LastChange: 2019-07-24
-"    Version: v1.1.16-online
+"    Version: v1.1.17-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -436,6 +436,19 @@ filetype plugin indent on     " required!
 " let Vundle manage Vundle     "required!{{{2
 Bundle 'gmarik/vundle'
 
+" plugin select config table
+let ubuntu18_04 = 0
+" python 3+
+if ubuntu18_04 == 1
+	" python > 2.7
+	let plugin_leader_used = 1
+	let plugin_ultisnips_used = 1
+else
+	" ubuntu16.04 maybe python < 2.7
+	let plugin_leader_used = 0
+	let plugin_ultisnips_used = 0
+endif
+
 "-----------------------
 " My Bundles here:  /* 插件配置格式 */{{{2
 " original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）
@@ -444,22 +457,32 @@ Bundle 'gmarik/vundle'
 "Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-fugitive'
 Bundle 'airblade/vim-gitgutter'
+
 " Completion
 "Bundle 'ervandew/supertab'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
 "Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
-"Bundle 'msanders/snipmate.vim'
+if plugin_ultisnips_used == 1
+	Bundle 'SirVer/ultisnips'
+	Bundle 'honza/vim-snippets'
+else
+	Bundle 'msanders/snipmate.vim'
+endif
 
 Bundle 'tpope/vim-surround'
 " Code display
 Bundle 'majutsushi/tagbar'
+
 Bundle 'jlanzarotta/bufexplorer'
+
 " interface
-Plugin 'yggdroot/leaderf'
-"Bundle 'kien/ctrlp.vim'
-"Bundle 'tacahiroy/ctrlp-funky'
+if plugin_leader_used == 1
+	Plugin 'yggdroot/leaderf'
+else
+	Bundle 'kien/ctrlp.vim'
+	Bundle 'tacahiroy/ctrlp-funky'
+endif
+
 Bundle 'mbbill/VimExplorer',{'on': 'VE'}
 "Bundle 'wesleyche/SrcExpl'
 "Bundle 'wesleyche/Trinity'
@@ -750,60 +773,65 @@ let g:undotree_WindowLayout = 2
 "" Open and close the NERD_tree.vim separately
 "nmap <C-F11>  :TrinityToggleNERDTree<CR>
 
+" interface: leaderf or ctrlp {{{2
+if plugin_leader_used == 1
+	" interface: leaderf {{{3
+	let g:Lf_ShortcutF = '<c-p>'
+	let g:Lf_ShortcutB = '<m-n>'
+	noremap <c-n> :LeaderfMru<cr>
+	noremap <m-p> :LeaderfFunction!<cr>
+	noremap <m-n> :LeaderfBuffer<cr>
+	noremap <m-m> :LeaderfTag<cr>
+	let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
-" interface: leaderf {{{2
-let g:Lf_ShortcutF = '<c-p>'
-let g:Lf_ShortcutB = '<m-n>'
-noremap <c-n> :LeaderfMru<cr>
-noremap <m-p> :LeaderfFunction!<cr>
-noremap <m-n> :LeaderfBuffer<cr>
-noremap <m-m> :LeaderfTag<cr>
-let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+	let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+	let g:Lf_WorkingDirectoryMode = 'Ac'
+	let g:Lf_WindowHeight = 0.30
+	let g:Lf_CacheDirectory = expand('~/.vim/cache')
+	let g:Lf_ShowRelativePath = 0
+	let g:Lf_HideHelp = 1
+	"let g:Lf_StlColorscheme = 'powerline'
+	let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+else
+	" interface: ctrlp.vim {{{3
+	"let g:ctrlp_map = '<c-p>'
+	"let g:ctrlp_cmd = 'CtrlP'
+	let g:ctrlp_working_path_mode = 'a'
+	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+	"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+	let g:ctrlp_custom_ignore = {
+				\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+				\ 'file': '\v\.(exe|so|dll)$',
+				\ 'link': 'some_bad_symbolic_links',
+				\ }
+	let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 
-let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_WindowHeight = 0.30
-let g:Lf_CacheDirectory = expand('~/.vim/cache')
-let g:Lf_ShowRelativePath = 0
-let g:Lf_HideHelp = 1
-"let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
-
-" interface: ctrlp.vim {{{2
-"let g:ctrlp_map = '<c-p>'
-"let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'a'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-			\ 'file': '\v\.(exe|so|dll)$',
-			\ 'link': 'some_bad_symbolic_links',
-			\ }
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-
-" ctrlp-funky.vim
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-" narrow the list down with a word under cursor
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
-let g:ctrlp_funky_syntax_highlight = 1
-let g:ctrlp_extensions = ['funky']
+	" ctrlp-funky.vim
+	nnoremap <Leader>fu :CtrlPFunky<Cr>
+	" narrow the list down with a word under cursor
+	nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+	let g:ctrlp_funky_syntax_highlight = 1
+	let g:ctrlp_extensions = ['funky']
+endif
 
 " Man.vim {{{2
 source $VIMRUNTIME/ftplugin/man.vim
 
-" utilsnips.vim {{{2
-"autocmd FileType * call UltiSnips#FileTypeChanged()
-" 连续按下两次i触发代码补全
-let g:UltiSnipsExpandTrigger="<tab>"
-"let g:UltiSnipsListSnippets="<c-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+if plugin_ultisnips_used == 1
+	" utilsnips.vim {{{2
+	"autocmd FileType * call UltiSnips#FileTypeChanged()
+	" 连续按下两次i触发代码补全
+	let g:UltiSnipsExpandTrigger="<tab>"
+	"let g:UltiSnipsListSnippets="<c-tab>"
+	let g:UltiSnipsJumpForwardTrigger="<c-j>"
+	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-" snipMate {{{2
-"let g:snips_author="Du Jianfeng"
-"let g:snips_email="cmdxiaoha@163.com"
-"let g:snips_copyright="SicMicro, Inc"
+else
+	" snipMate {{{2
+	"let g:snips_author="Du Jianfeng"
+	"let g:snips_email="cmdxiaoha@163.com"
+	"let g:snips_copyright="SicMicro, Inc"
+endif
 
 " Conque-Shell.vim {{{2
 " 水平分割出一个bash
