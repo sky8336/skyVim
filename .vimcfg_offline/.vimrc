@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
-" LastChange: 2019-07-24
-"    Version: v1.1.17-offline
+" LastChange: 2019-07-25
+"    Version: v1.1.18-offline
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -436,18 +436,22 @@ filetype plugin indent on     " required!
 " let Vundle manage Vundle     "required!{{{2
 Bundle 'gmarik/vundle'
 
-" plugin select config table
-let ubuntu18_04 = 0
+" plugin select config table {{{2
+let ubuntu18_04 = 1
+
 " python 3+
 if ubuntu18_04 == 1
 	" python > 2.7
-	let plugin_leader_used = 1
-	let plugin_ultisnips_used = 1
+	let plugin_use_leaderf = 1
+	let plugin_use_ultisnips = 1
 else
 	" ubuntu16.04 maybe python < 2.7
-	let plugin_leader_used = 0
-	let plugin_ultisnips_used = 0
+	let plugin_use_leaderf = 0
+	let plugin_use_ultisnips = 0
 endif
+
+let plugin_use_neomake = 0
+let plugin_use_deoplete = 0
 
 "-----------------------
 " My Bundles here:  /* 插件配置格式 */{{{2
@@ -462,7 +466,7 @@ Bundle 'airblade/vim-gitgutter'
 "Bundle 'ervandew/supertab'
 "Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
-if plugin_ultisnips_used == 1
+if plugin_use_ultisnips == 1
 	Bundle 'SirVer/ultisnips'
 	Bundle 'honza/vim-snippets'
 else
@@ -476,7 +480,7 @@ Bundle 'majutsushi/tagbar'
 Bundle 'jlanzarotta/bufexplorer'
 
 " interface
-if plugin_leader_used == 1
+if plugin_use_leaderf == 1
 	Plugin 'yggdroot/leaderf'
 else
 	Bundle 'kien/ctrlp.vim'
@@ -490,7 +494,18 @@ Bundle 'hari-rangarajan/CCTree'
 Bundle 'vimplugin/project.vim'
 Bundle 'will133/vim-dirdiff'
 Bundle 'mbbill/undotree'
-Bundle 'scrooloose/syntastic'
+
+" language
+if plugin_use_neomake == 1
+	Plugin 'neomake/neomake'
+else
+	Bundle 'scrooloose/syntastic'
+endif
+
+if plugin_use_deoplete == 1
+	Plugin 'shougo/deoplete.nvim'
+endif
+
 Bundle 'tpope/vim-unimpaired'
 Bundle 'oplatek/Conque-Shell'
 "Plugin 'godlygeek/tabular'
@@ -509,8 +524,12 @@ Bundle 'liuchengxu/vim-which-key'
 " vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
 "Bundle 'L9'
 "Bundle 'FuzzyFinder'
-Bundle 'AutoComplPop'
-Bundle 'OmniCppComplete'
+
+if plugin_use_deoplete == 0
+	Bundle 'AutoComplPop'
+	Bundle 'OmniCppComplete'
+endif
+
 "Bundle 'echofunc.vim'
 Bundle 'genutils'
 Bundle 'taglist.vim'
@@ -661,32 +680,35 @@ let g:NERDTreeIndicatorMapCustom = {
 "let g:ycm_semantic_triggers.c = ['->', '.', ' ', '(', '[', '&',']']
 ""}}}
 
-" OmniCppComplete.vim {{{2
-"set nocp
-"filetype plugin on
-set completeopt=menu,menuone
-let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
-let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
-let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
-let OmniCpp_NamespaceSearch=1   " 打开命名空间
-let OmniCpp_GlobalScopeSearch=1
-let OmniCpp_DefaultNamespace=["std"]
-let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
-let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 
-" configure syntastic syntax checking to check on open as well as save{{{2
-let g:syntastic_mode_map = {
-			\ "mode": "passive",
-			\ "active_filetypes": ["ruby", "php"],
-			\ "passive_filetypes": ["puppet"] }
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+if plugin_use_deoplete == 0
+	" OmniCppComplete.vim {{{2
+	"set nocp
+	"filetype plugin on
+	set completeopt=menu,menuone
+	let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
+	let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
+	let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
+	let OmniCpp_NamespaceSearch=1   " 打开命名空间
+	let OmniCpp_GlobalScopeSearch=1
+	let OmniCpp_DefaultNamespace=["std"]
+	let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
+	let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
+
+	" configure syntastic syntax checking to check on open as well as save{{{2
+	let g:syntastic_mode_map = {
+				\ "mode": "passive",
+				\ "active_filetypes": ["ruby", "php"],
+				\ "passive_filetypes": ["puppet"] }
+	let g:syntastic_check_on_open=1
+	let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+	let g:syntastic_always_populate_loc_list = 1
+	let g:syntastic_auto_loc_list = 1
+	let g:syntastic_check_on_wq = 0
+	set statusline+=%#warningmsg#
+	set statusline+=%{SyntasticStatuslineFlag()}
+	set statusline+=%*
+endif
 
 " VimGDB.vim {{{2
 if has("gdb")
@@ -774,7 +796,7 @@ let g:undotree_WindowLayout = 2
 "nmap <C-F11>  :TrinityToggleNERDTree<CR>
 
 " interface: leaderf or ctrlp {{{2
-if plugin_leader_used == 1
+if plugin_use_leaderf == 1
 	" interface: leaderf {{{3
 	let g:Lf_ShortcutF = '<c-p>'
 	let g:Lf_ShortcutB = '<m-n>'
@@ -817,7 +839,7 @@ endif
 " Man.vim {{{2
 source $VIMRUNTIME/ftplugin/man.vim
 
-if plugin_ultisnips_used == 1
+if plugin_use_ultisnips == 1
 	" utilsnips.vim {{{2
 	"autocmd FileType * call UltiSnips#FileTypeChanged()
 	" 连续按下两次i触发代码补全
