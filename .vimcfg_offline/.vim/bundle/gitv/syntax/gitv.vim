@@ -1,8 +1,9 @@
 " Vim syntax file
-" Language:	Custom git log output
-" Maintainer:	Greg Sexton <gregsexton@gmail.com>
-" Last Change:	2011-04-08
-"
+"LANGUAGE:   Custom git log output
+"AUTHOR:     Greg Sexton <gregsexton@gmail.com>
+"MAINTAINER: Roger Bongers <r.l.bongers@gmail.com>
+"WEBSITE:    http://www.gregsexton.org/portfolio/gitv/
+"LICENSE:    Same terms as Vim itself (see :help license).
 
 if exists("b:current_syntax")
     finish
@@ -13,8 +14,9 @@ endif
 
 syn match gitvSubject /.*/ 
 
-syn match gitvDate /\(\d\+ years\?, \)\?\d\+ \%(second\|seconds\|minute\|minutes\|hour\|hours\|day\|days\|week\|weeks\|month\|months\|year\) ago/ contained containedin=gitvSubject
-syn match gitvHash /\[[0-9a-f]\{7}\]$/ contained containedin=gitvSubject
+syn match gitvRebaseTag /\[[sfper]x\?\]/ contained containedin=gitvSubject
+syn match gitvDate /\(\d\+ years\?, \)\?\d\+ \%(second\|minute\|hour\|day\|week\|month\|year\)s\? ago/ contained containedin=gitvSubject
+syn match gitvHash /\[[0-9a-f]\{7,9}\]$/ contained containedin=gitvSubject
 
 syn match  gitvGraphEdge9 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge0,gitvRef,gitvSubject skipwhite
 syn match  gitvGraphEdge8 /_\?\(|\|-\(-\|\.\)\|\/|\?\|\\\|\*\|+\|=\)\s\?/ nextgroup=gitvGraphEdge9,gitvRef,gitvSubject skipwhite
@@ -51,6 +53,7 @@ syn match gitvRemovedMarks /\d\+\ze ->/ contained containedin=gitvAddedMarks
 syn match gitvSeperatorMarks /\s\+->\s\+/ contained containedin=gitvAddedMarks
 
 hi def link gitvHash              Number
+hi def link gitvRebaseTag         Identifier
 hi def link gitvRef               Directory
 hi def link gitvRefTag            String
 hi def link gitvRefRemote         Statement

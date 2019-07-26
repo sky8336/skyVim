@@ -1,5 +1,6 @@
 # vimconfig_bundle
- 
+
+针对vim8.1更新配置...
 
 由于之前西安的一位不认识的朋友，对我说换去军工单位后，无法联网， 
 我几年前特意加入了offline对的支持。也就是： 
@@ -130,14 +131,12 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	VimExplorer  
 
 ### 窗口管理  
-	winmanager [X 默认不安装配置]  
 	ZoomWinPlugin  窗口缩放插件  
 
 ### 最近打开文件  
     MRU  
 
 ### 文件搜索  
-    LookupFile   [X]
 	ctrlP + ctrlp-funky		[x]		<interface>
 	leaderf		<interface>
 
@@ -145,9 +144,6 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 ### Buffer Explorer   
 	bufexplorer  
 
-### 
-	SrcExpl     代码预览 [X 默认不安装配置]  
-	trinity.vim  模拟source insight窗口 [X 默认不安装配置]  
 
 ### 关键词搜索  
     用vimgrep搜索光标所在的单词  
@@ -181,9 +177,6 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 ### 
 	tpope/vim-surround
 
-### 
-	project.vim
-
 ###
 	undotree
 
@@ -192,9 +185,6 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 
 ### Pairs of handy bracket mappings
 	vim-unimpaired
-
-### interact with Conque terminals
-	Conque-Shell
 
 ### 表格与画图  
 	tablify 	-   turns simple structured data into nice-looking tables
@@ -605,52 +595,9 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
     :MRU vim
         打开文件名中包含vim的文件,指定只显示匹配vim的文件  
         	
-## 5、LookupFile -- 文件搜索用(按F5) {{{2
-	tags.o.fn 用于文件搜索,包含项目中所有文件名  
-	tab键开始扫描  
-	ctrl+o:	水平分割窗口打开  
-
-	注意：  
-	Lookupfile插件需要genutils支持,提供一些通用的函数，供其它的脚本使用.  
-
-### 1)查找文件，
-    在打开的缓冲区中查找，
-    按目录查找。
-#### (1)项目文件查找
-
-	按F5或输入:LookupFile
-	在当前窗口上方打开文件查找窗口，开始输入文件名（至少4个字符）。
-    文件名可以使用vim的正则表达式。
-	按两下F5窗口消失
-
-    CTRL-N ：向上选择
-    CTRL-P ：向下选择
-	或者用上、下光标键 在下拉列表中选择文件。
-    
-	选中文件后，按回车，在当前窗口中打开此文件。
-	ctrl+o:	水平分割窗口打开
+## 5、  
 
 
-#### (2)缓冲区查找
-
-	同时打开许多文件。在众多buffer中切换到自己所要的文件。  
-    按缓冲区名字查找缓冲区，输入缓冲区的名字（可以是正则表达式 ），  
-	匹配的缓冲区列在下拉列表中，同时还会列出该缓冲区内文件的路径。  
-				
-    :LUBufs  
-    输入缓冲区的名字，在你输入的过程中，符合条件的缓冲区就显示在下拉列表中了，
-	选中所需缓冲区后，按回车，就会切换你所选的缓冲区。  
-
-
-#### (3)目录浏览
-    :LUWalk  
-    打开lookupfile窗口，输入目录。  
-    lookupfile会在下拉列表中列出这个目录中的所有子目录及文件供选择，如果选择了目录，就会显示这个目录下的子目录和文件；  
-    如果选择了文件，就在vim中打开这个文件。  
-    需要输入绝对路径？  
-
-
-	LUPath和LUArgs两个功能。感兴趣的朋友读一下lookupfile的手册。	
 
 ## 6、vimgrep(按F6) {{{2
 	F6    在当前文件父目录下的.c和.h中搜索光标所在的单词  
@@ -995,47 +942,10 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	2.按Enter  
 	3.ctrl+p  
 
-## 21、project -- 项目管理工具 {{{2
-	打开project两种方式：  
-	1)vim +Project  
-	2)打开vim后，输入：Project  
+## 21、  
 
-	\C(导入项目，递归读取子目录)  
-	\c(读取当前文件)  
+## 22、  
 
-	project窗口下,输入\C（斜杠+大写的C），会出现下面这些信息:  
-	Enter the Name of the Entry: ProjectName （项目名称）  
-	Enter the Absolute Directory to Load:  ProjectPath （项目路径目录）  
-	Enter the CD parameter:  （“.”为当前目录,为空）  
-	Enter the File Filter:  (符合条件的源文件，一般为空)  
-	此后加载项目，加载比较慢  
-
-	project窗口下，常用命令：  
-	\l    (列出所有当前层文件)\L(递归),按任何键停止  
-	\w    (关闭当前层文件)\W(递归)  
-	\g    (在项目当前层文件搜索)\G(递归)  
-	\r    关闭子文件夹并刷新当前文件夹下文件，\R递归打开文件夹并刷新所有文件  
-	s     关闭文件夹并创建，S递归打开文件夹并创建  
-	\s    将文件在水平打开多个窗口显示，打开或关闭文件夹列表  
-	\o    将文件在一个窗口打开，打开或关闭文件夹列表  
-	\v    在右窗口显示指针停留在project窗口的文件内容  
-	空格  扩大project窗口的宽度，恢复宽度  
-	\i    显示文件或文件夹的设置参数，如filter="*"  
-	\I    显示文件或文件夹的决对路径和参数  
-	\1 - \9，\f1-\f9，\F1-\F9执行指定命令，\0查询1-9命令，\f0查询f1-f9，F1-F9命令  
-
-## 22、srcExpl --代码预览 Ctrl+F12(未安装) {{{2
-	Ctrl+F12  打开/关闭代码预览窗口  
-	Ctrl+回车：在编辑窗口跳转到Source_Explorer窗口,在Source_Explorer窗口用回车跳转到定义处  
-	在编辑窗口打开;  
-	空格   在编辑窗口回车，跳转回来  
-
-### trinity.vim -- F12 配合taglist SrcExpl(未安装) 和NERDTree(内置) 模拟source insight
-
-	Ctrl+F10   模拟source insight 窗口中的Taglist窗口开关  
-	Ctrl+F11   模拟source insight 窗口中的NERDTree窗口开关  
-	F12: 打开/关闭source insight 模拟窗口，左侧taglist ,右侧NERDTree，下侧SrcExpl
-	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
 
 ## 23、DirDiff.vim -- 文件夹比较插件 {{{2
 ### USAGE(使用):
@@ -1075,9 +985,7 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 	用可视化的树形结构显示vim的历史操作。  
 	在undotree窗口按?打开帮助  
 
-## 25、winmanager--窗口管理器(未安装) {{{2
-	vi打开文件时，左侧自动打开taglist,BufExplorer和FileExplorer  
-	BufExplorer和FileExplorer共用一个窗口，通过ctrl+n切换  
+## 25、 
 
 ## 26、Syntastic --语法检查 {{{2
 	:SyntasticCheck    手动检查(F7)  

@@ -4,8 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2016-08-19
-" LastChange: 2019-07-25
+" LastChange: 2019-07-26
 "    Version: v1.1.18-offline
+" Plugin_update: 2019-07-26
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -428,12 +429,12 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin_manager: vundle.vim 插件管理器 {{{1
+" plugin_manager: vundle_setup {{{1
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 filetype plugin indent on     " required!
-" let Vundle manage Vundle     "required!{{{2
+" let Vundle manage Vundle: vundle.vim 插件管理器     "required!{{{2
 Bundle 'gmarik/vundle'
 
 " plugin select config table {{{2
@@ -457,155 +458,149 @@ let plugin_use_echofunc = 0
 let plugin_use_vim_cpp_enhanced_highlight = 0
 
 "-----------------------
-" My Bundles here:  /* 插件配置格式 */{{{2
-" original repos on github （Github网站上非vim-scripts仓库的插件，按下面格式填写）
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Bundle 'tpope/vim-rails.git'
-Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
+" My Bundles here:  {{{2
+" https://vimawesome.com/
+" original repos on github （Github仓库插件）{{{3
 
-" Completion
+" language {{{3
+Bundle 'tpope/vim-fugitive'
+if plugin_use_neomake == 1
+	Plugin 'neomake/neomake'
+else
+	Bundle 'scrooloose/syntastic'
+endif
+Plugin 'tpope/vim-markdown'
+Plugin 'scrooloose/nerdcommenter'
+" language end
+
+" completion {{{3
 "Bundle 'ervandew/supertab'
 "Plugin 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neocomplete.vim'
+"Plugin 'rstacruz/sparkup'
+"Bundle 'neoclide/coc.nvim'
+if plugin_use_deoplete == 0
+	Bundle 'AutoComplPop'
+	Bundle 'OmniCppComplete'
+endif
 if plugin_use_ultisnips == 1
 	Bundle 'SirVer/ultisnips'
 	Bundle 'honza/vim-snippets'
 else
 	Bundle 'msanders/snipmate.vim'
 endif
+if plugin_use_deoplete == 1
+	Plugin 'shougo/deoplete.nvim'
+endif
+Bundle 'taglist.vim'
+" completion end
 
-Bundle 'tpope/vim-surround'
-" code_display
+" code_display {{{3
 if plugin_use_vim_cpp_enhanced_highlight == 1
 Plugin 'octol/vim-cpp-enhanced-highlight'
 endif
 
-Bundle 'majutsushi/tagbar'
+" integrations {{{3
+Plugin 'gregsexton/gitv'
+"Bundle 'gitv'
+" integrations end
 
-Bundle 'jlanzarotta/bufexplorer'
-
-" interface
+" interface {{{3
 if plugin_use_leaderf == 1
 	Plugin 'yggdroot/leaderf'
 else
 	Bundle 'kien/ctrlp.vim'
 	Bundle 'tacahiroy/ctrlp-funky'
 endif
-
-Bundle 'mbbill/VimExplorer',{'on': 'VE'}
-"Bundle 'wesleyche/SrcExpl'
-"Bundle 'wesleyche/Trinity'
-Bundle 'hari-rangarajan/CCTree'
-Bundle 'vimplugin/project.vim'
-Bundle 'will133/vim-dirdiff'
+Bundle 'jlanzarotta/bufexplorer'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'mbbill/undotree'
-
-" language
-if plugin_use_neomake == 1
-	Plugin 'neomake/neomake'
-else
-	Bundle 'scrooloose/syntastic'
-endif
-
-if plugin_use_deoplete == 1
-	Plugin 'shougo/deoplete.nvim'
-endif
-
-Bundle 'tpope/vim-unimpaired'
-Bundle 'oplatek/Conque-Shell'
 "Plugin 'godlygeek/tabular'
-"Plugin 'plasticboy/vim-markdown'
 Bundle 'jistr/vim-nerdtree-tabs'
 Bundle 'Xuyuanp/nerdtree-git-plugin'
-Bundle 'Stormherz/tablify'
-"Bundle 'vim-scripts/TxtBrowser'
-Bundle 'skywind3000/asyncrun.vim'
 "Bundle 'vim-airline/vim-airline'
 "Bundle 'vim-airline/vim-airline-themes'
+Plugin 'scrooloose/nerdtree'
+Bundle 'mru.vim'
+Bundle 'ZoomWin'
+" interface end
+
+" commands {{{3
+Bundle 'majutsushi/tagbar'
+Bundle 'skywind3000/asyncrun.vim'
+Plugin 'tpope/vim-surround'
+"Bundle 'FuzzyFinder'
+" commands end
+
+" uncategorized {{{3
+Bundle 'hari-rangarajan/CCTree'
+Bundle 'will133/vim-dirdiff'
+Bundle 'tpope/vim-unimpaired'
+Bundle 'Stormherz/tablify'
 Bundle 'liuchengxu/vim-which-key'
-"Bundle 'neoclide/coc.nvim'
 if plugin_use_echodoc == 1
 	Plugin 'shougo/echodoc'
 endif
-
-"-------------------------
-" vim-scripts repos  （vim-scripts仓库里的，按下面格式填写）{{{2
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
-
-if plugin_use_deoplete == 0
-	Bundle 'AutoComplPop'
-	Bundle 'OmniCppComplete'
-endif
-
 if plugin_use_echofunc == 1
-	Bundle 'echofunc.vim'
+	"Bundle 'echofunc.vim'
+	Plugin 'mbbill/echofunc'
 endif
 Bundle 'genutils'
-Bundle 'taglist.vim'
-Bundle 'The-NERD-tree'
-Bundle 'The-NERD-Commenter'
-Bundle 'mru.vim'
-Bundle 'ZoomWin'
-"Bundle 'winmanager'
-"Bundle 'c.vim'
-Bundle 'gitv'
 Bundle 'DrawIt'
-"Bundle 'gdbmgr'
+" uncategorized end
 
-" non github repos   (非上面两种情况的，按下面格式填写){{{2
-"Bundle 'git://git.wincent.com/command-t.git'
+" other {{{3
+"Bundle 'L9'
+" other end
 
-" plugin_manager: vundle setup end
+" plugin_manager: vundle_setup end
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGIN_SETTINGS begin: {{{1
 "
 if plugin_use_echofunc == 1
-" echofunc.vim {{{2
-"let g:EchoFuncAutoStartBalloonDeclaration=1
+	" echofunc.vim setting {{{2
+	"let g:EchoFuncAutoStartBalloonDeclaration=1
 endif
 
 if plugin_use_echodoc == 1
-" echodoc {{{2
-let g:echodoc#type = "echo" " Default value
-set noshowmode
-let g:echodoc_enable_at_startup = 1
+	" echodoc setting {{{2
+	let g:echodoc#type = "echo" " Default value
+	set noshowmode
+	let g:echodoc_enable_at_startup = 1
 endif
 
 " code_display {{{2
 
 if plugin_use_vim_cpp_enhanced_highlight == 1
-" vim-cpp-enhanced-highlight {{{3
-"Highlighting of class scope is disabled by default. To enable set
-let g:cpp_class_scope_highlight = 1
+	" vim-cpp-enhanced-highlight setting {{{3
+	"Highlighting of class scope is disabled by default. To enable set
+	let g:cpp_class_scope_highlight = 1
 
-"Highlighting of member variables is disabled by default. To enable set
-let g:cpp_member_variable_highlight = 1
+	"Highlighting of member variables is disabled by default. To enable set
+	let g:cpp_member_variable_highlight = 1
 
-"Highlighting of class names in declarations is disabled by default. To enable set
-let g:cpp_class_decl_highlight = 1
+	"Highlighting of class names in declarations is disabled by default. To enable set
+	let g:cpp_class_decl_highlight = 1
 
-"There are two ways to highlight template functions. Either
-let g:cpp_experimental_simple_template_highlight = 1
+	"There are two ways to highlight template functions. Either
+	let g:cpp_experimental_simple_template_highlight = 1
 
-"which works in most cases, but can be a little slow on large files. Alternatively set
-let g:cpp_experimental_template_highlight = 1
+	"which works in most cases, but can be a little slow on large files. Alternatively set
+	let g:cpp_experimental_template_highlight = 1
 
-"Highlighting of library concepts is enabled by
-let g:cpp_concepts_highlight = 1
+	"Highlighting of library concepts is enabled by
+	let g:cpp_concepts_highlight = 1
 
-"This will highlight the keywords concept and requires as well as all named
-"requirements (like DefaultConstructible) in the standard library.
-"Highlighting of user defined functions can be disabled by
-let g:cpp_no_function_highlight = 1
+	"This will highlight the keywords concept and requires as well as all named
+	"requirements (like DefaultConstructible) in the standard library.
+	"Highlighting of user defined functions can be disabled by
+	let g:cpp_no_function_highlight = 1
 
-"Vim tend to a have issues with flagging braces as errors, see for
-"example https://github.com/vim-jp/vim-cpp/issues/16. A workaround is to set
-let c_no_curly_error=1
+	"Vim tend to a have issues with flagging braces as errors, see for
+	"example https://github.com/vim-jp/vim-cpp/issues/16. A workaround is to set
+	let c_no_curly_error=1
 endif
 
 
@@ -634,23 +629,6 @@ if &diff == 0
 	"let g:Tlist_Auto_Open=1
 endif
 
-"" 设置winmanager.vim {{{2
-"" 窗口布局，BufExplorer和FileExplorer共用一个窗口，CTRL+N切换
-""let g:winManagerWindowLayout = "TagList|FileExplorer,BufExplorer"
-"let g:winManagerWindowLayout = "TagList|BufExplorer,FileExplorer"
-"" 0表示主编辑区在窗口右边，1则相反
-"let g:defaultExplorer = 0
-"let g:bufExplorerMaxHeight=60
-"let g:bufExplorerMinHeight=60
-"" 保证miniBufExplorer在一个文件时，仍旧保证窗口大小
-""let g:miniBufExplorerMoreThanOne = 0
-""设置winmanager的宽度，默认为25
-"let g:winManagerWidth = 30
-"nmap <C-W><C-F> :FirstExplorerWindow<cr>
-"nmap <C-W><C-B> :BottomExplorerWindow<cr>
-""在进入vim时自动打开winmanager
-"let g:AutoOpenWinManager = 1
-""}}}
 
 " CCtree {{{2
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree
@@ -708,6 +686,7 @@ let g:NERDTreeIndicatorMapCustom = {
 			\ "Deleted"   : "✖",
 			\ "Dirty"     : "✗",
 			\ "Clean"     : "✔︎",
+			\ 'Ignored'   : '☒',
 			\ "Unknown"   : "?"
 			\ }
 
@@ -764,12 +743,6 @@ if plugin_use_deoplete == 0
 	set statusline+=%*
 endif
 
-" VimGDB.vim {{{2
-if has("gdb")
-	set asm=0
-	let g:vimgdb_debug_file=""
-	run macros/gdb_mappings.vim
-endif
 
 " MRU.vim {{{2
 nmap  <leader>m :MRU
@@ -789,65 +762,6 @@ let g:undotree_WindowLayout = 2
 "<Leader>bs　　水平窗口打来 buffer 列表。
 "<Leader>bv　　垂直窗口打开 buffer 列表。
 
-"" srcexpl.vim {{{2
-"" // The switch of the Source Explorer
-"nmap <C-F12> :SrcExplToggle<CR>
-
-"" // Set the height of Source Explorer window
-"let g:SrcExpl_winHeight = 8
-
-"" // Set 100 ms for refreshing the Source Explorer
-"let g:SrcExpl_refreshTime = 100
-
-"" // Set "Enter" key to jump into the exact definition context
-"let g:SrcExpl_jumpKey = "<ENTER>"
-
-"" // Set "Space" key for back from the definition context
-"let g:SrcExpl_gobackKey = "<SPACE>"
-
-"" // In order to avoid conflicts, the Source Explorer should know what plugins
-"" // except itself are using buffers. And you need add their buffer names into
-"" // below listaccording to the command ":buffers!"
-"let g:SrcExpl_pluginList = [
-			"\ "__Tag_List__",
-			"\ "_NERD_tree_"
-			"\ ]
-
-"" // Enable/Disable the local definition searching, and note that this is not
-"" // guaranteed to work, the Source Explorer doesn't check the syntax for now.
-"" // It only searches for a match with the keyword according to command 'gd'
-"let g:SrcExpl_searchLocalDef = 1
-
-"" // Do not let the Source Explorer update the tags file when opening
-"let g:SrcExpl_isUpdateTags = 0
-
-"" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to
-"" // create/update a tags file
-"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ."
-
-"" // Set "<F12>" key for updating the tags file artificially
-""let g:SrcExpl_updateTagsKey = "<F12>"
-
-"" // Set "<F7>" key for displaying the previous definition in the jump list
-""let g:SrcExpl_prevDefKey = "<F7>"
-
-"" // Set "<F8>" key for displaying the next definition in the jump list
-"定义打开关闭winmanager快捷键为F8
-"let g:SrcExpl_nextDefKey = "<F8>"
-""}}}
-
-"" trinity.vim {{{
-"" Open and close all the three plugins on the same time
-"nmap <F12>   :TrinityToggleAll<CR>
-
-"" Open and close the srcexpl.vim separately
-"nmap <C-F12>   :TrinityToggleSourceExplorer<CR>
-
-"" Open and close the taglist.vim separately
-"nmap <C-F10>  :TrinityToggleTagList<CR>
-
-"" Open and close the NERD_tree.vim separately
-"nmap <C-F11>  :TrinityToggleNERDTree<CR>
 
 " interface: leaderf or ctrlp {{{2
 if plugin_use_leaderf == 1
@@ -909,14 +823,6 @@ else
 	"let g:snips_copyright="SicMicro, Inc"
 endif
 
-" Conque-Shell.vim {{{2
-" 水平分割出一个bash
-nnoremap <C-\>b :ConqueTermSplit bash<CR><CR>
-" 垂直分割出bash
-nnoremap <C-\>vb :ConqueTermVSplit bash<CR><CR>
-" 在tab中打开一个bash
-nnoremap <C-\>t :ConqueTermTab bash<CR><CR>
-" F9:将选中的文本，发送到Conque-Shell的交互程序中
 
 " vimdiff hot keys {{{2
 " if you know the buffer number, you can use hot key like ",2"
@@ -934,27 +840,6 @@ let g:DirDiffIgnore = "Id:"
 let g:DirDiffAddArgs = "-w"
 let g:DirDiffEnableMappings = 1
 
-" project.vim {{{2
-" Project1.4.1插件设置
-" 切换打开和关闭project窗口
-nmap <silent><Leader>t <Plug>ToggleProject
-" 插件项目窗口宽度. 默认值: 24
-"let g:proj_window_width=24 "//当按空格键 <space> 或者单击鼠标左键/<LeftMouse>时项目窗口宽度增加量,默认值:100
-let g:proj_window_increment=24
-let g:proj_flags='i' "当选择打开一个文件时会在命令行显示文件名和当前工作路径.
-let g:proj_flags='m' "在常规模式下开启 |CTRL-W_o| 和 |CTRL-W_CTRL_O| 映射, 使得当>前缓冲区成为唯一可见的缓冲区, 但是项目窗口仍然可见.
-let g:proj_flags='s' "开启语法高亮.
-let g:proj_flags='t' "用按 <space> 进行窗口加宽.
-let g:proj_flags='c' "设置后, 在项目窗口中打开文件后会自动关闭项目窗口.
-let g:proj_flags='F' "显示浮动项目窗口. 关闭窗口的自动调整大小和窗口替换.
-let g:proj_flags='L' "自动根据CD设置切换目录.
-let g:proj_flags='n' "显示行号.
-let g:proj_flags='S' "启用排序.
-let g:proj_flags='T' "子项目的折叠在更新时会紧跟在当前折叠下方显示(而不是其底部).
-let g:proj_flags='v' "设置后将, 按 /G 搜索时用 :vimgrep 取代 :grep.
-let g:proj_run1='!p4 edit %f' "g:proj_run1 ... g:proj_run9 用法.
-let g:proj_run3='silent !gvim %f'
-
 " plugin shortcuts {{{2
 function! RunShell(Msg, Shell)
 	echo a:Msg . '...'
@@ -965,15 +850,15 @@ endfunction
 " ZoomWinPlugin.vim {{{2
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
-    if exists('t:zoomed') && t:zoomed
-        execute t:zoom_winrestcmd
-        let t:zoomed = 0
-    else
-        let t:zoom_winrestcmd = winrestcmd()
-        resize
-        vertical resize
-        let t:zoomed = 1
-    endif
+	if exists('t:zoomed') && t:zoomed
+		execute t:zoom_winrestcmd
+		let t:zoomed = 0
+	else
+		let t:zoom_winrestcmd = winrestcmd()
+		resize
+		vertical resize
+		let t:zoomed = 1
+	endif
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
@@ -1071,7 +956,6 @@ nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
 nmap <C-F10> :bn<CR>
 " F11
 nmap <C-F11> :bp<CR>
-"<F10> <F11> <F12> 用于Source insight窗口模拟-代码预览;见SrcExpl和trinity(默认不安装，未使用)
 
 " Linux Programmer's Manual
 " <C-m> is Enter in quickfix window

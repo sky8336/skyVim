@@ -249,6 +249,9 @@ u                       Unstage (reset) the file or hunk under the cursor.
                                                 *fugitive_-*
 -                       Stage or unstage the file or hunk under the cursor.
 
+                                                *fugitive_U*
+U                       Unstage everything.
+
                                                 *fugitive_X*
 X                       Discard the change under the cursor.  This uses
                         `checkout` or `clean` under the hood.  A command is
@@ -346,6 +349,9 @@ gp                      Jump to "Unpushed" section.
                                                 *fugitive_gP*
 gP                      Jump to "Unpulled" section.
 
+                                                *fugitive_gr*
+gr                      Jump to "Rebasing" section.
+
                                                 *fugitive_c*
 Commit mappings ~
 
@@ -375,6 +381,8 @@ cS                      Create a `squash!` commit for the commit under the
 
 cA                      Create a `squash!` commit for the commit under the
                         cursor and edit the message.
+
+c?                      Show this help.
 
                                                 *fugitive_r*
 Rebase mappings ~
@@ -408,6 +416,8 @@ rm                      Perform an interactive rebase with the commit under
 rd                      Perform an interactive rebase with the commit under
                         the cursor set to `drop`.
 
+r?                      Show this help.
+
                                                 *fugitive-misc-mappings*
 Miscellaneous mappings ~
 
@@ -419,7 +429,7 @@ gq                      Close the status buffer.
                         cursor prepopulated.
 
                                                 *fugitive_g?*
-g?                      Open this help.
+g?                      Show help for |fugitive-mappings|.
 
                                                 *fugitive-global-mappings*
 Global mappings ~
