@@ -1,0 +1,14 @@
+tablify test
+------------
+#### example1
+	a. you can see following line:
+		a | b | c| d
+		1 | 22 | 333 | 444
+	b. select the two line
+	c. ,tl or ,tc or ,tu
+	d. select the table and ,tu
+
+-------------
+
+a | b | c | d
+1 | 22 | 333 | 444
