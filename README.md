@@ -1054,6 +1054,15 @@ Tablify is a VIM plugin that turns simple structured data into nice-looking tabl
 
 	,ta - select formed table with cursor anywhere inside of it (also   
 			selects structured text for future tables)  
+#### example1
+	a. vi ./vimcfg_bundle/test/tablify_test.txt
+	b. you can see following line:
+		a | b | c| d
+		1 | 22 | 333 | 444
+	c. select the two line
+	d. ,tl or ,tc or ,tu
+	e. select the table and ,tu
+
 
 ####Operations with formed and selected table:
 	,ts - sort table (column number will be prompted), supports text and  
