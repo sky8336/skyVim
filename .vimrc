@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
-" LastChange: 2019-07-26
-"    Version: v1.1.18-online
+" LastChange: 2019-07-27
+"    Version: v1.1.19-online
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -313,7 +313,7 @@ fu! Generate_fntags_tags_cscope()
     else
 		"生成专用于c/c++的ctags文件
         call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-        call RunShell("Generate cscope (use cscope)", "cscope -Rbq -P " . getcwd())
+        call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())
         cs add cscope.out
     endif
     q
