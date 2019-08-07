@@ -48,6 +48,30 @@ cyan=$'\[\e[1;36m\]'
 white=$'\[\e[1;37m\]'
 normal=$'\[\e[m\]'
 
+# ANSI color codes
+RS="\[\033[0m\]"    # reset
+HC="\[\033[1m\]"    # hicolor
+UL="\[\033[4m\]"    # underline
+INV="\[\033[7m\]"   # inverse background and foreground
+
+FBLK="\[\033[30m\]" # foreground black
+FRED="\[\033[31m\]" # foreground red
+FGRN="\[\033[32m\]" # foreground green
+FYEL="\[\033[33m\]" # foreground yellow
+FBLE="\[\033[34m\]" # foreground blue
+FMAG="\[\033[35m\]" # foreground magenta
+FCYN="\[\033[36m\]" # foreground cyan
+FWHT="\[\033[37m\]" # foreground white
+
+BBLK="\[\033[40m\]" # background black
+BRED="\[\033[41m\]" # background red
+BGRN="\[\033[42m\]" # background green
+BYEL="\[\033[43m\]" # background yellow
+BBLE="\[\033[44m\]" # background blue
+BMAG="\[\033[45m\]" # background magenta
+BCYN="\[\033[46m\]" # background cyan
+BWHT="\[\033[47m\]" # background white
+
 #无Git分支信息，单行
 #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;35m\]\u@\h\[\033[0;31m\]:\[\033[01;35m\]\w\[\033[00m\]\[\033[0;33m\]$\[\033[0;36m\] '
 
@@ -59,7 +83,8 @@ normal=$'\[\e[m\]'
 
 #一行，显示git分支信息
 #PS1="$magenta\u@\h$red:$magenta\w$dark_yellow\$git_branch$dark_yellow\$ $normal"
-PS1="$magenta\u$cyan@\h$red:$magenta\w$dark_yellow\$git_branch$red\$ $normal"
+#PS1="$magenta\u$cyan@\h$red:$magenta\w$dark_yellow\$git_branch$red\$ $normal"
+PS1="$FCYN\u$cyan@\h$RS$red:$RS$FCYN\w$dark_yellow\$git_branch$red\$ $normal"
 
 #add some alias
 alias vih='vi ~/.vim/my_help/'
