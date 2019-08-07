@@ -4,8 +4,9 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
-" LastChange: 2019-07-27
-"    Version: v1.1.19-online
+"    Install: online
+" LastChange: 2019-08-07
+"    Version: v1.1.20
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -666,12 +667,46 @@ let NERDTreeShowBookmarks=1
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 "  vim-nerdtree-tabs.vim {{{2
-" 在终端启动vim时，共享NERDTree
-let g:nerdtree_tabs_open_on_console_startup=0
-" always focus file window after startup
-let g:nerdtree_tabs_smart_startup_focus=2
-"let g:nerdtree_tabs_focus_on_files=1
 "let g:nerdtree_tabs_autofind=1
+
+"Open NERDTree on gvim/macvim startup
+"let g:nerdtree_tabs_open_on_gui_startup = 1
+
+"Open NERDTree on console vim startup
+let g:nerdtree_tabs_open_on_console_startup = 1
+
+"Do not open NERDTree if vim starts in diff mode
+let g:nerdtree_tabs_no_startup_for_diff = 1
+
+"On startup - focus NERDTree when opening a directory, focus the file if
+"editing a specified file. When set to `2`, always focus file after startup.
+let g:nerdtree_tabs_smart_startup_focus = 2
+
+"Open NERDTree on new tab creation (if NERDTree was globally opened by
+":NERDTreeTabsToggle)
+let g:nerdtree_tabs_open_on_new_tab = 1
+
+"Unfocus NERDTree when leaving a tab for descriptive tab names
+let g:nerdtree_tabs_meaningful_tab_names = 1
+
+"Close current tab if there is only one window in it and it's NERDTree
+let g:nerdtree_tabs_autoclose = 1
+
+"Synchronize view of all NERDTree windows (scroll and cursor position)
+let g:nerdtree_tabs_synchronize_view = 1
+
+"Synchronize focus when switching tabs (focus NERDTree after tab switch
+"if and only if it was focused before tab switch)
+let g:nerdtree_tabs_synchronize_focus = 1
+
+"When switching into a tab, make sure that focus is on the file window,
+"not in the NERDTree window. (Note that this can get annoying if you use
+"NERDTree's feature "open in new tab silently", as you will lose focus on the
+"NERDTree.)
+let g:nerdtree_tabs_focus_on_files = 0
+
+"When starting up with a directory name as a parameter, cd into it
+let g:nerdtree_tabs_startup_cd = 1
 
 " nerdtree-git-plugin.vim {{{2
 " NERDTreeShowGitStatus 为0，不加载git信息;为1,加载，引起打开vim慢（甚至十几秒）
