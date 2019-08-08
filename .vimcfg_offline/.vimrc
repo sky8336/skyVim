@@ -7,7 +7,7 @@
 "    Install: offline
 " Plugin_update: 2019-07-26
 " LastChange: 2019-08-08
-"    Version: v1.1.22
+"    Version: v1.1.23
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -47,6 +47,7 @@ set autoindent
 set autoread
 set autowrite
 set background=dark
+" make backspaces more powerfull
 set backspace=indent,eol,start
 set nobackup
 set cindent " enable specific indenting for C code
@@ -474,6 +475,7 @@ else
 endif
 Plugin 'tpope/vim-markdown'
 Plugin 'scrooloose/nerdcommenter'
+"Plugin 'hynek/vim-python-pep8-indent'
 " language end
 
 " completion {{{3
@@ -834,6 +836,47 @@ if plugin_use_deoplete == 0
 	set statusline+=%*
 endif
 
+"vim-python-pep8-indent plugin_setting{{{3
+let g:python_pep8_indent_multiline_string = 0
+let g:python_pep8_indent_hang_closing = 0
+
+"Start Python PEP 8 stuff {{{3
+" Number of spaces that a pre-existing tab is equal to.
+"au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
+
+"spaces for indents
+au BufRead,BufNewFile *.py,*pyw set shiftwidth=4
+au BufRead,BufNewFile *.py,*.pyw set expandtab
+au BufRead,BufNewFile *.py set softtabstop=4
+
+" Use the below highlight group when displaying bad whitespace is desired.
+"highlight BadWhitespace ctermbg=red guibg=red
+
+" Display tabs at the beginning of a line in Python mode as bad.
+"au BufRead,BufNewFile *.py,*.pyw match BadWhitespace /^\t\+/
+" Make trailing whitespace be flagged as bad.
+"au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" Wrap text after a certain number of characters
+au BufRead,BufNewFile *.py,*.pyw, set textwidth=100
+
+" Use UNIX (\n) line endings.
+"au BufNewFile *.py,*.pyw,*.c,*.h set fileformat=unix
+
+" Set the default file encoding to UTF-8:
+"set encoding=utf-8
+
+" For full syntax highlighting:
+let python_highlight_all=1
+
+" Keep indentation level from previous line:
+autocmd FileType python set autoindent
+
+"Folding based on indentation:
+autocmd FileType python set foldmethod=indent
+"use space to open folds
+"nnoremap <space> za
+"Stop python PEP 8 stuff
 
 " MRU.vim {{{2
 nmap  <leader>m :MRU
