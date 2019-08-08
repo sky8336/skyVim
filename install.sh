@@ -269,21 +269,17 @@ function config_vim()
 	vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
 	vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
 	vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
+	vim81_c_vim_usr_local="/usr/local/vim/share/vim/vim81/syntax/c.vim"
 
-
-	if [ -f "$vim81_c_vim" ]; then
+	if [ -f "$vim81_c_vim_usr_local" ]; then
+		add_hilight_code_to_c_vim $vim81_c_vim_usr_local
+	elif [ -f "$vim81_c_vim" ]; then
 		add_hilight_code_to_c_vim $vim81_c_vim
-	fi
-
-	if [ -f "$vim80_c_vim" ]; then
+	elif [ -f "$vim80_c_vim" ]; then
 		add_hilight_code_to_c_vim $vim80_c_vim
-	fi
-
-	if [ -f "$vim74_c_vim" ]; then
+	elif [ -f "$vim74_c_vim" ]; then
 		add_hilight_code_to_c_vim $vim74_c_vim
-	fi
-
-	if [ -f "$vim73_c_vim" ]; then
+	elif [ -f "$vim73_c_vim" ]; then
 		add_hilight_code_to_c_vim $vim73_c_vim
 	fi
 }

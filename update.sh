@@ -69,6 +69,35 @@ function bakup_vimrc()
 	cp $HOME/.vim/colors/ $HOME/.bakvim -a
 }
 
+update_bashrc_my()
+{
+
+	/usr/local/vim/bin/vim --version | grep "Vi IMproved 8.1" --color
+	if [ $? -eq 0 ]; then
+		echo "Vi IMproved 8.1 has been installed!"
+		vim_version="v8.1"
+	else
+		echo "vim version is not v8.1"
+	fi
+
+	if [[ $vim_version = "v8.1" ]];then
+		# add the following to ~/.bashrc_my, replace of alias vi=
+		#alias vi='/usr/local/vim/bin/vim'
+		if [ -f ~/.bashrc_my ]; then
+			sed -i "s%^alias vi=.*$%alias vi='/usr/local/vim/bin/vim'%g" ~/.bashrc_my
+			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc_my
+		else
+			cp ~/.bashrc ~/bashrc.bak
+			echo "alias vi='/usr/local/vim/bin/vim'" >> ~/.bashrc
+			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc
+		fi
+
+		cp ~/.gitconfig ~/.gitconfig.bak
+		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
+	fi
+	source ~/.bashrc
+}
+
 
 # 更新vimrc
 function update_vimrc()
@@ -83,23 +112,43 @@ function update_vimrc()
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
 	cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
 
-	#函数名、运算符、括号等高亮
-	grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
-	if [ $? -eq 0 ]; then
-		echo "Found! c.vim have been modified."
-	else
-		echo "Not found! Modify c.vim now."
-		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
-	fi
 
-	grep "my_vim_highlight_config" /usr/share/vim/vim73/syntax/c.vim
-	if [ $? -eq 0 ]; then
-		echo "Found! c.vim have been modified."
-	else
-		echo "Not found! Modify c.vim now."
-		cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
-	fi
+	if [[ -d "/usr/local/vim" ]]; then
+		# which we built from source
+		update_bashrc_my
 
+		local vim_syntax_c=/usr/local/vim/share/vim/vim81/syntax/c.vim
+		grep "my_vim_highlight_config" ${vim_syntax_c}
+		if [ $? -eq 0 ]; then
+			echo "Found! c.vim have been modified."
+		else
+			echo "Not found! Modify c.vim now."
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
+		fi
+	else
+		#函数名、运算符、括号等高亮
+		grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
+		if [ $? -eq 0 ]; then
+			echo "Found! c.vim have been modified."
+		else
+			echo "Not found! Modify c.vim now."
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
+		fi
+
+		grep "my_vim_highlight_config" /usr/share/vim/vim73/syntax/c.vim
+		if [ $? -eq 0 ]; then
+			echo "Found! c.vim have been modified."
+		else
+			echo "Not found! Modify c.vim now."
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
+		fi
+	fi
+}
+
+update_package()
+{
+	# TODO
+	echo "install some package using script in utils"
 }
 
 #instal new plugin
@@ -139,5 +188,6 @@ check_network
 update_vimcfg
 bakup_vimrc
 update_vimrc
+update_package
 install_new_plugin
 echo_install_time
