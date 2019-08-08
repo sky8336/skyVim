@@ -11,6 +11,7 @@ opt_install="4"
 opt_build_install="5"
 opt_clone_build_install="6"
 opt_update_build_install="7"
+update_bashrc_my="8"
 
 vim_version="v8.1"
 vim_source=~/vim
@@ -42,7 +43,8 @@ examples=(
 		`basename $0` $opt_install	-	install_vim_built
 		`basename $0` $opt_build_install	-	build and install
 		`basename $0` $opt_clone_build_install	-	clone, build and install
-		`basename $0` $opt_update_build_install	-	update, build and install"
+		`basename $0` $opt_update_build_install	-	update, build and install
+		`basename $0` $update_bashrc_my	-	update .bashrc_my for vim built from source"
 )
 
 new_vim=vim81
@@ -182,11 +184,8 @@ build_vim_repo()
 	cd -
 }
 
-install_vim_after_built()
+update_bashrc_my()
 {
-	cd $vim_source
-	sudo make install
-
 	if [[ $vim_version = "v8.1" ]];then
 		# add the following to ~/.bashrc_my, replace of alias vi=
 		#alias vi='/usr/local/vim/bin/vim'
@@ -202,8 +201,14 @@ install_vim_after_built()
 		cp ~/.gitconfig ~/.gitconfig.bak
 		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
 	fi
+}
 
+install_vim_after_built()
+{
+	cd $vim_source
+	sudo make install
 	cd -
+	update_bashrc_my
 }
 
 
@@ -324,6 +329,9 @@ main()
 	elif [ "$1" = $opt_update_build_install ]; then
 		blue_log "update, build and install"
 		update_build_install_vim "$@"
+	elif [ "$1" = $update_bashrc_my ]; then
+		blue_log "update .bashrc_my for vim built from source"
+		update_bashrc_my "$@"
 	else
 		echo "do nothing"
 		exit
