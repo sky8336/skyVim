@@ -7,7 +7,7 @@
 "    Install: offline
 " Plugin_update: 2019-07-26
 " LastChange: 2019-08-08
-"    Version: v1.1.21
+"    Version: v1.1.22
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -446,10 +446,12 @@ if ubuntu18_04 == 1
 	" python > 2.7
 	let plugin_use_leaderf = 1
 	let plugin_use_ultisnips = 1
+	let plugin_use_autoformat = 1
 else
 	" ubuntu16.04 maybe python < 2.7
 	let plugin_use_leaderf = 0
 	let plugin_use_ultisnips = 0
+	let plugin_use_autoformat = 0
 endif
 
 let plugin_use_neomake = 0
@@ -500,7 +502,10 @@ Bundle 'taglist.vim'
 if plugin_use_vim_cpp_enhanced_highlight == 1
 Plugin 'octol/vim-cpp-enhanced-highlight'
 endif
+
+if plugin_use_autoformat == 1
 Plugin 'chiel92/vim-autoformat'
+endif
 
 " integrations {{{3
 Plugin 'gregsexton/gitv'
@@ -606,6 +611,7 @@ if plugin_use_vim_cpp_enhanced_highlight == 1
 endif
 
 "auto-format plugin_setting {{{3
+if plugin_use_autoformat == 1
 "F5自动格式化代码并保存
 noremap <F5> :Autoformat<CR>:w<CR>
 let g:autoformat_verbosemode=1
@@ -626,14 +632,16 @@ let g:formatdef_allman = '"astyle --style=allman --pad-oper"'
 let g:formatters_cpp = ['allman']
 let g:formatters_c = ['allman']
 
+else
+
 "格式化代码也不一定非要安装插件才能实现，因为Vim可以执行外部命令，因此函数调用外
 "部工具来实现代码格式化，比如下面就用函数调用astyle和autopep8来格式化代码
 "{{{{4
-"map <leader>af :call FormatCode()<CR>
+map <leader>af :call FormatCode()<CR>
 func! FormatCode()
     exec "w"
     if &filetype == 'c' || &filetype == 'h'
-        exec "!astyle --style=allman --suffix=none %"
+        exec "!astyle --style=allman --pad-oper --suffix=none %"
     elseif &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
         exec "!astyle --style=allman --suffix=none %"
     elseif &filetype == 'perl'
@@ -651,6 +659,7 @@ func! FormatCode()
         return
     endif
 endfunc
+endif
 
 " tagbar.vim {{{2
 let g:tagbar_left=1
