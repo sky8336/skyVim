@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2019-08-07
-"    Version: v1.1.20
+" LastChange: 2019-08-08
+"    Version: v1.1.21
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -499,6 +499,7 @@ Bundle 'taglist.vim'
 if plugin_use_vim_cpp_enhanced_highlight == 1
 Plugin 'octol/vim-cpp-enhanced-highlight'
 endif
+Plugin 'chiel92/vim-autoformat'
 
 " integrations {{{3
 Plugin 'gregsexton/gitv'
@@ -603,6 +604,52 @@ if plugin_use_vim_cpp_enhanced_highlight == 1
 	let c_no_curly_error=1
 endif
 
+"auto-format plugin_setting {{{3
+"F5自动格式化代码并保存
+noremap <F5> :Autoformat<CR>:w<CR>
+let g:autoformat_verbosemode=1
+
+"自动格式化代码，针对所有支持的文件
+"au BufWrite * :Autoformat
+"自动格式化python代码
+"au BufWrite *.py :Autoformat
+
+"在安装了yapf以后，还可以自定义python格式化的风格，
+
+"默认情况下是pep8，还可以选择google,facebook和chromium
+let g:formatter_yapf_style = 'pep8'
+
+"针对某种语言指定特定的格式化工具和相应的参数，比如设定以allman(ansi)的风格格式化
+"C/C++代码同时在操作符两边加入空格(即--pad-oper参数)，可以这样写
+let g:formatdef_allman = '"astyle --style=allman --pad-oper"'
+let g:formatters_cpp = ['allman']
+let g:formatters_c = ['allman']
+
+"格式化代码也不一定非要安装插件才能实现，因为Vim可以执行外部命令，因此函数调用外
+"部工具来实现代码格式化，比如下面就用函数调用astyle和autopep8来格式化代码
+"{{{{4
+"map <leader>af :call FormatCode()<CR>
+func! FormatCode()
+    exec "w"
+    if &filetype == 'c' || &filetype == 'h'
+        exec "!astyle --style=allman --suffix=none %"
+    elseif &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
+        exec "!astyle --style=allman --suffix=none %"
+    elseif &filetype == 'perl'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'py'|| &filetype == 'python'
+        exec "!autopep8 --in-place --aggressive %"
+    elseif &filetype == 'java'
+        exec "!astyle --style=java --suffix=none %"
+    elseif &filetype == 'jsp'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'xml'
+        exec "!astyle --style=gnu --suffix=none %"
+    else
+        exec "normal gg=G"
+        return
+    endif
+endfunc
 
 " tagbar.vim {{{2
 let g:tagbar_left=1
