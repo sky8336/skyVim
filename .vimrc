@@ -6,7 +6,7 @@
 "    Created: 2013-06-28
 "    Install: online
 " LastChange: 2019-08-09
-"    Version: v1.1.24
+"    Version: v1.1.25
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -558,6 +558,7 @@ Bundle 'DrawIt'
 " uncategorized end
 
 " other {{{3
+Plugin 'terryma/vim-multiple-cursors'
 "Bundle 'L9'
 " other end
 
@@ -1009,6 +1010,22 @@ let g:asyncrun_open = 6
 let g:asyncrun_bell = 1
 " 定位到文件所属项目的目录: 从文件所在目录向上递归，直到找到名为 “.git”, “.svn”, “.hg”或者 “.root”文件或者目录
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
+
+" other_plugin setting {{{2
+" vim-multiple-cursors {{{3
+" 多光标选中编辑
+" multiplecursors
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = 'g<C-a>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-m>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+" vim-multiple-cursors end
 
 " PLUGIN_SETTINGS end
 

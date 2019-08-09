@@ -1232,6 +1232,18 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
     ${x:statement} 其中的 statement 可以替换成默认显示的文本.
 
 
+## 32、vim-multiple-cursors(多光标选中编辑）{{{2
+	配合 ctrlsf 插件, 搜索后多光标直接编辑保存, 简直是重构神器
+
+###example
+	(1) vi vimcfg_bundle/test/multiplecursors.c
+	(2) 光标放在old_sum上，按ctrl-n,选中当前光标下变量.（按esc 可退出该选中模式）
+	(3) 继续按ctrl-n, 选中下一个old_sum, 
+	(4) ctrl-m 代替ctrl-p(与搜索插件冲突), 尝试选中后，按<esc>
+	(5) 按g+Ctrl-a都选中(先按g,然后ctrl和a连续按,分别按g+ctrl+a显示ascii相关信息)
+	(6) 按下列之一编辑`c`, `s`, `I`, `A`
+
+
 ## 其他 {{{2
 	(a)普通模式下:
 		输入 cM 清除行尾 ^M 符号;
@@ -1380,13 +1392,15 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 ### 复制  
 	,mv -> 鼠标选中 -> 鼠标右键copy  
 	,mv 是:set mouse=v 的映射，visual mode 可以用鼠标复制，可以需要复制的时候，切换成visual mode,   
-	复制完后，再通过,ma 切换成鼠标模式；  
+	复制完后，再通过,ma 切换成鼠标模式；  此时可复制状态栏上的文件名等信息
 
 ## 粘贴：  
 	当粘贴时，有时会文本乱掉，不能保持原来的格式， 通过设置paste模式后再粘贴，可以保持格式不乱。  
 	即,p 后粘贴；粘贴完后,np 退出粘贴模式。  
 
+### 单独按g+ctrl+a，命令行会现实ascii码和hex值  
 
+	
 ## vim8.1: 新特性{{{1  
 ### 1) 支持在 Vim 窗口中运行终端  
 		打开	-	<F8> or ,f8 or :vert term
