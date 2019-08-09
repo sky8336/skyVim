@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2019-08-08
-"    Version: v1.1.23
+" LastChange: 2019-08-09
+"    Version: v1.1.24
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -919,7 +919,7 @@ else
 	" interface: ctrlp.vim {{{3
 	"let g:ctrlp_map = '<c-p>'
 	"let g:ctrlp_cmd = 'CtrlP'
-	let g:ctrlp_working_path_mode = 'a'
+	let g:ctrlp_working_path_mode = 'ra'
 	set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 	"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 	let g:ctrlp_custom_ignore = {
