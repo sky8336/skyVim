@@ -6,7 +6,7 @@
 "    Created: 2013-06-28
 "    Install: online
 " LastChange: 2019-08-09
-"    Version: v1.1.25
+"    Version: v1.1.26
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -555,6 +555,7 @@ if plugin_use_echofunc == 1
 endif
 Bundle 'genutils'
 Bundle 'DrawIt'
+Plugin 'sillybun/vim-repl'
 " uncategorized end
 
 " other {{{3
@@ -1010,6 +1011,40 @@ let g:asyncrun_open = 6
 let g:asyncrun_bell = 1
 " 定位到文件所属项目的目录: 从文件所在目录向上递归，直到找到名为 “.git”, “.svn”, “.hg”或者 “.root”文件或者目录
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
+
+" uncategorized_plugin setting {{{2
+" vim-repl setting {{{3
+nnoremap <leader>r :REPLToggle<Cr>
+autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
+autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
+autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
+let g:repl_position = 3
+"customize the key to send code to REPL environment. The default key is <leader>w
+let g:sendtorepl_invoke_key = "<leader>w"
+"repl_position it controls the location where REPL windows will appear
+"0 represents bottom
+"1 represents top
+"2 represents left
+"3 represents right
+let g:repl_position = 0
+let g:repl_stayatrepl_when_open = 0
+let g:repl_program = {
+			\    'python': 'python',
+			\    'default': 'bash'
+			\    }
+let g:repl_ipython_version = '7'
+let g:repl_exit_commands = {
+			\    'python': 'quit()',
+			\    'bash': 'exit',
+			\    'zsh': 'exit',
+			\    'default': 'exit',
+			\    }
+let g:repl_auto_sends = ['def ', 'class ', 'for ', 'if ', 'while ']
+let g:repl_cursor_down = 1
+let g:repl_python_automerge = 1
+let g:repl_console_name = 'ZYTREPL'
+
+" uncategorized_plugin setting end
 
 " other_plugin setting {{{2
 " vim-multiple-cursors {{{3

@@ -1,0 +1,9 @@
+#! /usr/bin/perl
+
+print "In : ";
+while (<>) {
+  chomp;
+  my $result = eval;
+  print "Out: $result\n";
+  print "In: ";
+}
