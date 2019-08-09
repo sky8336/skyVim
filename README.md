@@ -1249,7 +1249,8 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	(2) 按,r打开repl窗口
 	(3) 按,w 将光标所在行命令发送到repl窗口中执行,执行后光标跳到下一行，可一次执行
 	(3) ,r 关闭repl窗口
-
+## ctrlsf-vim {{{2
+	reference: https://vimawesome.com/plugin/ctrlsf-vim
 
 
 ## 其他 {{{2

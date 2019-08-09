@@ -228,6 +228,38 @@ function add_hilight_code_to_c_vim()
 	fi
 }
 
+update_bashrc_my()
+{
+
+	/usr/local/vim/bin/vim --version | grep "Vi IMproved 8.1" --color
+	if [ $? -eq 0 ]; then
+		echo "Vi IMproved 8.1 has been installed!"
+		vim_version="v8.1"
+		vim_in_usr_local=1
+	else
+		echo "vim version is not v8.1"
+		vim_in_usr_local=0
+		return 0
+	fi
+
+	if [[ $vim_version = "v8.1" ]];then
+		# add the following to ~/.bashrc_my, replace of alias vi=
+		#alias vi='/usr/local/vim/bin/vim'
+		if [ -f ~/.bashrc_my ]; then
+			sed -i "s%^alias vi=.*$%alias vi='/usr/local/vim/bin/vim'%g" ~/.bashrc_my
+			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc_my
+		else
+			cp ~/.bashrc ~/bashrc.bak
+			echo "alias vi='/usr/local/vim/bin/vim'" >> ~/.bashrc
+			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc
+		fi
+
+		cp ~/.gitconfig ~/.gitconfig.bak
+		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
+	fi
+	source ~/.bashrc
+}
+
 #配置vim
 function config_vim()
 {
@@ -265,6 +297,20 @@ function config_vim()
 	pwd
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q > /dev/null
 
+	if [[ -d "/usr/local/vim" ]]; then
+		# which we built from source
+		update_bashrc_my
+
+		local vim_syntax_c=/usr/local/vim/share/vim/vim81/syntax/c.vim
+		grep "my_vim_highlight_config" ${vim_syntax_c}
+		if [ $? -eq 0 ]; then
+			echo "Found! c.vim have been modified."
+		else
+			echo "Not found! Modify c.vim now."
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
+		fi
+	fi
+
 	vim81_c_vim="/usr/share/vim/vim81/syntax/c.vim"
 	vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
 	vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
@@ -289,8 +335,8 @@ function install_vundle_and_plugin()
 {
 	if [ $online -eq 1 ];then
 		echo "====== Install vundle now ! ======"
-		if [ ! -d "${HOME}/.vim/bundle/vundle" ]; then
-			git clone https://github.com/gmarik/vundle.git  ~/.vim/bundle/vundle > /dev/null
+		if [ ! -d "${HOME}/.vim/vundle" ]; then
+			git clone https://github.com/gmarik/vundle.git  ~/.vim/vundle > /dev/null
 		fi
 		vim +BundleInstall +qall
 		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
@@ -334,7 +380,11 @@ function git_config()
 	# To use vimdiff as default merge tool:
 	git config --global merge.tool vimdiff
 	git config --global mergetool.prompt false
-	git config --global core.editor /usr/bin/vim
+	if [[ $vim_in_usr_local -eq 1 ]]; then
+		git config --global core.editor /usr/local/vim/bin/vim
+	else
+		git config --global core.editor /usr/bin/vim
+	fi
 	git config --global push.default simple
 
 	# git d //open files to diff

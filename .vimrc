@@ -6,7 +6,7 @@
 "    Created: 2013-06-28
 "    Install: online
 " LastChange: 2019-08-09
-"    Version: v1.1.26
+"    Version: v1.1.27
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -431,7 +431,7 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin_manager: vundle_setup {{{1
-set rtp+=~/.vim/bundle/vundle/
+set rtp+=~/.vim/vundle/
 call vundle#rc()
 
 filetype plugin indent on     " required!
@@ -510,6 +510,8 @@ endif
 
 " integrations {{{3
 Plugin 'gregsexton/gitv'
+"Plugin 'mileszs/ack.vim'
+"Plugin 'dyng/ctrlsf.vim'
 "Bundle 'gitv'
 " integrations end
 
