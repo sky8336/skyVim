@@ -143,6 +143,15 @@ function update_vimrc()
 			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
 		fi
 	fi
+
+	var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE" --color)
+	systemVersion='DISTRIB_RELEASE=18.04'
+	if [ $var == $systemVersion ]; then
+		echo "using default .vimrc"
+	else
+		echo "DISTRIB_RELEASE is not 18.04, maybe 16.04"
+		sed -i "s/let ubuntu18_04 = 1/let ubuntu18_04 = 0/" ~/.vimrc
+	fi
 }
 
 update_package()
