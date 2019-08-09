@@ -1,5 +1,40 @@
 #!/bin/bash
 
+source ./utils.sh
+
+# show_header specify content
+VERSION=1.00
+tool_name="vim setup tool"
+
+# global
+skip_install_packages="0"
+skip_install_vim="1"
+skip_install_bundle_and_plugin="2"
+skip_install_packages_and_vim="3"
+skip_insatall_packages_vim_bundle_plugin="4"
+
+opt_num_max=4
+# show_usage Specify content
+usage=(
+"`basename $0` [options]"
+)
+
+options=(
+"[0, 1, 2, ..., $opt_num_max]		Specify which step you'd like to skip"
+)
+
+ret_codes=(
+"0 (not xx), 2 (xx), 3 (unknown), 255 (error)"
+)
+
+examples=(
+"`basename $0` $skip_install_packages	-	skip_install_packages
+		`basename $0` $skip_install_vim	-	skip_install_vim
+		`basename $0` $skip_install_bundle_and_plugin	-	skip_install_bundle_and_plugin
+		`basename $0` $skip_install_packages_and_vim	-	skip_install_packages_and_vim [opt$skip_install_packages + opt$skip_install_vim]
+		`basename $0` $skip_insatall_packages_vim_bundle_plugin	-	skip_insatall_packages_vim_bundle_plugin [opt$skip_install_packages + opt$skip_install_vim + opt$skip_install_bundle_and_plugin]"
+)
+
 #set color
 function set_color()
 {
@@ -35,7 +70,7 @@ function check_network()
 	online=1
 
 	#超时时间
-	timeout=5
+	timeout=9
 
 	#目标网站
 	target=www.baidu.com
@@ -338,7 +373,12 @@ function install_vundle_and_plugin()
 		if [ ! -d "${HOME}/.vim/vundle" ]; then
 			git clone https://github.com/gmarik/vundle.git  ~/.vim/vundle > /dev/null
 		fi
-		vim +BundleInstall +qall
+
+		if [[ $vim_in_usr_local -eq 1 ]]; then
+			/usr/local/vim/bin/vim +BundleInstall +qall
+		else
+			vim +BundleInstall +qall
+		fi
 		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
 	else
 		echo
@@ -432,17 +472,67 @@ function echo_install_time()
 # !!note:y ou can modify force_build_vim to build vim from source
 force_build_vim=0
 
-set_color
-check_root_privileges
-get_start_time_and_dir_path
-check_network
-bakup_vimconfig
-install_packages
-install_vim ${force_build_vim}
-config_vim
-install_vundle_and_plugin
-chown_vundle
-#install_ycm
-#set_cfg_for_winmanager
-git_config
-echo_install_time
+main()
+{
+	set_color
+	check_root_privileges
+	get_start_time_and_dir_path
+
+	local skip_pack=0
+	local skip_vim=0
+	local skip_vundle_plugin=0
+
+	if [ -z "$1" ]; then
+		show_header
+		show_usage
+		warning_log "`basename $0` [opt]: opt should be 0, 1, ..., $opt_num_max"
+		exit
+	elif [ "$1" = $skip_install_packages ]; then
+		blue_log "skip_install_packages"
+		skip_pack=1
+	elif [ "$1" = $skip_install_vim ]; then
+		blue_log "skip_install_vim"
+		skip_vim=1
+	elif [ "$1" = $skip_install_bundle_and_plugin ]; then
+		blue_log "skip_install_bundle_and_plugin"
+		skip_vundle_plugin=1
+	elif [ "$1" = $skip_install_packages_and_vim ]; then
+		blue_log "skip_install_packages_and_vim"
+		skip_pack=1
+		skip_vim=1
+	elif [ "$1" = $skip_insatall_packages_vim_bundle_plugin ]; then
+		blue_log "skip_insatall_packages_vim_bundle_plugin"
+		skip_pack=1
+		skip_vim=1
+		skip_vundle_plugin=1
+	else
+		echo "do nothing"
+		exit
+	fi
+
+
+	check_network
+	bakup_vimconfig
+
+	if [[ $skip_pack -ne 1 ]]; then
+		install_packages
+	fi
+
+	if [[ $skip_vim -ne 1 ]]; then
+		install_vim ${force_build_vim}
+	fi
+
+	config_vim
+
+	if [[ $skip_vundle_plugin -ne 1 ]]; then
+		install_vundle_and_plugin
+		chown_vundle
+	fi
+	#install_ycm
+	#set_cfg_for_winmanager
+	git_config
+
+	echo_install_time
+}
+
+main "$@"

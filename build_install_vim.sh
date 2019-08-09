@@ -298,7 +298,6 @@ main()
 	get_start_time
 
 	get_dir_path
-	check_network
 
 	if [ -z "$1" ]; then
 		show_header
@@ -337,6 +336,8 @@ main()
 		exit
 	fi
 
+
+	check_network
 
 	clone_vim=$1
 
