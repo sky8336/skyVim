@@ -53,7 +53,7 @@ function check_network()
 	fi
 }
 
-function update_vimcfg()
+function update_vimcfg_bundle()
 {
 	echo "====== git pull ======"
 	git pull
@@ -76,8 +76,11 @@ update_bashrc_my()
 	if [ $? -eq 0 ]; then
 		echo "Vi IMproved 8.1 has been installed!"
 		vim_version="v8.1"
+		vim_in_usr_local=1
 	else
 		echo "vim version is not v8.1"
+		vim_in_usr_local=0
+		return 0
 	fi
 
 	if [[ $vim_version = "v8.1" ]];then
@@ -127,21 +130,24 @@ function update_vimrc()
 		fi
 	else
 		#函数名、运算符、括号等高亮
-		grep "my_vim_highlight_config" /usr/share/vim/vim74/syntax/c.vim
-		if [ $? -eq 0 ]; then
-			echo "Found! c.vim have been modified."
-		else
-			echo "Not found! Modify c.vim now."
-			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
+		if [[ -d "/usr/share/vim/vim73" ]]; then
+			vim_in_usr_share="/usr/share/vim/vim73"
+		elif [[ -d "/usr/share/vim/vim74" ]]; then
+			vim_in_usr_share="/usr/share/vim/vim74"
+		elif [[ -d "/usr/share/vim/vim80" ]]; then
+			vim_in_usr_share="/usr/share/vim/vim80"
+		elif [[ -d "/usr/share/vim/vim81" ]]; then
+			vim_in_usr_share="/usr/share/vim/vim81"
 		fi
 
-		grep "my_vim_highlight_config" /usr/share/vim/vim73/syntax/c.vim
+		grep "my_vim_highlight_config" $vim_in_usr_share/syntax/c.vim
 		if [ $? -eq 0 ]; then
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim73/syntax/c.vim
+			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> $vim_in_usr_share/syntax/c.vim
 		fi
+
 	fi
 
 	var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE" --color)
@@ -152,6 +158,7 @@ function update_vimrc()
 		echo "DISTRIB_RELEASE is not 18.04, maybe 16.04"
 		sed -i "s/let ubuntu18_04 = 1/let ubuntu18_04 = 0/" ~/.vimrc
 	fi
+
 }
 
 update_package()
@@ -164,8 +171,13 @@ update_package()
 function install_new_plugin()
 {
 	echo "====== install new plugin now ! ======"
-	vim +BundleInstall +qall
-	vim +BundleClean +qall
+	if [[ $vim_in_usr_local -eq 1 ]]; then
+		/usr/local/vim/bin/vim +BundleInstall +qall
+		/usr/local/vim/bin/vim +BundleClean +qall
+	else
+		vim +BundleInstall +qall
+		vim +BundleClean +qall
+	fi
 }
 
 
@@ -194,7 +206,7 @@ set_color
 check_root_privileges
 get_start_time_and_dir_path
 check_network
-update_vimcfg
+update_vimcfg_bundle
 bakup_vimrc
 update_vimrc
 update_package
