@@ -8,7 +8,7 @@
 " Plugin_update: 2019-07-26
 "------------------------------
 " LastChange: 2019-08-10
-"    Version: v1.1.29
+"    Version: v1.1.30
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -477,6 +477,7 @@ endif
 Plugin 'tpope/vim-markdown'
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'hynek/vim-python-pep8-indent'
+"Plugin 'lervag/vimtex'
 " language end
 
 " completion {{{3

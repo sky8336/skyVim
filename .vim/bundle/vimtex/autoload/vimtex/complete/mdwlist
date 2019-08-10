@@ -1,0 +1,10 @@
+desclabelstyle
+desclabelwidth
+multilinelabel
+nextlinelabel
+pushlabel
+resume
+suspend
+\begin{description*}
+\begin{enumerate*}
+\begin{itemize*}

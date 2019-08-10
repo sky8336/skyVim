@@ -1,0 +1,6 @@
+newtheoremstyle
+qedhere
+qedsymbol
+swapnumbers
+theoremstyle
+\begin{proof}

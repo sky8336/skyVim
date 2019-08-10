@@ -1,0 +1,93 @@
+allowdisplaybreaks
+AmSfont
+binom
+bmod
+boldsymbol
+boxed
+cfrac
+dbinom
+ddddot
+dddot
+DeclareMathOperator
+DeclareMathOperator*
+displaybreak
+dotsb ⋯
+dotsc …
+dotsi ⋯
+dotsm ⋯
+dotso …
+eqref
+hdotsfor
+idotsint
+iiiint ⨌
+iiint ∭
+iint ∬
+impliedby ⟸
+implies ⇒
+intertext
+leftroot
+lvert ∣
+lVert ∥
+medspace
+mspace
+negmedspace
+negthickspace
+negthinspace
+nobreakdash
+notag
+operatorname
+operatornamewithlimits
+overleftrightarrow ↔
+overset
+pmod
+raisetag
+rvert ∣
+rVert ∥
+sideset
+substack
+tag*
+tbinom
+text
+tfrac
+thickspace
+thinspace
+underleftarrow ←
+underleftrightarrow ↔
+underrightarrow →
+underset
+uproot
+varDelta Δ
+varGamma Γ
+varLambda Λ
+varOmega Ω
+varPhi Φ
+varPi Π
+varPsi Ψ
+varSigma Σ
+varTheta Θ
+varUpsilon Υ
+varXi Ξ
+xleftarrow ←
+xrightarrow →
+\begin{align}
+\begin{align*}
+\begin{alignat}
+\begin{alignat*}
+\begin{aligned}
+\begin{alignedat}
+\begin{cases}
+\begin{equation*}
+\begin{flalign}
+\begin{flalign*}
+\begin{gather}
+\begin{gather*}
+\begin{gathered}
+\begin{multline}
+\begin{multline*}
+\begin{smallmatrix}
+\begin{split}
+\begin{subarray}
+\begin{subequations}
+\begin{xalignat}
+\begin{xalignat*}
+\begin{xxalignat}

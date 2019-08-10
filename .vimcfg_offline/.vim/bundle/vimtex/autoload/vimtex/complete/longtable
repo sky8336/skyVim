@@ -1,0 +1,14 @@
+caption*
+endfirstfoot
+endfirsthead
+endfoot
+endhead
+endlastfoot
+LTcapwidth
+LTleft
+LTpost
+LTpre
+LTright
+setlongtables
+tabularnewline
+\begin{longtable}
