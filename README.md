@@ -1277,6 +1277,7 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	reference: https://vimawesome.com/plugin/ctrlsf-vim
 
 ## 35. vimtex {{{2
+	vim + vimtex + latexmk + zathura
 	vimtex is a Vim plugin that provides support for writing LaTeX documents. 
 	https://vimawesome.com/plugin/vimtex
 	https://blog.csdn.net/richard__ting/article/details/79720784
@@ -1287,6 +1288,8 @@ see :h vimtex
 	a. vi vimcfg_bundle/test/tex/1.tex
 	b. 输入:LLPStartPreview 然后pdf出现
 	c. 更改 1.tex， pdf 实时预览
+	d. 退出到terminal,生成pdf: pdflatex 1.tex
+	f. 打开pdf: evince 1.pdf
 
 
 ## 其他 {{{2

@@ -15,3 +15,7 @@
 sudo apt-get install zathura
 #evince or okular
 sudo apt install latexmk
+
+
+# install 普及率比较高的LATEX环境TEXLINE. 比较大
+#sudo apt-get install texlive-full
