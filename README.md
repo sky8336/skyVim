@@ -297,6 +297,8 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 
 
 # 四、vim插件使用说明 {{{1
+	有些插件的快捷键，可以到.vimrc中搜索插件名在设置的地方或key-mappings的地方找快捷键，
+		<leader> 映射成,
 ## C/C++ 符号索引 {{{2
 	ags.o.fn、tags和cscope, gtags生成及使用方法
 	DIY 一套超越市面上任何编辑器（vscode，emacs，vscode）体验的最强静态符号索引系统。
@@ -1291,6 +1293,9 @@ see :h vimtex
 	d. 退出到terminal,生成pdf: pdflatex 1.tex
 	f. 打开pdf: evince 1.pdf
 
+## 36. vim-translate-me 翻译插件 {{{2
+支持弹窗(floating & popup)和异步特性
+https://vimawesome.com/plugin/vim-translate-me
 
 ## 其他 {{{2
 	(a)普通模式下:
