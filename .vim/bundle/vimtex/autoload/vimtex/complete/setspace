@@ -1,0 +1,9 @@
+doublespacing
+onehalfspacing
+SetSinglespace
+setstretch
+singlespacing
+\begin{doublespace}
+\begin{onehalfspace}
+\begin{singlespace}
+\begin{spacing}
