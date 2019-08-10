@@ -1273,8 +1273,20 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	(2) 按,r打开repl窗口
 	(3) 按,w 将光标所在行命令发送到repl窗口中执行,执行后光标跳到下一行，可一次执行
 	(3) ,r 关闭repl窗口
-## ctrlsf-vim {{{2
+## 34.ctrlsf-vim {{{2
 	reference: https://vimawesome.com/plugin/ctrlsf-vim
+
+## 35. vimtex {{{2
+	vimtex is a Vim plugin that provides support for writing LaTeX documents. 
+	https://vimawesome.com/plugin/vimtex
+	https://blog.csdn.net/richard__ting/article/details/79720784
+### help
+see :h vimtex
+
+### example
+	a. vi vimcfg_bundle/test/tex/1.tex
+	b. 输入:LLPStartPreview 然后pdf出现
+	c. 更改 1.tex， pdf 实时预览
 
 
 ## 其他 {{{2
