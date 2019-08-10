@@ -7,13 +7,14 @@ VERSION=1.00
 tool_name="vim setup tool"
 
 # global
-skip_install_packages="0"
-skip_install_vim="1"
-skip_install_bundle_and_plugin="2"
-skip_install_packages_and_vim="3"
-skip_insatall_packages_vim_bundle_plugin="4"
+skip_nothing="0"
+skip_install_packages="1"
+skip_install_vim="2"
+skip_install_bundle_and_plugin="3"
+skip_install_packages_and_vim="4"
+skip_insatall_packages_vim_bundle_plugin="5"
+opt_num_max=6
 
-opt_num_max=4
 # show_usage Specify content
 usage=(
 "`basename $0` [options]"
@@ -28,7 +29,8 @@ ret_codes=(
 )
 
 examples=(
-"`basename $0` $skip_install_packages	-	skip_install_packages
+"`basename $0` $skip_nothing	-	skip_nothing
+		`basename $0` $skip_install_packages	-	skip_install_packages
 		`basename $0` $skip_install_vim	-	skip_install_vim
 		`basename $0` $skip_install_bundle_and_plugin	-	skip_install_bundle_and_plugin
 		`basename $0` $skip_install_packages_and_vim	-	skip_install_packages_and_vim [opt$skip_install_packages + opt$skip_install_vim]
@@ -487,6 +489,8 @@ main()
 		show_usage
 		warning_log "`basename $0` [opt]: opt should be 0, 1, ..., $opt_num_max"
 		exit
+	elif [ "$1" = $skip_nothing ]; then
+		blue_log "skip_nothing"
 	elif [ "$1" = $skip_install_packages ]; then
 		blue_log "skip_install_packages"
 		skip_pack=1
