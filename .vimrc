@@ -8,7 +8,7 @@
 " Plugin_update: install time
 "------------------------------
 " LastChange: 2019-08-10
-"    Version: v1.1.31
+"    Version: v1.1.32
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -562,6 +562,7 @@ endif
 Bundle 'genutils'
 Bundle 'DrawIt'
 Plugin 'sillybun/vim-repl'
+Plugin 'voldikss/vim-translate-me'
 " uncategorized end
 
 " other {{{3
@@ -1133,6 +1134,27 @@ let g:repl_auto_sends = ['def ', 'class ', 'for ', 'if ', 'while ']
 let g:repl_cursor_down = 1
 let g:repl_python_automerge = 1
 let g:repl_console_name = 'ZYTREPL'
+
+" vim-translate-me {{{3
+let g:vtm_default_mapping=0
+let g:vtm_default_to_lang='zh'
+let g:vtm_default_engines=['ciba', 'youdao']
+"proxy
+"let g:vtm_proxy_url = 'socks5://127.0.0.1:1080'
+let g:vtm_enable_history=1
+let g:vtm_max_history_count=5000
+" key-mapping
+" <leader>t 翻译光标下的文本，在命令行回显
+nmap <silent> <leader>t <Plug>Translate
+vmap <silent> <leader>t <Plug>TranslateV
+
+" leader>w 翻译光标下的文本，在窗口中显示
+nmap <silent> <leader>aw <Plug>TranslateW
+vmap <silent> <leader>aw <Plug>TranslateWV
+
+" leader>r 替换光标下的文本为翻译内容
+nmap <silent> <leader>ar <Plug>TranslateR
+vmap <silent> <leader>ar <Plug>TranslateRV
 
 " uncategorized_plugin setting end
 
