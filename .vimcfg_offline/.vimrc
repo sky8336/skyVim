@@ -6,8 +6,8 @@
 "    Created: 2016-08-19
 "    Install: offline
 " Plugin_update: 2019-07-26
-" LastChange: 2019-08-09
-"    Version: v1.1.27
+" LastChange: 2019-08-10
+"    Version: v1.1.28
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -913,7 +913,7 @@ if plugin_use_leaderf == 1
 	let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 	let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
-	let g:Lf_WorkingDirectoryMode = 'Ac'
+	let g:Lf_WorkingDirectoryMode = 'ac'
 	let g:Lf_WindowHeight = 0.30
 	let g:Lf_CacheDirectory = expand('~/.vim/cache')
 	let g:Lf_ShowRelativePath = 0
