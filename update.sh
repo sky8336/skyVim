@@ -56,7 +56,17 @@ function check_network()
 function update_vimcfg_bundle()
 {
 	echo "====== git pull ======"
+
+	# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
+	# 操作, 如导致git add -A和git commit -s要加sudo; 这里都恢复普通用户
+	username=`ls -l ../ | grep vimcfg_bundle | cut -d ' ' -f3`
+	groupname=`ls -l ../ | grep vimcfg_bundle | cut -d ' ' -f4`
+	echo "username=$username"
+	echo "groupname=$groupname"
+
+	chown -R $username:$groupname ../vimcfg_bundle
 	git pull
+	chown -R $username:$groupname ../vimcfg_bundle
 }
 
 #备份OS中vimrc
