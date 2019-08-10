@@ -400,6 +400,7 @@ function chown_vundle()
 		echo "username=$username"
 		echo "groupname=$groupname"
 		chown -R $username:$groupname ~/.vim/bundle/
+		chown -R $username:$groupname ~/.vim/vundle/
 	else
 		echo
 	fi
