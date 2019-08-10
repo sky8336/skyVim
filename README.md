@@ -1,55 +1,25 @@
-# vimconfig_bundle
+# vimconfig_bundle - vim 自动化安装配置
+vim config for linux devices driver development and C development，C++, python/shell development   
 
 针对vim8.1更新配置...
 
 由于之前西安的一位不认识的朋友，对我说换去军工单位后，无法联网， 
 我几年前特意加入了offline对的支持。也就是： 
 你总会安装成功，要么是在线安装的，要么是offline 安装的方式，不过，不会太影响使用。  
-两个版本号mark 一下：
-   v1.0.0-online  
-   v0.7.8-offline  
-不要问我有什么区别，无差别使用影响并不大  
 
 
-vim config for linux devices driver development and C development，C++ development   
-鉴于vim的学习曲线，小白慎用…  
-my_help/目录中存放开发中常用的帮助文档，可能对你无用…我只是喜欢放在那里，来凑数…    
-未试用，请勿随意点击右上角star和watch…    
-配置会更新，但无固定更新计划，全凭心情和性质…  
-配置致力于顺手好用，单不保证对你顺手，对你好用…  
-配置问题，欢迎提出，虽然我不一定保证解决，但是会努力解决…  
+鉴于vim的学习曲线，做了详细的说明，及脚本自动化一键安装配置…  
+my_help/目录中存放开发中常用的帮助文档，希望有些用处…    
+欢迎试用，点击右上角star和watch…    
+
+由于工作中，经常会有进一步提高效率的需要，所以配置会更新，以帮助提升效率，打造利器…  
+配置问题，欢迎提出，希望让工具成为节约时间和形成流畅工作流的利器…  
 最后，再啰嗦🦜一句：  
-  点赞👍是个好习惯，但是不对你做如此高的要求，因为你可能无法体会点赞的乐趣…  
-  
+  点赞👍是个好习惯，欢迎体验愉快vim之旅…  
 
-### 温馨提示：{{{1
-     (1)有问题，不是好事情，能顺手解决要求不过分吧…哈哈    
-	 (2)配置在使用过程中会有变化,大浪淘沙，随着时间推移，也可能只剩下沙子…    
-	 (3)有更好的插件或需求及使用方法总结，你们都不会留言的，这点我知道…
-      （4）ubuntu 系统自带vim是vim.tiny，迷你版，.vimrc 有一些命令不支持，不过install.sh会自动安装完整版vim    
+# 一 、Install and update {{{1
 
-	我不会告诉你配置文件是隐藏文件  
-### 本vim配置为:  {{{2
-    适用于linux 内核/驱动开发的vim配置;  
-	适用于c/c++的应用编程的vim配置;  
-    当然，如果你是个小白，能看到这一行，可能也与你有点缘分… 但是，  
-但是，其实不会强买强卖的，因为毕竟我也不收钱，而且你可能更适合用ide…  
-工具无好坏… 额… 
-### 帮助说明 {{{2
-	,hm 打开本README.md  
-	,hd  打开my_help/文件夹(directory)，可选择打开需要的帮助文件,如下:  
-		git_command.txt  git使用整理  
-		git_push.txt     git提交代码相关流程及命令  
-		vim_command.txt  vim基本命令及使用技巧  
-	vih 命令行输入，快速打开my_help/帮助目录
-	vidc 'vi ~/.vim/my_help/debug_cmd.txt'
-	vigc 'vi ~/.vim/my_help/git_command.txt'
-	vigp 'vi ~/.vim/my_help/git_push.txt'
-	vilc 'vi ~/.vim/my_help/linux_command.txt'
-	vivc 'vi ~/.vim/my_help/vim_command.txt'
-	exchkey : 交换 Caps_Lock 和 Escape 键  
-
-# 一、配置前注意: {{{1
+## 配置前注意: {{{2
 	1)执行脚本会先安装vim+ctags+cscope+ranger  
 	ranger:命令行文件管理器;命令行输入ranger回车打开。默认使用vim打开文件，支持代码跟踪。 
 
@@ -68,26 +38,29 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
 害怕😱的话可以不装…  
 
 
-# 二、一键安装配置步骤: {{{1
 
-## 一键安装 {{{2
+
+## 一 键安装配置步骤 {{{2
+### install {{{3
+	sudo ./install.sh 		查看帮助, 可跳过其中一些步骤，如果以前安装过.安装package（tools）可能会慢点
+	sudo ./install.sh 0		全自动安装vim，相关工具，配置vim， 配置git使用vim编辑
+
+	可以在闲暇时光安装配置，偶尔看一眼结果.联网情况, 第一次全安装 可能会久一点，半小时左右，
+	不联网情况比较快.
+
 	在vimconfig_bundle/目录输入：（脚本中会利用目录下到install.sh获取用户名和用户组）
 	sudo ./install.sh
 		自动完成配置。（自动备份原来配置，自动配置.vimrc和.bashrc以及.vim，自动安装vundle和vundle管理的插件)  
-		插件安装过程受网速影响，放在一边，耐心等待安装完自动关闭vim窗口即可。一般5分钟左右  
+		插件安装过程受网速影响，放在一边，耐心等待安装完自动关闭vim窗口即可。  
 
-## 一键更新.vimrc及插件和帮助文件 {{{2
-	sudo ./update.sh  
-	最短耗时1秒，一般很快  
-
-### 注意：  {{{2
-#### (a)插件更新,或仅更新某个功能    
-##### 若vundle管理的插件安装不成功，可执行update.sh脚本或手动安装：  
+#### 注意：  
+##### (a)插件更新,或仅更新某个功能    
+###### 若vundle管理的插件安装不成功，可执行update.sh脚本或手动安装：  
 	打开vim，底行模式命令：  
 		:BundleList 查看要安装的插件  
 		:BundleInstall 安装插件  
 
-##### vundle命令
+###### vundle命令
    Brief help  
    :BundleList          - list configured bundles  
    :BundleInstall(!)    - install(update) bundles  
@@ -97,13 +70,64 @@ my_help/目录中存放开发中常用的帮助文档，可能对你无用…我
    see :h vundle for more details or wiki for FAQ   
    NOTE: comments after Bundle command are not allowed..  
 
-##### 如果仅仅想添加某个插件，或者恢复到之前的某个插件
+###### 如果仅仅想添加某个插件，或者恢复到之前的某个插件
 	  可以通过gitk来查看修改记录，单独安装配置需要的插件即可。 
-#### (b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
+##### (b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
 
-#### (c)测试：
+##### (c)测试：
         vi a.c  
         输入main后，按tab键看是否成功自动补全。 
+
+### update {{{3
+	cd vimcfg_bundle
+	sudo ./update.sh
+
+	一键更新.vimrc及插件和帮助文件
+	最短耗时不到1分钟，一般很快  
+  
+
+# 二 温馨提示：{{{1
+     (1) 有问题或改善建议等，欢迎提issue，我们可以一起完善一个流畅的工作流利器…    
+	 (2) 配置在使用过程中可能会有变化,release 的tag 可以作为回退某一版的标记…    
+	 (3) 有更好的插件或需求及使用方法总结，可以留言的…
+     (4) ubuntu 系统自带vim是vim.tiny，迷你版，.vimrc 有一些命令不支持，不过install.sh会自动安装完整版vim    
+	 (5) 你配置文件是.开头的隐藏文件，如.vimrc等,可以参考修改  
+
+## 本vim配置为:  {{{2
+    适用于linux 内核/驱动开发的vim配置;  
+	适用于c/c++的应用编程的vim配置;  
+	适用于shell/python编程的vim配置;  
+
+    当然，很多优秀的ide也可以很强大，我用vim的原因如下:
+		(1) 不希望来回拿鼠标点击来打断工作流… 
+		(2) 对熟练的项目，可以减少拿鼠标浪费的时间  
+		(3) 对于代码修改，控制非预期的修改，比如带来多余的行尾空格，空行，对齐问题等,
+			这些小问题会影响git 查看修改时迅速找到关键修改点.
+			所以在我的vim里会保存时去掉行为空格。
+		(4) 在git下有修改时，行号左侧会显示+-~,来分别表示新增，减少，和变更的提示，方便看到自己改了哪些代码，
+		我非常喜欢和依赖这个功能，这让我对自己的修改做到心中有数  
+		(5) vim8.1 以后，因为异步及terminal的加入，vim将会变得更先进和现代化，vim使用越久受益越多
+		(6) vim 的三种编辑模式，是vim特别的地方，可以保证我在家代码的时候，儿子过来乱点鼠标或键盘，不会输入过多无用字符;
+			并且即使输入字符，也可以借助左侧提示的变化来方便恢复，只需要按几次u既可以...
+		(7) 感谢开源精神，开源免费及大批爱好者的分享及提高使得vim在现代编辑器中依然占有一席之地
+		(8) vim 原生功能及插件，是vim的两翼，让工具更强大.
+
+
+## 帮助说明 {{{2
+	,hm 打开本README.md  
+	,hd  打开my_help/文件夹(directory)，可选择打开需要的帮助文件,如下:  
+		git_command.txt  git使用整理  
+		git_push.txt     git提交代码相关流程及命令  
+		vim_command.txt  vim基本命令及使用技巧  
+	vih 命令行输入，快速打开my_help/帮助目录
+	vidc 'vi ~/.vim/my_help/debug_cmd.txt'
+	vigc 'vi ~/.vim/my_help/git_command.txt'
+	vigp 'vi ~/.vim/my_help/git_push.txt'
+	vilc 'vi ~/.vim/my_help/linux_command.txt'
+	vivc 'vi ~/.vim/my_help/vim_command.txt'
+	exchkey : 交换 Caps_Lock 和 Escape 键  
+
+
 
 # 三、vim使用说明 {{{1
 ### 自己总结的帮助文档打开方式 {{{2
@@ -1409,6 +1433,61 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 
 ### 单独按g+ctrl+a，命令行会现实ascii码和hex值  
 
+## {{{2
+### textobject
+
+文本对象, 是进行快速编辑的基础秘诀. 将一个单词, 句子, 段落当成一个对象看待, 可以进行快速选中/替换/删除等操作
+
+有一篇文章解释得很清楚 Vim Text Objects: The Definitive Guide:
+<https://blog.carbonfive.com/2011/10/17/vim-text-objects-the-definitive-guide/>
+
+#### 简单说明
+
+命令格式:  操作+范围+对象
+
+#### 对象
+
+w  -  word单词
+s  -  sentence句子
+p  -  paragraph段落
+' " ) ] } > 等成对的
+t  -  Tag标签
+
+#### 范围
+
+i  -  在里面
+a  -  所有, 包括成对的引号等
+
+#### 操作
+
+d  -  删除
+v  -  选中
+c  -  替换
+
+例子, |代表光标位置
+
+123(a|bc)456
+
+di)   删除引号内的内容   => 123()456
+da)   删除引号内容, 包括引号  => 123456
+vi)   选中引号内内容 abc
+....
+
+### textobject增强
+
+vim自带了很多文本对象, 但是还可以进一步增强, 例如, 以行l(line)/以文件e(entire file)/以缩进i(indent)
+
+在 k-vim 中, 加了如下的几个文本对象, 这样, 在写python代码时, 你可以很方便的批量选中同一个缩进里面的所有代码块, 即使代码之间有空行.
+
+" text object
+" 支持自定义文本对象
+Plug 'kana/vim-textobj-user'
+" 增加行文本对象: l   dal yal cil
+Plug 'kana/vim-textobj-line'
+" 增加文件文本对象: e   dae yae cie
+Plug 'kana/vim-textobj-entire'
+" 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
+Plug 'kana/vim-textobj-indent'
 	
 ## vim8.1: 新特性{{{1  
 ### 1) 支持在 Vim 窗口中运行终端  
