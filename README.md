@@ -720,18 +720,59 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 ![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/Gitv_screenshot.png)
 
 ## 11、Fugitive.vim {{{2
-    a git wrapper for Vim   
+    a git wrapper for Vim - 将git工作流集成到vim中   
     补充了git 的command line 接口，使工作更流畅  
-以下两种方式均可用于vim下的git提交:  
+
+### 以下两种方式均可用于vim下的git提交:  
     git               fugitive       	action  
     :Git add % 	      :Gwrite 	    将当前更改或者新增的文件加入到Git的索引中  
     :Git checkout % 	:Gread 	      使用HEAD中的最新内容替换掉当前文件。已添加到缓存区的改动，不受影响  
     :Git rm % 	      :Gremove    	删除当前文件，并通知vim buffer  
     :Git mv % 	      :Gmove 	      重命名当前文件，并通知vim buffer  
 
-在vim的command line, % 会扩展为当前文件的绝对路径。  
+	在vim的command line, % 会扩展为当前文件的绝对路径。  
+http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
 
-    更多参见help  
+### Browsing past revisions of a file
+
+	The Glog command makes it easy to examine all previous revisions of a file. It does this by loading each revision into its own buffer, and queuing them in the quickfix list in chronological order.
+
+	You can filter the results
+	command 						action
+	:Glog 							load all previous revisions of the current file into the quickfix list
+	:Glog -10 						load the last ten previous revisions of the current file into the quickfix list
+	:Glog -10 --reverse 			load the first ten revisions of the current file into the quickfix list (in reverse chronological order)
+	:Glog -1 --until=yesterday 		load the last version of the current file that was checked in before midnight last night
+
+http://vimcasts.org/episodes/fugitive-vim-exploring-the-history-of-a-git-repository/
+
+### Add git branch to status line
+
+Fugitive provides a function that you can add to your statusline, and it will show your current git branch. This example is taken from the fugitive documentation (:help fugitive-statusline):
+
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+###  resolving merge conflicts with vimdiff 
+	When git branches are merged, there is always the chance of a conflict arising 
+	if a file was modified in both the target and merge branches. You can resolve merge conflicts using a combination of fugitive’s :Gdiff command, and Vim’s built in diffget and diffput. 
+
+http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
+
+### working with the git index
+
+The git index is where you put changes that you want to be included in the next commit. If you are used to working with the command line git client, you might think of the index as an abstract concept. But with fugitive, you can actually read the index version of a file into a buffer by running:
+
+:Gedit :path/to/file
+
+If you run :Gedit with no arguments from a working tree file, it will open the index version of that file. You can always open the index version of the current file by running any one of the following:
+
+:Gedit
+:Gedit :0
+:Gedit :%
+
+http://vimcasts.org/episodes/fugitive-vim-working-with-the-git-index/
+
+### 更多参见help  
     :help cmdline-special  
     :help :_%  
     ctlr-n/ctrl-p keyword autocompletion  
@@ -743,9 +784,30 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
     :help :Gmove  
     :help :Gcommit  
     :help :Gblame     
+
     注意：  
     可参见网址：  
       http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/  
+
+### examples
+	  a. vi README.md, 随便复制粘贴两行，人为创造改动
+	  b. :Gblame	查看每行最后的提交信息
+	  c. :Gstatus   检查仓库当前的状态
+	  d. 在分割窗口中显示git status的输出结果，在该行按下-键，用该文件的名字
+	  暂存这个文件的提交 ,再按一次取消暂存，这个信息会随着你的操作自动更新.
+	  (可以在命令行用git status 查看暂存的情况,或:AsyncRun git status健康 )
+	  在输出结果窗口，文件名这一行，按=可以展开看到修改的差异
+	  e. 暂存完后，可以用:Gcommit 来提交修改了.Fugitive 会打开另一个分割窗口让
+	  你输入提交信息
+	  f. :Gstatus 查看结果
+	  g. :Gpush 把新的提交推送到远程
+
+#### 更多
+	  vim Fugitive 的github 项目主业有很多屏幕录像展示了它的更多功能和工作流  
+	  https://vimawesome.com/plugin/fugitive-vim  
+https://github.com/tpope/vim-fugitive
+
+
 
 
 
