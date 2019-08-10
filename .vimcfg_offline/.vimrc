@@ -6,8 +6,9 @@
 "    Created: 2016-08-19
 "    Install: offline
 " Plugin_update: 2019-07-26
+"------------------------------
 " LastChange: 2019-08-10
-"    Version: v1.1.28
+"    Version: v1.1.29
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -512,7 +513,7 @@ endif
 " integrations {{{3
 Plugin 'gregsexton/gitv'
 "Plugin 'mileszs/ack.vim'
-"Plugin 'dyng/ctrlsf.vim'
+Plugin 'dyng/ctrlsf.vim'
 "Bundle 'gitv'
 " integrations end
 
@@ -642,7 +643,7 @@ else
 
 "格式化代码也不一定非要安装插件才能实现，因为Vim可以执行外部命令，因此函数调用外
 "部工具来实现代码格式化，比如下面就用函数调用astyle和autopep8来格式化代码
-"{{{{4
+" FormatCode() Function {{{{4
 map <leader>af :call FormatCode()<CR>
 func! FormatCode()
     exec "w"
@@ -666,6 +667,60 @@ func! FormatCode()
     endif
 endfunc
 endif
+
+" integrations {{{2
+" ctrlsf.vim {{{3
+let g:ctrlsf_absolute_file_path = 1
+let g:ctrlsf_ackprg = '/usr/bin/ack'
+let g:ctrlsf_auto_close = {
+			\ "normal" : 0,
+			\ "compact": 0
+			\ }
+let g:ctrlsf_auto_focus = {
+			\ "at" : "done",
+			\ "duration_less_than": 1000
+			\ }
+let g:ctrlsf_case_sensitive = 'no'
+let g:ctrlsf_confirm_save = 0
+let g:ctrlsf_confirm_unsaving_quit = 0
+let g:ctrlsf_context = '-B 5 -A 3'
+let g:ctrlsf_debug_mode = 1
+let g:ctrlsf_default_root = 'project+fw'
+let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_extra_backend_args = {
+			\ 'pt': '--home-ptignore'
+			\ }
+let g:ctrlsf_extra_root_markers = ['.root', '.git']
+let g:ctrlsf_follow_symlinks = 0
+let g:ctrlsf_ignore_dir = ['bower_components', 'node_modules']
+let g:ctrlsf_indent = 2
+"let g:ctrlsf_mapping = {
+			"\ "openb": { key: "O", suffix: "<C-w>p" },
+			"\ "next": "n",
+			"\ "prev": "N",
+			"\ "openb": "",
+			"\ }
+let g:ctrlsf_parse_speed = 100
+let g:ctrlsf_populate_qflist = 1
+let g:ctrlsf_position = 'bottom'
+let g:ctrlsf_regex_pattern = 1
+let g:ctrlsf_search_mode = 'async'
+let g:ctrlsf_selected_line_hl = 'op'
+"let g:ctrlsf_toggle_map_key = '\t'
+let g:ctrlsf_winsize = '30%'
+
+" ctrlsf-keymaps
+vmap     <C-\>f <Plug>CtrlSFVwordPath
+vmap     <C-\>f <Plug>CtrlSFVwordExec
+
+"nmap     <C-F>f <Plug>CtrlSFPrompt
+nmap     <C-p>f <Plug>CtrlSFPrompt
+nmap     <C-\>n <Plug>CtrlSFCwordPath
+nmap     <C-\>p <Plug>CtrlSFPwordPath
+" open/close window
+nnoremap <C-\>o :CtrlSFOpen<CR>
+nnoremap <C-\>c :CtrlSFToggle<CR>
+inoremap <C-\>c <Esc>:CtrlSFToggle<CR>
 
 " tagbar.vim {{{2
 let g:tagbar_left=1
