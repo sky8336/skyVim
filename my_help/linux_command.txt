@@ -217,3 +217,10 @@ port=8000
 
 =======================
 gnome-system-monitor &
+
+======================
+3秒后弹出alert 窗口
+$ sleep 3 && alert "build done"
+
+查看.bashrc中的alias 命令
+$ alias
