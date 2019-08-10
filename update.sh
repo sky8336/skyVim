@@ -1,5 +1,10 @@
 #!/bin/bash
 
+vim_plug_dir=~/.vim/autoload
+# we use vim-plug as plugin manager by default; set install_vundle=1 to select
+# the old vundle
+install_vundle=0
+
 #set color
 function set_color()
 {
@@ -56,13 +61,6 @@ function check_network()
 function update_vimcfg_bundle()
 {
 	echo "====== git pull ======"
-
-	# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
-	# 操作, 如导致git add -A和git commit -s要加sudo; 这里都恢复普通用户
-	username=`ls -l ../ | grep vimcfg_bundle | cut -d ' ' -f3`
-	groupname=`ls -l ../ | grep vimcfg_bundle | cut -d ' ' -f4`
-	echo "username=$username"
-	echo "groupname=$groupname"
 
 	chown -R $username:$groupname ../vimcfg_bundle
 	git pull
@@ -180,14 +178,53 @@ update_package()
 #instal new plugin
 function install_new_plugin()
 {
+	# search .vimrc, to find 'let plugin_mgr_vundle_enable = 0', and set
+	#install_vundle based on it
+	install_vundle=$(grep "let plugin_mgr_vundle_enable" ~/.vimrc | awk -F '=' '{print $2}' | sed 's/ *//')
+
+	if [[ $install_vundle -eq 1 ]]; then
+		if [ ! -d "${HOME}/.vim/vundle" ]; then
+			echo "======  vundle was missing, install now ! ======"
+			git clone https://github.com/gmarik/vundle.git  ~/.vim/vundle > /dev/null
+
+			chown -R $username:$groupname ~/.vim/vundle
+		fi
+	else
+		if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
+			echo "====== vim-plug was missing, install now ! ======"
+			curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+			chown -R $username:$groupname $vim_plug_dir
+		fi
+	fi
+
 	echo "====== install new plugin now ! ======"
 	if [[ $vim_in_usr_local -eq 1 ]]; then
-		/usr/local/vim/bin/vim +BundleInstall +qall
-		/usr/local/vim/bin/vim +BundleClean +qall
+		if [[ $install_vundle -eq 1 ]]; then
+			# vundle
+			/usr/local/vim/bin/vim +BundleInstall +qall
+			#/usr/local/vim/bin/vim +BundleClean +qall
+			chown -R $username:$groupname ~/.vim/bundle
+		else
+			# vim-plug
+			/usr/local/vim/bin/vim +PlugInstall +qall
+			#/usr/local/vim/bin/vim +PlugClean +qall
+			chown -R $username:$groupname ~/.vim/plugged
+		fi
 	else
-		vim +BundleInstall +qall
-		vim +BundleClean +qall
+		if [[ $install_vundle -eq 1 ]]; then
+			# vundle
+			vim +BundleInstall +qall
+			#vim +BundleClean +qall
+			chown -R $username:$groupname ~/.vim/bundle
+		else
+			# vim-plug
+			vim +PlugInstall +qall
+			#vim +PlugClean +qall
+			chown -R $username:$groupname ~/.vim/plugged
+		fi
 	fi
+
 }
 
 
@@ -211,6 +248,13 @@ function echo_install_time()
     echo -e " ####${color_reset}"
     echo
 }
+
+# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
+# 操作, 如导致git add -A和git commit -s要加sudo; 这里都恢复普通用户
+username=`ls -l ../ | grep vimcfg_bundle | cut -d ' ' -f3`
+groupname=`ls -l ../ | grep vimcfg_bundle | cut -d ' ' -f4`
+echo "username=$username"
+echo "groupname=$groupname"
 
 set_color
 check_root_privileges

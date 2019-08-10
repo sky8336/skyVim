@@ -37,6 +37,12 @@ examples=(
 		`basename $0` $skip_insatall_packages_vim_bundle_plugin	-	skip_insatall_packages_vim_bundle_plugin [opt$skip_install_packages + opt$skip_install_vim + opt$skip_install_bundle_and_plugin]"
 )
 
+#####
+vim_plug_dir=~/.vim/autoload
+# we use vim-plug as plugin manager by default; set install_vundle=1 to select
+# the old vundle
+install_vundle=0
+
 #set color
 function set_color()
 {
@@ -326,7 +332,14 @@ function config_vim()
 	#追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
 	cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
-	echo "source ~/.bashrc_my" >> ~/.bashrc
+
+	grep "source ~/.bashrc_my" ~/.bashrc
+	if [ $? -eq 0 ]; then
+		# "Found! ~/.bashrc have been modified."
+		echo
+	else
+		echo "source ~/.bashrc_my" >> ~/.bashrc
+	fi
 
 	#生成tags文件
 	echo "Make tags in /usr/include"
@@ -367,21 +380,44 @@ function config_vim()
 	fi
 }
 
-#install vundle
+#install plguin_mgr: vundle or vim-plug
 function install_vundle_and_plugin()
 {
 	if [ $online -eq 1 ];then
-		echo "====== Install vundle now ! ======"
-		if [ ! -d "${HOME}/.vim/vundle" ]; then
-			git clone https://github.com/gmarik/vundle.git  ~/.vim/vundle > /dev/null
+		if [[ $install_vundle -eq 1 ]]; then
+			if [ ! -d "${HOME}/.vim/vundle" ]; then
+				echo "====== Install vundle now ! ======"
+				git clone https://github.com/gmarik/vundle.git  ~/.vim/vundle > /dev/null
+			fi
+		else
+			if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
+				echo "====== Install vim-plug now ! ======"
+				curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+			fi
 		fi
 
+
 		if [[ $vim_in_usr_local -eq 1 ]]; then
-			/usr/local/vim/bin/vim +BundleInstall +qall
+			if [[ $install_vundle -eq 1 ]]; then
+				/usr/local/vim/bin/vim +BundleInstall +qall
+			else
+				# vim-plug
+				/usr/local/vim/bin/vim +PlugInstall +qall
+			fi
 		else
-			vim +BundleInstall +qall
+			if [[ $install_vundle -eq 1 ]]; then
+				vim +BundleInstall +qall
+			else
+				# vim-plug
+				vim +PlugInstall +qall
+			fi
 		fi
-		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
+
+		if [[ $install_vundle -eq 1 ]]; then
+			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
+		else
+			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/plugged/ -rf
+		fi
 	else
 		echo
 	fi
@@ -399,8 +435,13 @@ function chown_vundle()
 		groupname=`ls -l  install.sh | cut -d ' ' -f4`
 		echo "username=$username"
 		echo "groupname=$groupname"
-		chown -R $username:$groupname ~/.vim/bundle/
-		chown -R $username:$groupname ~/.vim/vundle/
+
+		if [[ $install_vundle -eq 1 ]]; then
+			chown -R $username:$groupname ~/.vim/bundle/
+			chown -R $username:$groupname ~/.vim/vundle/
+		else
+			chown -R $username:$groupname $vim_plug_dir
+		fi
 	else
 		echo
 	fi

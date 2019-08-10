@@ -8,7 +8,7 @@
 " Plugin_update: install time
 "------------------------------
 " LastChange: 2019-08-10
-"    Version: v1.1.32
+"    Version: v1.1.33
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -432,15 +432,7 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin_manager: vundle_setup {{{1
-set rtp+=~/.vim/vundle/
-call vundle#rc()
-
-filetype plugin indent on     " required!
-" let Vundle manage Vundle: vundle.vim 插件管理器     "required!{{{2
-Bundle 'gmarik/vundle'
-
-" plugin select config table {{{2
+" plugin select config table {{{1
 let ubuntu18_04 = 1
 
 " python 3+
@@ -462,115 +454,245 @@ let plugin_use_echodoc = 0
 let plugin_use_echofunc = 0
 let plugin_use_vim_cpp_enhanced_highlight = 0
 
-"-----------------------
-" My Bundles here:  {{{2
-" https://vimawesome.com/
-" original repos on github （Github仓库插件）{{{3
+" select plugin manager: 1:vundle, 0: vim-plug
+let plugin_mgr_vundle_enable = 0
 
-" language {{{3
-Bundle 'tpope/vim-fugitive'
-if plugin_use_neomake == 1
-	Plugin 'neomake/neomake'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" plugin web addr: https://vimawesome.com/
+
+if plugin_mgr_vundle_enable == 1
+	" plugin_manager: vundle_setup {{{1
+	set rtp+=~/.vim/vundle/
+	call vundle#rc()
+
+	filetype plugin indent on     " required!
+	" let Vundle manage Vundle: vundle.vim 插件管理器     "required!{{{2
+	Bundle 'gmarik/vundle'
+
+	"-----------------------
+	" my_vundle_plugins  start:  {{{2
+	" original repos on github （Github仓库插件）
+
+	" language {{{3
+	Plugin 'tpope/vim-fugitive'
+	if plugin_use_neomake == 1
+		Plugin 'neomake/neomake'
+	else
+		Plugin 'scrooloose/syntastic'
+	endif
+	Plugin 'tpope/vim-markdown'
+	Plugin 'scrooloose/nerdcommenter'
+	"Plugin 'hynek/vim-python-pep8-indent'
+	Plugin 'lervag/vimtex'
+	Plugin 'xuhdev/vim-latex-live-preview'
+	" language end
+
+	" completion {{{3
+	"Plugin 'ervandew/supertab'
+	"Plugin 'Valloric/YouCompleteMe'
+	"Plugin 'Shougo/neocomplete.vim'
+	"Plugin 'rstacruz/sparkup'
+	"Plugin 'neoclide/coc.nvim'
+	if plugin_use_deoplete == 0
+		Plugin 'AutoComplPop'
+		Plugin 'OmniCppComplete'
+	endif
+	if plugin_use_ultisnips == 1
+		Plugin 'SirVer/ultisnips'
+		Plugin 'honza/vim-snippets'
+	else
+		Plugin 'msanders/snipmate.vim'
+	endif
+	if plugin_use_deoplete == 1
+		Plugin 'shougo/deoplete.nvim'
+	endif
+	Plugin 'taglist.vim'
+	" completion end
+
+	" code_display {{{3
+	if plugin_use_vim_cpp_enhanced_highlight == 1
+		Plugin 'octol/vim-cpp-enhanced-highlight'
+	endif
+
+	if plugin_use_autoformat == 1
+		Plugin 'chiel92/vim-autoformat'
+	endif
+
+	" integrations {{{3
+	Plugin 'gregsexton/gitv'
+	"Plugin 'mileszs/ack.vim'
+	Plugin 'dyng/ctrlsf.vim'
+	"Plugin 'gitv'
+	" integrations end
+
+	" interface {{{3
+	if plugin_use_leaderf == 1
+		Plugin 'yggdroot/leaderf'
+	else
+		Plugin 'kien/ctrlp.vim'
+		Plugin 'tacahiroy/ctrlp-funky'
+	endif
+	Plugin 'jlanzarotta/bufexplorer'
+	Plugin 'airblade/vim-gitgutter'
+	Plugin 'mbbill/undotree'
+	"Plugin 'godlygeek/tabular'
+	Plugin 'jistr/vim-nerdtree-tabs'
+	Plugin 'Xuyuanp/nerdtree-git-plugin'
+	"Plugin 'vim-airline/vim-airline'
+	"Plugin 'vim-airline/vim-airline-themes'
+	Plugin 'scrooloose/nerdtree'
+	Plugin 'mru.vim'
+	Plugin 'ZoomWin'
+	" interface end
+
+	" commands {{{3
+	Plugin 'majutsushi/tagbar'
+	Plugin 'skywind3000/asyncrun.vim'
+	Plugin 'tpope/vim-surround'
+	"Plugin 'FuzzyFinder'
+	" commands end
+
+	" uncategorized {{{3
+	Plugin 'hari-rangarajan/CCTree'
+	Plugin 'will133/vim-dirdiff'
+	Plugin 'tpope/vim-unimpaired'
+	Plugin 'Stormherz/tablify'
+	Plugin 'liuchengxu/vim-which-key'
+	if plugin_use_echodoc == 1
+		Plugin 'shougo/echodoc'
+	endif
+	if plugin_use_echofunc == 1
+		"Plugin 'echofunc.vim'
+		Plugin 'mbbill/echofunc'
+	endif
+	Plugin 'genutils'
+	Plugin 'DrawIt'
+	Plugin 'sillybun/vim-repl'
+	Plugin 'voldikss/vim-translate-me'
+	" uncategorized end
+
+	" other {{{3
+	Plugin 'terryma/vim-multiple-cursors'
+	"Plugin 'L9'
+	" other end
+	" my_vundle_plugins end
+
+	" plugin_manager: vundle_setup end
 else
-	Bundle 'scrooloose/syntastic'
-endif
-Plugin 'tpope/vim-markdown'
-Plugin 'scrooloose/nerdcommenter'
-"Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'lervag/vimtex'
-Plugin 'xuhdev/vim-latex-live-preview'
-" language end
+	"vim-plug
+	call plug#begin('~/.vim/plugged')
 
-" completion {{{3
-"Bundle 'ervandew/supertab'
-"Plugin 'Valloric/YouCompleteMe'
-"Bundle 'Shougo/neocomplete.vim'
-"Plugin 'rstacruz/sparkup'
-"Bundle 'neoclide/coc.nvim'
-if plugin_use_deoplete == 0
-	Bundle 'AutoComplPop'
-	Bundle 'OmniCppComplete'
-endif
-if plugin_use_ultisnips == 1
-	Bundle 'SirVer/ultisnips'
-	Bundle 'honza/vim-snippets'
-else
-	Bundle 'msanders/snipmate.vim'
-endif
-if plugin_use_deoplete == 1
-	Plugin 'shougo/deoplete.nvim'
-endif
-Bundle 'taglist.vim'
-" completion end
+	" my_vim_plug_plugins start:  {{{2
+	" original repos on github （Github仓库插件）
 
-" code_display {{{3
-if plugin_use_vim_cpp_enhanced_highlight == 1
-Plugin 'octol/vim-cpp-enhanced-highlight'
+	" language {{{3
+	Plug 'tpope/vim-fugitive'
+	if plugin_use_neomake == 1
+		Plug 'neomake/neomake'
+	else
+		Plug 'scrooloose/syntastic'
+	endif
+	Plug 'tpope/vim-markdown'
+	Plug 'scrooloose/nerdcommenter'
+	"Plug 'hynek/vim-python-pep8-indent'
+	Plug 'lervag/vimtex'
+	Plug 'xuhdev/vim-latex-live-preview'
+	" language end
+
+	" completion {{{3
+	"Plug 'ervandew/supertab'
+	"Plug 'Valloric/YouCompleteMe'
+	"Plug 'Shougo/neocomplete.vim'
+	"Plug 'rstacruz/sparkup'
+	"Plug 'neoclide/coc.nvim'
+	if plugin_use_deoplete == 0
+		Plug 'vim-scripts/AutoComplPop'
+		Plug 'vim-scripts/OmniCppComplete'
+	endif
+	if plugin_use_ultisnips == 1
+		Plug 'SirVer/ultisnips'
+		Plug 'honza/vim-snippets'
+	else
+		Plug 'msanders/snipmate.vim'
+	endif
+	if plugin_use_deoplete == 1
+		Plug 'shougo/deoplete.nvim'
+	endif
+	Plug 'vim-scripts/taglist.vim'
+
+	" completion end
+
+	" code_display {{{3
+	if plugin_use_vim_cpp_enhanced_highlight == 1
+		Plug 'octol/vim-cpp-enhanced-highlight'
+	endif
+
+	if plugin_use_autoformat == 1
+		Plug 'chiel92/vim-autoformat'
+	endif
+
+	" integrations {{{3
+	Plug 'gregsexton/gitv'
+	"Plug 'mileszs/ack.vim'
+	Plug 'dyng/ctrlsf.vim'
+	"Plug 'gitv'
+	" integrations end
+
+	" interface {{{3
+	if plugin_use_leaderf == 1
+		Plug 'yggdroot/leaderf'
+	else
+		Plug 'kien/ctrlp.vim'
+		Plug 'tacahiroy/ctrlp-funky'
+	endif
+	Plug 'jlanzarotta/bufexplorer'
+	Plug 'airblade/vim-gitgutter'
+	Plug 'mbbill/undotree'
+	"Plug 'godlygeek/tabular'
+	Plug 'jistr/vim-nerdtree-tabs'
+	Plug 'Xuyuanp/nerdtree-git-plugin'
+	"Plug 'vim-airline/vim-airline'
+	"Plug 'vim-airline/vim-airline-themes'
+	Plug 'scrooloose/nerdtree'
+	Plug 'vim-scripts/mru.vim'
+	Plug 'vim-scripts/ZoomWin'
+	"Plug 'itchyny/lightline.vim'
+	" interface end
+
+	" commands {{{3
+	Plug 'majutsushi/tagbar'
+	Plug 'skywind3000/asyncrun.vim'
+	Plug 'tpope/vim-surround'
+	"Plug 'FuzzyFinder'
+	" commands end
+
+	" uncategorized {{{3
+	Plug 'hari-rangarajan/CCTree'
+	Plug 'will133/vim-dirdiff'
+	Plug 'tpope/vim-unimpaired'
+	Plug 'Stormherz/tablify'
+	Plug 'liuchengxu/vim-which-key'
+	if plugin_use_echodoc == 1
+		Plug 'shougo/echodoc'
+	endif
+	if plugin_use_echofunc == 1
+		"Plug 'echofunc.vim'
+		Plug 'mbbill/echofunc'
+	endif
+	Plug 'vim-scripts/genutils'
+	Plug 'vim-scripts/DrawIt'
+	Plug 'sillybun/vim-repl'
+	Plug 'voldikss/vim-translate-me'
+	" uncategorized end
+
+	" other {{{3
+	Plug 'terryma/vim-multiple-cursors'
+	"Plug 'L9'
+	" other end
+	" my_vim_plug_plugins end
+
+	call plug#end()
 endif
-
-if plugin_use_autoformat == 1
-Plugin 'chiel92/vim-autoformat'
-endif
-
-" integrations {{{3
-Plugin 'gregsexton/gitv'
-"Plugin 'mileszs/ack.vim'
-Plugin 'dyng/ctrlsf.vim'
-"Bundle 'gitv'
-" integrations end
-
-" interface {{{3
-if plugin_use_leaderf == 1
-	Plugin 'yggdroot/leaderf'
-else
-	Bundle 'kien/ctrlp.vim'
-	Bundle 'tacahiroy/ctrlp-funky'
-endif
-Bundle 'jlanzarotta/bufexplorer'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'mbbill/undotree'
-"Plugin 'godlygeek/tabular'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'Xuyuanp/nerdtree-git-plugin'
-"Bundle 'vim-airline/vim-airline'
-"Bundle 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdtree'
-Bundle 'mru.vim'
-Bundle 'ZoomWin'
-" interface end
-
-" commands {{{3
-Bundle 'majutsushi/tagbar'
-Bundle 'skywind3000/asyncrun.vim'
-Plugin 'tpope/vim-surround'
-"Bundle 'FuzzyFinder'
-" commands end
-
-" uncategorized {{{3
-Bundle 'hari-rangarajan/CCTree'
-Bundle 'will133/vim-dirdiff'
-Bundle 'tpope/vim-unimpaired'
-Bundle 'Stormherz/tablify'
-Bundle 'liuchengxu/vim-which-key'
-if plugin_use_echodoc == 1
-	Plugin 'shougo/echodoc'
-endif
-if plugin_use_echofunc == 1
-	"Bundle 'echofunc.vim'
-	Plugin 'mbbill/echofunc'
-endif
-Bundle 'genutils'
-Bundle 'DrawIt'
-Plugin 'sillybun/vim-repl'
-Plugin 'voldikss/vim-translate-me'
-" uncategorized end
-
-" other {{{3
-Plugin 'terryma/vim-multiple-cursors'
-"Bundle 'L9'
-" other end
-
-" plugin_manager: vundle_setup end
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

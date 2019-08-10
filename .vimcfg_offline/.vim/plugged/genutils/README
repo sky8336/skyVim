@@ -1,0 +1,204 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=197
+
+The new version requires Vim 7.0 and it employs the new autoload mechanism. If you have plugins that use both the new version and previous non-autoloaded version, then see the installation instructions for both to coexist.
+
+This script provides functions that are mostly useful to script developers, but some of the functions can be easily converted to good utilities.
+
+See script header for documented public functions with help and usage information along with the function prototypes.
+
+This script provides many useful utility functions for buffers, windows and other misc things. I needed a place to share all the misc. utility functions so I renamed bufNwinUtils.vim and started adding these additional functions. I intend to create/collect many more useful functions and add to this script.
+
+- Read the "Documentation With Function Prototypes" section below.
+- Misc. window/buffer related functions, genutils#NumberOfWindows(),
+  genutils#FindBufferForName(), genutils#MoveCursorToWindow(),
+  genutils#MoveCurLineToWinLine(), genutils#SetupScratchBuffer(),
+  genutils#MapAppendCascaded()
+- Save/Restore all the window height/width settings to be restored later.
+- Save/Restore position in the buffer to be restored later. Works like the
+  built-in marks feature, but has more to it.
+- genutils#AddNotifyWindowClose() to get notifications *after* a window
+  with the specified buffer has been closed or the buffer is unloaded. The
+  built-in autocommands can only notify you *before* the window is closed.
+  You can use this with the Save/Restore window settings feature to
+  restore the dimensions of existing windows, after your window is closed
+  (just like how Vim does while closing help windows). See selectbuf.vim
+  or perforce.vim for examples.
+  There is also a test function called RunNotifyWindowCloseTest() that
+  demos the usage (you need to uncomment RunNotifyWindowCloseTest and
+  NotifyWindowCloseF functions).
+- genutils#ShowLinesWithSyntax() function to echo lines with syntax coloring.
+- genutils#ShiftWordInSpace(), genutils#CenterWordInSpace() and
+  genutils#AlignWordWithWordInPreviousLine() utility functions to move
+  words in the space without changing the width of the field. A
+  genutils#GetSpacer() function to return a spacer of specified width.
+- Binary search function genutils#BinSearchList() for sorted lists, to
+  find the index after which a given item can be inserted to keep the list
+  in sorted order. You can also use these functions to just search for
+  boundaries.
+  There are also a couple of functions genutils#BinSearchForInsert() and
+  genutils#BinSearchForInsert2() to find the location for a newline to be
+  inserted in an already sorted buffer or arbitrary data.
+  There are also a few comparison functions that can be used with sort() or
+  the above functions.
+- ExecMap function has now been separated as a plugin called execmap.vim.
+- New genutils#CommonPath() function to extract the common part of two
+  paths, and genutils#RelPathFromFile() and genutils#RelPathFromDir() to
+  find relative paths (useful HTML href's). A side effect is the
+  genutils#CommonString() function to find the common string of two
+  strings.
+- genutils#UnEscape() and genutils#DeEscape() functions to reverse and
+  genutils#Escape() to compliment what built-in escape() does. There is
+  also an genutils#EscapeCommand() function to escape external command
+  strings.
+- Utility functions genutils#CurLineHasSign() and genutils#ClearAllSigns()
+  to fill in the gaps left by Vim.
+- genutils#GetVimCmdOutput() function to capture the output of Vim built-in
+  commands, in a safe manner.
+- genutils#OptClearBuffer() function to clear the contents and undo
+  history of the current buffer in an optimal manner. Ideal to be used
+  when plugins need to refresh their windows and don't care about
+  preserving the current contents (which is the most usual case).
+- genutils#GetPreviewWinnr() function.
+- Functions to have persistent data, genutils#PutPersistentVar() and
+  genutils#GetPersistentVar(). You don't need to worry about saving in
+  files and reading them back. To disable, set g:genutilsNoPersist in your
+  vimrc.
+- A function to emulate the default Vim behavior for |timestamp| changes.
+  It also provides hooks to get call backs before and after handling the
+  default FileChangedShell autocommand (effectively splitting it into a
+  Pre and a Post event). Suggested usage is to use
+  genutils#AddToFCShellPre() and either install a default event handling
+  mechanism for all files by calling genutils#DefFCShellInstall() or
+  create your own autocommand on a matching pattern to call
+  genutils#DefFileChangedShell() function. Most useful for the source
+  control plugins to conditionally reload a file, while being able to
+  default to the Vim's standard behavior of asking the user. See
+  perforce.vim for usage examples.
+- Utility function genutils#ExtractFuncListing() that is useful to to
+  create snippets (see breakpts.vim, ntservices.vim and ntprocesses.vim
+  for interesting ideas on how to use this function).
+                                                                                   
+Function Prototypes:
+    The types in prototypes of the functions mimic Java.
+    This is just a full list for a quick reference, see
+      "Documentation With Function Prototypes" for more information on the
+      functions.
+                                                                                   
+void    genutils#DebugShowArgs(...)
+String  genutils#ExtractFuncListing(String funcName, String hLines, String tLines)
+int     genutils#NumberOfWindows()
+int     genutils#FindBufferForName(String fileName)
+String  genutils#GetBufNameForAu(String bufName)
+void    genutils#MoveCursorToWindow(int winno)
+void    genutils#MoveCurLineToWinLine(int winLine)
+void    genutils#CloseWindow(int winnr, boolean force)
+void    genutils#MarkActiveWindow()
+void    genutils#RestoreActiveWindow()
+void    genutils#IsOnlyVerticalWindow()
+void    genutils#IsOnlyHorizontalWindow()
+int     genutils#GetNextWinnrInStack(char dir)
+int     genutils#GetLastWinnrInStack(char dir)
+void    genutils#MoveCursorToNextInWinStack(char dir)
+void    genutils#MoveCursorToLastInWinStack(char dir)
+void    genutils#OpenWinNoEa(String openWinCmd)
+void    genutils#CloseWinNoEa(int winnr, boolean force)
+void    genutils#SetupScratchBuffer()
+void    genutils#CleanDiffOptions()
+boolean genutils#ArrayVarExists(String varName, int index)
+void    genutils#MapAppendCascaded(String lhs, String rhs, String mapMode)
+void    genutils#SaveWindowSettings()
+void    genutils#RestoreWindowSettings()
+void    genutils#ResetWindowSettings()
+void    genutils#SaveWindowSettings2(String id, boolean overwrite)
+void    genutils#RestoreWindowSettings2(String id)
+void    genutils#ResetWindowSettings2(String id)
+void    genutils#SaveVisualSelection(String id)
+void    genutils#RestoreVisualSelection(String id)
+void    genutils#SaveSoftPosition(String id)
+void    genutils#RestoreSoftPosition(String id)
+void    genutils#ResetSoftPosition(String id)
+void    genutils#SaveHardPosition(String id)
+void    genutils#RestoreHardPosition(String id)
+void    genutils#ResetHardPosition(String id)
+int     genutils#GetLinePosition(String id)
+int     genutils#GetColPosition(String id)
+boolean genutils#IsPositionSet(String id)
+String  genutils#CleanupFileName(String fileName)
+String  genutils#CleanupFileName2(String fileName, String win32ProtectedChars)
+boolean genutils#OnMS()
+boolean genutils#PathIsAbsolute(String path)
+boolean genutils#PathIsFileNameOnly(String path)
+void    genutils#AddNotifyWindowClose(String windowTitle, String functionName)
+void    genutils#RemoveNotifyWindowClose(String windowTitle)
+void    genutils#CheckWindowClose()
+void    genutils#ShowLinesWithSyntax() range
+void    genutils#ShiftWordInSpace(int direction)
+void    genutils#CenterWordInSpace()
+int     genutils#BinSearchList(List list, int start, int end, Object item,
+                           [Funcref|String] cmp, int direction)
+int     genutils#BinSearchForInsert(int start, int end, String line,
+                           String cmp, int direction)
+int     genutils#BinSearchForInsert2(int start, int end, line, String cmp,
+                            int direction, String accessor, String context)
+String  genutils#CommonPath(String path1, String path2)
+String  genutils#CommonString(String str1, String str2)
+String  genutils#RelPathFromFile(String srcFile, String tgtFile)
+String  genutils#RelPathFromDir(String srcDir, String tgtFile)
+String  genutils#Roman2Decimal(String str)
+String  genutils#Escape(String str, String chars)
+String  genutils#UnEscape(String str, String chars)
+String  genutils#DeEscape(String str)
+String  genutils#CrUnProtectedCharsPattern(String chars)
+String  genutils#EscapeCommand(String cmd, List/String args, List/String pipe)
+int     genutils#GetShellEnvType()
+String  genutils#ExpandStr(String str)
+String  genutils#QuoteStr(String str)
+boolean genutils#CurLineHasSign()
+void    genutils#ClearAllSigns()
+String  genutils#UserFileComplete(String ArgLead, String CmdLine,
+               String CursorPos, String smartSlash, String searchPath)
+String  genutils#UserFileComplete2(String ArgLead, String CmdLine,
+               String CursorPos, [Map params])
+String  genutils#UserDirComplete2(String ArgLead, String CmdLine,
+               String CursorPos, [Map params])
+String  genutils#UserFileExpand(String fileArgs)
+String  genutils#GetVimCmdOutput(String cmd)
+void    genutils#OptClearBuffer()
+int     genutils#GetPreviewWinnr()
+void    genutils#PutPersistentVar(String pluginName, String persistentVar,
+               String value)
+void    genutils#GetPersistentVar(String pluginName, String persistentVar,
+               String default)
+void    genutils#AddToFCShellPre(String funcName)
+void    genutils#RemoveFromFCShellPre(String funcName)
+void    genutils#DefFCShellInstall()
+void    genutils#DefFCShellUninstall()
+boolean genutils#DefFileChangedShell()
+void    genutils#SilentSubstitute(String pat, String cmd)
+void    genutils#SilentDelete(String pat)
+void    genutils#SilentDelete(String range, String pat)
+String  genutils#GetSpacer(int width)
+String  genutils#PromptForElement(List array,
+    	   [String defaultValue | int defaultIndex], String msg,
+    	   String skip, boolean useDialog, int nCols)
+int     genutils#GetSelectedIndex()
+
+Deprecations:
+  - UserFileComplete() is now deprecated, use UserFileComplete2().
+  - CleanDiffOptions() is deprecated as Vim now has the :diffoff command.
+  - MakeArgumentString, MakeArgumentList and CreateArgString are deprecated.
+    Vim7 now includes call() function to receive and pass argument lists
+    around.
+  - The g:makeArgumentString and g:makeArgumentList are obsolete and are
+    deprecated, please use MakeArgumentString() and MakeArgumentList()
+    instead.
+  - FindWindowForBuffer() function is now deprecated, as the corresponding
+    Vim bugs are fixed. Use the below expr instead:
+      bufwinnr(genutils#FindBufferForName(fileName))
+  - QSort(), QSort2(), BinInsertSort() and BinInsertSort2() functions are
+    now deprecated in favor of sort() function.
+
+
+
+
+Search_key_words: genutils variable arguments window buffer windows buffers preview save restore cursor position notify close echo syntax shift sort library typing error errors scriptid clean reset diff eatchar align word words space file filename binary search multvals Hari Krishna Dara

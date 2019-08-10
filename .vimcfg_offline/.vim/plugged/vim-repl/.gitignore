@@ -1,0 +1,15 @@
+.mypy_cache
+__pycache__
+test/.mypy_cache
+test/__pycache__
+*.out
+*.files
+:w
+:q
+*.lprof
+python_tags
+build
+.old.py
+deprecated
+.DS_Store
+gh-md-toc
