@@ -8,7 +8,7 @@
 " Plugin_update: install time
 "------------------------------
 " LastChange: 2019-08-10
-"    Version: v1.1.30
+"    Version: v1.1.31
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -477,7 +477,8 @@ endif
 Plugin 'tpope/vim-markdown'
 Plugin 'scrooloose/nerdcommenter'
 "Plugin 'hynek/vim-python-pep8-indent'
-"Plugin 'lervag/vimtex'
+Plugin 'lervag/vimtex'
+Plugin 'xuhdev/vim-latex-live-preview'
 " language end
 
 " completion {{{3
@@ -896,11 +897,39 @@ if plugin_use_deoplete == 0
 	set statusline+=%*
 endif
 
+" language_setting {{{2
+" vimtex setting {{{3
+let g:tex_flavor='latex'
+let g:vimtex_view_method='zathura'
+let g:vimtex_quickfix_mode=0
+set conceallevel=1
+let g:tex_conceal='abdmg'
+let g:vimtex_compiler_enabled=1
+let g:vimtex_view_automatic=1
+let g:vimtex_compiler_latexmk_engines = {
+			\ '_'                : '-pdf',
+			\ 'pdflatex'         : '-pdf',
+			\ 'dvipdfex'         : '-pdfdvi',
+			\ 'lualatex'         : '-lualatex',
+			\ 'xelatex'          : '-xelatex',
+			\ 'context (pdftex)' : '-pdf -pdflatex=texexec',
+			\ 'context (luatex)' : '-pdf -pdflatex=context',
+			\ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
+			\}
+
+ "vim-latex-live-preview setting {{{3
+"By default, you need to have evince or okular installed as pdf viewers.
+"But you can specify your own viewer by setting:
+autocmd Filetype tex setl updatetime=1
+let g:livepreview_previewer = 'zathura'
+"这个插件配合最好的evince
+"let g:livepreview_previewer = 'evince'
+
 "vim-python-pep8-indent plugin_setting{{{3
 let g:python_pep8_indent_multiline_string = 0
 let g:python_pep8_indent_hang_closing = 0
 
-"Start Python PEP 8 stuff {{{3
+"Start Python PEP 8 stuff {{{4
 " Number of spaces that a pre-existing tab is equal to.
 "au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
 
@@ -937,6 +966,8 @@ autocmd FileType python set foldmethod=indent
 "use space to open folds
 "nnoremap <space> za
 "Stop python PEP 8 stuff
+
+" language_setting end
 
 " MRU.vim {{{2
 nmap  <leader>m :MRU
