@@ -8,7 +8,7 @@
 " Plugin_update: install time
 "------------------------------
 " LastChange: 2019-08-11
-"    Version: v1.1.34
+"    Version: v1.1.35
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1255,13 +1255,21 @@ let g:multi_cursor_quit_key            = '<Esc>'
 cmap jk <ESC>
 cmap pi PlugInstall
 
+" alt key_mappings {{{
+" 设置方法:按下ctrl-v 后，输入alt-想设置的键
+" vim-autoformat
+nnoremap af :Autoformat<CR>
+
 " space key_mappings. {{{2
 nnoremap <space>e<space> :e<CR>
 nnoremap <space>w<space> :w<CR>
+nnoremap <space>wi :w<CR>i
 nnoremap <space>q<space> :q<CR>
+nnoremap <space>q1 :q!<CR>
 nnoremap <space>wq :wq<CR>
 nnoremap <space>wa :wa<CR>
 nnoremap <space>qa :qa<CR>
+nnoremap <space>wqa :wqa<CR>
 nnoremap <space>; :
 vnoremap <space>; :
 
