@@ -7,8 +7,8 @@
 "    Install: offline
 " Plugin_update: 2019-07-26
 "------------------------------
-" LastChange: 2019-08-10
-"    Version: v1.1.33
+" LastChange: 2019-08-11
+"    Version: v1.1.34
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -248,8 +248,7 @@ autocmd BufNewFile * normal G
 " insert time
 ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
-" some function definition: {{{1
-" thanks to http://vimcasts.org/e/4
+" function_definition: {{{1
 function! WhitespaceStripTrailing()
 	let previous_search=@/
 	let previous_cursor_line=line('.')
@@ -258,13 +257,6 @@ function! WhitespaceStripTrailing()
 	let @/=previous_search
 	call cursor(previous_cursor_line, previous_cursor_column)
 endfunction
-
-"{{{3 whitespace  去除文件的行尾空白
-autocmd BufWritePre     *.py        call WhitespaceStripTrailing()
-autocmd BufWritePre     *.h         call WhitespaceStripTrailing()
-autocmd BufWritePre     *.c         call WhitespaceStripTrailing()
-autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
-"}}}
 
 " set statusline color {{{2
 " default the statusline to White (black character) when entering Vim
@@ -291,7 +283,6 @@ fun! ShowFuncName()
 	echohl None
 	call search("\\%" . lnum . "l" . "\\%" . col . "c")
 endfun
-map \ :call ShowFuncName()<CR>
 
 ""vim窗口的最上面显示当前打开文件的路径和文件名{{{2
 "let &titlestring = expand("%:t")
@@ -361,49 +352,7 @@ if has("cscope")
     set csverb
 endif
 
-" SHORTCUT SETTINGS: mappings{{{1
-" Set mapleader
-let mapleader=","
-
-" Space to command mode. {{{2
-nnoremap <space> :
-vnoremap <space> :
-
-" Delete key {{{2
-nnoremap <C-d> <DELETE>
-inoremap <C-d> <DELETE>
-
-" Switching between buffers. {{{2
-nnoremap <C-h> <C-W>h
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-l> <C-W>l
-
-inoremap <C-h> <Esc><C-W>h
-inoremap <C-j> <Esc><C-W>j
-inoremap <C-k> <Esc><C-W>k
-inoremap <C-l> <Esc><C-W>l
-
-" switch to normal
-inoremap jk <Esc>
-
-if version >= 800
-" [>= vim8.0]]terminal mode mappings
-tnoremap <C-h> <C-W>h
-tnoremap <C-j> <C-W>j
-tnoremap <C-k> <C-W>k
-tnoremap <C-l> <C-W>l
-endif
-
-" 括号自动补全
-inoremap '<TAB> ''<ESC>i
-inoremap "<TAB> ""<ESC>i
-inoremap <<TAB> <><ESC>i
-inoremap (<TAB> ()<ESC>i
-inoremap [<TAB> []<ESC>i
-inoremap {<TAB> {<CR>}<ESC>O
-
-"设置跳出自动补全的括号
+" 设置跳出自动补全的括号 {{{2
 func SkipPair()
     if getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == '>' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == "'" || getline('.')[col('.') - 1] == '}'
         return "\<ESC>la"
@@ -411,28 +360,31 @@ func SkipPair()
         return "\t"
     endif
 endfunc
-" 将tab键绑定为跳出括号
-inoremap jj <c-r>=SkipPair()<CR>
 
+" Highlight variable under cursor in Vim {{{3
+let g:HlUnderCursor=1
+let g:no_highlight_group_for_current_word=["Statement", "Comment", "Type", "PreProc"]
+function s:HighlightWordUnderCursor()
+	let l:syntaxgroup = synIDattr(synIDtrans(synID(line("."), stridx(getline("."), expand('<cword>')) + 1, 1)), "name")
 
-" insert mode 光标移动 {{{2
-" alt + k 插入模式下光标向上移动
-imap k <Up>
-" alt + j 插入模式下光标向下移动
-imap j <Down>
-" alt + h 插入模式下光标向左移动
-imap h <Left>
-" alt + l 插入模式下光标向右移动
-imap l <Right>
-"}}}
+	if (index(g:no_highlight_group_for_current_word, l:syntaxgroup) == -1)
+		"exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+		exe exists("g:HlUnderCursor")?g:HlUnderCursor?printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\')):'match none':""
+	else
+		"exe 'match IncSearch /\V\<\>/'
+		exe 'match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/'
+	endif
+endfunction
 
-" "cd" to change to open directory.{{{2
-let OpenDir=system("pwd")
-nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
-
+" function_definition end
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHORTCUT_SETTINGS: mapleader{{{1
+" Set mapleader
+let mapleader=","
+" SHORTCUT_SETTINGS end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin select config table {{{1
+" plugin_select config table {{{1
 let ubuntu18_04 = 1
 
 " python 3+
@@ -456,12 +408,13 @@ let plugin_use_vim_cpp_enhanced_highlight = 0
 
 " select plugin manager: 1:vundle, 0: vim-plug
 let plugin_mgr_vundle_enable = 0
+" plugin_select end
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin web addr: https://vimawesome.com/
-
+" plugin_manager {{{1
 if plugin_mgr_vundle_enable == 1
-	" plugin_manager: vundle_setup {{{1
+	" vundle_setup {{{2
 	set rtp+=~/.vim/vundle/
 	call vundle#rc()
 
@@ -470,8 +423,7 @@ if plugin_mgr_vundle_enable == 1
 	Bundle 'gmarik/vundle'
 
 	"-----------------------
-	" my_vundle_plugins  start:  {{{2
-	" original repos on github （Github仓库插件）
+	" my_vundle_plugins  start:
 
 	" language {{{3
 	Plugin 'tpope/vim-fugitive'
@@ -577,13 +529,13 @@ if plugin_mgr_vundle_enable == 1
 	" other end
 	" my_vundle_plugins end
 
-	" plugin_manager: vundle_setup end
+	" vundle_setup end
 else
-	"vim-plug
+	"vim_plug_setup {{{2
 	call plug#begin('~/.vim/plugged')
 
-	" my_vim_plug_plugins start:  {{{2
-	" original repos on github （Github仓库插件）
+	"---------------------------
+	" my_vim_plug_plugins start:
 
 	" language {{{3
 	Plug 'tpope/vim-fugitive'
@@ -692,6 +644,7 @@ else
 	" my_vim_plug_plugins end
 
 	call plug#end()
+	" vim_plug_setup end
 endif
 
 
@@ -1093,7 +1046,6 @@ autocmd FileType python set foldmethod=indent
 " language_setting end
 
 " MRU.vim {{{2
-nmap  <leader>m :MRU
 
 " undotree.vim {{{2
 let g:undotree_WindowLayout = 2
@@ -1227,7 +1179,6 @@ let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
 " uncategorized_plugin setting {{{2
 " vim-repl setting {{{3
-nnoremap <leader>r :REPLToggle<Cr>
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
 autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
 autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
@@ -1265,7 +1216,7 @@ let g:vtm_default_engines=['ciba', 'youdao']
 "let g:vtm_proxy_url = 'socks5://127.0.0.1:1080'
 let g:vtm_enable_history=1
 let g:vtm_max_history_count=5000
-" key-mapping
+" key_mapping
 " <leader>t 翻译光标下的文本，在命令行回显
 nmap <silent> <leader>t <Plug>Translate
 vmap <silent> <leader>t <Plug>TranslateV
@@ -1299,8 +1250,78 @@ let g:multi_cursor_quit_key            = '<Esc>'
 " PLUGIN_SETTINGS end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHORTCUT_SETTINGS: 按键映射 key_mappings {{{1
+" command line key_mappings {{{2
+cmap jk <ESC>
+cmap pi PlugInstall
 
-" 按键映射 {{{1
+" space key_mappings. {{{2
+nnoremap <space>e<space> :e<CR>
+nnoremap <space>w<space> :w<CR>
+nnoremap <space>q<space> :q<CR>
+nnoremap <space>wq :wq<CR>
+nnoremap <space>wa :wa<CR>
+nnoremap <space>qa :qa<CR>
+nnoremap <space>; :
+vnoremap <space>; :
+
+nmap  <space>t<space> :vert terminal<CR>
+nmap  <space>td :packadd termdebug<CR>:Termdebug<CR>
+" vim-repl key-mapping
+nnoremap <space>r<space> :REPLToggle<Cr>
+
+" Delete key {{{2
+nnoremap <C-d> <DELETE>
+inoremap <C-d> <DELETE>
+
+" Switching between buffers. {{{2
+nnoremap <C-h> <C-W>h
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-l> <C-W>l
+
+inoremap <C-h> <Esc><C-W>h
+inoremap <C-j> <Esc><C-W>j
+inoremap <C-k> <Esc><C-W>k
+inoremap <C-l> <Esc><C-W>l
+
+" switch to normal
+inoremap jk <Esc>:w<CR>
+
+if version >= 800
+" [>= vim8.0]]terminal mode key_mappings
+tnoremap <C-h> <C-W>h
+tnoremap <C-j> <C-W>j
+tnoremap <C-k> <C-W>k
+tnoremap <C-l> <C-W>l
+endif
+
+" 括号自动补全
+inoremap '<TAB> ''<ESC>i
+inoremap "<TAB> ""<ESC>i
+inoremap <<TAB> <><ESC>i
+inoremap (<TAB> ()<ESC>i
+inoremap [<TAB> []<ESC>i
+inoremap {<TAB> {<CR>}<ESC>O
+
+" 将tab键绑定为跳出括号
+inoremap jj <c-r>=SkipPair()<CR>
+
+
+" insert mode 光标移动 {{{2
+" alt + k 插入模式下光标向上移动
+imap k <Up>
+" alt + j 插入模式下光标向下移动
+imap j <Down>
+" alt + h 插入模式下光标向左移动
+imap h <Left>
+" alt + l 插入模式下光标向右移动
+imap l <Right>
+"}}}
+
+" "cd" to change to open directory.{{{2
+let OpenDir=system("pwd")
+nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 " F2 ~ F12 按键映射 {{{2
 nmap  <leader>f1 :TagbarToggle<CR>
 
@@ -1359,9 +1380,6 @@ nmap  <leader><F7> :lclose<CR>
 nmap  <leader>7f :botright copen 10<CR>
 
 " F8
-nmap  <C-F8> :vert terminal<CR>
-nmap  <leader>f8 :vert terminal<CR>
-nmap  <leader>8f :packadd termdebug<CR>:Termdebug<CR>
 
 " f9
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
@@ -1443,14 +1461,6 @@ set tags+=./tags  "引导omnicppcomplete等找到tags文件
 map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 """"""""""""""""""""""""""""""
-"实现vim和终端及gedit等之间复制、粘贴的设置 {{{1
-""""""""""""""""""""""""""""""
-" 让VIM和ubuntu(X Window)共享一个粘贴板
-set clipboard=unnamedplus " 设置vim使用"+寄存器(粘贴板)，"+寄存器是代表ubuntu的粘贴板。
-" VIM退出时，运行xsel命令把"+寄存器中的内容保存到系统粘贴板中;需要安装xsel
-autocmd VimLeave * call system("xsel -ib", getreg('+'))
-
-""""""""""""""""""""""""""""""
 " 编辑文件相关配置 {{{1
 """"""""""""""""""""""""""""""
 " 常规模式下输入 cM 清除行尾 ^M 符号
@@ -1476,28 +1486,37 @@ nmap <leader>mv :set mouse=v<cr>
 nmap <leader>p :set paste<cr>
 nmap <leader>np :set nopaste<cr>
 
-" 启用每行超过80列的字符提示（背景变black）
+" define a shortcut key for enabling/disabling highlighting:
+nnoremap  <C-\><F3> :exe "let g:HlUnderCursor=exists(\"g:HlUnderCursor\")?g:HlUnderCursor*-1+1:1"<CR>
+
+map \ :call ShowFuncName()<CR>
+nmap  <leader>m :MRU
+" SHORTCUT_SETTINGS end
+""""""""""""""""""""""""""""""
+"实现vim和终端及gedit等之间复制、粘贴的设置 {{{1
+""""""""""""""""""""""""""""""
+" 让VIM和ubuntu(X Window)共享一个粘贴板
+set clipboard=unnamedplus " 设置vim使用"+寄存器(粘贴板)，"+寄存器是代表ubuntu的粘贴板。
+
+" autocmd_setting {{{1
+" VIM退出时，运行xsel命令把"+寄存器中的内容保存到系统粘贴板中;需要安装xsel {{{2
+autocmd VimLeave * call system("xsel -ib", getreg('+'))
+
+
+" 启用每行超过80列的字符提示（背景变black） {{{2
 highlight MyGroup ctermbg=black guibg=black
 au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 
-" Highlight unwanted spaces
+" Highlight unwanted spaces {{{2
 highlight ExtraWhitespace ctermbg=red guibg=red
 "autocmd BufWinEnter * match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
 
-" Highlight variable under cursor in Vim
-let g:HlUnderCursor=1
-let g:no_highlight_group_for_current_word=["Statement", "Comment", "Type", "PreProc"]
-function s:HighlightWordUnderCursor()
-	let l:syntaxgroup = synIDattr(synIDtrans(synID(line("."), stridx(getline("."), expand('<cword>')) + 1, 1)), "name")
-
-	if (index(g:no_highlight_group_for_current_word, l:syntaxgroup) == -1)
-		"exe printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\'))
-		exe exists("g:HlUnderCursor")?g:HlUnderCursor?printf('match IncSearch /\V\<%s\>/', escape(expand('<cword>'), '/\')):'match none':""
-	else
-		"exe 'match IncSearch /\V\<\>/'
-		exe 'match ExtraWhitespace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/'
-	endif
-endfunction
+" high light word under cursor {{{2
 autocmd CursorMoved * call s:HighlightWordUnderCursor()
-" define a shortcut key for enabling/disabling highlighting:
-nnoremap  <C-\><F3> :exe "let g:HlUnderCursor=exists(\"g:HlUnderCursor\")?g:HlUnderCursor*-1+1:1"<CR>
+
+" whitespace  去除文件的行尾空白 {{{2
+autocmd BufWritePre     *.py        call WhitespaceStripTrailing()
+autocmd BufWritePre     *.h         call WhitespaceStripTrailing()
+autocmd BufWritePre     *.c         call WhitespaceStripTrailing()
+autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
+
