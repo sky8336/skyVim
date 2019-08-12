@@ -8,7 +8,7 @@
 " Plugin_update: install time
 "------------------------------
 " LastChange: 2019-08-11
-"    Version: v1.1.37
+"    Version: v1.1.38
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1267,22 +1267,21 @@ cmap pi PlugInstall
 nnoremap af :Autoformat<CR>
 
 " space key_mappings. {{{2
-nnoremap <space>e<space> :e<CR>
-nnoremap <space>w<space> :w<CR>
-nnoremap <space>wi :w<CR>i
-nnoremap <space>q<space> :q<CR>
-nnoremap <space>q1 :q!<CR>
-nnoremap <space>wq :wq<CR>
-nnoremap <space>wa :wa<CR>
-nnoremap <space>qa :qa<CR>
-nnoremap <space>wqa :wqa<CR>
+nnoremap <space>e<CR> :e<CR>
+nnoremap <space>w<CR> :w<CR>
+nnoremap <space>q<CR> :q<CR>
+nnoremap <space>q1<CR> :q!<CR>
+nnoremap <space>wq<CR> :wq<CR>
+nnoremap <space>wa<CR> :wa<CR>
+nnoremap <space>qa<CR> :qa<CR>
+nnoremap <space>wqa<CR> :wqa<CR>
 nnoremap <space>; :
 vnoremap <space>; :
 
-nmap  <space>t<space> :vert terminal<CR>
-nmap  <space>td :packadd termdebug<CR>:Termdebug<CR>
+nmap  <space>t<CR> :vert terminal<CR>
+nmap  <space>td<CR> :packadd termdebug<CR>:Termdebug<CR>
 " vim-repl key-mapping
-nnoremap <space>r<space> :REPLToggle<Cr>
+nnoremap <space>r<CR> :REPLToggle<Cr>
 
 " Delete key {{{2
 nnoremap <C-d> <DELETE>
@@ -1300,7 +1299,8 @@ inoremap <C-k> <Esc><C-W>k
 inoremap <C-l> <Esc><C-W>l
 
 " switch to normal
-inoremap jk <Esc>:w<CR>
+inoremap jk <Esc>
+inoremap js <Esc>:w<CR>
 
 if version >= 800
 " [>= vim8.0]]terminal mode key_mappings
