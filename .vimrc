@@ -8,7 +8,7 @@
 " Plugin_update: install time
 "------------------------------
 " LastChange: 2019-08-11
-"    Version: v1.1.35
+"    Version: v1.1.36
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -393,11 +393,13 @@ if ubuntu18_04 == 1
 	let plugin_use_leaderf = 1
 	let plugin_use_ultisnips = 1
 	let plugin_use_autoformat = 1
+	let latex_live_preview = 1
 else
 	" ubuntu16.04 maybe python < 2.7
 	let plugin_use_leaderf = 0
 	let plugin_use_ultisnips = 0
 	let plugin_use_autoformat = 0
+	let latex_live_preview = 0
 endif
 
 let plugin_use_neomake = 0
@@ -436,7 +438,9 @@ if plugin_mgr_vundle_enable == 1
 	Plugin 'scrooloose/nerdcommenter'
 	"Plugin 'hynek/vim-python-pep8-indent'
 	Plugin 'lervag/vimtex'
-	Plugin 'xuhdev/vim-latex-live-preview'
+	if latex_live_preview == 1
+		Plugin 'xuhdev/vim-latex-live-preview'
+	endif
 	" language end
 
 	" completion {{{3
@@ -548,7 +552,9 @@ else
 	Plug 'scrooloose/nerdcommenter'
 	"Plug 'hynek/vim-python-pep8-indent'
 	Plug 'lervag/vimtex'
-	Plug 'xuhdev/vim-latex-live-preview'
+	if latex_live_preview == 1
+		Plug 'xuhdev/vim-latex-live-preview'
+	endif
 	" language end
 
 	" completion {{{3
