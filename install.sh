@@ -431,8 +431,8 @@ function chown_vundle()
 		echo "====== ~/.vim/bundle/ change owner: ======"
 		cd $vimcfig_bundle_dir_path
 		pwd
-		username=`ls -l install.sh | cut -d ' ' -f3`
-		groupname=`ls -l  install.sh | cut -d ' ' -f4`
+		username=`ls -l install.sh | awk '{print $3}'`
+		groupname=`ls -l  install.sh | awk '{print $4}'`
 		echo "username=$username"
 		echo "groupname=$groupname"
 
