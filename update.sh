@@ -265,4 +265,5 @@ bakup_vimrc
 update_vimrc
 update_package
 install_new_plugin
+cat utils/ASCII-sky8336.txt
 echo_install_time
