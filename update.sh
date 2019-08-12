@@ -37,7 +37,7 @@ function get_start_time_and_dir_path()
 function check_network()
 {
 	#超时时间
-	timeout=5
+	timeout=9
 
 	#目标网站
 	target=www.baidu.com
@@ -60,7 +60,7 @@ function check_network()
 
 function update_vimcfg_bundle()
 {
-	echo "====== git pull ======"
+	echo "====== update vimcfg_bundle: git pull ======"
 
 	chown -R $username:$groupname ../vimcfg_bundle
 	git pull
