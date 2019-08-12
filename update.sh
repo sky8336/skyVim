@@ -1,10 +1,27 @@
 #!/bin/bash
 
-vim_plug_dir=~/.vim/autoload
-# we use vim-plug as plugin manager by default; set install_vundle=1 to select
-# the old vundle
-install_vundle=0
+# used for step2
+global_variables_setup()
+{
+	vim_plug_dir=~/.vim/autoload
+	# we use vim-plug as plugin manager by default; set install_vundle=1 to select
+	# the old vundle
+	install_vundle=0
 
+	# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
+	# 操作, 如导致git add -A和git commit -s要加sudo; 这里都恢复普通用户
+	username=`ls -l ../ | grep vimcfg_bundle | awk '{print $3}'`
+	groupname=`ls -l ../ | grep vimcfg_bundle | awk '{print $4}'`
+	echo "username=$username"
+	echo "groupname=$groupname"
+
+	vimcfig_bundle_dir_path=$(pwd)
+	echo "dir_path: $vimcfig_bundle_dir_path"
+}
+
+#
+# utils functions
+#
 #set color
 function set_color()
 {
@@ -26,11 +43,9 @@ function check_root_privileges()
 }
 
 #获取开始时间和路径
-function get_start_time_and_dir_path()
+function get_start_time()
 {
 	start_time=$(date +"%s")
-	vimcfig_bundle_dir_path=$(pwd)
-	echo "dir_path: $vimcfig_bundle_dir_path"
 }
 
 #shell脚本下载数据时，先检测网络的畅通性
@@ -58,6 +73,11 @@ function check_network()
 	fi
 }
 
+#
+# update related apis
+#
+
+# first step
 function update_vimcfg_bundle()
 {
 	echo "====== update vimcfg_bundle: git pull ======"
@@ -249,21 +269,43 @@ function echo_install_time()
     echo
 }
 
-# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
-# 操作, 如导致git add -A和git commit -s要加sudo; 这里都恢复普通用户
-username=`ls -l ../ | grep vimcfg_bundle | awk '{print $3}'`
-groupname=`ls -l ../ | grep vimcfg_bundle | awk '{print $4}'`
-echo "username=$username"
-echo "groupname=$groupname"
+#
+update_vimcfg()
+{
+	global_variables_setup
+	bakup_vimrc
+	update_vimrc
+	update_package
+	install_new_plugin
+}
 
-set_color
-check_root_privileges
-get_start_time_and_dir_path
-check_network
-update_vimcfg_bundle
-bakup_vimrc
-update_vimrc
-update_package
-install_new_plugin
-cat utils/ASCII-sky8336.txt
-echo_install_time
+main()
+{
+	if [[ -z $1 ]]; then
+		echo ">> step1: prepare and update vimcfg_bundle repo."
+		set_color
+		# prepare
+		check_root_privileges
+		get_start_time
+		check_network
+
+		# step1: update vimcfg_bundle
+		update_vimcfg_bundle
+		echo "vimcfg_bundle repo update -- done"
+
+		# execure step2 using new script
+		sudo ./update.sh 1
+
+		cat utils/ASCII-sky8336.txt
+		echo_install_time
+	elif [[ $1 -eq 1 ]]; then
+		echo ">> step2: setup vim config now!"
+		# step2: setup vim config
+		update_vimcfg
+		echo "vim config setup -- done."
+	else
+		echo "invalid  parameter."
+	fi
+}
+
+main "$@"
