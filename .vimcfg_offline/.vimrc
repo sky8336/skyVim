@@ -8,7 +8,7 @@
 " Plugin_update: 2019-07-26
 "------------------------------
 " LastChange: 2019-08-11
-"    Version: v1.1.36
+"    Version: v1.1.37
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1044,7 +1044,7 @@ let python_highlight_all=1
 autocmd FileType python set autoindent
 
 "Folding based on indentation:
-autocmd FileType python set foldmethod=indent
+"autocmd FileType python set foldmethod=indent
 "use space to open folds
 "nnoremap <space> za
 "Stop python PEP 8 stuff
