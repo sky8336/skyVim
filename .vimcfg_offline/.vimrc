@@ -7,8 +7,8 @@
 "    Install: offline
 " Plugin_update: 2019-07-26
 "------------------------------
-" LastChange: 2019-08-11
-"    Version: v1.1.38
+" LastChange: 2019-08-12
+"    Version: v1.1.39
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -249,6 +249,14 @@ autocmd BufNewFile * normal G
 ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
 " function_definition: {{{1
+
+" plugin shortcuts {{{2
+function! RunShell(Msg, Shell)
+	echo a:Msg . '...'
+	call system(a:Shell)
+	echon 'done'
+endfunction
+
 function! WhitespaceStripTrailing()
 	let previous_search=@/
 	let previous_cursor_line=line('.')
@@ -416,18 +424,18 @@ let plugin_mgr_vundle_enable = 0
 " plugin web addr: https://vimawesome.com/
 " plugin_manager {{{1
 if plugin_mgr_vundle_enable == 1
-	" vundle_setup {{{2
+	" plugin_manager: vundle_setup {{{2
 	set rtp+=~/.vim/vundle/
 	call vundle#rc()
 
 	filetype plugin indent on     " required!
-	" let Vundle manage Vundle: vundle.vim 插件管理器     "required!{{{2
+	" let Vundle manage Vundle: vundle.vim 插件管理器: required!
 	Bundle 'gmarik/vundle'
 
 	"-----------------------
 	" my_vundle_plugins  start:
 
-	" language {{{3
+	" vundle_setup: language {{{3
 	Plugin 'tpope/vim-fugitive'
 	if plugin_use_neomake == 1
 		Plugin 'neomake/neomake'
@@ -443,7 +451,7 @@ if plugin_mgr_vundle_enable == 1
 	endif
 	" language end
 
-	" completion {{{3
+	" vundle_setup: completion {{{3
 	"Plugin 'ervandew/supertab'
 	"Plugin 'Valloric/YouCompleteMe'
 	"Plugin 'Shougo/neocomplete.vim'
@@ -465,7 +473,7 @@ if plugin_mgr_vundle_enable == 1
 	Plugin 'taglist.vim'
 	" completion end
 
-	" code_display {{{3
+	" vundle_setup: code_display {{{3
 	if plugin_use_vim_cpp_enhanced_highlight == 1
 		Plugin 'octol/vim-cpp-enhanced-highlight'
 	endif
@@ -474,14 +482,14 @@ if plugin_mgr_vundle_enable == 1
 		Plugin 'chiel92/vim-autoformat'
 	endif
 
-	" integrations {{{3
+	" vundle_setup: integrations {{{3
 	Plugin 'gregsexton/gitv'
 	"Plugin 'mileszs/ack.vim'
 	Plugin 'dyng/ctrlsf.vim'
 	"Plugin 'gitv'
 	" integrations end
 
-	" interface {{{3
+	" vundle_setup: interface {{{3
 	if plugin_use_leaderf == 1
 		Plugin 'yggdroot/leaderf'
 	else
@@ -501,14 +509,14 @@ if plugin_mgr_vundle_enable == 1
 	Plugin 'ZoomWin'
 	" interface end
 
-	" commands {{{3
+	" vundle_setup: commands {{{3
 	Plugin 'majutsushi/tagbar'
 	Plugin 'skywind3000/asyncrun.vim'
 	Plugin 'tpope/vim-surround'
 	"Plugin 'FuzzyFinder'
 	" commands end
 
-	" uncategorized {{{3
+	" vundle_setup: uncategorized {{{3
 	Plugin 'hari-rangarajan/CCTree'
 	Plugin 'will133/vim-dirdiff'
 	Plugin 'tpope/vim-unimpaired'
@@ -527,7 +535,7 @@ if plugin_mgr_vundle_enable == 1
 	Plugin 'voldikss/vim-translate-me'
 	" uncategorized end
 
-	" other {{{3
+	" vundle_setup:  other {{{3
 	Plugin 'terryma/vim-multiple-cursors'
 	"Plugin 'L9'
 	" other end
@@ -535,13 +543,13 @@ if plugin_mgr_vundle_enable == 1
 
 	" vundle_setup end
 else
-	"vim_plug_setup {{{2
+	" plugin_manager: vim_plug_setup {{{2
 	call plug#begin('~/.vim/plugged')
 
 	"---------------------------
 	" my_vim_plug_plugins start:
 
-	" language {{{3
+	" vim_plug_setup: language {{{3
 	Plug 'tpope/vim-fugitive'
 	if plugin_use_neomake == 1
 		Plug 'neomake/neomake'
@@ -557,7 +565,7 @@ else
 	endif
 	" language end
 
-	" completion {{{3
+	" vim_plug_setup:  completion {{{3
 	"Plug 'ervandew/supertab'
 	"Plug 'Valloric/YouCompleteMe'
 	"Plug 'Shougo/neocomplete.vim'
@@ -580,7 +588,7 @@ else
 
 	" completion end
 
-	" code_display {{{3
+	" vim_plug_setup:  code_display {{{3
 	if plugin_use_vim_cpp_enhanced_highlight == 1
 		Plug 'octol/vim-cpp-enhanced-highlight'
 	endif
@@ -589,14 +597,14 @@ else
 		Plug 'chiel92/vim-autoformat'
 	endif
 
-	" integrations {{{3
+	" vim_plug_setup: integrations {{{3
 	Plug 'gregsexton/gitv'
 	"Plug 'mileszs/ack.vim'
 	Plug 'dyng/ctrlsf.vim'
 	"Plug 'gitv'
 	" integrations end
 
-	" interface {{{3
+	" vim_plug_setup: interface {{{3
 	if plugin_use_leaderf == 1
 		Plug 'yggdroot/leaderf'
 	else
@@ -617,14 +625,14 @@ else
 	"Plug 'itchyny/lightline.vim'
 	" interface end
 
-	" commands {{{3
+	" vim_plug_setup:  commands {{{3
 	Plug 'majutsushi/tagbar'
 	Plug 'skywind3000/asyncrun.vim'
 	Plug 'tpope/vim-surround'
 	"Plug 'FuzzyFinder'
 	" commands end
 
-	" uncategorized {{{3
+	" vim_plug_setup: uncategorized {{{3
 	Plug 'hari-rangarajan/CCTree'
 	Plug 'will133/vim-dirdiff'
 	Plug 'tpope/vim-unimpaired'
@@ -643,7 +651,7 @@ else
 	Plug 'voldikss/vim-translate-me'
 	" uncategorized end
 
-	" other {{{3
+	" vim_plug_setup:  other {{{3
 	Plug 'terryma/vim-multiple-cursors'
 	"Plug 'L9'
 	" other end
@@ -658,21 +666,21 @@ endif
 " PLUGIN_SETTINGS begin: {{{1
 "
 if plugin_use_echofunc == 1
-	" echofunc.vim setting {{{2
+	" plugin_setting: echofunc.vim {{{3
 	"let g:EchoFuncAutoStartBalloonDeclaration=1
 endif
 
 if plugin_use_echodoc == 1
-	" echodoc setting {{{2
+	" plugin_setting:  echodoc {{{3
 	let g:echodoc#type = "echo" " Default value
 	set noshowmode
 	let g:echodoc_enable_at_startup = 1
 endif
 
-" code_display {{{2
+" code_display plugin_settings {{{2
 
 if plugin_use_vim_cpp_enhanced_highlight == 1
-	" vim-cpp-enhanced-highlight setting {{{3
+	" plugin_setting:  vim-cpp-enhanced-highlight {{{3
 	"Highlighting of class scope is disabled by default. To enable set
 	let g:cpp_class_scope_highlight = 1
 
@@ -701,7 +709,7 @@ if plugin_use_vim_cpp_enhanced_highlight == 1
 	let c_no_curly_error=1
 endif
 
-"auto-format plugin_setting {{{3
+" plugin_setting: auto-format {{{3
 if plugin_use_autoformat == 1
 "F5自动格式化代码并保存
 noremap <F5> :Autoformat<CR>:w<CR>
@@ -752,8 +760,8 @@ func! FormatCode()
 endfunc
 endif
 
-" integrations {{{2
-" ctrlsf.vim {{{3
+" integrations plugin_settings {{{2
+" plugin_setting: ctrlsf.vim {{{3
 let g:ctrlsf_absolute_file_path = 1
 let g:ctrlsf_ackprg = '/usr/bin/ack'
 let g:ctrlsf_auto_close = {
@@ -806,7 +814,7 @@ nnoremap <C-\>o :CtrlSFOpen<CR>
 nnoremap <C-\>c :CtrlSFToggle<CR>
 inoremap <C-\>c <Esc>:CtrlSFToggle<CR>
 
-" tagbar.vim {{{2
+" plugin_setting: tagbar.vim {{{3
 let g:tagbar_left=1
 let g:tagbar_ctags_bin='ctags'           "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
@@ -817,7 +825,7 @@ if &diff == 0
 	autocmd VimEnter *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc nested :call tagbar#autoopen(1)
 endif
 
-" taglist.vim {{{2
+" plugin_setting: taglist.vim {{{3
 let g:Tlist_Auto_Update=1
 let g:Tlist_Process_File_Always=1
 let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
@@ -832,7 +840,7 @@ if &diff == 0
 endif
 
 
-" CCtree {{{2
+" plugin_setting: CCtree {{{3
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree
 let g:CCTreeKeyTraceReverseTree = '<C-\><'
 let g:CCTreeKeyHilightTree = '<C-\>l' " Static highlighting
@@ -851,7 +859,7 @@ let  g:CCTreeJoinProgOpts = ""
 "let g:CCTreeRecursiveDepth = 3
 "let g:CCTreeMinVisibleDepth = 3
 
-" NERDTree.vim {{{2
+" plugin_setting: NERDTree.vim {{{3
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
@@ -868,7 +876,7 @@ let NERDTreeShowBookmarks=1
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"  vim-nerdtree-tabs.vim {{{2
+" plugin_setting:  vim-nerdtree-tabs.vim {{{3
 "let g:nerdtree_tabs_autofind=1
 
 "Open NERDTree on gvim/macvim startup
@@ -910,7 +918,7 @@ let g:nerdtree_tabs_focus_on_files = 0
 "When starting up with a directory name as a parameter, cd into it
 let g:nerdtree_tabs_startup_cd = 1
 
-" nerdtree-git-plugin.vim {{{2
+" plugin_setting: nerdtree-git-plugin.vim {{{3
 " NERDTreeShowGitStatus 为0，不加载git信息;为1,加载，引起打开vim慢（甚至十几秒）
 let g:NERDTreeShowGitStatus = 0
 let g:NERDTreeIndicatorMapCustom = {
@@ -927,7 +935,7 @@ let g:NERDTreeIndicatorMapCustom = {
 			\ }
 
 
-"" YCM {{{2
+"" plugin_setting:  YCM {{{3
 "let g:ycm_confirm_extra_conf = 0
 "let g:ycm_error_symbol = '>>'
 "let g:ycm_warning_symbol = '>*'
@@ -951,7 +959,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 if plugin_use_deoplete == 0
-	" OmniCppComplete.vim {{{2
+	" plugin_setting: OmniCppComplete.vim {{{3
 	"set nocp
 	"filetype plugin on
 	set completeopt=menu,menuone
@@ -964,7 +972,7 @@ if plugin_use_deoplete == 0
 	let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
 	let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 
-	" configure syntastic syntax checking to check on open as well as save{{{2
+	" configure syntastic syntax checking to check on open as well as save
 	let g:syntastic_mode_map = {
 				\ "mode": "passive",
 				\ "active_filetypes": ["ruby", "php"],
@@ -979,8 +987,8 @@ if plugin_use_deoplete == 0
 	set statusline+=%*
 endif
 
-" language_setting {{{2
-" vimtex setting {{{3
+" language  plugin_setting:  {{{2
+" plugin_setting: vimtex {{{3
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
@@ -999,7 +1007,7 @@ let g:vimtex_compiler_latexmk_engines = {
 			\ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
 			\}
 
- "vim-latex-live-preview setting {{{3
+ " plugin_setting: vim-latex-live-preview {{{3
 "By default, you need to have evince or okular installed as pdf viewers.
 "But you can specify your own viewer by setting:
 autocmd Filetype tex setl updatetime=1
@@ -1007,7 +1015,7 @@ let g:livepreview_previewer = 'zathura'
 "这个插件配合最好的evince
 "let g:livepreview_previewer = 'evince'
 
-"vim-python-pep8-indent plugin_setting{{{3
+" plugin_setting: vim-python-pep8-indent plugin_setting{{{3
 let g:python_pep8_indent_multiline_string = 0
 let g:python_pep8_indent_hang_closing = 0
 
@@ -1051,12 +1059,12 @@ autocmd FileType python set autoindent
 
 " language_setting end
 
-" MRU.vim {{{2
+" plugin_setting: MRU.vim {{{3
 
-" undotree.vim {{{2
+" plugin_setting: undotree.vim {{{3
 let g:undotree_WindowLayout = 2
 
-" BufExplorer.vim 其中有默认配置 {{{2
+" plugin_setting: BufExplorer.vim 其中有默认配置 {{{3
 "let g:bufExplorerDefaultHelp=0       " Do not show default help.
 "let g:bufExplorerShowRelativePath=1  " Show relative paths.
 "let g:bufExplorerSortBy='mru'        " Sort by most recently used.
@@ -1069,9 +1077,9 @@ let g:undotree_WindowLayout = 2
 "<Leader>bv　　垂直窗口打开 buffer 列表。
 
 
-" interface: leaderf or ctrlp {{{2
+" interface plugin_settings   leaderf or ctrlp {{{2
 if plugin_use_leaderf == 1
-	" interface: leaderf {{{3
+	" plugin_setting: interface: leaderf {{{3
 	let g:Lf_ShortcutF = '<c-p>'
 	let g:Lf_ShortcutB = '<m-n>'
 	noremap <c-n> :LeaderfMru<cr>
@@ -1089,7 +1097,7 @@ if plugin_use_leaderf == 1
 	"let g:Lf_StlColorscheme = 'powerline'
 	let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 else
-	" interface: ctrlp.vim {{{3
+	" plugin_setting: interface: ctrlp.vim {{{3
 	"let g:ctrlp_map = '<c-p>'
 	"let g:ctrlp_cmd = 'CtrlP'
 	let g:ctrlp_working_path_mode = 'ra'
@@ -1110,11 +1118,11 @@ else
 	let g:ctrlp_extensions = ['funky']
 endif
 
-" Man.vim {{{2
+" plugin_setting: Man.vim {{{3
 source $VIMRUNTIME/ftplugin/man.vim
 
 if plugin_use_ultisnips == 1
-	" utilsnips.vim {{{2
+	" plugin_setting: utilsnips.vim {{{3
 	"autocmd FileType * call UltiSnips#FileTypeChanged()
 	" 连续按下两次i触发代码补全
 	let g:UltiSnipsExpandTrigger="<tab>"
@@ -1123,37 +1131,21 @@ if plugin_use_ultisnips == 1
 	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 else
-	" snipMate {{{2
+	" plugin_setting: snipMate {{{3
 	"let g:snips_author="Du Jianfeng"
 	"let g:snips_email="cmdxiaoha@163.com"
 	"let g:snips_copyright="SicMicro, Inc"
 endif
 
 
-" vimdiff hot keys {{{2
-" if you know the buffer number, you can use hot key like ",2"
-" (press comma first, then press two as quickly as possible) to
-" pull change from buffer number two.set up hot keys:
-map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
-map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
-map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
-map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
-
-" dirdiff.vim {{{2
+" plugin_setting: dirdiff.vim {{{3
 let g:DirDiffExcludes = "CVS,*.class,*.o"
 let g:DirDiffIgnore = "Id:"
 " ignore white space in diff
 let g:DirDiffAddArgs = "-w"
 let g:DirDiffEnableMappings = 1
 
-" plugin shortcuts {{{2
-function! RunShell(Msg, Shell)
-	echo a:Msg . '...'
-	call system(a:Shell)
-	echon 'done'
-endfunction
-
-" ZoomWinPlugin.vim {{{2
+" plugin_setting: ZoomWinPlugin.vim {{{3
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
 	if exists('t:zoomed') && t:zoomed
@@ -1169,13 +1161,13 @@ endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
 
-" vim-airline {{{2
+" plugin_setting: vim-airline {{{3
 "set laststatus=2  "永远显示状态栏
 "let g:airline_powerline_fonts = 1  " 支持 powerline 字体
 "let g:airline#extensions#tabline#enabled = 1 " 显示窗口tab和buffer
 
 " 使用:AirlineTheme {theme-name}设置主题。
-" asyncrun {{{2
+" plugin_setting: asyncrun {{{3
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
 " 任务结束时候响铃提醒
@@ -1183,8 +1175,8 @@ let g:asyncrun_bell = 1
 " 定位到文件所属项目的目录: 从文件所在目录向上递归，直到找到名为 “.git”, “.svn”, “.hg”或者 “.root”文件或者目录
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
-" uncategorized_plugin setting {{{2
-" vim-repl setting {{{3
+" uncategorized plugin_settings{{{2
+" plugin_setting: vim-repl setting {{{3
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
 autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
 autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
@@ -1214,7 +1206,7 @@ let g:repl_cursor_down = 1
 let g:repl_python_automerge = 1
 let g:repl_console_name = 'ZYTREPL'
 
-" vim-translate-me {{{3
+" plugin_setting: vim-translate-me {{{3
 let g:vtm_default_mapping=0
 let g:vtm_default_to_lang='zh'
 let g:vtm_default_engines=['ciba', 'youdao']
@@ -1237,8 +1229,8 @@ vmap <silent> <leader>ar <Plug>TranslateRV
 
 " uncategorized_plugin setting end
 
-" other_plugin setting {{{2
-" vim-multiple-cursors {{{3
+" other plugin settings {{{2
+" plugin_setting: vim-multiple-cursors {{{3
 " 多光标选中编辑
 " multiplecursors
 let g:multi_cursor_use_default_mapping=0
@@ -1261,10 +1253,19 @@ let g:multi_cursor_quit_key            = '<Esc>'
 cmap jk <ESC>
 cmap pi PlugInstall
 
-" alt key_mappings {{{
+" alt key_mappings {{{2
 " 设置方法:按下ctrl-v 后，输入alt-想设置的键
 " vim-autoformat
 nnoremap af :Autoformat<CR>
+
+" vimdiff hot keys {{{2
+" if you know the buffer number, you can use hot key like ",2"
+" (press comma first, then press two as quickly as possible) to
+" pull change from buffer number two.set up hot keys:
+map <silent><leader>1 :diffget 1<CR>:diffupdate<CR>
+map <silent><leader>2 :diffget 2<CR>:diffupdate<CR>
+map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
+map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 
 " space key_mappings. {{{2
 nnoremap <space>e<CR> :e<CR>
