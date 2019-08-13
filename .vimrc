@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-12
-"    Version: v1.1.39
+"    Version: v1.1.40
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -103,17 +103,9 @@ set t_Co=256
 " set splitbelow
 " set splitright
 
-" AUTO COMMANDS: {{{1
-" auto expand tab to blanks
-"autocmd FileType c,cpp set expandtab
-" Restore the last quit position when open file.{{{2
-autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\     exe "normal g'\"" |
-			\ endif
 
-" create file settings{{{2
-autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
+" function_definition: {{{1
+" SetTitle {{{2
 func SetTitle()
 	if expand("%:e") == 'sh'
 		call append(0,"\#!/bin/bash")
@@ -244,10 +236,6 @@ func SetTitle()
 endfunc
 autocmd BufNewFile * normal G
 
-" insert time
-ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
-
-" function_definition: {{{1
 
 " plugin shortcuts {{{2
 function! RunShell(Msg, Shell)
@@ -1475,7 +1463,7 @@ set tags+=./tags  "引导omnicppcomplete等找到tags文件
 map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 """"""""""""""""""""""""""""""
-" 编辑文件相关配置 {{{1
+" 编辑文件相关配置 {{{2
 """"""""""""""""""""""""""""""
 " 常规模式下输入 cM 清除行尾 ^M 符号
 nmap cM :%s/\r$//g<CR>:noh<CR>
@@ -1512,10 +1500,9 @@ nmap  <leader>m :MRU
 " 让VIM和ubuntu(X Window)共享一个粘贴板
 set clipboard=unnamedplus " 设置vim使用"+寄存器(粘贴板)，"+寄存器是代表ubuntu的粘贴板。
 
-" autocmd_setting {{{1
+" AUTO COMMANDS: autocmd_setting {{{1
 " VIM退出时，运行xsel命令把"+寄存器中的内容保存到系统粘贴板中;需要安装xsel {{{2
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
-
 
 " 启用每行超过80列的字符提示（背景变black） {{{2
 highlight MyGroup ctermbg=black guibg=black
@@ -1534,3 +1521,15 @@ autocmd BufWritePre     *.h         call WhitespaceStripTrailing()
 autocmd BufWritePre     *.c         call WhitespaceStripTrailing()
 autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
 
+" auto expand tab to blanks {{{2
+"autocmd FileType c,cpp set expandtab
+" Restore the last quit position when open file.{{{2
+autocmd BufReadPost *
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\     exe "normal g'\"" |
+			\ endif
+
+" create file settings{{{2
+autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
+" insert time
+ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
