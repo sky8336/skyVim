@@ -316,18 +316,17 @@ function config_vim()
 		rm $HOME/.vim/ -rf
 	fi
 
+	cp ./.vimrc $HOME
+	cp ./README.md $HOME/.vim
+
 	if [ $online -eq 1 ];then
 		cp ./.vim  $HOME -a
-		cp ./.vimrc $HOME
-
-		cp ./README.md $HOME/.vim
-
 	else
 		cp ./.vimcfg_offline/.vim  $HOME -a
-		cp ./.vimcfg_offline/.vimrc $HOME
-
+		sed -i "s%Install: online$%Install: offline%g" ~/.vimrc
 	fi
-		cp ./my_help/ $HOME/.vim/ -a
+
+	cp ./my_help/ $HOME/.vim/ -a
 
 	#追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
