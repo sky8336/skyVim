@@ -108,9 +108,9 @@ set t_Co=256
 "autocmd FileType c,cpp set expandtab
 " Restore the last quit position when open file.{{{2
 autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \     exe "normal g'\"" |
-    \ endif
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\     exe "normal g'\"" |
+			\ endif
 
 " create file settings{{{2
 autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
@@ -130,9 +130,9 @@ func SetTitle()
 		call append(11,"# LastChange: ".strftime("%Y-%m-%d"))
 		call append(12,"#    Version: v0.0.01")
 		call append(13,"#")
-    elseif expand("%:e") == 'py'
-        call append(0,"#!/usr/bin/env python")
-        call append(1,"# coding=utf-8")
+	elseif expand("%:e") == 'py'
+		call append(0,"#!/usr/bin/env python")
+		call append(1,"# coding=utf-8")
 		call append(2,"#")
 		call append(3,"# ".expand("%:t"))
 		call append(4,"#")
@@ -146,7 +146,7 @@ func SetTitle()
 		call append(12,"# LastChange: ".strftime("%Y-%m-%d"))
 		call append(13,"#    Version: v0.0.01")
 		call append(14,"#")
-    elseif expand("%:e") == 'cpp'
+	elseif expand("%:e") == 'cpp'
 		call append(0,"/*")
 		call append(1," * ".expand("%:t"))
 		call append(2," *")
@@ -163,7 +163,7 @@ func SetTitle()
 		call append(13," */")
 		call append(14,"#include <iostream>")
 		"call append(line("."), "")
-    elseif expand("%:e") == 'cc'
+	elseif expand("%:e") == 'cc'
 		call append(0,"/*")
 		call append(1," * ".expand("%:t"))
 		call append(2," *")
@@ -180,7 +180,7 @@ func SetTitle()
 		call append(13," */")
 		call append(14,"#include <iostream>")
 		"call append(line("."), "")
-    elseif expand("%:e") == 'c'
+	elseif expand("%:e") == 'c'
 		call append(0,"/*")
 		call append(1," * ".expand("%:t"))
 		call append(2," *")
@@ -197,7 +197,7 @@ func SetTitle()
 		call append(13," */")
 		call append(14,"#include <stdio.h>")
 		"call append(line("."), "")
-    elseif expand("%:e") == 'h'
+	elseif expand("%:e") == 'h'
 		call append(0,"/*")
 		call append(1," * ".expand("%:t"))
 		call append(2," *")
@@ -218,7 +218,7 @@ func SetTitle()
 		call append(15, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
 		call append(16, "")
 		call append(17, "#endif")
-    elseif expand("%:e") == 'hpp'
+	elseif expand("%:e") == 'hpp'
 		call append(0,"/*")
 		call append(1," * ".expand("%:t"))
 		call append(2," *")
@@ -270,15 +270,15 @@ endfunction
 hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
 " 状态栏颜色配置:插入模式品红色，普通模式White
 if version >= 700
-  "au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
-  au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
-  au InsertLeave * hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+	"au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
+	au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
+	au InsertLeave * hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
 endif
 
 "" 获取当前路径，将$HOME转化为~,for statusline {{{2
 "function! CurDir()
-	"let curdir = substitute(getcwd(), $HOME, "~", "g")
-	"return curdir
+"let curdir = substitute(getcwd(), $HOME, "~", "g")
+"return curdir
 "endfunction
 
 " show function names in command line{{{2
@@ -294,11 +294,11 @@ endfun
 ""vim窗口的最上面显示当前打开文件的路径和文件名{{{2
 "let &titlestring = expand("%:t")
 "if &term == "screen"
-	"set t_ts=^[k
-	"set t_fs=^[\
+"set t_ts=^[k
+"set t_fs=^[\
 "endif
 "if &term == "screen" || &term == "xterm"
-	"set title
+"set title
 "endif
 ""如果把上面代码中的expand("%:p")换成expand("%:t")将不显示路径只显示文件名。
 
@@ -310,62 +310,62 @@ fu! Generate_fntags_tags_cscope()
 		return
 	endif
 	call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
-    if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
-        call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
-    else
+	if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
+		call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
+	else
 		"生成专用于c/c++的ctags文件
-        call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-        call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())
-        cs add cscope.out
-    endif
-    q
+		call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
+		call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())
+		cs add cscope.out
+	endif
+	q
 endf
 
 " 实现递归查找上级目录中的ctags和cscope并自动载入 {{{2
 function! AutoLoadCTagsAndCScope()
-    let max = 7
-    let dir = './'
-    let i = 0
-    let break = 0
-    while isdirectory(dir) && i < max
-        if filereadable(dir . 'cscope.out')
-            execute 'cs add ' . dir . 'cscope.out'
-            let break = 1
-        endif
-        if filereadable(dir . 'tags')
-            execute 'set tags =' . dir . 'tags'
-            let break = 1
-        endif
-        if break == 1
-            "execute 'lcd ' . dir
-            break
-        endif
-        let dir = dir . '../'
-        let i = i + 1
-    endwhile
+	let max = 7
+	let dir = './'
+	let i = 0
+	let break = 0
+	while isdirectory(dir) && i < max
+		if filereadable(dir . 'cscope.out')
+			execute 'cs add ' . dir . 'cscope.out'
+			let break = 1
+		endif
+		if filereadable(dir . 'tags')
+			execute 'set tags =' . dir . 'tags'
+			let break = 1
+		endif
+		if break == 1
+			"execute 'lcd ' . dir
+			break
+		endif
+		let dir = dir . '../'
+		let i = i + 1
+	endwhile
 endf
 
 " cscope add {{{2
 if has("cscope")
 	set csre
-    set csto=1
-    set cst
-    set nocsverb
-    if filereadable("cscope.out")
-        cs add cscope.out
+	set csto=1
+	set cst
+	set nocsverb
+	if filereadable("cscope.out")
+		cs add cscope.out
 	else
 		call AutoLoadCTagsAndCScope()
-    endif
-    set csverb
+	endif
+	set csverb
 endif
 
 " 设置跳出自动补全的括号 {{{2
 func SkipPair()
-    if getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == '>' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == "'" || getline('.')[col('.') - 1] == '}'
-        return "\<ESC>la"
-    else
-        return "\t"
-    endif
+	if getline('.')[col('.') - 1] == ')' || getline('.')[col('.') - 1] == '>' || getline('.')[col('.') - 1] == ']' || getline('.')[col('.') - 1] == '"' || getline('.')[col('.') - 1] == "'" || getline('.')[col('.') - 1] == '}'
+		return "\<ESC>la"
+	else
+		return "\t"
+	endif
 endfunc
 
 " Highlight variable under cursor in Vim {{{3
@@ -710,53 +710,53 @@ endif
 
 " plugin_setting: auto-format {{{3
 if plugin_use_autoformat == 1
-"F5自动格式化代码并保存
-noremap <F5> :Autoformat<CR>:w<CR>
-let g:autoformat_verbosemode=1
+	"F5自动格式化代码并保存
+	noremap <F5> :Autoformat<CR>:w<CR>
+	let g:autoformat_verbosemode=1
 
-"自动格式化代码，针对所有支持的文件
-"au BufWrite * :Autoformat
-"自动格式化python代码
-"au BufWrite *.py :Autoformat
+	"自动格式化代码，针对所有支持的文件
+	"au BufWrite * :Autoformat
+	"自动格式化python代码
+	"au BufWrite *.py :Autoformat
 
-"在安装了yapf以后，还可以自定义python格式化的风格，
+	"在安装了yapf以后，还可以自定义python格式化的风格，
 
-"默认情况下是pep8，还可以选择google,facebook和chromium
-let g:formatter_yapf_style = 'pep8'
+	"默认情况下是pep8，还可以选择google,facebook和chromium
+	let g:formatter_yapf_style = 'pep8'
 
-"针对某种语言指定特定的格式化工具和相应的参数，比如设定以allman(ansi)的风格格式化
-"C/C++代码同时在操作符两边加入空格(即--pad-oper参数)，可以这样写
-let g:formatdef_allman = '"astyle --style=allman --pad-oper"'
-let g:formatters_cpp = ['allman']
-let g:formatters_c = ['allman']
+	"针对某种语言指定特定的格式化工具和相应的参数，比如设定以allman(ansi)的风格格式化
+	"C/C++代码同时在操作符两边加入空格(即--pad-oper参数)，可以这样写
+	let g:formatdef_allman = '"astyle --style=allman --pad-oper"'
+	let g:formatters_cpp = ['allman']
+	let g:formatters_c = ['allman']
 
 else
 
-"格式化代码也不一定非要安装插件才能实现，因为Vim可以执行外部命令，因此函数调用外
-"部工具来实现代码格式化，比如下面就用函数调用astyle和autopep8来格式化代码
-" FormatCode() Function {{{{4
-map <leader>af :call FormatCode()<CR>
-func! FormatCode()
-    exec "w"
-    if &filetype == 'c' || &filetype == 'h'
-        exec "!astyle --style=allman --pad-oper --suffix=none %"
-    elseif &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
-        exec "!astyle --style=allman --suffix=none %"
-    elseif &filetype == 'perl'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'py'|| &filetype == 'python'
-        exec "!autopep8 --in-place --aggressive %"
-    elseif &filetype == 'java'
-        exec "!astyle --style=java --suffix=none %"
-    elseif &filetype == 'jsp'
-        exec "!astyle --style=gnu --suffix=none %"
-    elseif &filetype == 'xml'
-        exec "!astyle --style=gnu --suffix=none %"
-    else
-        exec "normal gg=G"
-        return
-    endif
-endfunc
+	"格式化代码也不一定非要安装插件才能实现，因为Vim可以执行外部命令，因此函数调用外
+	"部工具来实现代码格式化，比如下面就用函数调用astyle和autopep8来格式化代码
+	" FormatCode() Function {{{{4
+	map <leader>af :call FormatCode()<CR>
+	func! FormatCode()
+		exec "w"
+		if &filetype == 'c' || &filetype == 'h'
+			exec "!astyle --style=allman --pad-oper --suffix=none %"
+		elseif &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
+			exec "!astyle --style=allman --suffix=none %"
+		elseif &filetype == 'perl'
+			exec "!astyle --style=gnu --suffix=none %"
+		elseif &filetype == 'py'|| &filetype == 'python'
+			exec "!autopep8 --in-place --aggressive %"
+		elseif &filetype == 'java'
+			exec "!astyle --style=java --suffix=none %"
+		elseif &filetype == 'jsp'
+			exec "!astyle --style=gnu --suffix=none %"
+		elseif &filetype == 'xml'
+			exec "!astyle --style=gnu --suffix=none %"
+		else
+			exec "normal gg=G"
+			return
+		endif
+	endfunc
 endif
 
 " integrations plugin_settings {{{2
@@ -1006,7 +1006,7 @@ let g:vimtex_compiler_latexmk_engines = {
 			\ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
 			\}
 
- " plugin_setting: vim-latex-live-preview {{{3
+" plugin_setting: vim-latex-live-preview {{{3
 "By default, you need to have evince or okular installed as pdf viewers.
 "But you can specify your own viewer by setting:
 autocmd Filetype tex setl updatetime=1
@@ -1303,11 +1303,11 @@ inoremap jk <Esc>
 inoremap js <Esc>:w<CR>
 
 if version >= 800
-" [>= vim8.0]]terminal mode key_mappings
-tnoremap <C-h> <C-W>h
-tnoremap <C-j> <C-W>j
-tnoremap <C-k> <C-W>k
-tnoremap <C-l> <C-W>l
+	" [>= vim8.0]]terminal mode key_mappings
+	tnoremap <C-h> <C-W>h
+	tnoremap <C-j> <C-W>j
+	tnoremap <C-k> <C-W>k
+	tnoremap <C-l> <C-W>l
 endif
 
 " 括号自动补全
