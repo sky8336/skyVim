@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-12
-"    Version: v1.1.42
+"    Version: v1.1.43
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -547,7 +547,7 @@ else
 	endif
 	Plug 'tpope/vim-markdown'
 	Plug 'scrooloose/nerdcommenter'
-	"Plug 'hynek/vim-python-pep8-indent'
+	"Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 	Plug 'lervag/vimtex'
 	if latex_live_preview == 1
 		Plug 'xuhdev/vim-latex-live-preview'
@@ -587,7 +587,7 @@ else
 	endif
 
 	" Python代码补全插件
-	Plug 'davidhalter/jedi-vim'
+	Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 	if plugin_use_autoformat == 1
 		Plug 'chiel92/vim-autoformat'
@@ -611,7 +611,7 @@ else
 	Plug 'airblade/vim-gitgutter'
 	Plug 'mbbill/undotree'
 	"Plug 'godlygeek/tabular'
-	Plug 'jistr/vim-nerdtree-tabs'
+	Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeToggle' }
 	Plug 'Xuyuanp/nerdtree-git-plugin'
 	"Plug 'vim-airline/vim-airline'
 	"Plug 'vim-airline/vim-airline-themes'
