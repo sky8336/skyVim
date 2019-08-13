@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-12
-"    Version: v1.1.41
+"    Version: v1.1.42
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -585,6 +585,9 @@ else
 	if plugin_enalbe_rainbow_parentheses == 1
 		Plug 'kien/rainbow_parentheses.vim'
 	endif
+
+	" Python代码补全插件
+	Plug 'davidhalter/jedi-vim'
 
 	if plugin_use_autoformat == 1
 		Plug 'chiel92/vim-autoformat'
