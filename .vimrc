@@ -5,7 +5,6 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" Plugin_update: install time
 "------------------------------
 " LastChange: 2019-08-12
 "    Version: v1.1.39
