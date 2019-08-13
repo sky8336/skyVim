@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-12
-"    Version: v1.1.40
+"    Version: v1.1.41
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -379,7 +379,7 @@ let mapleader=","
 " SHORTCUT_SETTINGS end
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" plugin_select config table {{{1
+" function_switch: plugin_select config table {{{1
 let ubuntu18_04 = 1
 
 " python 3+
@@ -406,6 +406,8 @@ let plugin_use_vim_cpp_enhanced_highlight = 0
 " select plugin manager: 1:vundle, 0: vim-plug
 let plugin_mgr_vundle_enable = 0
 " plugin_select end
+
+let plugin_enalbe_rainbow_parentheses = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin web addr: https://vimawesome.com/
@@ -580,6 +582,10 @@ else
 		Plug 'octol/vim-cpp-enhanced-highlight'
 	endif
 
+	if plugin_enalbe_rainbow_parentheses == 1
+		Plug 'kien/rainbow_parentheses.vim'
+	endif
+
 	if plugin_use_autoformat == 1
 		Plug 'chiel92/vim-autoformat'
 	endif
@@ -695,6 +701,28 @@ if plugin_use_vim_cpp_enhanced_highlight == 1
 	"example https://github.com/vim-jp/vim-cpp/issues/16. A workaround is to set
 	let c_no_curly_error=1
 endif
+
+"rainbow-parentheses  {{{3
+let g:rbpt_colorpairs = [
+			\ ['brown',       'RoyalBlue3'],
+			\ ['Darkblue',    'SeaGreen3'],
+			\ ['darkgray',    'DarkOrchid3'],
+			\ ['darkgreen',   'firebrick3'],
+			\ ['darkcyan',    'RoyalBlue3'],
+			\ ['darkred',     'SeaGreen3'],
+			\ ['darkmagenta', 'DarkOrchid3'],
+			\ ['brown',       'firebrick3'],
+			\ ['gray',        'RoyalBlue3'],
+			\ ['black',       'SeaGreen3'],
+			\ ['darkmagenta', 'DarkOrchid3'],
+			\ ['Darkblue',    'firebrick3'],
+			\ ['darkgreen',   'RoyalBlue3'],
+			\ ['darkcyan',    'SeaGreen3'],
+			\ ['darkred',     'DarkOrchid3'],
+			\ ['red',         'firebrick3'],
+			\ ]
+let g:rbpt_max = 40
+let g:rbpt_loadcmd_toggle = 0
 
 " plugin_setting: auto-format {{{3
 if plugin_use_autoformat == 1
@@ -1533,3 +1561,11 @@ autocmd BufReadPost *
 autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
 " insert time
 ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+" plugin_autocmd {{{2
+"plugin_autocmd: rainbow_parentheses.vim {{{3
+if plugin_enalbe_rainbow_parentheses == 1
+	au VimEnter * RainbowParenthesesToggle
+	au Syntax * RainbowParenthesesLoadRound
+	au Syntax * RainbowParenthesesLoadSquare
+	au Syntax * RainbowParenthesesLoadBraces
+endif
