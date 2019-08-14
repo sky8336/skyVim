@@ -1613,6 +1613,8 @@ Plug 'kana/vim-textobj-indent'
 
 ## vim原生快捷键 - 备忘 {{{2
 	q:		- 	command line
+	p		-   复制到光标字符后
+	P		-   复制到光标字符前
 	
 ## vim8.1: 新特性{{{1  
 ### 1) 支持在 Vim 窗口中运行终端  
