@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-12
-"    Version: v1.1.43
+"    Version: v1.1.44
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1082,20 +1082,8 @@ autocmd FileType python set autoindent
 " plugin_setting: undotree.vim {{{3
 let g:undotree_WindowLayout = 2
 
-" plugin_setting: BufExplorer.vim 其中有默认配置 {{{3
-"let g:bufExplorerDefaultHelp=0       " Do not show default help.
-"let g:bufExplorerShowRelativePath=1  " Show relative paths.
-"let g:bufExplorerSortBy='mru'        " Sort by most recently used.
-"let g:bufExplorerSplitRight=0        " Split left.
-"let g:bufExplorerSplitVertical=1     " Split vertically.
-"let g:bufExplorerSplitVertSize = 30  " Split width
-"let g:bufExplorerUseCurrentWindow=1  " Open in new window.
-"<Leader>be　　全屏方式打来 buffer 列表。
-"<Leader>bs　　水平窗口打来 buffer 列表。
-"<Leader>bv　　垂直窗口打开 buffer 列表。
 
-
-" interface plugin_settings   leaderf or ctrlp {{{2
+" interface plugin_settings: {{{2
 if plugin_use_leaderf == 1
 	" plugin_setting: interface: leaderf {{{3
 	let g:Lf_ShortcutF = '<c-p>'
@@ -1135,6 +1123,25 @@ else
 	let g:ctrlp_funky_syntax_highlight = 1
 	let g:ctrlp_extensions = ['funky']
 endif
+
+" plugin_setting: integrations: BufExplorer.vim 其中有默认配置 {{{3
+"let g:bufExplorerDefaultHelp=0       " Do not show default help.
+"let g:bufExplorerShowRelativePath=1  " Show relative paths.
+"let g:bufExplorerSortBy='mru'        " Sort by most recently used.
+"let g:bufExplorerSplitRight=0        " Split left.
+"let g:bufExplorerSplitVertical=1     " Split vertically.
+"let g:bufExplorerSplitVertSize = 30  " Split width
+"let g:bufExplorerUseCurrentWindow=1  " Open in new window.
+"<Leader>be　　全屏方式打来 buffer 列表。
+"<Leader>bs　　水平窗口打来 buffer 列表。
+"<Leader>bv　　垂直窗口打开 buffer 列表。
+
+
+" plugin_setting: interface: vim-gitgutter {{{3
+" determines how long (in milliseconds) the plugin will wait after you stop
+" typing before it updates the signs.  Vim's default is 4000.  I recommend 100.
+set updatetime=100
+
 
 " plugin_setting: Man.vim {{{3
 source $VIMRUNTIME/ftplugin/man.vim
