@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-08-12
-"    Version: v1.1.45
+" LastChange: 2019-08-15
+"    Version: v1.1.46
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -475,6 +475,7 @@ if plugin_mgr_vundle_enable == 1
 	Plugin 'gregsexton/gitv'
 	"Plugin 'mileszs/ack.vim'
 	Plugin 'dyng/ctrlsf.vim'
+	"Plugn 'jamshedvesuna/vim-markdown-preview'
 	"Plugin 'gitv'
 	" integrations end
 
@@ -597,6 +598,9 @@ else
 	Plug 'gregsexton/gitv'
 	"Plug 'mileszs/ack.vim'
 	Plug 'dyng/ctrlsf.vim'
+	"Plug 'jamshedvesuna/vim-markdown-preview'
+	Plug 'kannokanno/previm'
+	Plug 'tyru/open-browser.vim'
 	"Plug 'gitv'
 	" integrations end
 
