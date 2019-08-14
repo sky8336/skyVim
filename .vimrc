@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-12
-"    Version: v1.1.44
+"    Version: v1.1.45
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -431,7 +431,7 @@ if plugin_mgr_vundle_enable == 1
 	else
 		Plugin 'scrooloose/syntastic'
 	endif
-	Plugin 'tpope/vim-markdown'
+	Plugin 'plasticboy/vim-markdown'
 	Plugin 'scrooloose/nerdcommenter'
 	"Plugin 'hynek/vim-python-pep8-indent'
 	Plugin 'lervag/vimtex'
@@ -545,7 +545,7 @@ else
 	else
 		Plug 'scrooloose/syntastic'
 	endif
-	Plug 'tpope/vim-markdown'
+	Plug 'plasticboy/vim-markdown'
 	Plug 'scrooloose/nerdcommenter'
 	"Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
 	Plug 'lervag/vimtex'
@@ -1006,6 +1006,37 @@ if plugin_use_deoplete == 0
 endif
 
 " language  plugin_setting:  {{{2
+" plugin_setting: language: vim-markdown {{{3
+" Disable Folding
+let g:vim_markdown_folding_disabled = 0
+let g:vim_markdown_folding_style_pythonic = 1
+" Change fold style
+"let g:vim_markdown_override_foldtext = 1
+" Set header folding level
+"let g:vim_markdown_folding_level = 6
+let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_emphasis_multiline = 0
+"Syntax Concealing
+set conceallevel=2
+let g:vim_markdown_conceal = 1
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+let g:vim_markdown_conceal_code_blocks = 0
+"Fenced code block languages
+let g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'ini=dosini']
+"Follow named anchors
+let g:vim_markdown_follow_anchor = 1
+let g:vim_markdown_anchorexpr = "'<<'.v:anchor.'>>'"
+"Adjust new list item indent
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_no_extensions_in_markdown = 1
+"Auto-write when following link
+let g:vim_markdown_autowrite = 1
+"Do not automatically insert bulletpoints
+let g:vim_markdown_auto_insert_bullets = 0
+
+
 " plugin_setting: vimtex {{{3
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
