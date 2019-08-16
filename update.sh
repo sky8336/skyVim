@@ -229,6 +229,8 @@ function install_new_plugin()
 			# vim-plug
 			/usr/local/vim/bin/vim +PlugInstall +qall
 			#/usr/local/vim/bin/vim +PlugClean +qall
+			# Fixme: self mod maybe not used but copy to the directory
+			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
 			chown -R $username:$groupname ~/.vim/plugged
 		fi
 	else
