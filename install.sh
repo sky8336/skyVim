@@ -415,7 +415,8 @@ function install_vundle_and_plugin()
 		if [[ $install_vundle -eq 1 ]]; then
 			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
 		else
-			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/plugged/ -rf
+			# Fixme: self mod maybe not used but copy to the directory
+			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
 		fi
 	else
 		echo
