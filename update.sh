@@ -10,7 +10,7 @@ global_variables_setup()
 	install_vundle=0
 
 	vimcfig_bundle_dir_path=$(pwd)
-	repo_name=$(echo $pwd | awk -F '/'  '{print $NF}')
+	repo_name=$(echo $vimcfig_bundle_dir_path | awk -F '/'  '{print $NF}')
 
 
 	# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
@@ -18,10 +18,11 @@ global_variables_setup()
 	username=`ls -l ../ | grep $repo_name | awk '{print $3}'`
 	groupname=`ls -l ../ | grep $repo_name | awk '{print $4}'`
 	echo "repo name: $repo_name"
+	echo "dir_path: $vimcfig_bundle_dir_path"
+
 	echo "username=$username"
 	echo "groupname=$groupname"
 
-	echo "dir_path: $vimcfig_bundle_dir_path"
 }
 
 #
@@ -86,7 +87,7 @@ function check_network()
 function update_vimcfg_bundle()
 {
 	vimcfig_bundle_dir_path=$(pwd)
-	repo_name=$(echo $pwd | awk -F '/'  '{print $NF}')
+	repo_name=$(echo $vimcfig_bundle_dir_path | awk -F '/'  '{print $NF}')
 
 	echo "====== update $repo_name: git pull ======"
 
