@@ -1,5 +1,24 @@
 #!/bin/bash
 
+blue_log()
+{
+	color_blue='\E[1;34m'
+	color_reset="\e[00m"
+	echo -e "${color_blue}$1${color_reset}" 1>&2
+}
+
+logo_path=./utils/.logo
+logo_files=($(ls $logo_path | awk '{print $1}'))
+
+show_logo()
+{
+	cur_second=`date +%S`
+	logo_num=${#logo_files[@]}
+	index=$((10$cur_second%$logo_num))
+	#echo "logo_num:$logo_num"
+	cat $logo_path/${logo_files[index]}
+}
+
 # used for step2
 global_variables_setup()
 {
@@ -94,6 +113,7 @@ function update_vimcfg_bundle()
 	chown -R $username:$groupname ../$repo_name
 	git pull
 	chown -R $username:$groupname ../$repo_name
+	echo "update $repo_name -- done"
 }
 
 #备份OS中vimrc
@@ -104,6 +124,7 @@ function bakup_vimrc()
 	cp $HOME/.vim/README.md $HOME/.bakvim
 	cp $HOME/.vim/my_help/ $HOME/.bakvim -a
 	cp $HOME/.vim/colors/ $HOME/.bakvim -a
+	echo "update $repo_name -- done"
 }
 
 update_bashrc_my()
@@ -136,6 +157,8 @@ update_bashrc_my()
 		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
 	fi
 	source ~/.bashrc
+
+	echo ""update .bashrc_my and .gitconfig -- done
 }
 
 
@@ -196,6 +219,7 @@ function update_vimrc()
 		sed -i "s/let ubuntu18_04 = 1/let ubuntu18_04 = 0/" ~/.vimrc
 	fi
 
+	echo "config your vim -- done"
 }
 
 update_package()
@@ -256,6 +280,7 @@ function install_new_plugin()
 		fi
 	fi
 
+	echo "install new plugin -- done"
 }
 
 
@@ -302,6 +327,7 @@ function git_config()
 
 	# git lg 列出 git 分支图
 	git config --global alias.lg "log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+	echo "git config -- done"
 }
 
 #
@@ -318,7 +344,8 @@ update_vimcfg()
 main()
 {
 	if [[ -z $1 ]]; then
-		echo ">> step1: prepare and update $repo_name repo."
+		echo
+		blue_log ">> step1: prepare and update $repo_name repo."
 		set_color
 		# prepare
 		check_root_privileges
@@ -335,11 +362,12 @@ main()
 
 		echo_install_time
 	elif [[ $1 -eq 1 ]]; then
-		echo ">> step2: setup vim config now!"
+		echo
+		blue_log ">> step2: setup vim config now!"
 		# step2: setup vim config
 		update_vimcfg
 		echo "vim config setup -- done."
-		cat utils/ASCII-sky8336.txt
+		show_logo
 	else
 		echo "invalid  parameter."
 	fi

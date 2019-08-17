@@ -298,6 +298,7 @@ main()
 	get_start_time
 
 	get_dir_path
+	show_logo
 
 	if [ -z "$1" ]; then
 		show_header
@@ -343,6 +344,7 @@ main()
 
 	#build_and_install_vim
 	#build_vim_by_source
+	show_logo
 	echo_execu_time
 }
 

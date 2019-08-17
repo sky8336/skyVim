@@ -1,0 +1,19 @@
+---------------------------------------------------------------------------
+[0;34m                                                                       [00m
+[0;34m          iB                      ..        ..        ..          ..   [00m
+[0;34m          1B                    oBBBBo   .oBBB0o.  .oBBB0o.    .oBBBBo.[00m
+[0;34m          7B                   BQ    BB  7    'B0  7    'BB    R7      [00m
+[0;34m   .gOo.  vB    d1 K:    8K    BB    BB        Q0        2B.  .B       [00m
+[0;34m  QB' '7  7B   BB  BB    BB    'BE  dB.       UB         BB   ZB       [00m
+[0;34m  BR      7B  BS   vB    Bg      ;BB,     .oBB3      .oBB3    BBR0BB0o [00m
+[0;34m  'BB.    rBkB     `B.   By    .BB  BB:   `0:iXo     `7:7Bo.  BB`   `Bb[00m
+[0;34m    'BB.  7B BB     l9  .7     BQ    'B.       vB         BB  BQ     BB[00m
+[0;34m      5B  7B  BB    `E..B'    !B      0!       rB         BB  sB     BE[00m
+[0;34m ..   BB  uQ   BB     1B'     'Bo.  .oB` BL. .dB'   BL. .oB'  'B`. .'Q'[00m
+[0;34m 'tBBBb`  iB    BB   BB        'SBBBBJ'  `o0BBB'    `0BBBb'    'cBBB0' [00m
+[0;34m                    B2                                                 [00m
+[0;34m                   BB                                                  [00m
+[0;34m                  rp                                                   [00m
+[0;34m                                                                       [00m
+--------------------------------------------------------------------------
+
