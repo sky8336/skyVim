@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-15
-"    Version: v1.1.46
+"    Version: v1.1.47
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1606,6 +1606,8 @@ autocmd BufReadPost *
 autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
 " insert time
 ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
+" 不自动添加新的注释行 {{{2
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " plugin_autocmd {{{2
 "plugin_autocmd: rainbow_parentheses.vim {{{3
 if plugin_enalbe_rainbow_parentheses == 1
