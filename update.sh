@@ -3,19 +3,24 @@
 # used for step2
 global_variables_setup()
 {
+
 	vim_plug_dir=~/.vim/autoload
 	# we use vim-plug as plugin manager by default; set install_vundle=1 to select
 	# the old vundle
 	install_vundle=0
 
+	vimcfig_bundle_dir_path=$(pwd)
+	repo_name=$(echo $pwd | awk -F '/'  '{print $NF}')
+
+
 	# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
 	# 操作, 如导致git add -A和git commit -s要加sudo; 这里都恢复普通用户
-	username=`ls -l ../ | grep vimcfg_bundle | awk '{print $3}'`
-	groupname=`ls -l ../ | grep vimcfg_bundle | awk '{print $4}'`
+	username=`ls -l ../ | grep $repo_name | awk '{print $3}'`
+	groupname=`ls -l ../ | grep $repo_name | awk '{print $4}'`
+	echo "repo name: $repo_name"
 	echo "username=$username"
 	echo "groupname=$groupname"
 
-	vimcfig_bundle_dir_path=$(pwd)
 	echo "dir_path: $vimcfig_bundle_dir_path"
 }
 
@@ -80,11 +85,11 @@ function check_network()
 # first step
 function update_vimcfg_bundle()
 {
-	echo "====== update vimcfg_bundle: git pull ======"
+	echo "====== update $repo_name: git pull ======"
 
-	chown -R $username:$groupname ../vimcfg_bundle
+	chown -R $username:$groupname ../$repo_name
 	git pull
-	chown -R $username:$groupname ../vimcfg_bundle
+	chown -R $username:$groupname ../$repo_name
 }
 
 #备份OS中vimrc
@@ -309,16 +314,16 @@ update_vimcfg()
 main()
 {
 	if [[ -z $1 ]]; then
-		echo ">> step1: prepare and update vimcfg_bundle repo."
+		echo ">> step1: prepare and update $repo_name repo."
 		set_color
 		# prepare
 		check_root_privileges
 		get_start_time
 		check_network
 
-		# step1: update vimcfg_bundle
+		# step1: update $repo_name
 		update_vimcfg_bundle
-		echo "vimcfg_bundle repo update -- done"
+		echo "$repo_name repo update -- done"
 
 		# now update.sh has been updated
 		# execure step2 using new script
