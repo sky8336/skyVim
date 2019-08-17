@@ -8,6 +8,19 @@
 #    2019/06/28 - [Eric MA] Created file
 #
 
+logo_path=./utils/.logo
+logo_files=($(ls $logo_path | awk '{print $1}'))
+
+show_logo()
+{
+	cur_second=`date +%S`
+	logo_num=${#logo_files[@]}
+	index=$((10$cur_second%$logo_num))
+	#echo "logo_num:$logo_num"
+	cat $logo_path/${logo_files[index]}
+}
+
+
 opt_verbose=1
 
 __echo()

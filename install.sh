@@ -526,6 +526,8 @@ main()
 	local skip_vim=0
 	local skip_vundle_plugin=0
 
+	show_logo
+
 	if [ -z "$1" ]; then
 		show_header
 		show_usage
@@ -578,6 +580,7 @@ main()
 	#set_cfg_for_winmanager
 	git_config
 
+	show_logo
 	echo_install_time
 }
 
