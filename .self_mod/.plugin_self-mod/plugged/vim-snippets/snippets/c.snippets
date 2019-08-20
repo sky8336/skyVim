@@ -368,4 +368,14 @@ snippet re
 snippet rn
 	return ${1:NULL};
 
+# ifdef...elif defined...endif
+snippet ifdef2
+	#ifdef ${1:FOO}
+		${2:#define }
+	#elif defined ${3:FOO1}
+		${4:#define }
+	#endif
+
+snippet #elifd
+	#elif defined ${1:FOO}
 
