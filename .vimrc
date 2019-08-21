@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-15
-"    Version: v1.1.47
+"    Version: v1.1.48
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -762,7 +762,7 @@ else
 	func! FormatCode()
 		exec "w"
 		if &filetype == 'c' || &filetype == 'h'
-			exec "!astyle --style=allman --pad-oper --suffix=none %"
+			exec "!astyle --style=linux --pad-oper --suffix=none %"
 		elseif &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
 			exec "!astyle --style=allman --suffix=none %"
 		elseif &filetype == 'perl'
