@@ -175,7 +175,7 @@ function install_packages()
 	progress_log $prog "====== Install software packages now ! ======"
 
 	while [[ $i -lt $pkg_num ]]; do
-		apt-get install $pkg --allow-unauthenticated > /dev/null
+		apt-get install ${packages[i]} --allow-unauthenticated > /dev/null
 		let i++
 		let prog+=5
 		progress_log $prog "Install ${packages[i]} ... done"
