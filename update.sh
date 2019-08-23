@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-08-23
-#    Version: v0.0.28
+#    Version: v0.0.29
 #
 
 blue_log()
@@ -35,11 +35,8 @@ show_logo()
 # used for step2
 global_variables_setup()
 {
-
 	vim_plug_dir=~/.vim/autoload
-	# we use vim-plug as plugin manager by default; set install_vundle=1 to select
-	# the old vundle
-	install_vundle=0
+	# we use vim-plug as plugin manager by default
 
 	your_name=$(echo $HOME | awk -F '/' '{print $3}')
 
@@ -250,53 +247,26 @@ update_package()
 #instal new plugin
 function install_new_plugin()
 {
-	# search .vimrc, to find 'let plugin_mgr_vundle_enable = 0', and set
-	#install_vundle based on it
-	install_vundle=$(grep "let plugin_mgr_vundle_enable" ~/.vimrc | awk -F '=' '{print $2}' | sed 's/ *//')
+	if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
+		echo "====== vim-plug was missing, install now ! ======"
+		curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-	if [[ $install_vundle -eq 1 ]]; then
-		if [ ! -d "${HOME}/.vim/vundle" ]; then
-			echo "======  vundle was missing, install now ! ======"
-			git clone https://github.com/gmarik/vundle.git  ~/.vim/vundle > /dev/null
-
-			chown -R $username:$groupname ~/.vim/vundle
-		fi
-	else
-		if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
-			echo "====== vim-plug was missing, install now ! ======"
-			curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-			chown -R $username:$groupname $vim_plug_dir
-		fi
+		chown -R $username:$groupname $vim_plug_dir
 	fi
 
 	echo "====== install new plugin now ! ======"
 	if [[ $vim_in_usr_local -eq 1 ]]; then
-		if [[ $install_vundle -eq 1 ]]; then
-			# vundle
-			/usr/local/vim/bin/vim +BundleInstall +qall
-			#/usr/local/vim/bin/vim +BundleClean +qall
-			chown -R $username:$groupname ~/.vim/bundle
-		else
-			# vim-plug
-			/usr/local/vim/bin/vim +PlugInstall +qall
-			#/usr/local/vim/bin/vim +PlugClean +qall
-			# Fixme: self mod maybe not used but copy to the directory
-			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
-			chown -R $username:$groupname ~/.vim/plugged
-		fi
+		# vim-plug
+		/usr/local/vim/bin/vim +PlugInstall +qall
+		#/usr/local/vim/bin/vim +PlugClean +qall
+		# Fixme: self mod maybe not used but copy to the directory
+		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
+		chown -R $username:$groupname ~/.vim/plugged
 	else
-		if [[ $install_vundle -eq 1 ]]; then
-			# vundle
-			vim +BundleInstall +qall
-			#vim +BundleClean +qall
-			chown -R $username:$groupname ~/.vim/bundle
-		else
-			# vim-plug
-			vim +PlugInstall +qall
-			#vim +PlugClean +qall
-			chown -R $username:$groupname ~/.vim/plugged
-		fi
+		# vim-plug
+		vim +PlugInstall +qall
+		#vim +PlugClean +qall
+		chown -R $username:$groupname ~/.vim/plugged
 	fi
 
 	echo "install new plugin -- done"

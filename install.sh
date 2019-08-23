@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2019-08-23
-#    Version: v0.0.56
+#    Version: v0.0.57
 #
 
 source ./utils.sh
@@ -52,9 +52,7 @@ examples=(
 
 #####
 vim_plug_dir=~/.vim/autoload
-# we use vim-plug as plugin manager by default; set install_vundle=1 to select
-# the old vundle
-install_vundle=0
+# we use vim-plug as plugin manager by default
 
 #set color
 function set_color()
@@ -452,48 +450,29 @@ function config_vim()
 	cur_prog=$prog
 }
 
-#install plguin_mgr: vundle or vim-plug
-function install_vundle_and_plugin()
+#install plguin_mgr: plugin_mgr or vim-plug
+function install_plugin_mgr_and_plugin()
 {
 	local prog=$cur_prog
 	local step=5
 
 	if [ $online -eq 1 ];then
-		if [[ $install_vundle -eq 1 ]]; then
-			if [ ! -d "${HOME}/.vim/vundle" ]; then
-				echo "====== Install vundle now ! ======"
-				git clone https://github.com/gmarik/vundle.git  ~/.vim/vundle > /dev/null
-			fi
-		else
-			if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
-				echo "====== Install vim-plug now ! ======"
-				curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-			fi
+		if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
+			echo "====== Install vim-plug now ! ======"
+			curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		fi
 
 
 		if [[ $vim_in_usr_local -eq 1 ]]; then
-			if [[ $install_vundle -eq 1 ]]; then
-				/usr/local/vim/bin/vim +BundleInstall +qall
-			else
-				# vim-plug
-				/usr/local/vim/bin/vim +PlugInstall +qall
-			fi
+			# vim-plug
+			/usr/local/vim/bin/vim +PlugInstall +qall
 		else
-			if [[ $install_vundle -eq 1 ]]; then
-				vim +BundleInstall +qall
-			else
-				# vim-plug
-				vim +PlugInstall +qall
-			fi
+			# vim-plug
+			vim +PlugInstall +qall
 		fi
 
-		if [[ $install_vundle -eq 1 ]]; then
-			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/* ~/.vim/bundle/ -rf
-		else
-			# Fixme: self mod maybe not used but copy to the directory
-			cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
-		fi
+		# Fixme: self mod maybe not used but copy to the directory
+		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
 	else
 		echo
 	fi
@@ -503,7 +482,7 @@ function install_vundle_and_plugin()
 }
 
 #chown ~/.vim/bundle
-function chown_vundle()
+function chown_plugin_mgr()
 {
 	local prog=$cur_prog
 	local step=1
@@ -517,12 +496,7 @@ function chown_vundle()
 		echo "username=$username"
 		echo "groupname=$groupname"
 
-		if [[ $install_vundle -eq 1 ]]; then
-			chown -R $username:$groupname ~/.vim/bundle/
-			chown -R $username:$groupname ~/.vim/vundle/
-		else
-			chown -R $username:$groupname $vim_plug_dir
-		fi
+		chown -R $username:$groupname $vim_plug_dir
 	else
 		echo
 	fi
@@ -616,7 +590,7 @@ main()
 
 	local skip_pack=0
 	local skip_vim=0
-	local skip_vundle_plugin=0
+	local skip_plugin_mgr_plugin=0
 
 	cur_prog=0
 	your_name=$(echo $HOME | awk -F '/' '{print $3}')
@@ -638,7 +612,7 @@ main()
 		skip_vim=1
 	elif [ "$1" = $skip_install_bundle_and_plugin ]; then
 		blue_log "skip_install_bundle_and_plugin"
-		skip_vundle_plugin=1
+		skip_plugin_mgr_plugin=1
 	elif [ "$1" = $skip_install_packages_and_vim ]; then
 		blue_log "skip_install_packages_and_vim"
 		skip_pack=1
@@ -647,7 +621,7 @@ main()
 		blue_log "skip_insatall_packages_vim_bundle_plugin"
 		skip_pack=1
 		skip_vim=1
-		skip_vundle_plugin=1
+		skip_plugin_mgr_plugin=1
 	else
 		echo "do nothing"
 		exit
@@ -667,9 +641,9 @@ main()
 
 	config_vim
 
-	if [[ $skip_vundle_plugin -ne 1 ]]; then
-		install_vundle_and_plugin
-		chown_vundle
+	if [[ $skip_plugin_mgr_plugin -ne 1 ]]; then
+		install_plugin_mgr_and_plugin
+		chown_plugin_mgr
 	fi
 	#install_ycm
 	#set_cfg_for_winmanager
