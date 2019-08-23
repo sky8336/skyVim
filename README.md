@@ -1,21 +1,10 @@
 # vimconfig_bundle - vim 自动化安装配置
-vim config for linux devices driver development and C development，C++, python/shell development   
+vim config for linux devices driver development and C development，C++, python/shell development<br/>
 
-针对vim8.1更新配置...
++ 工具就是生产力，打造利器, 提高效率…  
++ 针对vim8.1更新配置...
++ 记得点击右上角star…    
 
-由于之前西安的一位不认识的朋友，对我说换去军工单位后，无法联网， 
-我几年前特意加入了offline对的支持。也就是： 
-你总会安装成功，要么是在线安装的，要么是offline 安装的方式，不过，不会太影响使用。  
-
-
-鉴于vim的学习曲线，做了详细的说明，及脚本自动化一键安装配置…  
-my_help/目录中存放开发中常用的帮助文档，希望有些用处…    
-欢迎试用，点击右上角star和watch…    
-
-由于工作中，经常会有进一步提高效率的需要，所以配置会更新，以帮助提升效率，打造利器…  
-配置问题，欢迎提出，希望让工具成为节约时间和形成流畅工作流的利器…  
-最后，再啰嗦🦜一句：  
-  点赞👍是个好习惯，欢迎体验愉快vim之旅…  
 
 # 一 、Install and update {{{1
 
@@ -26,18 +15,10 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	2)在~/.bashrc中末尾会追加一行"source ~/.bashrc_my"。  
 	第一次安装时，执行install.sh ,以后若更新本配置，执行update.sh快速更新   
 
-	如果已安装过，更新时执行install.sh,会重新安装，耗时5分钟，.bashrc中不会重复追加.
-
-	如果想安装截至到2016.04.27之前某个节点的配置需要注意:  
-	执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。  
-	如果有，在执行完sudo ./install.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。  
-	因为此日期之前，会替换.bashrc,此日期之后，不再替换.bashrc
-	  
-	3) 执行脚本前联网，安装的插件时最新的;  
-	  如果未联网，会安装离线版本，离线版本目前配置已同步更新。  
-	  配置不影响其他功能，仅仅更改vim相关的配置，以及.bashrc会添加1行，  
-
-
+>如果想安装截至到2016.04.27之前某个节点的配置需要注意:  
+>执行脚本前，注意自己的~/.bashrc文件尾部是否添加过java配置等方面内容。  
+>如果有，在执行完sudo ./install.sh后，在执行脚本备份的~/.bakvim/.bashrc中将其追加到新的~/.bashrc尾部即可。  
+>因为此日期之前，会替换.bashrc,此日期之后，不再替换.bashrc
 
 ## 一键安装配置步骤 {{{2
 	目前插件管理默认使用vim-plug
@@ -47,15 +28,18 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	其他值得注意的特性是支持分支/标签/提交、post-update 钩子、支持外部管理的插件等。
 
 ### install {{{3
-	sudo ./install.sh 		查看帮助, 可跳过其中一些步骤，如果以前安装过.安装package（tools）可能会慢点
-	sudo ./install.sh 0		全自动安装vim，相关工具，配置vim， 配置git使用vim编辑
-	sudo ./install.sh 4     跳过安装package和vim,适合第二次以后的安装。用vim-plug后只需要3分钟
+`sudo ./install.sh`
+查看帮助, 可跳过其中一些步骤，如果以前安装过.安装package（tools）可能会慢点
+`sudo ./install.sh 0`
+全自动安装vim，相关工具，配置vim， 配置git使用vim编辑
+`sudo ./install.sh 4`
+跳过安装package和vim,适合第二次以后的安装。用vim-plug后只需要3分钟
 
-	联网情况, 第一次全安装可能几分钟，与网速有关.
-	不联网情况比较快.
++ 联网情况, 第一次全安装可能几分钟，与网速有关.
++ 不联网情况比较快.
 
 #### 注意：  
-##### (a)插件更新,或仅更新某个功能    
+##### (a)插件更新    
 ###### 若vim-plug 管理的插件安装不成功，可执行update.sh脚本或手动安装:
 	打开vim，底行模式命令：  
 		:PlugStatus		查看插件状态
@@ -67,7 +51,8 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	更新插件后，按下 d 查看更改。或者，你可以之后输入 :PlugDiff
 
 审查插件
-有时，更新的插件可能有新的 bug 或无法正常工作。要解决这个问题，你可以简单地回滚有问题的插件。输入 :PlugDiff 命令，然后按回车键查看上次 :PlugUpdate的更改，并在每个段落上按 X 将每个插件回滚到更新前的前一个状态。
+有时，更新的插件可能有新的 bug 或无法正常工作。要解决这个问题，你可以简单地回滚有问题的插件。<br/>
+输入 :PlugDiff 命令，然后按回车键查看上次 :PlugUpdate的更改，并在每个段落上按 X 将每个插件回滚到更新前的前一个状态。
 
 删除一个插件删除或注释掉你以前在你的 vim 配置文件中添加的 plug 命令, 然后
 	:PlugClean		-   删除插件
@@ -83,12 +68,11 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
         输入main后，按tab键看是否成功自动补全。 
 
 ### update {{{3
-	cd vimcfg_bundle
+	cd skyVim
 	sudo ./update.sh
 
 	一键更新.vimrc及插件和帮助文件
 	最短耗时不到1分钟，一般很快(3~90s)  
-  
 
 # 二 温馨提示：{{{1
      (1) 有问题或改善建议等，欢迎提issue，我们可以一起完善一个流畅的工作流利器…    
@@ -107,7 +91,7 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 		(2) 对熟练的项目，可以减少拿鼠标浪费的时间  
 		(3) 对于代码修改，控制非预期的修改，比如带来多余的行尾空格，空行，对齐问题等,
 			这些小问题会影响git 查看修改时迅速找到关键修改点.
-			所以在我的vim里会保存时去掉行为空格。
+			所以在我的vim里会保存时去掉行尾空格。
 		(4) 在git下有修改时，行号左侧会显示+-~,来分别表示新增，减少，和变更的提示，方便看到自己改了哪些代码，
 		我非常喜欢和依赖这个功能，这让我对自己的修改做到心中有数  
 		(5) vim8.1 以后，因为异步及terminal的加入，vim将会变得更先进和现代化，vim使用越久受益越多
@@ -131,13 +115,7 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	vivc 'vi ~/.vim/my_help/vim_command.txt'
 	exchkey : 交换 Caps_Lock 和 Escape 键  
 
-
-
 # 三、vim使用说明 {{{1
-### 自己总结的帮助文档打开方式 {{{2
-	,hm :vim窗口，普通模式下打开README.md查看帮助
-	,h  :vim窗口，打开my_help文件夹，可选择查看常用帮助，包括git命令，vim命令等
-		
 ## 1、插件列表 plugin_list {{{2
 	目前在用插件及历史使用过的插件列表  
 	[X] - 已不用
@@ -168,25 +146,20 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	ctrlP + ctrlp-funky		[x]		<interface>
 	leaderf		<interface>
 
-
 ### Buffer Explorer   
 	bufexplorer  
-
 
 ### 关键词搜索  
     用vimgrep搜索光标所在的单词  
 
-### tags 和cscope 数据库  
+### tags 和 cscope 数据库  
     生成 tags  
 	生成 cscope的数据库  
 
-
 ### 代码片段补全
-	SnipMate	[X 已不用]	  
 	UltiSnips + vim-snippets [代替SnipMate]
 
 ### 自动补全插件  
-	superTab  [X 已不用]  
 	AutoComplPop + OmniCppComplete  
 
 ### C Call-Tree Explorer  
@@ -221,6 +194,10 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 
 ### 
 	echofunc.vim	[X 已不用]
+
+### airline
+vim-airline<br/>
+vim-airline-themes<br/>
 
 ### statusline 
 #### default statusline in .vimrc
@@ -414,7 +391,7 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 ## 2、tagbar(,f1) {{{2
 note: ,f1 中的f 指的是小写字母f
 
-### tagbar(按,F2)
+### tagbar
 	基于ctags,分割窗口显示当前的代码结构概览		
     更适合面向对象语言使用的显示函数列表插件  
 
@@ -728,7 +705,7 @@ note: ,f1 中的f 指的是小写字母f
     :Git mv % 	      :Gmove 	      重命名当前文件，并通知vim buffer  
 
 	在vim的command line, % 会扩展为当前文件的绝对路径。  
-http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
+>http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
 
 ### Browsing past revisions of a file
 
@@ -741,19 +718,19 @@ http://vimcasts.org/episodes/fugitive-vim---a-complement-to-command-line-git/
 	:Glog -10 --reverse 			load the first ten revisions of the current file into the quickfix list (in reverse chronological order)
 	:Glog -1 --until=yesterday 		load the last version of the current file that was checked in before midnight last night
 
-http://vimcasts.org/episodes/fugitive-vim-exploring-the-history-of-a-git-repository/
+>http://vimcasts.org/episodes/fugitive-vim-exploring-the-history-of-a-git-repository/
 
 ### Add git branch to status line
 
 Fugitive provides a function that you can add to your statusline, and it will show your current git branch. This example is taken from the fugitive documentation (:help fugitive-statusline):
 
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+>set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 ###  resolving merge conflicts with vimdiff 
 	When git branches are merged, there is always the chance of a conflict arising 
 	if a file was modified in both the target and merge branches. You can resolve merge conflicts using a combination of fugitive’s :Gdiff command, and Vim’s built in diffget and diffput. 
 
-http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
+>http://vimcasts.org/episodes/fugitive-vim-resolving-merge-conflicts-with-vimdiff/
 
 ### working with the git index
 
@@ -767,7 +744,7 @@ If you run :Gedit with no arguments from a working tree file, it will open the i
 :Gedit :0
 :Gedit :%
 
-http://vimcasts.org/episodes/fugitive-vim-working-with-the-git-index/
+>http://vimcasts.org/episodes/fugitive-vim-working-with-the-git-index/
 
 ### 更多参见help  
     :help cmdline-special  
@@ -839,24 +816,24 @@ https://github.com/tpope/vim-fugitive
 		}  
 	d.输入for，按Tab键  
 		代码自动补齐为   
-		for (i = 0; i < count; i++) {  
-			/* code */  
-		}  
+>for (i = 0; i < count; i++) {  
+>	/* code */  
+>}  
+
 ### {} [] () 尖括号  "" '' 等补全:
 	输入左半部分，需要补全的时候使用tab，括号里的内容输入完成后tab出去.(.补全成[])   
 	不需要补全，正常输入即可  
 	若用插件自动补全，输入 ( 时显示函数参数的插件就废了  
 
-	注意:
++	注意:
 	还不完善，按tab容易跟出代码提示，尚需区分括号补全还是代码补全
-
-	括号映射改为括号+tab键，跳出括号保持连按jj
++	括号映射改为括号+tab键，跳出括号保持连按jj
 	如下：
-	'+tab
-	"+tab
-	(+tab
-	[+tab
-	{+tab
+>	'+tab
+>	"+tab
+>	(+tab
+>	[+tab
+>	{+tab
 
 长时间不按tab, 即保持单括号输入。
 	
