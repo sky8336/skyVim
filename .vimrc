@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-15
-"    Version: v1.1.48
+"    Version: v1.1.49
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -905,7 +905,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 "let g:nerdtree_tabs_open_on_gui_startup = 1
 
 "Open NERDTree on console vim startup
-let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_open_on_console_startup = 0
 
 "Do not open NERDTree if vim starts in diff mode
 let g:nerdtree_tabs_no_startup_for_diff = 1
