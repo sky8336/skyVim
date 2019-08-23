@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-15
-"    Version: v1.1.49
+"    Version: v1.1.50
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -617,8 +617,8 @@ else
 	"Plug 'godlygeek/tabular'
 	Plug 'jistr/vim-nerdtree-tabs', { 'on':  'NERDTreeToggle' }
 	Plug 'Xuyuanp/nerdtree-git-plugin'
-	"Plug 'vim-airline/vim-airline'
-	"Plug 'vim-airline/vim-airline-themes'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
 	Plug 'scrooloose/nerdtree'
 	Plug 'vim-scripts/mru.vim'
 	Plug 'vim-scripts/ZoomWin'
