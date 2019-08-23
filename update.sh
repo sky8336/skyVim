@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-08-23
-#    Version: v0.0.29
+#    Version: v0.0.30
 #
 
 blue_log()
@@ -132,10 +132,26 @@ function update_vimcfg_bundle()
 function bakup_vimrc()
 {
 	echo "====== Bakup your vimrc ! ======"
-	cp $HOME/.vimrc $HOME/.bakvim
-	cp $HOME/.vim/README.md $HOME/.bakvim
-	cp $HOME/.vim/my_help/ $HOME/.bakvim -a
-	cp $HOME/.vim/colors/ $HOME/.bakvim -a
+	if [[ ! -d $HOME/.bakvim ]]; then
+		mkdir .bakvim
+	fi
+
+	if [[ -f $HOME/.vimrc ]]; then
+		cp $HOME/.vimrc $HOME/.bakvim
+	fi
+
+	if [[ -f $HOME/.vim/README.md ]]; then
+		cp $HOME/.vim/README.md $HOME/.bakvim
+	fi
+
+	if [[ -d $HOME/.vim/my_help ]]; then
+		cp $HOME/.vim/my_help/ $HOME/.bakvim -dpRf
+	fi
+
+	if [[ -d $HOME/.vim/colors ]]; then
+		cp $HOME/.vim/colors/ $HOME/.bakvim -dpRf
+	fi
+
 	echo "update $repo_name -- done"
 }
 
@@ -178,10 +194,18 @@ update_bashrc_my()
 function update_vimrc()
 {
 	echo "====== Config your vim now ! ======"
+	if [[ -f $HOME/.vim ]]; then
+		rm $HOME/.vim
+	fi
+
+	if [[ ! -d $HOME/.vim ]]; then
+		mkdir $HOME/.vim
+	fi
+
 	cp ./.vimrc $HOME
 	cp ./README.md $HOME/.vim
-	cp ./my_help/ $HOME/.vim -a
-	cp ./.vim/colors/ $HOME/.vim -a
+	cp ./my_help/ $HOME/.vim -dpRf
+	cp ./.vim/colors/ $HOME/.vim -dpRf
 
 	# add your name to the title
 	sed -i "s/Eric MA/$your_name/" $HOME/.vimrc
