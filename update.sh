@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-08-23
-#    Version: v0.0.30
+#    Version: v0.0.31
 #
 
 blue_log()
@@ -285,13 +285,12 @@ function install_new_plugin()
 		#/usr/local/vim/bin/vim +PlugClean +qall
 		# Fixme: self mod maybe not used but copy to the directory
 		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
-		chown -R $username:$groupname ~/.vim/plugged
 	else
 		# vim-plug
 		vim +PlugInstall +qall
 		#vim +PlugClean +qall
-		chown -R $username:$groupname ~/.vim/plugged
 	fi
+	chown -R $username:$groupname ~/.vim
 
 	echo "install new plugin -- done"
 }
