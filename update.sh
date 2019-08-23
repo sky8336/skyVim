@@ -1,4 +1,17 @@
 #!/bin/bash
+#
+# updates.sh
+#
+# Copyright (C) 2016-2023 Eric MA  <eric@company.com>. All Rights Reserved.
+#
+# History:
+#    2016/04/27 - [Eric MA] Created file
+#
+# Maintainer: Eric MA <eric@email.com>
+#    Created: 2016-04-27
+# LastChange: 2019-08-23
+#    Version: v0.0.28
+#
 
 blue_log()
 {
@@ -27,6 +40,8 @@ global_variables_setup()
 	# we use vim-plug as plugin manager by default; set install_vundle=1 to select
 	# the old vundle
 	install_vundle=0
+
+	your_name=$(echo $HOME | awk -F '/' '{print $3}')
 
 	vimcfig_bundle_dir_path=$(pwd)
 	repo_name=$(echo $vimcfig_bundle_dir_path | awk -F '/'  '{print $NF}')
@@ -170,6 +185,10 @@ function update_vimrc()
 	cp ./README.md $HOME/.vim
 	cp ./my_help/ $HOME/.vim -a
 	cp ./.vim/colors/ $HOME/.vim -a
+
+	# add your name to the title
+	sed -i "s/Eric MA/$your_name/" $HOME/.vimrc
+	sed -i "s/eric/$your_name/" $HOME/.vimrc
 
 	##追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc

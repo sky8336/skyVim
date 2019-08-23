@@ -2,7 +2,7 @@
 #
 # install.sh
 #
-# Copyright (C) 2018-2023 Eric MA  <eric@company.com>. All Rights Reserved.
+# Copyright (C) 2016-2023 Eric MA  <eric@company.com>. All Rights Reserved.
 #
 # History:
 #    2016/02/22 - [Eric MA] Created file
@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2019-08-23
-#    Version: v0.0.55
+#    Version: v0.0.56
 #
 
 source ./utils.sh
@@ -378,6 +378,10 @@ function config_vim()
 
 	cp ./.vimrc $HOME
 
+	# add your name to the title
+	sed -i "s/Eric MA/$your_name/" $HOME/.vimrc
+	sed -i "s/eric/$your_name/" $HOME/.vimrc
+
 	if [ $online -eq 1 ];then
 		cp ./.vim  $HOME -a
 	else
@@ -615,6 +619,7 @@ main()
 	local skip_vundle_plugin=0
 
 	cur_prog=0
+	your_name=$(echo $HOME | awk -F '/' '{print $3}')
 
 	show_logo
 
