@@ -74,21 +74,6 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 
     :PlugUpgrade	-   升级vim-plug本身
 
-###### 若vundle管理的插件安装不成功，可执行update.sh脚本或手动安装：  
-	打开vim，底行模式命令：  
-		:BundleList 查看要安装的插件  
-		:BundleInstall 安装插件  
-
-###### vundle命令
-   Brief help  
-   :BundleList          - list configured bundles  
-   :BundleInstall(!)    - install(update) bundles  
-   :BundleSearch(!) foo - search(or refresh cache first) for foo   
-   :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles  
-     
-   see :h vundle for more details or wiki for FAQ   
-   NOTE: comments after Bundle command are not allowed..  
-
 ###### 如果仅仅想添加某个插件，或者恢复到之前的某个插件
 	  可以通过gitk来查看修改记录，单独安装配置需要的插件即可。 
 ##### (b)配置中，已将vim映射为来vi，用vi打开即等同于vim打开来。
@@ -158,7 +143,7 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	[X] - 已不用
 	<插件类型>
 ### 插件管理  
-    vundle  插件管理  
+    vim-plug  插件管理  
 
 ### Display tags of a file ordered by scope
 	tagbar  

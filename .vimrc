@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-23
-"    Version: v0.2.27
+"    Version: v0.2.28
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -403,135 +403,12 @@ let plugin_use_echodoc = 0
 let plugin_use_echofunc = 0
 let plugin_use_vim_cpp_enhanced_highlight = 0
 
-" select plugin manager: 1:vundle, 0: vim-plug
-let plugin_mgr_vundle_enable = 0
-" plugin_select end
 
 let plugin_enalbe_rainbow_parentheses = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin web addr: https://vimawesome.com/
 " plugin_manager {{{1
-if plugin_mgr_vundle_enable == 1
-	" plugin_manager: vundle_setup {{{2
-	set rtp+=~/.vim/vundle/
-	call vundle#rc()
-
-	filetype plugin indent on     " required!
-	" let Vundle manage Vundle: vundle.vim 插件管理器: required!
-	Bundle 'gmarik/vundle'
-
-	"-----------------------
-	" my_vundle_plugins  start:
-
-	" vundle_setup: language {{{3
-	Plugin 'tpope/vim-fugitive'
-	if plugin_use_neomake == 1
-		Plugin 'neomake/neomake'
-	else
-		Plugin 'scrooloose/syntastic'
-	endif
-	Plugin 'plasticboy/vim-markdown'
-	Plugin 'scrooloose/nerdcommenter'
-	"Plugin 'hynek/vim-python-pep8-indent'
-	Plugin 'lervag/vimtex'
-	if latex_live_preview == 1
-		Plugin 'xuhdev/vim-latex-live-preview'
-	endif
-	" language end
-
-	" vundle_setup: completion {{{3
-	"Plugin 'ervandew/supertab'
-	"Plugin 'Valloric/YouCompleteMe'
-	"Plugin 'Shougo/neocomplete.vim'
-	"Plugin 'rstacruz/sparkup'
-	"Plugin 'neoclide/coc.nvim'
-	if plugin_use_deoplete == 0
-		Plugin 'AutoComplPop'
-		Plugin 'OmniCppComplete'
-	endif
-	if plugin_use_ultisnips == 1
-		Plugin 'SirVer/ultisnips'
-		Plugin 'honza/vim-snippets'
-	else
-		Plugin 'msanders/snipmate.vim'
-	endif
-	if plugin_use_deoplete == 1
-		Plugin 'shougo/deoplete.nvim'
-	endif
-	" completion end
-
-	" vundle_setup: code_display {{{3
-	if plugin_use_vim_cpp_enhanced_highlight == 1
-		Plugin 'octol/vim-cpp-enhanced-highlight'
-	endif
-
-	if plugin_use_autoformat == 1
-		Plugin 'chiel92/vim-autoformat'
-	endif
-
-	" vundle_setup: integrations {{{3
-	Plugin 'gregsexton/gitv'
-	"Plugin 'mileszs/ack.vim'
-	Plugin 'dyng/ctrlsf.vim'
-	"Plugn 'jamshedvesuna/vim-markdown-preview'
-	"Plugin 'gitv'
-	" integrations end
-
-	" vundle_setup: interface {{{3
-	if plugin_use_leaderf == 1
-		Plugin 'yggdroot/leaderf'
-	else
-		Plugin 'kien/ctrlp.vim'
-		Plugin 'tacahiroy/ctrlp-funky'
-	endif
-	Plugin 'jlanzarotta/bufexplorer'
-	Plugin 'airblade/vim-gitgutter'
-	Plugin 'mbbill/undotree'
-	"Plugin 'godlygeek/tabular'
-	Plugin 'jistr/vim-nerdtree-tabs'
-	Plugin 'Xuyuanp/nerdtree-git-plugin'
-	"Plugin 'vim-airline/vim-airline'
-	"Plugin 'vim-airline/vim-airline-themes'
-	Plugin 'scrooloose/nerdtree'
-	Plugin 'mru.vim'
-	Plugin 'ZoomWin'
-	" interface end
-
-	" vundle_setup: commands {{{3
-	Plugin 'majutsushi/tagbar'
-	Plugin 'skywind3000/asyncrun.vim'
-	Plugin 'tpope/vim-surround'
-	"Plugin 'FuzzyFinder'
-	" commands end
-
-	" vundle_setup: uncategorized {{{3
-	Plugin 'hari-rangarajan/CCTree'
-	Plugin 'will133/vim-dirdiff'
-	Plugin 'tpope/vim-unimpaired'
-	Plugin 'Stormherz/tablify'
-	Plugin 'liuchengxu/vim-which-key'
-	if plugin_use_echodoc == 1
-		Plugin 'shougo/echodoc'
-	endif
-	if plugin_use_echofunc == 1
-		"Plugin 'echofunc.vim'
-		Plugin 'mbbill/echofunc'
-	endif
-	Plugin 'genutils'
-	Plugin 'DrawIt'
-	Plugin 'sillybun/vim-repl'
-	Plugin 'voldikss/vim-translate-me'
-	" uncategorized end
-
-	" vundle_setup:  other {{{3
-	Plugin 'terryma/vim-multiple-cursors'
-	"Plugin 'L9'
-	" other end
-	" my_vundle_plugins end
-
-	" vundle_setup end
-else
 	" plugin_manager: vim_plug_setup {{{2
 	call plug#begin('~/.vim/plugged')
 
@@ -657,7 +534,6 @@ else
 
 	call plug#end()
 	" vim_plug_setup end
-endif
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
