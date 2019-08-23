@@ -2,10 +2,15 @@
 #
 # utils.sh
 #
-# Copyright (C) 2018-2023 Eric MA  <eric@company.com>
+# Copyright (C) 2018-2023 Eric MA  <eric@company.com>. All Rights Reserved.
 #
 # History:
 #    2019/06/28 - [Eric MA] Created file
+#
+# Maintainer: you <your@email.com>
+#    Created: 2019-06-28
+# LastChange: 2019-08-22
+#    Version: v0.0.03
 #
 
 logo_path=./utils/.logo
@@ -216,6 +221,7 @@ echo_execu_time()
     echo
 }
 
+# log APIs
 
 error_exit()
 {
@@ -238,6 +244,30 @@ successful_log()
 	echo -e "${color_success}$1${color_reset}"
 }
 
+# $1: progress: [0~100]
+# $2: log
+progress_log()
+{
+	# $1 is must
+	if [[ -z $1 ]]; then
+		echo "${FUNCNAME[0]} at least need 1 param"
+		exit
+	fi
+
+	local now=$1
+	local all=100
+
+	local bar_log=$2
+
+	if [[ $now -gt $all ]]; then
+		now=$all
+	fi
+
+	local percent=`awk BEGIN'{printf "%f", ('$now'/'$all')}'`
+	local percent_len=`awk BEGIN'{printf "%d", (100*'$percent')}'`
+
+	printf "[%3d%%] %s\n" "$percent_len" "$bar_log"
+}
 #
 
 check_chardev_file()

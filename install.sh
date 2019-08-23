@@ -1,4 +1,17 @@
 #!/bin/bash
+#
+# install.sh
+#
+# Copyright (C) 2018-2023 Eric MA  <eric@company.com>. All Rights Reserved.
+#
+# History:
+#    2016/02/22 - [Eric MA] Created file
+#
+# Maintainer: you <your@email.com>
+#    Created: 2016-02-22
+# LastChange: 2019-08-22
+#    Version: v0.0.54
+#
 
 source ./utils.sh
 
@@ -102,7 +115,7 @@ function check_network()
 #备份OS中vim的配置
 function bakup_vimconfig()
 {
-	echo "====== Bakup your vimconfig file ! ======"
+	local prog=$cur_prog
 
 	if [ -d "${HOME}/.bakvim" ]; then
 		rm   -rf $HOME/.bakvim
@@ -123,31 +136,52 @@ function bakup_vimconfig()
 	if [ -d "${HOME}/.bashrc_my" ]; then
 		cp $HOME/.bashrc_my $HOME/.bakvim
 	fi
+
+	let prog+=1
+	progress_log $prog "Bakup your vimconfig file ! done ..."
+	cur_prog=$prog
 }
+
+packages=(
+	exuberant-ctags
+	cscope
+	ranger
+	libstdc++6-4.7-doc
+	#nautilus-open-terminal
+	astyle
+	clang-format
+	python-pep8
+	python3-pep8
+	python-autopep8
+	yapf
+	xsel  #copy and paste
+)
+# note
+# libstdc++6-4.7-doc: libc++ man page
+# Google开发的Python格式化工具）
+# astyle clang-format python-pep8 python3-pep8 python-autopep8 yapf  --allow-unauthenticated
+# vim-autoformat常用工具:
+# 分别是astyle（支持C, C++, C++/CLI, Objective‑C, C#和Java）;
+# clang-format（支持C, C++,和Objective-C ）;
 
 #安装需要的软件包
 function install_packages()
 {
-	echo "====== Install software packages now ! ======"
-	echo -n ">> install: exuberant-ctags+cscope+ranger ... "
-	apt-get install exuberant-ctags cscope ranger --allow-unauthenticated > /dev/null
-	echo "done!"
+	pkg_num=${#packages[@]}
 
-	# install libc++ man page
-	echo -n ">> libstdc++6-4.7-doc ... "
-	sudo apt install libstdc++6-4.7-doc --allow-unauthenticated > /dev/null
-	echo "done!"
+	local prog=$cur_prog
+	local step=5
 
-	#echo ">> install: nautilus-open-terminal" #installed by default
-	#sudo apt-get install nautilus-open-terminal --allow-unauthenticated > /dev/null
+	progress_log $prog "====== Install software packages now ! ======"
 
-	echo -n ">> install: astyle clang-format python-pep8 python3-pep8 python-autopep8 yapf
-ranger ... "
-	#vim-autoformat常用工具:
-	#分别是astyle（支持C, C++, C++/CLI, Objective‑C, C#和Java）;
-	#clang-format（支持C, C++,和Objective-C ）;
-	#python-pep8,python3-pep8,python-autopep8和yapf（Google开发的Python格式化工具）
-	sudo apt install astyle clang-format python-pep8 python3-pep8 python-autopep8 yapf  --allow-unauthenticated
+	while [[ $i -lt $pkg_num ]]; do
+		apt-get install $pkg --allow-unauthenticated > /dev/null
+		let i++
+		let prog+=5
+		progress_log $prog "Install ${packages[i]} ... done"
+	done
+
+	cur_prog=$prog
 }
 
 #build vim
@@ -240,7 +274,10 @@ function build_vim_from_source()
 
 function install_vim()
 {
-	echo "====== install vim now! ======"
+	local prog=$cur_prog
+	local step=5
+
+	progress_log $prog "====== install vim now! ======"
 	echo "force enter build_vim_from_source?: $1"
 	vim --version | grep "Vi IMproved 8.1" --color
 	if [ $? -eq 0 ] && [ $1 -eq 0 ]; then
@@ -250,9 +287,14 @@ function install_vim()
 		build_vim_from_source
 	fi
 
-	echo -n ">> install: vim-gnome+xsel ... "
-	apt-get install vim-gnome xsel --allow-unauthenticated > /dev/null
-	echo "done!"
+	let prog+=10
+	progress_log $prog  "install vim ... done"
+
+	apt-get install vim-gnome --allow-unauthenticated > /dev/null
+	let prog+=5
+	progress_log $prog "install vim-gnome ... done"
+
+	cur_prog=$prog
 }
 
 #函数名、运算符、括号等高亮
@@ -306,7 +348,10 @@ update_bashrc_my()
 #配置vim
 function config_vim()
 {
-	echo "====== Config your vim now ! ======"
+	local prog=$cur_prog
+	local step=5
+
+	progress_log $prog "====== Config your vim now ! ======"
 	rm -rf $HOME/.vim/README.mk  $HOME/.vim/colors/ $HOME/.vim/macros/ \
 		$HOME/.vim/my_help/ $HOME/.vim/shell/ > /dev/null
 
@@ -341,7 +386,8 @@ function config_vim()
 	fi
 
 	#生成tags文件
-	echo "Make tags in /usr/include"
+	let prog+=$step
+	progress_log $prog "Make tags in /usr/include"
 	cd /usr/include
 	pwd
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q > /dev/null
@@ -377,11 +423,17 @@ function config_vim()
 	elif [ -f "$vim73_c_vim" ]; then
 		add_hilight_code_to_c_vim $vim73_c_vim
 	fi
+	let prog+=$step
+	progress_log $prog "${FUNCNAME[0]} ... done"
+	cur_prog=$prog
 }
 
 #install plguin_mgr: vundle or vim-plug
 function install_vundle_and_plugin()
 {
+	local prog=$cur_prog
+	local step=5
+
 	if [ $online -eq 1 ];then
 		if [[ $install_vundle -eq 1 ]]; then
 			if [ ! -d "${HOME}/.vim/vundle" ]; then
@@ -421,11 +473,16 @@ function install_vundle_and_plugin()
 	else
 		echo
 	fi
+	let prog+=$step
+	progress_log $prog "${FUNCNAME[0]} ... done"
+	cur_prog=$prog
 }
 
 #chown ~/.vim/bundle
 function chown_vundle()
 {
+	local prog=$cur_prog
+	local step=1
 	if [ $online -eq 1 ];then
 		#切换到install.sh所在目录，获取非sudo模式下的username and groupname
 		echo "====== ~/.vim/bundle/ change owner: ======"
@@ -445,6 +502,10 @@ function chown_vundle()
 	else
 		echo
 	fi
+
+	let prog+=$step
+	progress_log $prog "${FUNCNAME[0]} ... done"
+	cur_prog=$prog
 }
 
 #install ycm
@@ -459,7 +520,10 @@ function install_ycm()
 # git config
 function git_config()
 {
-	echo "====== git config ======"
+	local prog=$cur_prog
+	local step=1
+
+	progress_log $prog "====== git config ======"
 	# set merge tool and editor
 	# To use vimdiff as default merge tool:
 	git config --global merge.tool vimdiff
@@ -478,6 +542,10 @@ function git_config()
 
 	# git lg 列出 git 分支图
 	git config --global alias.lg "log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
+	let prog+=$step
+	progress_log $prog "${FUNCNAME[0]} ... done"
+	cur_prog=$prog
 }
 
 #winmagager添加自动打开和退出功能
@@ -525,6 +593,8 @@ main()
 	local skip_pack=0
 	local skip_vim=0
 	local skip_vundle_plugin=0
+
+	cur_prog=0
 
 	show_logo
 
@@ -579,6 +649,7 @@ main()
 	#install_ycm
 	#set_cfg_for_winmanager
 	git_config
+	progress_log 100 "install ... done"
 
 	show_logo
 	echo_install_time
