@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2019-08-23
-#    Version: v0.0.57
+#    Version: v0.0.58
 #
 
 source ./utils.sh
@@ -365,15 +365,25 @@ function config_vim()
 	local step=5
 
 	progress_log $prog "====== Config your vim now ! ======"
-	rm -rf $HOME/.vim/README.mk  $HOME/.vim/colors/ $HOME/.vim/macros/ \
-		$HOME/.vim/my_help/ $HOME/.vim/shell/ > /dev/null
-
-	grep -n --color "Maintainer: sky8336" ~/.vimrc
-	if [ $? -ne 0 ];then
-		echo "remove .vim/ completely"
-		rm $HOME/.vim/ -rf
+	# clean the old .vimrc and .vim/
+	if [[ -f $HOME/.vim ]]; then
+		rm $HOME/.vim
 	fi
 
+	if [[ ! -d $HOME/.vim ]]; then
+		mkdir $HOME/.vim
+	else
+		grep -n --color "Maintainer: sky8336" ~/.vimrc
+		if [ $? -ne 0 ];then
+			echo "remove .vim/ completely"
+			rm $HOME/.vim/ -rf
+		else
+			rm -rf $HOME/.vim/README.mk  $HOME/.vim/colors/ $HOME/.vim/macros/ \
+				$HOME/.vim/my_help/ $HOME/.vim/shell/ > /dev/null
+		fi
+	fi
+
+	# setup new vim config
 	cp ./.vimrc $HOME
 
 	# add your name to the title
@@ -381,7 +391,7 @@ function config_vim()
 	sed -i "s/eric/$your_name/" $HOME/.vimrc
 
 	if [ $online -eq 1 ];then
-		cp ./.vim  $HOME -a
+		cp ./.vim  $HOME -dpRf
 	else
 		cp ./.vimcfg_offline/.vim  $HOME -dpRf
 		sed -i "s%Install: online$%Install: offline%g" ~/.vimrc
@@ -496,7 +506,7 @@ function chown_plugin_mgr()
 		echo "username=$username"
 		echo "groupname=$groupname"
 
-		chown -R $username:$groupname $vim_plug_dir
+		chown -R $username:$groupname ~/.vim
 	else
 		echo
 	fi
