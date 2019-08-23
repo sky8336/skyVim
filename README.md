@@ -161,7 +161,6 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
     vundle  插件管理  
 
 ### Display tags of a file ordered by scope
-	taglist  
 	tagbar  
 
 ###  tree explorer   
@@ -298,7 +297,7 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 #### 普通模式下：  
 	
 	F1    帮助:GNOME Terminal Manual
-	F2    taglist开关   
+	F2       
 	,F2    tagbar开关   
 	F4   NERDTree开关
 	,F4    VimExplorer开关
@@ -427,30 +426,8 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	'ludovicchabant/vim-gutentags'
 
 
-## 2、taglist和tagbar(,F2) {{{2
-
-### taglist
-#### 1)底行模式打开:
-	:TlistOpen   打开并将焦点置于标签列表窗口
-	:TlistClose  关闭标签列表窗口
-	:TlistToggle 切换标签列表窗口状态（打开--关闭），标签列表窗口是否获得焦点取决于其他配置
-
-#### 2)在TagList窗口操作：
-	回车键： 跳到光标所在标记的定义处
-	o: 新建一个水平分割窗口（上部），跳到标记定义处
-	p: 预览标记定义（焦点仍然在taglist窗口）
-	空格: 在底行显示标记的原型（如函数原型）
-	u: 更新标记列表（比如源文件新增一个函数，保存后，在taglist窗口按u）
-	d: 删除光标所在的taglist文件
-	x: 放大/缩小taglist窗口
-	[[: 将光标移到前一个文件的起点
-	]]: 将光标移到后一个文件的起点
-	+: 展开标记
-	-: 折叠
-	*: 全部展开
-	=: 全部折叠
-	s: 选择排序字段
-	q: 退出taglist窗口
+## 2、tagbar(,f1) {{{2
+note: ,f1 中的f 指的是小写字母f
 
 ### tagbar(按,F2)
 	基于ctags,分割窗口显示当前的代码结构概览		
