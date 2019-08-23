@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-08-22
-#    Version: v0.0.54
+# LastChange: 2019-08-23
+#    Version: v0.0.55
 #
 
 source ./utils.sh
@@ -167,6 +167,9 @@ packages=(
 #安装需要的软件包
 function install_packages()
 {
+	if [[ $online -ne 1 ]]; then
+		return 0
+	fi
 	pkg_num=${#packages[@]}
 
 	local prog=$cur_prog
@@ -283,14 +286,26 @@ function install_vim()
 	if [ $? -eq 0 ] && [ $1 -eq 0 ]; then
 		echo "Vi IMproved 8.1 has been installed!"
 	else
-		echo "enter build_vim_from_source"
-		build_vim_from_source
+		if [ -f /usr/local/vim/bin/vim ];then
+			/usr/local/vim/bin/vim --version | grep "Vi IMproved 8.1" --color
+			if [ $? -eq 0 ] && [ $1 -eq 0 ]; then
+				echo "Vi IMproved 8.1 has been installed in /usr/local/vim/!"
+			else
+				echo "enter build_vim_from_source"
+				build_vim_from_source
+			fi
+		else
+			echo "enter build_vim_from_source"
+			build_vim_from_source
+		fi
 	fi
 
 	let prog+=10
 	progress_log $prog  "install vim ... done"
 
-	apt-get install vim-gnome --allow-unauthenticated > /dev/null
+	if [[ $online -eq 1 ]]; then
+		apt-get install vim-gnome --allow-unauthenticated > /dev/null
+	fi
 	let prog+=5
 	progress_log $prog "install vim-gnome ... done"
 
@@ -362,16 +377,21 @@ function config_vim()
 	fi
 
 	cp ./.vimrc $HOME
-	cp ./README.md $HOME/.vim
 
 	if [ $online -eq 1 ];then
 		cp ./.vim  $HOME -a
 	else
-		cp ./.vimcfg_offline/.vim  $HOME -a
+		cp ./.vimcfg_offline/.vim  $HOME -dpRf
 		sed -i "s%Install: online$%Install: offline%g" ~/.vimrc
 	fi
 
-	cp ./my_help/ $HOME/.vim/ -a
+	if [[ -d $HOME/.vim ]]; then
+		cp ./README.md $HOME/.vim
+		cp ./my_help/ $HOME/.vim/ -dpRf
+	else
+		warning_log "where is you $HOME/.vim?? check it"
+	fi
+
 
 	#追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
