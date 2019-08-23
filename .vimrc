@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-08-15
-"    Version: v0.2.26
+" LastChange: 2019-08-23
+"    Version: v0.2.27
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -459,7 +459,6 @@ if plugin_mgr_vundle_enable == 1
 	if plugin_use_deoplete == 1
 		Plugin 'shougo/deoplete.nvim'
 	endif
-	Plugin 'taglist.vim'
 	" completion end
 
 	" vundle_setup: code_display {{{3
@@ -574,7 +573,6 @@ else
 	if plugin_use_deoplete == 1
 		Plug 'shougo/deoplete.nvim'
 	endif
-	Plug 'vim-scripts/taglist.vim'
 
 	" completion end
 
@@ -846,21 +844,6 @@ let g:tagbar_show_linenumbers = 2
 if &diff == 0
 	autocmd VimEnter *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc nested :call tagbar#autoopen(1)
 endif
-
-" plugin_setting: taglist.vim {{{3
-let g:Tlist_Auto_Update=1
-let g:Tlist_Process_File_Always=1
-let g:Tlist_Exit_OnlyWindow=1 "如果taglist窗口是最后一个窗口，则退出vim
-let g:Tlist_Show_One_File=0 "不同时显示多个文件的tag，只显示当前文件的
-let g:Tlist_WinWidth=30
-let g:Tlist_Enable_Fold_Column=0
-let g:Tlist_Auto_Highlight_Tag=1
-let Tlist_Use_Right_Window = 0
-if &diff == 0
-	"去掉注释:vi时自动打开，vimdiff不自动打开;taglist的自动打开不影响vi a.c +20定位
-	"let g:Tlist_Auto_Open=1
-endif
-
 
 " plugin_setting: CCtree {{{3
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree
@@ -1400,8 +1383,8 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 " F2 ~ F12 按键映射 {{{2
 nmap  <leader>f1 :TagbarToggle<CR>
 
-nmap  <F2> :TlistToggle<cr>
-nmap  <leader>f2 :TlistToggle<CR>
+"nmap  <F2>
+"nmap  <leader>f2
 "nmap  <F2> :WMToggle<cr>
 
 nmap  <F3> :exec 'MRU' expand('%:p:h')<CR>
