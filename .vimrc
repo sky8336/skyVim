@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-15
-"    Version: v0.2.24
+"    Version: v0.2.26
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -297,7 +297,7 @@ fu! Generate_fntags_tags_cscope()
 		echo Msg . '  done !'
 		return
 	endif
-	call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
+	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
 	if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
 		call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
 	else

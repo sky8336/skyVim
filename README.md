@@ -194,7 +194,6 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 
 ### tags 和cscope 数据库  
     生成 tags  
-	生成 filename tags  
 	生成 cscope的数据库  
 
 
@@ -318,22 +317,18 @@ my_help/目录中存放开发中常用的帮助文档，希望有些用处…
 	F8    
 	Ctrl+F8 
 
-	F9    在kernel/目录或linux-stable/目录下，生成filename(tags.o.fn)及arm平台的tags(tags.o.fn)和cscope数据库；  
-	      否则，通用，生成filename(tags.o.fn)及tags(tags.o.fn)和cscope数据库  
+	F9    在kernel/目录或linux-stable/目录下，生成arm平台的tags和cscope数据库；  
+	      否则，通用，生成及tags和cscope数据库  
 	Ctrl+F9	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
 	( F10/F11系统占用 )  
-	Ctrl+F10   模拟source insight 窗口中的Taglist窗口开关  
-	Ctrl+F11   模拟source insight 窗口中的NERDTree窗口开关  
-	F12        source insight 模拟窗口 
-	Ctrl+F12   模拟source insight 窗口中的Source_Explorer窗口开关
+	Ctrl+F10   
+	Ctrl+F11   
+	F12        
+	Ctrl+F12   
 
 
 ### 说明：{{{2
-	1)修改源码时，自动补全依赖于tags，需要在源码kernel/uboot目录下分别生成tags文件；
-	2)使用vim打开文件按下F2 F5后的界面:  
-![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F2-F5-Lookup_File.png)
-	3)使用vim打开文件按下F4后的界面:  
-![image](https://github.com/sky8336/vimcfg_bundle/blob/master/vimcfg-images/F3-VimExplorer.png)
+	1)修改源码时，自动补全依赖于tags，需要在源码kernel 和 uboot目录下分别生成tags文件；
 
 
 # 四、vim插件使用说明 {{{1
