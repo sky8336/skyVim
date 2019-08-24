@@ -1333,6 +1333,12 @@ see :h vimtex
 支持弹窗(floating & popup)和异步特性
 https://vimawesome.com/plugin/vim-translate-me
 
+## 37. vim-airline 和 vim-airline-themes
+在顶行显示buffer及对应文件
+`:tabnew README.md` 在tab中打开后，顶上1 行显示tab<br/>
+`:b 2`	jump buffer号为2的buffer<br/>
+
+
 ## 其他 {{{2
 	(a)普通模式下:
 		输入 cM 清除行尾 ^M 符号;
