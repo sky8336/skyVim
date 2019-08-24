@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-24
-"    Version: v0.2.29
+"    Version: v0.2.30
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1206,10 +1206,6 @@ nmap  <space>td<CR> :packadd termdebug<CR>:Termdebug<CR>
 " vim-repl key-mapping
 nnoremap <space>r<CR> :REPLToggle<Cr>
 
-" Delete key {{{2
-nnoremap <C-d> <DELETE>
-inoremap <C-d> <DELETE>
-
 " Switching between buffers. {{{2
 nnoremap <C-h> <C-W>h
 nnoremap <C-j> <C-W>j
@@ -1244,8 +1240,12 @@ inoremap {<TAB> {<CR>}<ESC>O
 " 将tab键绑定为跳出括号
 inoremap jj <c-r>=SkipPair()<CR>
 
+" alt+key mapping {{{2
+" Delete key {{{3
+nnoremap d <DELETE>
+inoremap d <DELETE>
 
-" insert mode 光标移动 {{{2
+" insert mode 光标移动 {{{3
 " alt + k 插入模式下光标向上移动
 imap k <Up>
 " alt + j 插入模式下光标向下移动
@@ -1254,7 +1254,6 @@ imap j <Down>
 imap h <Left>
 " alt + l 插入模式下光标向右移动
 imap l <Right>
-"}}}
 
 " "cd" to change to open directory.{{{2
 let OpenDir=system("pwd")
