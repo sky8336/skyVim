@@ -387,8 +387,8 @@ function config_vim()
 	cp ./.vimrc $HOME
 
 	# add your name to the title
-	sed -i "s/Eric MA/$your_name/" $HOME/.vimrc
-	sed -i "s/eric/$your_name/" $HOME/.vimrc
+	sed -i "s/Eric MA/$your_name/" $HOME/.vim/sky8336/setTitle.vim
+	sed -i "s/eric/$your_name/" $HOME/.vim/sky8336/setTitle.vim
 
 	if [ $online -eq 1 ];then
 		cp ./.vim  $HOME -dpRf
