@@ -6,10 +6,10 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2019-08-24
-"    Version: v0.0.01
+"    Version: v0.0.02
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" PLUGIN_SETTINGS begin: {{{1
+" PLUGIN_SETTINGS begin:
 "
 if plugin_use_echofunc == 1
 	" plugin_setting: echofunc.vim {{{3
@@ -610,8 +610,8 @@ let g:vtm_enable_history=1
 let g:vtm_max_history_count=5000
 " key_mapping
 " <leader>t 翻译光标下的文本，在命令行回显
-nmap <silent> <leader>t <Plug>Translate
-vmap <silent> <leader>t <Plug>TranslateV
+nmap <silent> <leader>te <Plug>Translate
+vmap <silent> <leader>te <Plug>TranslateV
 
 " leader>w 翻译光标下的文本，在窗口中显示
 nmap <silent> <leader>aw <Plug>TranslateW
