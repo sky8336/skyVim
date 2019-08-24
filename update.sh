@@ -261,7 +261,7 @@ function update_vimrc()
 		echo "using default .vimrc"
 	else
 		echo "DISTRIB_RELEASE is not 18.04, maybe 16.04"
-		sed -i "s/let ubuntu18_04 = 1/let ubuntu18_04 = 0/" ~/.vimrc
+		sed -i "s/let ubuntu18_04 = 1/let ubuntu18_04 = 0/" ~/.vim/sky8336/plugin.vim
 	fi
 
 	echo "config your vim -- done"
