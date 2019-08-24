@@ -1,4 +1,4 @@
-# vimconfig_bundle - vim 自动化安装配置
+# skyVim - 一键安装超漂亮的vim配置
 vim config for linux devices driver development and C development，C++, python/shell development<br/>
 
 + 工具就是生产力，打造利器, 提高效率…  
