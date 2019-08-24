@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-08-23
-"    Version: v0.2.28
+" LastChange: 2019-08-24
+"    Version: v0.2.29
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -1081,11 +1081,14 @@ command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
 
 " plugin_setting: vim-airline {{{3
-"set laststatus=2  "永远显示状态栏
 "let g:airline_powerline_fonts = 1  " 支持 powerline 字体
-"let g:airline#extensions#tabline#enabled = 1 " 显示窗口tab和buffer
+"打开tabline功能，显示窗口tab和buffer, 方便查看Buffer和切换"
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
-" 使用:AirlineTheme {theme-name}设置主题。
+" plugin_setting: vim-airline-themes {{{3
+let g:airline_theme="bubblegum"
+
 " plugin_setting: asyncrun {{{3
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
