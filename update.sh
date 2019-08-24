@@ -152,6 +152,10 @@ function bakup_vimrc()
 		cp $HOME/.vim/colors/ $HOME/.bakvim -dpRf
 	fi
 
+	if [[ -d $HOME/.vim/sky8336 ]]; then
+		cp $HOME/.vim/sky8336 $HOME/.baksky8336 -dpRf
+	fi
+
 	echo "update $repo_name -- done"
 }
 
@@ -206,10 +210,11 @@ function update_vimrc()
 	cp ./README.md $HOME/.vim
 	cp ./my_help/ $HOME/.vim -dpRf
 	cp ./.vim/colors/ $HOME/.vim -dpRf
+	cp ./.vim/sky8336 $HOME/.vim -dpRf
 
 	# add your name to the title
-	sed -i "s/Eric MA/$your_name/" $HOME/.vimrc
-	sed -i "s/eric/$your_name/" $HOME/.vimrc
+	sed -i "s/Eric MA/$your_name/" $HOME/.vim/sky8336/setTitle.vim
+	sed -i "s/eric/$your_name/" $HOME/.vim/sky8336/setTitle.vim
 
 	##追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
