@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-24
-"    Version: v0.2.32
+"    Version: v0.2.33
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -112,6 +112,21 @@ else
     "echo 'setTitle.vim is not exists'
 endif
 
+" gen_load_Ctags_Cscope.vim {{{2
+if filereadable(expand("$HOME/.vim/sky8336/gen_load_Ctags_Cscope.vim"))    " 判断文件是否存在"
+    "echo 'gen_load_Ctags_Cscope.vim is exists'
+    execute 'source ~/.vim/sky8336/gen_load_Ctags_Cscope.vim'
+else
+    "echo 'gen_load_Ctags_Cscope.vim is not exists'
+endif
+
+" stripTrailing.vim {{{2
+if filereadable(expand("$HOME/.vim/sky8336/stripTrailing.vim"))    " 判断文件是否存在"
+    "echo 'stripTrailing.vim is exists'
+    execute 'source ~/.vim/sky8336/stripTrailing.vim'
+else
+    "echo 'stripTrailing.vim is not exists'
+endif
 
 " function_definition: {{{1
 " plugin shortcuts {{{2
@@ -119,15 +134,6 @@ function! RunShell(Msg, Shell)
 	echo a:Msg . '...'
 	call system(a:Shell)
 	echon 'done'
-endfunction
-
-function! WhitespaceStripTrailing()
-	let previous_search=@/
-	let previous_cursor_line=line('.')
-	let previous_cursor_column=col('.')
-	%s/\s\+$//e
-	let @/=previous_search
-	call cursor(previous_cursor_line, previous_cursor_column)
 endfunction
 
 " set statusline color {{{2
@@ -166,63 +172,6 @@ endfun
 "set title
 "endif
 ""如果把上面代码中的expand("%:p")换成expand("%:t")将不显示路径只显示文件名。
-
-" 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{2
-fu! Generate_fntags_tags_cscope()
-	if getcwd() == $HOME
-		let Msg = "$HOME cannot generate tags.fn tags and cscope.out !"
-		echo Msg . '  done !'
-		return
-	endif
-	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
-	if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
-		call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
-	else
-		"生成专用于c/c++的ctags文件
-		call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-		call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())
-		cs add cscope.out
-	endif
-	q
-endf
-
-" 实现递归查找上级目录中的ctags和cscope并自动载入 {{{2
-function! AutoLoadCTagsAndCScope()
-	let max = 7
-	let dir = './'
-	let i = 0
-	let break = 0
-	while isdirectory(dir) && i < max
-		if filereadable(dir . 'cscope.out')
-			execute 'cs add ' . dir . 'cscope.out'
-			let break = 1
-		endif
-		if filereadable(dir . 'tags')
-			execute 'set tags =' . dir . 'tags'
-			let break = 1
-		endif
-		if break == 1
-			"execute 'lcd ' . dir
-			break
-		endif
-		let dir = dir . '../'
-		let i = i + 1
-	endwhile
-endf
-
-" cscope add {{{2
-if has("cscope")
-	set csre
-	set csto=1
-	set cst
-	set nocsverb
-	if filereadable("cscope.out")
-		cs add cscope.out
-	else
-		call AutoLoadCTagsAndCScope()
-	endif
-	set csverb
-endif
 
 " 设置跳出自动补全的括号 {{{2
 func SkipPair()
@@ -545,12 +494,6 @@ highlight ExtraWhitespace ctermbg=red guibg=red
 
 " high light word under cursor {{{2
 autocmd CursorMoved * call s:HighlightWordUnderCursor()
-
-" whitespace  去除文件的行尾空白 {{{2
-autocmd BufWritePre     *.py        call WhitespaceStripTrailing()
-autocmd BufWritePre     *.h         call WhitespaceStripTrailing()
-autocmd BufWritePre     *.c         call WhitespaceStripTrailing()
-autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
 
 " auto expand tab to blanks {{{2
 "autocmd FileType c,cpp set expandtab
