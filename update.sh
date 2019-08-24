@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-08-23
-#    Version: v0.0.31
+#    Version: v0.0.32
 #
 
 blue_log()
@@ -299,22 +299,22 @@ function install_new_plugin()
 #echo install time
 function echo_install_time()
 {
-    end_time=$(date +"%s")
-    tdiff=$(($end_time-$start_time))
-    hours=$(($tdiff / 3600 ))
-    mins=$((($tdiff % 3600) / 60))
-    secs=$(($tdiff % 60))
-    echo
-        echo -n -e "${color_success}#### update completed successfully! "
-    if [ $hours -gt 0 ] ; then
-        echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
-    elif [ $mins -gt 0 ] ; then
-        echo -n -e "($mins:$secs (mm:ss))"
-    elif [ $secs -gt 0 ] ; then
-        echo -n -e "($secs seconds)"
-    fi
-    echo -e " ####${color_reset}"
-    echo
+	end_time=$(date +"%s")
+	tdiff=$(($end_time-$start_time))
+	hours=$(($tdiff / 3600 ))
+	mins=$((($tdiff % 3600) / 60))
+	secs=$(($tdiff % 60))
+	echo
+	echo -n -e "${color_success}#### update completed successfully! "
+	if [ $hours -gt 0 ] ; then
+		echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
+	elif [ $mins -gt 0 ] ; then
+		echo -n -e "($mins:$secs (mm:ss))"
+	elif [ $secs -gt 0 ] ; then
+		echo -n -e "($secs seconds)"
+	fi
+	echo -e " ####${color_reset}"
+	echo
 }
 
 # git config
