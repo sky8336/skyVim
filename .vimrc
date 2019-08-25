@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-08-24
-"    Version: v0.2.34
+" LastChange: 2019-08-25
+"    Version: v0.2.35
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -508,3 +508,9 @@ autocmd BufReadPost *
 ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 " 不自动添加新的注释行 {{{2
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"colorcolumn
+"after entering another window, set cc=80
+"before leaving a window, set cc=""
+autocmd WinEnter,BufEnter * set cc=80
+autocmd WinLeave,BufLeave * set cc=""
