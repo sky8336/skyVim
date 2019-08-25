@@ -295,7 +295,8 @@ vim-airline-themes<br/>
 ## 四、vim插件使用说明 {{{1
 	有些插件的快捷键，可以到.vimrc中搜索插件名在设置的地方或key-mappings的地方找快捷键，
 		<leader> 映射成,
-[plugin instructions](https://github.com/sky8336/skyVim/my_help/plugin_instructions.md)
+[plugin instructions](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_instructions.md)
+
 ## vim Usage: 使用习惯及场景应用 -- 快速使用{{{1   
 
 ### vim 窗口中操作:  
