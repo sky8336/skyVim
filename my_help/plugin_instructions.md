@@ -1,5 +1,21 @@
 # plugin instructions
 
+## vim-plug 命令
+    :PlugStatus		- 	检查状态
+    :PlugInstall	-   安装之前在配置文件中声明的插件。
+    :PlugUpdate		-   更新插件
+	更新插件后，按下 d 查看更改。或者，你可以之后输入 :PlugDiff
+
+审查插件
+有时，更新的插件可能有新的 bug 或无法正常工作。要解决这个问题，你可以简单地回滚有问题的插件。<br/>
+输入 :PlugDiff 命令，然后按回车键查看上次 :PlugUpdate的更改，并在每个段落上按 X 将每个插件回滚到更新前的前一个状态。
+
+删除一个插件删除或注释掉你以前在你的 vim 配置文件中添加的 plug 命令, 然后
+	:PlugClean		-   删除插件
+
+    :PlugUpgrade	-   升级vim-plug本身
+
+
 ## C/C++ 符号索引 {{{1
 	ags.o.fn、tags和cscope, gtags生成及使用方法
 	DIY 一套超越市面上任何编辑器（vscode，emacs，vscode）体验的最强静态符号索引系统。
