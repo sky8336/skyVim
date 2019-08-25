@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-25
-"    Version: v0.2.35
+"    Version: v0.2.36
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -107,26 +107,26 @@ set t_Co=256
 " sky8336's vim {{{1
 " setTitle.vim {{{2
 if filereadable(expand("$HOME/.vim/sky8336/setTitle.vim"))    " 判断文件是否存在"
-    "echo 'setTitle.vim is exists'
-    execute 'source ~/.vim/sky8336/setTitle.vim'
+	"echo 'setTitle.vim is exists'
+	execute 'source ~/.vim/sky8336/setTitle.vim'
 else
-    "echo 'setTitle.vim is not exists'
+	"echo 'setTitle.vim is not exists'
 endif
 
 " gen_load_Ctags_Cscope.vim {{{2
 if filereadable(expand("$HOME/.vim/sky8336/gen_load_Ctags_Cscope.vim"))    " 判断文件是否存在"
-    "echo 'gen_load_Ctags_Cscope.vim is exists'
-    execute 'source ~/.vim/sky8336/gen_load_Ctags_Cscope.vim'
+	"echo 'gen_load_Ctags_Cscope.vim is exists'
+	execute 'source ~/.vim/sky8336/gen_load_Ctags_Cscope.vim'
 else
-    "echo 'gen_load_Ctags_Cscope.vim is not exists'
+	"echo 'gen_load_Ctags_Cscope.vim is not exists'
 endif
 
 " stripTrailing.vim {{{2
 if filereadable(expand("$HOME/.vim/sky8336/stripTrailing.vim"))    " 判断文件是否存在"
-    "echo 'stripTrailing.vim is exists'
-    execute 'source ~/.vim/sky8336/stripTrailing.vim'
+	"echo 'stripTrailing.vim is exists'
+	execute 'source ~/.vim/sky8336/stripTrailing.vim'
 else
-    "echo 'stripTrailing.vim is not exists'
+	"echo 'stripTrailing.vim is not exists'
 endif
 
 " function_definition: {{{1
