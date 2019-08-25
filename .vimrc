@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-24
-"    Version: v0.2.33
+"    Version: v0.2.34
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -91,6 +91,7 @@ set smartcase
 set tabstop=4
 set termencoding=utf-8
 set textwidth=80
+set cc=80 "colorcolumn
 set whichwrap=h,l
 set wildignore=*.bak,*.o,*.e,*~
 set wildmenu
@@ -485,8 +486,8 @@ set clipboard=unnamedplus " 设置vim使用"+寄存器(粘贴板)，"+寄存器�
 autocmd VimLeave * call system("xsel -ib", getreg('+'))
 
 " 启用每行超过80列的字符提示（背景变black） {{{2
-highlight MyGroup ctermbg=black guibg=black
-au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
+"highlight MyGroup ctermbg=black guibg=black
+"au BufWinEnter * let w:m2=matchadd('MyGroup', '\%>' . 80 . 'v.\+', -1)
 
 " Highlight unwanted spaces {{{2
 highlight ExtraWhitespace ctermbg=red guibg=red
