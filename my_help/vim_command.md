@@ -263,12 +263,12 @@ bufexplorer提供了一些替换上面命令的快捷键，并且提供了一个
 `>>` 右缩进<br/>
 
 ### 4.4 底行命令模式：
-`:r !pwd` 输入当前路径
-`:!cmd` 执行shell的命令
-`:%!xxd` 转换16进制
-`:set list` 显示不可见字符
-`:set fileencoding` 设置编码
-`:set spell` 拼写检查
-`:set scrolloff=3`  滚动
-`:set cursorline` 水平线
-`:set incsearch` 增量搜索
+`:r !pwd` 输入当前路径<br/>
+`:!cmd` 执行shell的命令<br/>
+`:%!xxd` 转换16进制<br/>
+`:set list` 显示不可见字符<br/>
+`:set fileencoding` 设置编码<br/>
+`:set spell` 拼写检查<br/>
+`:set scrolloff=3`  滚动<br/>
+`:set cursorline` 水平线<br/>
+`:set incsearch` 增量搜索<br/>
