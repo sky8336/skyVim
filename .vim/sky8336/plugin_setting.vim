@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2019-08-24
-"    Version: v0.0.02
+"    Version: v0.0.03
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -614,12 +614,12 @@ nmap <silent> <leader>te <Plug>Translate
 vmap <silent> <leader>te <Plug>TranslateV
 
 " leader>w 翻译光标下的文本，在窗口中显示
-nmap <silent> <leader>aw <Plug>TranslateW
-vmap <silent> <leader>aw <Plug>TranslateWV
+nmap <silent> <leader>tw <Plug>TranslateW
+vmap <silent> <leader>tw <Plug>TranslateWV
 
 " leader>r 替换光标下的文本为翻译内容
-nmap <silent> <leader>ar <Plug>TranslateR
-vmap <silent> <leader>ar <Plug>TranslateRV
+nmap <silent> <leader>tr <Plug>TranslateR
+vmap <silent> <leader>tr <Plug>TranslateRV
 
 " uncategorized_plugin setting end
 
