@@ -559,7 +559,8 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " plugin_setting: vim-airline-themes {{{3
-let g:airline_theme="bubblegum"
+"let g:airline_theme="bubblegum"
+let g:airline_theme="dark"
 
 " plugin_setting: asyncrun {{{3
 " 自动打开 quickfix window ，高度为 6
