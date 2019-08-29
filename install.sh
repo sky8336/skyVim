@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2019-08-23
-#    Version: v0.0.58
+#    Version: v0.0.59
 #
 
 source ./utils.sh
@@ -78,8 +78,8 @@ function check_root_privileges()
 function get_start_time_and_dir_path()
 {
 	start_time=$(date +"%s")
-	vimcfig_bundle_dir_path=$(pwd)
-	echo "dir_path: $vimcfig_bundle_dir_path"
+	skyvim_path=$(pwd)
+	echo "dir_path: $skyvim_path"
 }
 
 #shell脚本下载数据时，先检测网络的畅通性
@@ -319,7 +319,7 @@ function add_hilight_code_to_c_vim()
 			echo "Found my_vim_highlight_config! $1 have been modified."
 		else
 			echo "add my_vim_highlight_config to $1 now."
-			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> $1 > /dev/null
+			cat $skyvim_path/.self_mod/highlight_code.vim >> $1 > /dev/null
 		fi
 	else
 		echo "can not found $1"
@@ -406,8 +406,8 @@ function config_vim()
 
 
 	#追加到.bashrc,不会覆盖.bashrc原有配置
-	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
-	cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
+	#cat $skyvim_path/.self_mod/.bashrc_append >> ~/.bashrc
+	cp $skyvim_path/.self_mod/.bashrc_append ~/.bashrc_my
 
 	grep "source ~/.bashrc_my" ~/.bashrc
 	if [ $? -eq 0 ]; then
@@ -434,7 +434,7 @@ function config_vim()
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
+			cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
 		fi
 	fi
 
@@ -482,7 +482,7 @@ function install_plugin_mgr_and_plugin()
 		fi
 
 		# Fixme: self mod maybe not used but copy to the directory
-		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
+		cp $skyvim_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
 	else
 		echo
 	fi
@@ -499,7 +499,7 @@ function chown_plugin_mgr()
 	if [ $online -eq 1 ];then
 		#切换到install.sh所在目录，获取非sudo模式下的username and groupname
 		echo "====== ~/.vim/bundle/ change owner: ======"
-		cd $vimcfig_bundle_dir_path
+		cd $skyvim_path
 		pwd
 		username=`ls -l install.sh | awk '{print $3}'`
 		groupname=`ls -l  install.sh | awk '{print $4}'`

@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-08-23
-#    Version: v0.0.32
+#    Version: v0.0.33
 #
 
 blue_log()
@@ -40,8 +40,8 @@ global_variables_setup()
 
 	your_name=$(echo $HOME | awk -F '/' '{print $3}')
 
-	vimcfig_bundle_dir_path=$(pwd)
-	repo_name=$(echo $vimcfig_bundle_dir_path | awk -F '/'  '{print $NF}')
+	skyvim_path=$(pwd)
+	repo_name=$(echo $skyvim_path | awk -F '/'  '{print $NF}')
 
 
 	# sudo 权限执行，会使得包括.git目录下的变更文件变成root用户和用户组,影响git
@@ -49,7 +49,7 @@ global_variables_setup()
 	username=`ls -l ../ | grep $repo_name | awk '{print $3}'`
 	groupname=`ls -l ../ | grep $repo_name | awk '{print $4}'`
 	echo "repo name: $repo_name"
-	echo "dir_path: $vimcfig_bundle_dir_path"
+	echo "dir_path: $skyvim_path"
 
 	echo "username=$username"
 	echo "groupname=$groupname"
@@ -117,8 +117,8 @@ function check_network()
 # first step
 function update_vimcfg_bundle()
 {
-	vimcfig_bundle_dir_path=$(pwd)
-	repo_name=$(echo $vimcfig_bundle_dir_path | awk -F '/'  '{print $NF}')
+	skyvim_path=$(pwd)
+	repo_name=$(echo $skyvim_path | awk -F '/'  '{print $NF}')
 
 	echo "====== update $repo_name: git pull ======"
 
@@ -217,8 +217,15 @@ function update_vimrc()
 	sed -i "s/eric/$your_name/" $HOME/.vim/sky8336/setTitle.vim
 
 	##追加到.bashrc,不会覆盖.bashrc原有配置
-	#cat $vimcfig_bundle_dir_path/.self_mod/.bashrc_append >> ~/.bashrc
-	cp $vimcfig_bundle_dir_path/.self_mod/.bashrc_append ~/.bashrc_my
+	#cat $skyvim_path/.self_mod/.bashrc_append >> ~/.bashrc
+	cp $skyvim_path/.self_mod/.bashrc_append ~/.bashrc_my
+	grep "source ~/.bashrc_my" ~/.bashrc
+	if [ $? -eq 0 ]; then
+		# "Found! ~/.bashrc have been modified."
+		echo
+	else
+		echo "source ~/.bashrc_my" >> ~/.bashrc
+	fi
 
 
 	if [[ -d "/usr/local/vim" ]]; then
@@ -231,7 +238,7 @@ function update_vimrc()
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
+			cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
 		fi
 	else
 		#函数名、运算符、括号等高亮
@@ -250,7 +257,7 @@ function update_vimrc()
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> $vim_in_usr_share/syntax/c.vim
+			cat $skyvim_path/.self_mod/highlight_code.vim >> $vim_in_usr_share/syntax/c.vim
 		fi
 
 	fi
@@ -289,7 +296,7 @@ function install_new_plugin()
 		/usr/local/vim/bin/vim +PlugInstall +qall
 		#/usr/local/vim/bin/vim +PlugClean +qall
 		# Fixme: self mod maybe not used but copy to the directory
-		cp $vimcfig_bundle_dir_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
+		cp $skyvim_path/.self_mod/.plugin_self-mod/plugged/* ~/.vim/plugged/ -rf
 	else
 		# vim-plug
 		vim +PlugInstall +qall
