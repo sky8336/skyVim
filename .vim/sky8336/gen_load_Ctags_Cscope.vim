@@ -5,11 +5,11 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-08-24
-"    Version: v0.0.01
+" LastChange: 2019-08-30
+"    Version: v0.0.02
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" 生成tags.fn,tags,cscope数据库: 当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，否则正常生成tags和cscope {{{2
+" 生成tags.fn,tags,cscope数据库: 正常生成tags和cscope {{{2
 fu! Generate_fntags_tags_cscope()
 	if getcwd() == $HOME
 		let Msg = "$HOME cannot generate tags.fn tags and cscope.out !"
@@ -17,15 +17,22 @@ fu! Generate_fntags_tags_cscope()
 		return
 	endif
 	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
-	if fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'kernel' || fnamemodify(expand(getcwd()), ':t:gs?\\?\?') == 'linux-stable'
-		call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
-	else
-		"生成专用于c/c++的ctags文件
-		call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-		call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())
-		cs add cscope.out
+	"生成专用于c/c++的ctags文件
+	call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
+	call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())
+	cs add cscope.out
+	"q
+endf
+
+"当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，
+fu! Generate_kernel_tags_cscope()
+	if getcwd() == $HOME
+		let Msg = "$HOME cannot generate tags.fn tags and cscope.out !"
+		echo Msg . '  done !'
+		return
 	endif
-	q
+	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
+	call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
 endf
 
 " 实现递归查找上级目录中的ctags和cscope并自动载入 {{{2

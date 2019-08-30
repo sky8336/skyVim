@@ -27,6 +27,7 @@ w
 	空格+wq+<CR>				保存后退出
 	原生命令的映射，仅仅改动按:的方式为按空格即可。
 
+
 #### space 开头插件相关
 	空格+t+<CR>				打开terminal.<CR> 可以避免因有其他<space>t开头的按键引起的慢
 	空格+td+<CR>			打开termdebug. <CR> 同样可以避免慢
@@ -34,9 +35,16 @@ w
 
 	这样设计是为了保持3个按键，使得space开头的快捷键尽可能多。并且空格键不需要移动手指，也方便快捷。
 
+
+#### cmap command
+`cmap ,e <ESC>`<br/>
+`cmap ,pi PlugInstall`<br/>
+`cmap ,gk :call Generate_kernel_tags_cscope()<CR>`<br/>
+
 ### 其他方便的快捷键{{{2
 	插入模式快速按 js 		切换到normal 模式并保存 
 	插入模式快速按 jk 		切换到normal 模式不并保存,因为有时切入normal模式是为了按u恢复
+
 
 ### F1~F12相关快捷键 {{{2
 

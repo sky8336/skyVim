@@ -394,6 +394,7 @@ function config_vim()
 		cp ./.vim  $HOME -dpRf
 	else
 		cp ./.vimcfg_offline/.vim  $HOME -dpRf
+		cp ./.vim/sky8336 $HOME/.vim/ -dpRF
 		sed -i "s%Install: online$%Install: offline%g" ~/.vimrc
 	fi
 

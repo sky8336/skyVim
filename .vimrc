@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-08-25
-"    Version: v0.2.36
+" LastChange: 2019-08-30
+"    Version: v0.2.37
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -219,8 +219,9 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHORTCUT_SETTINGS: 按键映射 key_mappings {{{1
 " command line key_mappings {{{2
-cmap jk <ESC>
-cmap pi PlugInstall
+cmap ,e <ESC>
+cmap ,pi PlugInstall
+cmap ,gk :call Generate_kernel_tags_cscope()<CR>
 
 " alt key_mappings {{{2
 " 设置方法:按下ctrl-v 后，输入alt-想设置的键
