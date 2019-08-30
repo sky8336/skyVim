@@ -94,7 +94,7 @@ alias vigp='vi ~/.vim/my_help/git_push.txt'
 alias vilc='vi ~/.vim/my_help/linux_command.txt'
 alias vivc='vi ~/.vim/my_help/vim_command.txt'
 alias vi='vim'
-alias tagsc='rm cscope.*.out cscope.out tags'
+alias tagsc='rm cscope.*.out cscope.out cscope.files tags'
 alias exchkey=$HOME/.vim/my_help/locktoesc.sh
 alias mgrep='grep --exclude={cscope*,tags*}'
 alias week='date +%V.%u'
