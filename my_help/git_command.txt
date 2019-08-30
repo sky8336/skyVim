@@ -85,6 +85,9 @@ git diff v1.0 v2.0 -- file.c   显示file.c在两个版本之间的比对结果
 git diff master...dev  创建分支dev之后，在这条分支上的差异对比 ，用dev与
                     master 所交的分岐点和现在dev分支上最后一个快照比对
 
+git diff HEAD~2 获取最近两次提交的具体不同 包括增删的文件以及行数以及每行具体的改动
+git diff --stat 获取文件更改的个数 增加行数 删除行数
+git diff --numstat 表格形式获取增加行数和减少行数
 
 You can quickly review the changes made to a file using the diff command:
 git diff <commit hash> <filename>
