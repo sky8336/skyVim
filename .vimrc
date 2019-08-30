@@ -439,7 +439,7 @@ nmap w. :vertical res -30<CR>
 """"""""""""""""""""""""""""""""""""
 " {{{2
 set noswapfile
-set tags+=/usr/include/tags
+"set tags+=/usr/include/tags
 set tags+=./tags  "引导omnicppcomplete等找到tags文件
 "生成专用于c/c++的ctags文件
 map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
