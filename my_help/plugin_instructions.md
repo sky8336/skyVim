@@ -19,6 +19,11 @@
 ## C/C++ 符号索引 {{{1
 	ags.o.fn、tags和cscope, gtags生成及使用方法
 	DIY 一套超越市面上任何编辑器（vscode，emacs，vscode）体验的最强静态符号索引系统。
+
+`,f9`  生成ctags和cscope for c<br/>
+`,f8`  生成ctags和cscope for c++<br/>
+
+`,9f`  autoload ctags和cscope<br/>
 ### 1)tags.o.fn、tags和cscope库文件的生成 {{{2
  
 	cindex 终端生成ctags索引文件tags  

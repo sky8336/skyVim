@@ -6,10 +6,10 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2019-08-30
-"    Version: v0.0.02
+"    Version: v0.0.03
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" 生成tags.fn,tags,cscope数据库: 正常生成tags和cscope {{{2
+" 生成tags.fn,tags,cscope数据库: 正常生成tags和cscope
 fu! Generate_fntags_tags_cscope()
 	if getcwd() == $HOME
 		let Msg = "$HOME cannot generate tags.fn tags and cscope.out !"
@@ -19,9 +19,37 @@ fu! Generate_fntags_tags_cscope()
 	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
 	"生成专用于c/c++的ctags文件
 	call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
-	call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())
+	"生成专用于c的cscope文件
+	call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())	"this not support c++
+
+	"quit the empty buffer
+	if bufname("%") == ""
+		q
+	endif
+
 	cs add cscope.out
-	"q
+endf
+
+" 生成tags.fn,tags,cscope数据库 for c++
+fu! Generate_cpp_tags_cscope()
+	if getcwd() == $HOME
+		let Msg = "$HOME cannot generate tags.fn tags and cscope.out !"
+		echo Msg . '  done !'
+		return
+	endif
+	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
+	"生成专用于c/c++的ctags文件
+	call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
+
+	call RunShell("Generate cscope.files", "find `pwd` -name '*.h' -o -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.hpp' > cscope.files")
+	call RunShell("Generate cscope for c/c++", "cscope -bkq -i cscope.files")
+
+	"quit the empty buffer
+	if bufname("%") == ""
+		q
+	endif
+
+	cs add cscope.out
 endf
 
 "当前目录为kernel或linux-stable,生成kernel中arm平台的tags和cscope，
@@ -33,9 +61,16 @@ fu! Generate_kernel_tags_cscope()
 	endif
 	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
 	call RunShell("Generate kernel tags and cscope (use 'make')", "make tags ARCH=arm && make cscope ARCH=arm")
+
+	"quit the empty buffer
+	if bufname("%") == ""
+		q
+	endif
+
+	cs add cscope.out
 endf
 
-" 实现递归查找上级目录中的ctags和cscope并自动载入 {{{2
+" 实现递归查找上级目录中的ctags和cscope并自动载入
 function! AutoLoadCTagsAndCScope()
 	let max = 7
 	let dir = './'
@@ -59,7 +94,7 @@ function! AutoLoadCTagsAndCScope()
 	endwhile
 endf
 
-" cscope add {{{2
+" cscope add
 if has("cscope")
 	set csre
 	set csto=1
