@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2019-08-30
-"    Version: v0.0.03
+"    Version: v0.0.04
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 生成tags.fn,tags,cscope数据库: 正常生成tags和cscope
@@ -41,7 +41,7 @@ fu! Generate_cpp_tags_cscope()
 	"生成专用于c/c++的ctags文件
 	call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
 
-	call RunShell("Generate cscope.files", "find `pwd` -name '*.h' -o -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.hpp' > cscope.files")
+	call RunShell("Generate cscope.files", "find . -name '*.h' -o -name '*.c' -o -name '*.cc' -o -name '*.cpp' -o -name '*.hpp' > cscope.files")
 	call RunShell("Generate cscope for c/c++", "cscope -bkq -i cscope.files")
 
 	"quit the empty buffer
