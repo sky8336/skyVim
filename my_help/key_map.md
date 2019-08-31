@@ -49,33 +49,43 @@ w
 ### F1~F12相关快捷键 {{{2
 
 #### 普通模式下：  
+小写字母f: 按键f
 	
 	F1    帮助:GNOME Terminal Manual
-	F2       
-	,F2    tagbar开关   
-	F4   NERDTree开关
-	,F4    VimExplorer开关
+	,f1		tagbar开关 
+
+	F2 或,f2   NERDTree开关
+	,F2    VimExplorer开关
+
 	F3    打开MRU,在路径列表中，光标在工程名处按shift+*,高亮相应工程，便于选择;
 	      :q  退出MRU
 	,m    按,m后，将在终端复制的项目名粘贴到底行，按回车后打开MRU，文件路径匹配输入的项目名  
 	( Ctrl+F1 ~ Ctrl+F4不可用 )
 
+	F4       
+	,F4       
+
 	F5      
 	Ctrl+F5 UndotreeToggle  
 	,F5   在底行//gj的双斜杠中间输入要查找的关键字，用vimgrep在当前文件父目录下的.c和.h中搜索//中输入的关键字  
+
 	F6    用vimgrep在当前文件父目录下的.c和.h中搜索光标所在的单词    
 	Ctrl+F6    用vimgrep在状态行显示的相对路径父目录下.c和.h中递归搜索光标所在的单词  
 	,F6    用vimgrep在底行输入的路径文件中搜索光标所在的单词  
+
 	F7
+
 	F8    
 	Ctrl+F8 
 
 	F9    在kernel/目录或linux-stable/目录下，生成arm平台的tags和cscope数据库；  
 	      否则，通用，生成及tags和cscope数据库  
 	Ctrl+F9	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
+
 	( F10/F11系统占用 )  
 	Ctrl+F10   
 	Ctrl+F11   
+
 	F12        
 	Ctrl+F12   
 

@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-08-24
-"    Version: v0.0.03
+" LastChange: 2019-08-31
+"    Version: v0.0.04
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -454,10 +454,10 @@ if plugin_use_leaderf == 1
 	" plugin_setting: interface: leaderf {{{3
 	let g:Lf_ShortcutF = '<c-p>'
 	let g:Lf_ShortcutB = '<m-n>'
-	noremap <c-n> :LeaderfMru<cr>
-	noremap <m-p> :LeaderfFunction!<cr>
-	noremap <m-n> :LeaderfBuffer<cr>
-	noremap <m-m> :LeaderfTag<cr>
+	noremap <c-m> :LeaderfMru<cr>
+	noremap f :LeaderfFunction!<cr>
+	noremap b :LeaderfBuffer<cr>
+	noremap t :LeaderfTag<cr>
 	let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 
 	let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']

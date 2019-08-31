@@ -663,9 +663,10 @@ https://github.com/tpope/vim-fugitive
 	b. 支持文件，MRU，Buffer名称搜索
 
 	CTRL+P 在当前项目目录打开文件搜索
-	CTRL+N 打开 MRU 搜索，搜索最近打开的文件
-	ALT+P 打开函数搜索，	//TODO
-	ALT+N 打开 Buffer 搜索  //TODO
+	CTRL+m 打开 MRU 搜索，搜索最近打开的文件
+	ALT+f 打开函数搜索，	
+	ALT+b 打开 Buffer 搜索  
+	alt+t :LeaderfTag<cr>
 
 	<ESC>		退出
 
