@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-30
-"    Version: v0.2.39
+"    Version: v0.2.40
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -320,10 +320,13 @@ nmap  <leader><F2> :silent! VE .<cr>
 nmap  <F3> :exec 'MRU' expand('%:p:h')<CR>
 nmap  <leader>f3 :exec 'MRU' expand('%:p:h')<CR>
 
-"<F2>
-"nmap  <F2> :PreviewTag
-"nmap  <leader>f2
-"nmap  <F2> :WMToggle<cr>
+"<F4> vim-preview
+nmap  <F4> :PreviewTag<CR>
+"nmap  <leader>f4
+noremap u :PreviewScroll -1<cr>
+noremap d :PreviewScroll +1<cr>
+inoremap u <c-\><c-o>:PreviewScroll -1<cr>
+inoremap d <c-\><c-o>:PreviewScroll +1<cr>
 
 
 

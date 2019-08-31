@@ -127,6 +127,7 @@ let plugin_enalbe_rainbow_parentheses = 0
 	Plug 'scrooloose/nerdtree'
 	Plug 'vim-scripts/mru.vim'
 	Plug 'vim-scripts/ZoomWin'
+	Plug 'skywind3000/vim-preview'
 	"Plug 'itchyny/lightline.vim'
 	" interface end
 
