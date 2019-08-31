@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-30
-"    Version: v0.2.37
+"    Version: v0.2.38
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -364,6 +364,7 @@ nmap  <leader><F7> :lclose<CR>
 nmap  <leader>7f :botright copen 10<CR>
 
 " F8
+nmap  <leader>f8 :call Generate_cpp_tags_cscope()<CR>
 
 " f9
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
