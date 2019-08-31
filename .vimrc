@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-08-30
-"    Version: v0.2.38
+"    Version: v0.2.39
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -309,19 +309,23 @@ nmap <silent> <leader>cd :exe 'cd ' . OpenDir<cr>:pwd<cr>
 " F2 ~ F12 按键映射 {{{2
 nmap  <leader>f1 :TagbarToggle<CR>
 
-"nmap  <F2>
-"nmap  <leader>f2
-"nmap  <F2> :WMToggle<cr>
+"nmap  <F2> :NERDTreeToggle<cr>
+nmap  <F2> :NERDTreeTabsToggle<cr>
+nmap  <leader>f2 :NERDTreeTabsToggle<cr>
 
+nmap  <C-\><F2> :NERDTreeTabsFind<CR>
+nmap  <leader><F2> :silent! VE .<cr>
+
+"<F3>
 nmap  <F3> :exec 'MRU' expand('%:p:h')<CR>
 nmap  <leader>f3 :exec 'MRU' expand('%:p:h')<CR>
 
-"nmap  <F4> :NERDTreeToggle<cr>
-nmap  <F4> :NERDTreeTabsToggle<cr>
-nmap  <leader>f4 :NERDTreeTabsToggle<cr>
+"<F2>
+"nmap  <F2> :PreviewTag
+"nmap  <leader>f2
+"nmap  <F2> :WMToggle<cr>
 
-nmap  <C-\><F4> :NERDTreeTabsFind<CR>
-nmap  <leader><F4> :silent! VE .<cr>
+
 
 "------map_f5------
 " nmap  <F5>
