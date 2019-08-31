@@ -224,3 +224,7 @@ $ sleep 3 && alert "build done"
 
 查看.bashrc中的alias 命令
 $ alias
+=====================
+linux下shell统计文件目录下所有代码行数
+find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.cc" | xargs cat|grep -v ^$|wc -l
+
