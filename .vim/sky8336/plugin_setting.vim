@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2019-09-01
-"    Version: v0.0.05
+"    Version: v0.0.06
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -634,7 +634,12 @@ vmap <silent> <leader>tr <Plug>TranslateRV
 " plugin_setting: vim-multiple-cursors {{{2
 " 多光标选中编辑
 " multiplecursors
+let g:multi_cursor_exit_from_visual_mode=1
+let g:multi_cursor_exit_from_insert_mode=1
 let g:multi_cursor_use_default_mapping=0
+" Default highlighting (see help :highlight and help :highlight-link)
+highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+highlight link multiple_cursors_visual Visual
 " Default mapping
 let g:multi_cursor_start_word_key      = '<C-n>'
 let g:multi_cursor_select_all_word_key = 'g<C-a>'
