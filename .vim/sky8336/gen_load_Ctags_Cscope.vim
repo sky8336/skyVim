@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-08-30
-"    Version: v0.0.04
+" LastChange: 2019-09-01
+"    Version: v0.0.05
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 生成tags.fn,tags,cscope数据库: 正常生成tags和cscope
@@ -18,7 +18,7 @@ fu! Generate_fntags_tags_cscope()
 	endif
 	"call RunShell("Generate filename tags", "~/.vim/shell/genfiletags.sh")
 	"生成专用于c/c++的ctags文件
-	call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .")
+	call RunShell("Generate tags (use ctags)", "ctags -R --c++-kinds=+p --fields=+ianS --extra=+q .")
 	"生成专用于c的cscope文件
 	call RunShell("Generate cscope (use cscope)", "cscope -Rbqk -P " . getcwd())	"this not support c++
 
