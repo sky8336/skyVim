@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-08-30
-"    Version: v0.2.40
+" LastChange: 2019-09-01
+"    Version: v0.2.41
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -322,11 +322,15 @@ nmap  <leader>f3 :exec 'MRU' expand('%:p:h')<CR>
 
 "<F4> vim-preview
 nmap  <F4> :PreviewTag<CR>
-"nmap  <leader>f4
+nmap  <leader>f4 :PreviewTag<CR>
 noremap u :PreviewScroll -1<cr>
 noremap d :PreviewScroll +1<cr>
 inoremap u <c-\><c-o>:PreviewScroll -1<cr>
 inoremap d <c-\><c-o>:PreviewScroll +1<cr>
+
+"the keymap in quickfix window
+autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 
 
@@ -401,6 +405,10 @@ nmap <leader>se :cs find e <C-R>=expand("<cword>")<cr><cr>
 nmap <leader>sf :cs find f <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>si :cs find i <C-R>=expand("<cfile>")<cr><cr>
 nmap <leader>sd :cs find d <C-R>=expand("<cword>")<cr><cr>
+
+"FIXME
+nmap <leader>sq :set cscopequickfix=s+,g+,c+,d+,i+,t+,e+,a+<cr>
+nmap <leader>nq :set cscopequickfix=<cr>
 
 
 nmap <leader>vs :vert scs find s <C-R>=expand("<cword>")<cr><cr>

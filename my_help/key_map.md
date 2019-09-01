@@ -45,6 +45,7 @@ w
 	插入模式快速按 js 		切换到normal 模式并保存 
 	插入模式快速按 jk 		切换到normal 模式不并保存,因为有时切入normal模式是为了按u恢复
 
+	<enter>	leaderf mru
 
 ### F1~F12相关快捷键 {{{2
 
