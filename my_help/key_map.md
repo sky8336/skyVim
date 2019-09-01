@@ -32,6 +32,9 @@ w
 	空格+t+<CR>				打开terminal.<CR> 可以避免因有其他<space>t开头的按键引起的慢
 	空格+td+<CR>			打开termdebug. <CR> 同样可以避免慢
 
+`空格+w+v` :vertical res 86<CR>
+`空格+w+v` :res 25<CR>
+
 
 	这样设计是为了保持3个按键，使得space开头的快捷键尽可能多。并且空格键不需要移动手指，也方便快捷。
 

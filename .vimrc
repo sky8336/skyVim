@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-09-01
-"    Version: v0.2.41
+"    Version: v0.2.42
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -451,6 +451,9 @@ nmap w= :res +15<CR>
 nmap w- :res -15<CR>
 nmap w, :vertical res +30<CR>
 nmap w. :vertical res -30<CR>
+
+nmap <space>wv :vertical res 86<CR>
+nmap <space>wh :res 25<CR>
 
 """"""""""""""""""""""""""""""""""""
 " {{{2
