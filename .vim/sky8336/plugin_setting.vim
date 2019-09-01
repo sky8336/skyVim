@@ -5,28 +5,28 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-08-31
-"    Version: v0.0.04
+" LastChange: 2019-09-01
+"    Version: v0.0.05
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
 "
 if plugin_use_echofunc == 1
-	" plugin_setting: echofunc.vim {{{3
+	" plugin_setting: echofunc.vim {{{2
 	"let g:EchoFuncAutoStartBalloonDeclaration=1
 endif
 
 if plugin_use_echodoc == 1
-	" plugin_setting:  echodoc {{{3
+	" plugin_setting:  echodoc {{{2
 	let g:echodoc#type = "echo" " Default value
 	set noshowmode
 	let g:echodoc_enable_at_startup = 1
 endif
 
-" code_display plugin_settings {{{2
+" code_display plugin_settings {{{1
 
 if plugin_use_vim_cpp_enhanced_highlight == 1
-	" plugin_setting:  vim-cpp-enhanced-highlight {{{3
+	" plugin_setting:  vim-cpp-enhanced-highlight {{{2
 	"Highlighting of class scope is disabled by default. To enable set
 	let g:cpp_class_scope_highlight = 1
 
@@ -55,7 +55,7 @@ if plugin_use_vim_cpp_enhanced_highlight == 1
 	let c_no_curly_error=1
 endif
 
-"rainbow-parentheses  {{{3
+"rainbow-parentheses  {{{2
 let g:rbpt_colorpairs = [
 			\ ['brown',       'RoyalBlue3'],
 			\ ['Darkblue',    'SeaGreen3'],
@@ -77,7 +77,7 @@ let g:rbpt_colorpairs = [
 let g:rbpt_max = 40
 let g:rbpt_loadcmd_toggle = 0
 
-" plugin_setting: auto-format {{{3
+" plugin_setting: auto-format {{{2
 if plugin_use_autoformat == 1
 	"F5自动格式化代码并保存
 	noremap <F5> :Autoformat<CR>:w<CR>
@@ -103,7 +103,7 @@ else
 
 	"格式化代码也不一定非要安装插件才能实现，因为Vim可以执行外部命令，因此函数调用外
 	"部工具来实现代码格式化，比如下面就用函数调用astyle和autopep8来格式化代码
-	" FormatCode() Function {{{{4
+	" FormatCode() Function {{{{3
 	map <leader>af :call FormatCode()<CR>
 	func! FormatCode()
 		exec "w"
@@ -128,8 +128,8 @@ else
 	endfunc
 endif
 
-" integrations plugin_settings {{{2
-" plugin_setting: ctrlsf.vim {{{3
+" integrations plugin_settings {{{1
+" plugin_setting: ctrlsf.vim {{{2
 let g:ctrlsf_absolute_file_path = 1
 let g:ctrlsf_ackprg = '/usr/bin/ack'
 let g:ctrlsf_auto_close = {
@@ -182,7 +182,7 @@ nnoremap <C-\>o :CtrlSFOpen<CR>
 nnoremap <C-\>c :CtrlSFToggle<CR>
 inoremap <C-\>c <Esc>:CtrlSFToggle<CR>
 
-" plugin_setting: tagbar.vim {{{3
+" plugin_setting: tagbar.vim {{{2
 let g:tagbar_left=1
 let g:tagbar_ctags_bin='ctags'           "ctags程序的路径
 let g:tagbar_width=30                    "窗口宽度的设置
@@ -193,7 +193,7 @@ if &diff == 0
 	autocmd VimEnter *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc nested :call tagbar#autoopen(1)
 endif
 
-" plugin_setting: CCtree {{{3
+" plugin_setting: CCtree {{{2
 let g:CCTreeKeyTraceForwardTree = '<C-\>>' "the symbol in current cursor's forward tree
 let g:CCTreeKeyTraceReverseTree = '<C-\><'
 let g:CCTreeKeyHilightTree = '<C-\>l' " Static highlighting
@@ -212,7 +212,7 @@ let  g:CCTreeJoinProgOpts = ""
 "let g:CCTreeRecursiveDepth = 3
 "let g:CCTreeMinVisibleDepth = 3
 
-" plugin_setting: NERDTree.vim {{{3
+" plugin_setting: NERDTree.vim {{{2
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
@@ -229,7 +229,7 @@ let NERDTreeShowBookmarks=1
 " NERDTree是最后一个窗口，它自动关闭
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" plugin_setting:  vim-nerdtree-tabs.vim {{{3
+" plugin_setting:  vim-nerdtree-tabs.vim {{{2
 "let g:nerdtree_tabs_autofind=1
 
 "Open NERDTree on gvim/macvim startup
@@ -271,7 +271,7 @@ let g:nerdtree_tabs_focus_on_files = 0
 "When starting up with a directory name as a parameter, cd into it
 let g:nerdtree_tabs_startup_cd = 1
 
-" plugin_setting: nerdtree-git-plugin.vim {{{3
+" plugin_setting: nerdtree-git-plugin.vim {{{2
 " NERDTreeShowGitStatus 为0，不加载git信息;为1,加载，引起打开vim慢（甚至十几秒）
 let g:NERDTreeShowGitStatus = 0
 let g:NERDTreeIndicatorMapCustom = {
@@ -288,7 +288,7 @@ let g:NERDTreeIndicatorMapCustom = {
 			\ }
 
 
-"" plugin_setting:  YCM {{{3
+"" plugin_setting:  YCM {{{2
 "let g:ycm_confirm_extra_conf = 0
 "let g:ycm_error_symbol = '>>'
 "let g:ycm_warning_symbol = '>*'
@@ -312,7 +312,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 
 if plugin_use_deoplete == 0
-	" plugin_setting: OmniCppComplete.vim {{{3
+	" plugin_setting: OmniCppComplete.vim {{{2
 	"set nocp
 	"filetype plugin on
 	set completeopt=menu,menuone
@@ -340,8 +340,8 @@ if plugin_use_deoplete == 0
 	set statusline+=%*
 endif
 
-" language  plugin_setting:  {{{2
-" plugin_setting: language: vim-markdown {{{3
+" language  plugin_setting:  {{{1
+" plugin_setting: language: vim-markdown {{{2
 " Disable Folding
 let g:vim_markdown_folding_disabled = 0
 let g:vim_markdown_folding_style_pythonic = 1
@@ -372,7 +372,7 @@ let g:vim_markdown_autowrite = 1
 let g:vim_markdown_auto_insert_bullets = 0
 
 
-" plugin_setting: vimtex {{{3
+" plugin_setting: vimtex {{{2
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
@@ -391,7 +391,7 @@ let g:vimtex_compiler_latexmk_engines = {
 			\ 'context (xetex)'  : '-pdf -pdflatex=''texexec --xtx''',
 			\}
 
-" plugin_setting: vim-latex-live-preview {{{3
+" plugin_setting: vim-latex-live-preview {{{2
 "By default, you need to have evince or okular installed as pdf viewers.
 "But you can specify your own viewer by setting:
 autocmd Filetype tex setl updatetime=1
@@ -399,11 +399,11 @@ let g:livepreview_previewer = 'zathura'
 "这个插件配合最好的evince
 "let g:livepreview_previewer = 'evince'
 
-" plugin_setting: vim-python-pep8-indent plugin_setting{{{3
+" plugin_setting: vim-python-pep8-indent plugin_setting{{{2
 let g:python_pep8_indent_multiline_string = 0
 let g:python_pep8_indent_hang_closing = 0
 
-"Start Python PEP 8 stuff {{{4
+"Start Python PEP 8 stuff {{{3
 " Number of spaces that a pre-existing tab is equal to.
 "au BufRead,BufNewFile *py,*pyw,*.c,*.h set tabstop=4
 
@@ -443,15 +443,15 @@ autocmd FileType python set autoindent
 
 " language_setting end
 
-" plugin_setting: MRU.vim {{{3
+" plugin_setting: MRU.vim {{{2
 
-" plugin_setting: undotree.vim {{{3
+" plugin_setting: undotree.vim {{{2
 let g:undotree_WindowLayout = 2
 
 
-" interface plugin_settings: {{{2
+" interface plugin_settings: {{{1
 if plugin_use_leaderf == 1
-	" plugin_setting: interface: leaderf {{{3
+	" plugin_setting: interface: leaderf {{{2
 	let g:Lf_ShortcutF = '<c-p>'
 	let g:Lf_ShortcutB = '<m-n>'
 	noremap <c-m> :LeaderfMru<cr>
@@ -469,7 +469,7 @@ if plugin_use_leaderf == 1
 	"let g:Lf_StlColorscheme = 'powerline'
 	let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 else
-	" plugin_setting: interface: ctrlp.vim {{{3
+	" plugin_setting: interface: ctrlp.vim {{{2
 	"let g:ctrlp_map = '<c-p>'
 	"let g:ctrlp_cmd = 'CtrlP'
 	let g:ctrlp_working_path_mode = 'ra'
@@ -490,7 +490,7 @@ else
 	let g:ctrlp_extensions = ['funky']
 endif
 
-" plugin_setting: integrations: BufExplorer.vim 其中有默认配置 {{{3
+" plugin_setting: integrations: BufExplorer.vim 其中有默认配置 {{{2
 "let g:bufExplorerDefaultHelp=0       " Do not show default help.
 "let g:bufExplorerShowRelativePath=1  " Show relative paths.
 "let g:bufExplorerSortBy='mru'        " Sort by most recently used.
@@ -503,17 +503,17 @@ endif
 "<Leader>bv　　垂直窗口打开 buffer 列表。
 
 
-" plugin_setting: interface: vim-gitgutter {{{3
+" plugin_setting: interface: vim-gitgutter {{{2
 " determines how long (in milliseconds) the plugin will wait after you stop
 " typing before it updates the signs.  Vim's default is 4000.  I recommend 100.
 set updatetime=100
 
 
-" plugin_setting: Man.vim {{{3
+" plugin_setting: Man.vim {{{2
 source $VIMRUNTIME/ftplugin/man.vim
 
 if plugin_use_ultisnips == 1
-	" plugin_setting: utilsnips.vim {{{3
+	" plugin_setting: utilsnips.vim {{{2
 	"autocmd FileType * call UltiSnips#FileTypeChanged()
 	" 连续按下两次i触发代码补全
 	let g:UltiSnipsExpandTrigger="<tab>"
@@ -522,21 +522,21 @@ if plugin_use_ultisnips == 1
 	let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 else
-	" plugin_setting: snipMate {{{3
+	" plugin_setting: snipMate {{{2
 	"let g:snips_author="Du Jianfeng"
 	"let g:snips_email="cmdxiaoha@163.com"
 	"let g:snips_copyright="SicMicro, Inc"
 endif
 
 
-" plugin_setting: dirdiff.vim {{{3
+" plugin_setting: dirdiff.vim {{{2
 let g:DirDiffExcludes = "CVS,*.class,*.o"
 let g:DirDiffIgnore = "Id:"
 " ignore white space in diff
 let g:DirDiffAddArgs = "-w"
 let g:DirDiffEnableMappings = 1
 
-" plugin_setting: ZoomWinPlugin.vim {{{3
+" plugin_setting: ZoomWinPlugin.vim {{{2
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
 	if exists('t:zoomed') && t:zoomed
@@ -552,17 +552,23 @@ endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <C-A> :ZoomToggle<CR>
 
-" plugin_setting: vim-airline {{{3
+" plugin_setting: vim-airline {{{2
 "let g:airline_powerline_fonts = 1  " 支持 powerline 字体
 "打开tabline功能，显示窗口tab和buffer, 方便查看Buffer和切换"
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#hunks#enabled = 1
 
-" plugin_setting: vim-airline-themes {{{3
+let g:airline#extensions#hunks#non_zero_only = 1
+let g:airline#extensions#whitespace#show_message = 0
+
+"let w:airline_section_c = '%{MyPlugin#function()}'
+
+" plugin_setting: vim-airline-themes {{{2
 "let g:airline_theme="bubblegum"
 let g:airline_theme="dark"
 
-" plugin_setting: asyncrun {{{3
+" plugin_setting: asyncrun {{{2
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
 " 任务结束时候响铃提醒
@@ -570,8 +576,8 @@ let g:asyncrun_bell = 1
 " 定位到文件所属项目的目录: 从文件所在目录向上递归，直到找到名为 “.git”, “.svn”, “.hg”或者 “.root”文件或者目录
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
-" uncategorized plugin_settings{{{2
-" plugin_setting: vim-repl setting {{{3
+" uncategorized plugin_settings{{{1
+" plugin_setting: vim-repl setting {{{2
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
 autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
 autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
@@ -601,7 +607,7 @@ let g:repl_cursor_down = 1
 let g:repl_python_automerge = 1
 let g:repl_console_name = 'ZYTREPL'
 
-" plugin_setting: vim-translate-me {{{3
+" plugin_setting: vim-translate-me {{{2
 let g:vtm_default_mapping=0
 let g:vtm_default_to_lang='zh'
 let g:vtm_default_engines=['ciba', 'youdao']
@@ -624,8 +630,8 @@ vmap <silent> <leader>tr <Plug>TranslateRV
 
 " uncategorized_plugin setting end
 
-" other plugin settings {{{2
-" plugin_setting: vim-multiple-cursors {{{3
+" other plugin settings {{{1
+" plugin_setting: vim-multiple-cursors {{{2
 " 多光标选中编辑
 " multiplecursors
 let g:multi_cursor_use_default_mapping=0
@@ -642,8 +648,8 @@ let g:multi_cursor_quit_key            = '<Esc>'
 
 " PLUGIN_SETTINGS end
 
-" plugin_autocmd {{{2
-"plugin_autocmd: rainbow_parentheses.vim {{{3
+" plugin_autocmd {{{1
+"plugin_autocmd: rainbow_parentheses.vim {{{2
 if plugin_enalbe_rainbow_parentheses == 1
 	au VimEnter * RainbowParenthesesToggle
 	au Syntax * RainbowParenthesesLoadRound
