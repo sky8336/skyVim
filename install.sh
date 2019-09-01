@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-08-23
-#    Version: v0.0.59
+# LastChange: 2019-09-01
+#    Version: v0.0.60
 #
 
 source ./utils.sh
@@ -423,7 +423,7 @@ function config_vim()
 	progress_log $prog "Make tags in /usr/include"
 	cd /usr/include
 	pwd
-	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+iaS --extra=+q > /dev/null
+	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+ianS --extra=+q > /dev/null
 
 	if [[ -d "/usr/local/vim" ]]; then
 		# which we built from source
