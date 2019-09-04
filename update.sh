@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-08-23
-#    Version: v0.0.33
+# LastChange: 2019-09-04
+#    Version: v0.0.34
 #
 
 blue_log()
@@ -94,8 +94,18 @@ function check_network()
 	#目标网站
 	target=www.baidu.com
 
-	#获取响应状态码
-	ret_code=`curl -I -s --connect-timeout $timeout $target -w %{http_code} | tail -n1`
+	if which curl > /dev/null ; then
+		echo "Find curl."
+	else
+		apt-get install curl --allow-unauthenticated > /dev/null
+	fi
+
+	if which curl > /dev/null ; then
+		#获取响应状态码
+		ret_code=`curl -I -s --connect-timeout $timeout $target -w %{http_code} | tail -n1`
+	else
+		echo "check your Network, and install curl."
+	fi
 
 	if [ "x$ret_code" = "x200" ]; then
 		#网络畅通
