@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-09-02
-"    Version: v0.2.43
+" LastChange: 2019-09-04
+"    Version: v0.2.44
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -376,6 +376,8 @@ nmap  <leader>7f :botright copen 10<CR>
 
 " F8
 nmap  <leader>f8 :call Generate_cpp_tags_cscope()<CR>
+" load tags which buffer name is ../../other/directory/file
+nmap  <leader>8f :call LoadTagsByBufferName()<CR>
 
 " f9
 nmap  <F9> :call Generate_fntags_tags_cscope()<CR>
