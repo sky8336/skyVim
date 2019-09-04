@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-09-01
-"    Version: v0.0.05
+" LastChange: 2019-09-04
+"    Version: v0.0.06
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 生成tags.fn,tags,cscope数据库: 正常生成tags和cscope
@@ -93,6 +93,40 @@ function! AutoLoadCTagsAndCScope()
 		let i = i + 1
 	endwhile
 endf
+
+function! FindTags(f)
+	let dir = fnamemodify(a:f, ':p:h')
+	let break = 0
+	while 1
+		if filereadable(dir . '/cscope.out')
+			exe 'cs add ' . dir . '/cscope.out' . ' ' . dir
+			let break = 1
+		elseif dir == '/'
+			break
+		endif
+
+		if filereadable(dir . '/tags')
+			exe 'set tags =' . dir . '/tags'
+			let break = 1
+		elseif dir == '/'
+			break
+		endif
+
+		if break == 1
+			"execute 'lcd ' . dir
+			break
+		endif
+
+		let dir = fnamemodify(dir, ":h")
+	endwhile
+endfunc
+
+"load cscope.out in other directory
+function! LoadTagsByBufferName()
+	let f = bufname("%")
+	call FindTags(f)
+endfunc
+
 
 " cscope add
 if has("cscope")
