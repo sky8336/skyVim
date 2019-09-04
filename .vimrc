@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-09-04
-"    Version: v0.2.44
+"    Version: v0.2.45
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -241,18 +241,22 @@ map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 nnoremap <space>e<CR> :e<CR>
 nnoremap <space>w<CR> :w<CR>
 nnoremap <space>q<CR> :q<CR>
-nnoremap <space>q1<CR> :q!<CR>
-nnoremap <space>wq<CR> :wq<CR>
-nnoremap <space>wa<CR> :wa<CR>
-nnoremap <space>qa<CR> :qa<CR>
-nnoremap <space>wqa<CR> :wqa<CR>
+nnoremap <space>wq :wq<CR>
+nnoremap <space>wa :wa<CR>
+nnoremap <space>qa :qa<CR>
 nnoremap <space>; :
 vnoremap <space>; :
 
-nmap  <space>t<CR> :vert terminal<CR>
-nmap  <space>td<CR> :packadd termdebug<CR>:Termdebug<CR>
+nmap  <space>tm :vert terminal<CR>
+nmap  <space>td :packadd termdebug<CR>:Termdebug<CR>
 " vim-repl key-mapping
 nnoremap <space>r<CR> :REPLToggle<Cr>
+
+" Linux Programmer's Manual
+" <C-m> is Enter in quickfix window
+nmap <space>mm :Man <C-R>=expand("<cword>")<cr><cr>
+nmap <space>m2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
+
 
 " Switching between buffers. {{{2
 nnoremap <C-h> <C-W>h
@@ -391,11 +395,6 @@ nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
 nmap <C-F10> :bn<CR>
 " F11
 nmap <C-F11> :bp<CR>
-
-" Linux Programmer's Manual
-" <C-m> is Enter in quickfix window
-nmap <C-\>a :Man <C-R>=expand("<cword>")<cr><cr>
-nmap <C-\>2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
 "cscope 按键映射及说明 {{{2
 nmap <leader>sa :cs add cscope.out<cr>
