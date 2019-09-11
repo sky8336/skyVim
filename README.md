@@ -47,12 +47,12 @@ vim config for linux devices driver development and C development，C++, python/
 - 最短耗时不到1分钟，一般很快(3~90s)  
 - ubuntu 系统自带vim是vim.tiny，迷你版，.vimrc 有一些命令不支持，不过install.sh会自动安装完整版vim    
 
-## 3 vim使用说明 {{{1
+## 2 vim使用说明 {{{1
 [Quick Start Guide](https://github.com/sky8336/skyVim/blob/master/my_help/quick_start_guide.md)<br/>
 [plugin list](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_list.md)<br/>
 [快捷键说明](https://github.com/sky8336/skyVim/blob/master/my_help/key_map.md)<br/>
 [plugin instructions](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_instructions.md)<br/>
 
-## vim Usage: 使用习惯及场景应用 -- 快速使用{{{1   
+## 3 vim Usage: 使用习惯及场景应用 -- 快速使用{{{1   
 [workflow tips](https://github.com/sky8336/skyVim/blob/master/my_help/workflow_tips.md)<br/>
 [vim command](https://github.com/sky8336/skyVim/blob/master/my_help/vim_command.md)
