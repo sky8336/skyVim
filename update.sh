@@ -314,6 +314,10 @@ function install_new_plugin()
 	fi
 	chown -R $username:$groupname ~/.vim
 
+	if [[ -f ~/.vim_mru_files ]]; then
+		chown -R $username:$groupname ~/.vim_mru_files
+	fi
+
 	echo "install new plugin -- done"
 }
 
