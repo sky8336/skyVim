@@ -385,3 +385,25 @@ git show-branch
 	1 $ git checkout --orphan branchName
 　　使用 --orphan 参数开分支时，要注意，新分支的文件都相当于新添加，且已add过的，
     因此，在文件修改之前，需要先commit一次，否则第一次提交没办法和默认开分支时的文件进行对比。
+
+### .gitignore 忽略掉某个文件{{{1
+在git中如果想忽略掉某个文件，不让这个文件提交到版本库中，可以使用修改根目录中
+.gitignore 文件的方法（如果没有这个文件，则需自己手工建立此文件）。这个文件每一行保存了一个匹配的规则例如：
+	
+# 此为注释 – 将被 Git 忽略
+*.a       # 忽略所有 .a 结尾的文件
+!lib.a    # 但 lib.a 除外
+/TODO     # 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
+build/    # 忽略 build/ 目录下的所有文件
+doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+　　把某些目录或文件加入忽略规则，按照上述方法定义后发现并未生效，原因是
+.gitignore只能忽略那些原来没有被追踪的文件，如果某些文件已经被纳入了版本管理中，则修改.gitignore是无效的。那么解决方法就是先把本地缓存删除（改变成未被追踪状态），然后再提交，这样就不会出现忽略的文件了。git清除本地缓存命令如下：
+　　
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+
+注意：：不要误解了.gitignore的用途，该文件只能作用于未被跟踪的文件，也就是那些
+从来没有被git记录过的文件（自添加以后，从未add及commit过的文件）。如果文件曾经
+被git记录过，那么.gitignore就对他们完全无效。
+
