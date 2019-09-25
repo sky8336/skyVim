@@ -156,6 +156,8 @@ Plug 'kana/vim-textobj-indent'
 	q:		- 	command line
 	p		-   复制到光标字符后
 	P		-   复制到光标字符前
+	`:b 文件名` 或 `:b 文件名中部分字母` , 按table键补全，打开buffer
+	中的文件(最近打开的文件)
 	
 ## vim8.1: 新特性{{{1  
 ### 1) 支持在 Vim 窗口中运行终端  
