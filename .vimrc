@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-09-26
-"    Version: v0.2.48
+"    Version: v0.2.49
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -257,10 +257,10 @@ nmap <space>m2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
 " window-resize {{{3
 " add, subtract
-nmap <space>ha :res +15<CR>
-nmap <space>hs :res -15<CR>
-nmap <space>va :vertical res +30<CR>
-nmap <space>vs :vertical res -30<CR>
+nmap <space>wh :vertical res -30<CR>
+nmap <space>wl :vertical res +30<CR>
+nmap <space>wj :res -15<CR>
+nmap <space>wk :res +15<CR>
 
 nmap <space>vr :vertical res 86<CR>
 nmap <space>hr :res 25<CR>
