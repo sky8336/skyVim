@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-09-26
-"    Version: v0.2.46
+"    Version: v0.2.47
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -237,16 +237,43 @@ nnoremap <space>qa :qa<CR>
 nnoremap <space>; :
 vnoremap <space>; :
 
+" set mouse mode, see :help mouse
+nmap <space>ma :set mouse=a<cr>
+nmap <space>mv :set mouse=v<cr>
+
+" set paste mode
+nmap <space>pa :set paste<cr>
+nmap <space>np :set nopaste<cr>
+
 nmap  <space>tm :vert terminal<CR>
 nmap  <space>td :packadd termdebug<CR>:Termdebug<CR>
 " vim-repl key-mapping
-nnoremap <space>r<CR> :REPLToggle<Cr>
+nnoremap <space>re :REPLToggle<Cr>
 
 " Linux Programmer's Manual
 " <C-m> is Enter in quickfix window
 nmap <space>mm :Man <C-R>=expand("<cword>")<cr><cr>
 nmap <space>m2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
+" window-resize {{{3
+nmap w= :res +15<CR>
+nmap w- :res -15<CR>
+nmap w, :vertical res +30<CR>
+nmap w. :vertical res -30<CR>
+
+nmap <space>wv :vertical res 86<CR>
+nmap <space>wh :res 25<CR>
+
+nmap <space>bn :bn<CR>
+nmap <space>bp :bp<CR>
+
+"其他映射 {{{3
+nmap <space>zz <C-w>o
+nmap <space>hm :tabnew ~/.vim/README.md<cr>
+nmap <space>hd :tabnew ~/.vim/my_help/<cr>
+"<space>zz  关闭光标所在窗口之外的其他所有窗口
+"<space>hm  tab标签页,打开帮助文档README.md
+"<space>hd  tab标签页,打开my_help directory，可选择需要帮助文档
 
 " Switching between buffers. {{{2
 nnoremap <C-h> <C-W>h
@@ -382,9 +409,7 @@ nmap <C-F9> :call AutoLoadCTagsAndCScope()<CR>
 nmap <C-\><F9> :CCTreeLoadDB cscope.out<CR>
 
 " F10
-nmap <C-F10> :bn<CR>
 " F11
-nmap <C-F11> :bp<CR>
 
 "cscope 按键映射及说明 {{{2
 nmap <leader>sa :cs add cscope.out<cr>
@@ -429,23 +454,6 @@ nmap <leader>fd :cs find d
 ",si 查找包含本文件的文件
 ",sd 查找本函数调用的函数
 
-"其他映射 {{{2
-nmap <leader>zz <C-w>o
-nmap <leader>hm :tabnew ~/.vim/README.md<cr>
-nmap <leader>hd :tabnew ~/.vim/my_help/<cr>
-",zz  关闭光标所在窗口之外的其他所有窗口
-",hm  tab标签页,打开帮助文档README.md
-",hd  tab标签页,打开my_help directory，可选择需要帮助文档
-
-" window-resize {{{2
-nmap w= :res +15<CR>
-nmap w- :res -15<CR>
-nmap w, :vertical res +30<CR>
-nmap w. :vertical res -30<CR>
-
-nmap <space>wv :vertical res 86<CR>
-nmap <space>wh :res 25<CR>
-
 """"""""""""""""""""""""""""""""""""
 " {{{2
 set noswapfile
@@ -471,14 +479,6 @@ nmap ci ggVG=
 
 " 复制全部
 nmap cy ggVGy
-
-" set mouse mode, see :help mouse
-nmap <leader>ma :set mouse=a<cr>
-nmap <leader>mv :set mouse=v<cr>
-
-" set paste mode
-nmap <leader>p :set paste<cr>
-nmap <leader>np :set nopaste<cr>
 
 " define a shortcut key for enabling/disabling highlighting:
 nnoremap  <C-\><F3> :exe "let g:HlUnderCursor=exists(\"g:HlUnderCursor\")?g:HlUnderCursor*-1+1:1"<CR>
@@ -552,6 +552,9 @@ function s:Set_InsertEnter_Window()
 
 	" Insert mode: the line number is norelativenumber
 	set nornu
+
+	" Window resizing
+	"vertical res 86
 endfunction
 
 " Normal mode
