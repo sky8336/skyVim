@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-09-26
-"    Version: v0.2.47
+"    Version: v0.2.48
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -256,16 +256,35 @@ nmap <space>mm :Man <C-R>=expand("<cword>")<cr><cr>
 nmap <space>m2 :Man 2 <C-R>=expand("<cword>")<cr><cr>
 
 " window-resize {{{3
-nmap w= :res +15<CR>
-nmap w- :res -15<CR>
-nmap w, :vertical res +30<CR>
-nmap w. :vertical res -30<CR>
+" add, subtract
+nmap <space>ha :res +15<CR>
+nmap <space>hs :res -15<CR>
+nmap <space>va :vertical res +30<CR>
+nmap <space>vs :vertical res -30<CR>
 
-nmap <space>wv :vertical res 86<CR>
-nmap <space>wh :res 25<CR>
+nmap <space>vr :vertical res 86<CR>
+nmap <space>hr :res 25<CR>
 
 nmap <space>bn :bn<CR>
 nmap <space>bp :bp<CR>
+
+" 编辑文件相关配置 {{{3
+""""""""""""""""""""""""""""""
+" 常规模式下输入 cM 清除行尾 ^M 符号
+nmap <space>cM :%s/\r$//g<CR>:noh<CR>
+
+" 删除行尾空格
+nmap <space>cm :%s/\s\+$//<CR>:noh<CR>
+
+" 转换成utf-8格式
+nmap <space>cu :set fileencoding=utf-8<CR>:noh<CR>
+
+" 全部缩进(indent)对齐
+nmap <space>ci ggVG=
+
+" 复制全部
+nmap <space>cy ggVGy
+
 
 "其他映射 {{{3
 nmap <space>zz <C-w>o
@@ -463,23 +482,6 @@ set tags+=./tags  "引导omnicppcomplete等找到tags文件
 map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
 """"""""""""""""""""""""""""""
-" 编辑文件相关配置 {{{2
-""""""""""""""""""""""""""""""
-" 常规模式下输入 cM 清除行尾 ^M 符号
-nmap cM :%s/\r$//g<CR>:noh<CR>
-
-" 删除行尾空格
-nmap cm :%s/\s\+$//<CR>:noh<CR>
-
-" 转换成utf-8格式
-nmap cu :set fileencoding=utf-8<CR>:noh<CR>
-
-" 全部缩进(indent)对齐
-nmap ci ggVG=
-
-" 复制全部
-nmap cy ggVGy
-
 " define a shortcut key for enabling/disabling highlighting:
 nnoremap  <C-\><F3> :exe "let g:HlUnderCursor=exists(\"g:HlUnderCursor\")?g:HlUnderCursor*-1+1:1"<CR>
 
