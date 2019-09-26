@@ -152,6 +152,9 @@ Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
 
+`ciw`, 改写光标所处的单词, 改写后，在下一个单词上按`.`重复上次命令，可多次改写
+`cw` 改写光标开始处的当前单词
+
 ## vim原生快捷键 - 备忘 {{{1
 	q:		- 	command line
 	p		-   复制到光标字符后
