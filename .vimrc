@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-09-04
-"    Version: v0.2.45
+" LastChange: 2019-09-26
+"    Version: v0.2.46
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -136,16 +136,6 @@ function! RunShell(Msg, Shell)
 	call system(a:Shell)
 	echon 'done'
 endfunction
-
-" set statusline color {{{2
-" default the statusline to White (black character) when entering Vim
-hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
-" 状态栏颜色配置:插入模式品红色，普通模式White
-if version >= 700
-	"au InsertEnter * hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
-	au InsertEnter * hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
-	au InsertLeave * hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
-endif
 
 "" 获取当前路径，将$HOME转化为~,for statusline {{{2
 "function! CurDir()
@@ -530,8 +520,53 @@ ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 " 不自动添加新的注释行 {{{2
 "autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-"colorcolumn
-"after entering another window, set cc=80
-"before leaving a window, set cc=""
-autocmd WinEnter,BufEnter * set cc=80
-autocmd WinLeave,BufLeave * set cc=""
+
+" set focus window {{{1
+"colorcolumn {{{2
+function s:Set_focus_window()
+	"after entering another window, set cc=80
+	set cc=80
+	"hi CursorLineNr term=bold ctermfg=Yellow
+endfunction
+
+function s:Set_lose_focus_window()
+	"before leaving a window, set cc=""
+	set cc=""
+endfunction
+
+autocmd WinEnter,BufEnter * call s:Set_focus_window()
+autocmd WinLeave,BufLeave * call s:Set_lose_focus_window()
+
+" set statusline color {{{2
+" default the statusline to White (black character) when entering Vim
+hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+
+" Insert Mode
+function s:Set_InsertEnter_Window()
+	"hi StatusLine term=reverse ctermbg=3 gui=undercurl guisp=Magenta
+	hi StatusLine term=reverse ctermfg=DarkMagenta ctermbg=Black gui=undercurl guisp=Magenta
+
+	" Insert mode: CursorLineNr is Cyan
+	hi CursorLineNr term=bold ctermfg=Cyan
+	hi Cursor term=bold ctermbg=Cyan
+
+	" Insert mode: the line number is norelativenumber
+	set nornu
+endfunction
+
+" Normal mode
+function s:Set_InsertLeave_Window()
+	hi StatusLine term=reverse ctermfg=White ctermbg=Black gui=bold,reverse
+
+	" Normal mode: CursorLineNr is Yellow
+	hi CursorLineNr term=bold ctermfg=Yellow
+
+	" Normal mode: the line number is relativenumber
+	set rnu
+endfunction
+
+if version >= 700
+	au InsertEnter * call s:Set_InsertEnter_Window()
+	au InsertLeave * call s:Set_InsertLeave_Window()
+endif
+
