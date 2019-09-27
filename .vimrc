@@ -290,6 +290,7 @@ nmap <space>cy ggVGy
 nmap <space>zz <C-w>o
 nmap <space>hm :tabnew ~/.vim/README.md<cr>
 nmap <space>hd :tabnew ~/.vim/my_help/<cr>
+nmap <space>hu :tabnew ~/.vim/my_help/ubuntu<cr>
 "<space>zz  关闭光标所在窗口之外的其他所有窗口
 "<space>hm  tab标签页,打开帮助文档README.md
 "<space>hd  tab标签页,打开my_help directory，可选择需要帮助文档
