@@ -21,6 +21,7 @@
   - LibreOffice支持Win/Mac/Linux等，只是移动平台仅有面向Android的LibreOffice Viewer
 - firefox
   - vimium
+  - Dark Background and Light Text
 
 ## 2. ubuntu18.04 issue
 - 桌面卡死 <br/>
