@@ -227,6 +227,15 @@ Plug 'kana/vim-textobj-indent'
 	在窗口顶部的一个工具条可用于单步调试代码而不改变焦点.
 	一个气球（Vim中的弹出窗口——译者注）为在鼠标指针下的符号显示信息.
 
+## tools
+- hs 共享当前目录，可以通过web打开来下载文件.
+- mhs 共享当前目录，可以通过web打开来上传或下载文件
+
+具体:<br/>
+在要共享的目录下输入hs或mhs，在浏览器地址栏输入 `your_ip:8000`,<br/>
+即可下载，或上传文件<br/>
+如果关闭共享，可以fg后，按ctrl+c 中断hs或mhs起的httpserver<br/>
+
 ## git tag
 	v1.0.4_release_for_v7.4_v8.0	
 	--	这个tag之前的配置，在vim7.4及vim8.0上测试过。这个tag之后的版本，主要在vim8.1上测试j
