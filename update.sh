@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-09-04
-#    Version: v0.0.34
+# LastChange: 2019-09-30
+#    Version: v0.0.35
 #
 
 blue_log()
@@ -221,6 +221,7 @@ function update_vimrc()
 	cp ./my_help/ $HOME/.vim -dpRf
 	cp ./.vim/colors/ $HOME/.vim -dpRf
 	cp ./.vim/sky8336 $HOME/.vim -dpRf
+	cp ./.vim/tools $HOME/.vim -dpRf
 
 	# add your name to the title
 	sed -i "s/Eric MA/$your_name/" $HOME/.vim/sky8336/setTitle.vim
