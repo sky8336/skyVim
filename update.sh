@@ -253,14 +253,14 @@ function update_vimrc()
 		fi
 	else
 		#函数名、运算符、括号等高亮
-		if [[ -d "/usr/share/vim/vim73" ]]; then
-			vim_in_usr_share="/usr/share/vim/vim73"
-		elif [[ -d "/usr/share/vim/vim74" ]]; then
-			vim_in_usr_share="/usr/share/vim/vim74"
+		if [[ -d "/usr/share/vim/vim81" ]]; then
+			vim_in_usr_share="/usr/share/vim/vim81"
 		elif [[ -d "/usr/share/vim/vim80" ]]; then
 			vim_in_usr_share="/usr/share/vim/vim80"
-		elif [[ -d "/usr/share/vim/vim81" ]]; then
-			vim_in_usr_share="/usr/share/vim/vim81"
+		elif [[ -d "/usr/share/vim/vim74" ]]; then
+			vim_in_usr_share="/usr/share/vim/vim74"
+		elif [[ -d "/usr/share/vim/vim73" ]]; then
+			vim_in_usr_share="/usr/share/vim/vim73"
 		fi
 
 		grep "my_vim_highlight_config" $vim_in_usr_share/syntax/c.vim
