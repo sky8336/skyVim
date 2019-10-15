@@ -162,6 +162,14 @@ Plug 'kana/vim-textobj-indent'
 	`:b 文件名` 或 `:b 文件名中部分字母` , 按table键补全，打开buffer
 	中的文件(最近打开的文件)
 	
+`CTRL-W gf`     Open a new tab page and edit the file name under the cursor.
+                See CTRL-W_gf.
+
+`CTRL-W gF`     Open a new tab page and edit the file name under the cursor
+                and jump to the line number following the file name.
+                See CTRL-W_gF.
+`{count}gt`       Go to tab page {count}.  The first tab page has number one.
+
 ## vim8.1: 新特性{{{1  
 ### 1) 支持在 Vim 窗口中运行终端  
 		打开	-	<F8> or ,f8 or :vert term
