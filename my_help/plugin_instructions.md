@@ -1035,9 +1035,9 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 ## 33. vim-repl.sh {{{1
 ### example
 	(1) vi vimcfg_bundle/test/vim-repl.sh
-	(2) 按,r打开repl窗口
+	(2) 按,re打开repl窗口
 	(3) 按,w 将光标所在行命令发送到repl窗口中执行,执行后光标跳到下一行，可一次执行
-	(3) ,r 关闭repl窗口
+	(3) ,re 关闭repl窗口
 ## 34.ctrlsf-vim {{{1
 	reference: https://vimawesome.com/plugin/ctrlsf-vim
 
