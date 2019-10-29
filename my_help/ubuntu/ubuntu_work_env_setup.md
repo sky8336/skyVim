@@ -28,3 +28,7 @@
   pkill X; start X
 - 内存泄漏 <br/>
   free -h
+
+## command
+- 查看ubuntu 版本信息:`sudo lsb_release -a`
+- backup required package: `sudo apt install duplicity python-gi`
