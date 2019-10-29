@@ -289,6 +289,7 @@ update_package()
 {
 	# TODO
 	echo "install some package using script in utils"
+	cp ./utils/viman /usr/local/bin
 }
 
 #instal new plugin

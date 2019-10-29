@@ -153,6 +153,7 @@ packages=(
 	python-autopep8
 	yapf
 	xsel  #copy and paste
+	flameshot # screenshot, usage: flameshot gui &
 )
 # note
 # libstdc++6-4.7-doc: libc++ man page

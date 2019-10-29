@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ -z $1 ]]; then
+	echo "viman require an param"
+
+else
+	vim -c "Man $1 $2" -c 'silent only'
+fi
+
