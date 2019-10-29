@@ -68,7 +68,7 @@
 	3.bufexplorer使用  
 		,bv  
 
-## vim 与终端交互 | 执行bash 命令 
+### vim 与终端交互 | 执行bash 命令  {{{1
 		vim 和终端切换: ctrl+z  <--> fg  
 
 	在终端直接查找:  
@@ -83,20 +83,20 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 	,mv 是:set mouse=v 的映射，visual mode 可以用鼠标复制，可以需要复制的时候，切换成visual mode,   
 	复制完后，再通过,ma 切换成鼠标模式；  此时可复制状态栏上的文件名等信息
 
-## 粘贴：  
+### 粘贴：  
 	当粘贴时，有时会文本乱掉，不能保持原来的格式， 通过设置paste模式后再粘贴，可以保持格式不乱。  
 	即,p 后粘贴；粘贴完后,np 退出粘贴模式。  
 
 ### 单独按g+ctrl+a，命令行会现实ascii码和hex值  
 
-## `:r !cmd`
+### `:r !cmd`
 写makefile 等文件时，需要复制多个文件名到文件中，可以用`:r !ls 路径`将<br/>
 文件名显示到光标所在位置，然后再复制就方便了，也方便检查手敲的文件名是否错误<br/>
 (相同名字会高亮)<br/>
 
 :r !ls<br/>
 
-## 文本对象 {{{1
+### 文本对象 {{{1
 ### textobject
 
 文本对象, 是进行快速编辑的基础秘诀. 将一个单词, 句子, 段落当成一个对象看待, 可以进行快速选中/替换/删除等操作
@@ -155,7 +155,7 @@ Plug 'kana/vim-textobj-indent'
 `ciw`, 改写光标所处的单词, 改写后，在下一个单词上按`.`重复上次命令，可多次改写
 `cw` 改写光标开始处的当前单词
 
-## vim原生快捷键 - 备忘 {{{1
+### vim原生快捷键 - 备忘 {{{1
 	q:		- 	command line
 	p		-   复制到光标字符后
 	P		-   复制到光标字符前
@@ -209,6 +209,7 @@ Plug 'kana/vim-textobj-indent'
 
 #### example:  
 	command:  
+	```
 	$ cd vimcfg_bundle/test/gdb_test/short_connection    
 	$ make    
 	$ vi  
@@ -222,8 +223,10 @@ Plug 'kana/vim-textobj-indent'
 		gdb window: break 23  
 	(4) gdb window: run  
 	(5) source window now shows the tcp_server.c file  
-	Let's use the mouse: click on the "Next" button in the window toolbar.  You will see the highlighting move as the  
+	Let's use the mouse: click on the "Next" button in the window toolbar.  
+	You will see the highlighting move as the  
 	debugger executes a line of source code.  
+	```
 
 
 
@@ -235,7 +238,7 @@ Plug 'kana/vim-textobj-indent'
 	在窗口顶部的一个工具条可用于单步调试代码而不改变焦点.
 	一个气球（Vim中的弹出窗口——译者注）为在鼠标指针下的符号显示信息.
 
-## tools
+## tools {{{1
 - hs 共享当前目录，可以通过web打开来下载文件.
 - mhs 共享当前目录，可以通过web打开来上传或下载文件
 
@@ -244,6 +247,16 @@ Plug 'kana/vim-textobj-indent'
 即可下载，或上传文件<br/>
 如果关闭共享，可以fg后，按ctrl+c 中断hs或mhs起的httpserver<br/>
 
-## git tag
+## git tag {{{1
 	v1.0.4_release_for_v7.4_v8.0	
 	--	这个tag之前的配置，在vim7.4及vim8.0上测试过。这个tag之后的版本，主要在vim8.1上测试j
+
+## man {{{1
+### man Page中查找C++函数
+http://www.cplusplus.com/info/ <br/>
+man 命名空间::头文件<br/>
+通常地: <br/>
+- man std::头文件
+- man std::函数名
+- man std::类名
+如，查找std::cout 函数，需要现查找man std::iostream，再找到cout函数
