@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-10-10
-"    Version: v0.2.50
+" LastChange: 2019-11-03
+"    Version: v0.2.51
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -102,7 +102,7 @@ set t_Co=256
 " splitting a window will put the new window below the currentone
 " splitting a window will put the new window right of the current on
 " set splitbelow
-" set splitright
+set splitright
 
 " sky8336's vim {{{1
 " setTitle.vim {{{2
