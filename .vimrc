@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-11-03
-"    Version: v0.2.51
+"    Version: v0.2.52
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -530,6 +530,19 @@ function s:Set_focus_window()
 	"after entering another window, set cc=80
 	set cc=80
 	"hi CursorLineNr term=bold ctermfg=Yellow
+
+	if bufname("%") == "__Tagbar__.1"
+	elseif bufname("%") == "NERD_tree_1"
+	else
+		"resize the focus window when the window size < 86
+		if winwidth(0) <= 86
+			vertical res 90
+			"echo "The current window has " . winwidth(0) . " columns."
+		endif
+	endif
+	" display current window's bufname
+	echo bufname("%")
+
 endfunction
 
 function s:Set_lose_focus_window()
