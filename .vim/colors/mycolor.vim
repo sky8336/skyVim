@@ -51,7 +51,9 @@ hi CursorLine           cterm=underline
 "hi ColorColumn          cterm=NONE ctermbg=Black ctermfg=White guibg=NONE guifg=NONE
 "hi ColorColumn          ctermbg=darkblue
 
-hi IncSearch            ctermfg=DarkYellow      ctermbg=Black  cterm=bold
+"hi IncSearch            ctermfg=White      ctermbg=DarkMagenta  cterm=bold
+hi IncSearch            ctermfg=White      ctermbg=DarkBlue  cterm=bold
+"hi IncSearch            ctermfg=White      ctermbg=Brown  cterm=bold
 hi Search               ctermfg=Black           ctermbg=Yellow cterm=bold
 "hi StatusLine           term=bold               cterm=bold
 "hi StatusLine           ctermfg=Black           ctermbg=Grey
