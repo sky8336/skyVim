@@ -7,7 +7,7 @@
 "    Install: online
 "------------------------------
 " LastChange: 2019-11-03
-"    Version: v0.2.52
+"    Version: v0.2.53
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -540,8 +540,8 @@ function s:Set_focus_window()
 			"echo "The current window has " . winwidth(0) . " columns."
 		endif
 	endif
-	" display current window's bufname
-	echo bufname("%")
+	" display current window's bufname, FIXME: ,f1
+	"echo bufname("%")
 
 endfunction
 

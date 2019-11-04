@@ -32,3 +32,4 @@
 ## command
 - 查看ubuntu 版本信息:`sudo lsb_release -a`
 - backup required package: `sudo apt install duplicity python-gi`
+- *.7z: `sudo apt-get install p7zip`
