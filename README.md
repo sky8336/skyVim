@@ -1,4 +1,6 @@
 # skyVim - 一键安装超漂亮的vim配置
+- LastChange: 2019-11-07
+-    Version: V0.1.50
 
 ## About skyVim
 vim config for linux devices driver development and C development，C++, python/shell development<br/>

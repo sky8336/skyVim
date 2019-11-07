@@ -1,6 +1,6 @@
 linux command
---maning
---20160429
+- LastChange: 2019-11-07
+-    Version: V0.0.25
 ============================================================
 
 gnome-screenshot  -h	Show help options

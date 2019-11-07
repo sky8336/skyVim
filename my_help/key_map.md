@@ -1,4 +1,10 @@
 # key map
+- LastChange: 2019-11-07
+-    Version: V0.0.08
+
+## Note
+- 禁止使用<c-m> 映射，因为与 enter 联系起来，会导致按enter 调用映射的功能<br/>
+  " <C-m> is Enter in quickfix window <br/>
 
 ## type
 <leader> 

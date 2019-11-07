@@ -1,4 +1,6 @@
 # ubuntu18.04 shortcuts
+- LastChange: 2019-11-07
+-    Version: V0.1.02
 
 ## 1 terminal shortcuts
 - Ctrl+Alt+T：打开 Ubuntu 终端窗口

@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-09-01
-"    Version: v0.0.06
+" LastChange: 2019-11-07
+"    Version: v0.0.07
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
