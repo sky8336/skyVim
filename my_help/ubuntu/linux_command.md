@@ -1,11 +1,15 @@
-linux command
+# linux command
 - LastChange: 2019-11-07
--    Version: V0.0.25
-============================================================
+-    Version: V0.0.26
 
+## tools
+### 截屏
 gnome-screenshot  -h	Show help options
 gnome-screenshot  -a	Grab an area of the screen instead of the entire screen
-------------------------------------------------------------
+
+flameshot &
+
+### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
 
 使用touch命令递归修改文件时间戳:
@@ -20,7 +24,7 @@ directories you want to skip (.git, .svn...)
 You can do clever aliases with stances like that one:
 find . \( -name .svn -o -name .git \) -prune -o -type f -exec grep -Hn pattern {} \;
 
-------------------------------------------------------------
+### grep
 grep -niR "xxx" files
 grep -nsR "xxx" files
 use the -s or --no-messages flag to suppress errors.
@@ -33,6 +37,7 @@ grep -nR --color=always "xxx" . | less -rN
 grep -nR --color=always "xxx" . | more
 ls --color=always | more
 
+### du
 查看linux/目录大小
 du -sh linux/
 
@@ -121,8 +126,12 @@ man yes
 	打开google网站：
 		firefox http://www.google.com
 }}}
-========================================
-linux下解压命令大全 {{{
+
+## linux下解压命令大全 {{{
+
+Extracting or Uncompressing tar.xz Files 
+xz -d xxx.tar.xz
+tar -xvf xxx.tar
 
 .tar 
 解包：tar xvf FileName.tar
