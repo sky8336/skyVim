@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-11-03
-"    Version: v0.2.53
+" LastChange: 2019-11-07
+"    Version: v0.2.54
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -526,24 +526,30 @@ ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
 " set focus window {{{1
 "colorcolumn {{{2
+let g:AutoResizeFocusWindow=1
 function s:Set_focus_window()
 	"after entering another window, set cc=80
 	set cc=80
 	"hi CursorLineNr term=bold ctermfg=Yellow
 
-	if bufname("%") == "__Tagbar__.1"
-	elseif bufname("%") == "NERD_tree_1"
-	else
-		"resize the focus window when the window size < 86
-		if winwidth(0) <= 86
-			vertical res 90
-			"echo "The current window has " . winwidth(0) . " columns."
+	if g:AutoResizeFocusWindow == 1
+		if bufname("%") == "__Tagbar__.1"
+		elseif bufname("%") == "NERD_tree_1"
+		else
+			"resize the focus window when the window size < 86
+			if winwidth(0) <= 86
+				vertical res 90
+				"echo "The current window has " . winwidth(0) . " columns."
+			endif
 		endif
+		" display current window's bufname, FIXME: ,f1
+		"echo bufname("%")
 	endif
-	" display current window's bufname, FIXME: ,f1
-	"echo bufname("%")
 
 endfunction
+
+" define a shortcut key for enabling/disabling auto resize focus window:
+nnoremap  <leader>fx :exe "let g:AutoResizeFocusWindow=exists(\"g:AutoResizeFocusWindow\")?g:AutoResizeFocusWindow*-1+1:1"<CR>
 
 function s:Set_lose_focus_window()
 	"before leaving a window, set cc=""
