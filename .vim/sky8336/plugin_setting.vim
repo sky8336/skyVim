@@ -454,7 +454,7 @@ if plugin_use_leaderf == 1
 	" plugin_setting: interface: leaderf {{{2
 	let g:Lf_ShortcutF = '<c-p>'
 	let g:Lf_ShortcutB = '<m-n>'
-	noremap <c-m> :LeaderfMru<cr>
+	noremap m  :LeaderfMru<cr>
 	noremap f :LeaderfFunction!<cr>
 	noremap b :LeaderfBuffer<cr>
 	noremap t :LeaderfTag<cr>
