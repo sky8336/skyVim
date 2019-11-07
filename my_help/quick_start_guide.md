@@ -1,4 +1,6 @@
 # quick start guide
+- LastChange: 2019-11-07
+-    Version: V0.0.02
 
 ## 帮助说明
 	,hm 打开本README.md  

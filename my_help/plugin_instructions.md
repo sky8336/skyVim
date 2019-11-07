@@ -1,4 +1,6 @@
 # plugin instructions
+- LastChange: 2019-11-07
+-    Version: V0.0.06
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态

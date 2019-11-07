@@ -1,4 +1,6 @@
 # workflow tips
+- LastChange: 2019-11-07
+-    Version: V0.0.07
 
 ## vim 窗口中操作:  
 

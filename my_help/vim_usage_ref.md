@@ -1,12 +1,13 @@
-Vim使用笔记
+# Vim使用笔记
+- LastChange: 2019-11-07
+-    Version: V0.0.02
 
+
+## Thanks
 Author: 	jiqing Wu
 email: 	jiqingwu@gmail.com
 Date: 	2012-06-14
-
  
-
-曾经使用了两年多的Vim，手册也翻过一遍。虽然现在不怎么用vim了，曾经的笔记还是贴出来，与喜欢vim的朋友分享。
 
 索引
 

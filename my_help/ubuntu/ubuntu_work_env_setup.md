@@ -1,4 +1,6 @@
 # ubuntu work environment setup
+- LastChange: 2019-11-07
+-    Version: V0.0.06
 
 ## 1.software
 - email

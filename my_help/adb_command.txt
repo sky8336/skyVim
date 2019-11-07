@@ -1,4 +1,6 @@
 adb command
+- LastChange: 2019-11-07
+-    Version: V0.0.02
 
 ========================================
 disable SELinux, like so:

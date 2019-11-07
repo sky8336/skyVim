@@ -1,4 +1,6 @@
 # plugin list
+- LastChange: 2019-11-07
+-    Version: V0.0.02
 
 ## 1、插件列表 plugin_list
 	目前在用插件及历史使用过的插件列表  
