@@ -1,13 +1,6 @@
 # linux command
-- LastChange: 2019-11-07
--    Version: V0.0.26
-
-## tools
-### 截屏
-gnome-screenshot  -h	Show help options
-gnome-screenshot  -a	Grab an area of the screen instead of the entire screen
-
-flameshot &
+- LastChange: 2019-11-08
+-    Version: V0.0.27
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
@@ -47,7 +40,7 @@ scp [参数] 原路径 目标路径
 
 sshpass -p "password" scp -r user@example.com:/some/remote/path /some/local/path
 
-管理进程:
+### 管理进程:
 top
 htop
 

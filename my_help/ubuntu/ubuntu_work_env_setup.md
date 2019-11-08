@@ -1,6 +1,8 @@
 # ubuntu work environment setup
-- LastChange: 2019-11-07
--    Version: V0.0.06
+- LastChange: 2019-11-08
+-    Version: V0.0.07
+
+可替代windows 环境的工具
 
 ## 1.software
 - email
@@ -10,10 +12,6 @@
 - pdf
 	sudo apt install zathura
 - youdao
-- 截图
-	- 全屏截图是printScreen
-	- 活动窗口截图是Alt+printScreen
-	- 自己选择区域截图是shift+printScreen，然后选择相应区域。
 
 - LibreOffice Draw vs. 微软Office Visio
   - LibreOffice 5.0版开始，可以兼容Visio 2000-2013
@@ -30,6 +28,17 @@
   pkill X; start X
 - 内存泄漏 <br/>
   free -h
+
+## 3. tools
+### 截屏
+- flameshot &	(推荐)
+- gnome-screenshot
+  - gnome-screenshot  -h	Show help options
+  - gnome-screenshot  -a	Grab an area of the screen instead of the entire screen
+- printScreen
+  - 全屏截图是printScreen
+  - 活动窗口截图是Alt+printScreen
+  - 自己选择区域截图是shift+printScreen，然后选择相应区域。
 
 ## command
 - 查看ubuntu 版本信息:`sudo lsb_release -a`
