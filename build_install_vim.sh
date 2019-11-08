@@ -65,6 +65,18 @@ function get_dir_path()
 	#echo "dir_path: $vimcfig_bundle_dir_path"
 }
 
+#检查root权限
+function check_root_privileges()
+{
+	if [ $UID -eq 0 ]; then
+		echo "You have root privileges!"
+	else
+		echo -e "${color_failed}>>> Error: You don't have root privileges!"
+		echo -e "Please input \"sudo ./update.sh\"${color_reset}"
+		exit
+	fi
+}
+
 #shell脚本下载数据时，先检测网络的畅通性
 function check_network()
 {
@@ -295,6 +307,7 @@ update_build_install_vim()
 main()
 {
 	set_color
+	check_root_privileges
 	get_start_time
 
 	get_dir_path
