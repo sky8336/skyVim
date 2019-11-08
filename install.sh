@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-09-01
-#    Version: v0.0.60
+# LastChange: 2019-11-08
+#    Version: v0.0.61
 #
 
 source ./utils.sh
@@ -467,6 +467,8 @@ function install_plugin_mgr_and_plugin()
 {
 	local prog=$cur_prog
 	local step=5
+	local username=$(echo $HOME | awk -F '/' '{print $3}')
+	local groupname=$(username)
 
 	if [ $online -eq 1 ];then
 		if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
@@ -488,6 +490,12 @@ function install_plugin_mgr_and_plugin()
 	else
 		echo
 	fi
+
+	# fix the issues caused by 'sudo' privilege
+	if [[ -f ~/.vim_mru_files ]]; then
+		chown -R $username:$groupname ~/.vim_mru_files
+	fi
+
 	let prog+=$step
 	progress_log $prog "${FUNCNAME[0]} ... done"
 	cur_prog=$prog
