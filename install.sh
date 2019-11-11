@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-11-08
-#    Version: v0.0.61
+# LastChange: 2019-11-11
+#    Version: v0.0.62
 #
 
 source ./utils.sh
@@ -66,11 +66,11 @@ function set_color()
 function check_root_privileges()
 {
 	if [ $UID -eq 0 ]; then
-		echo "====== You have root privileges! ======"
-	else
-		echo -e "${color_failed}>>> Error: You don't have root privileges!"
-		echo -e "Please run \"sudo ./install.sh\"${color_reset}"
+		echo -e "${color_failed}>>> Error: Remove you root privileges!"
+		echo -e "Please input \"./update.sh\"${color_reset}"
 		exit
+	else
+		echo "You have normal privileges!"
 	fi
 }
 
@@ -114,25 +114,26 @@ function check_network()
 function bakup_vimconfig()
 {
 	local prog=$cur_prog
+	local cfg_path=$HOME
 
-	if [ -d "${HOME}/.bakvim" ]; then
-		rm   -rf $HOME/.bakvim
+	if [ -d "${cfg_path}/.bakvim" ]; then
+		rm   -rf $cfg_path/.bakvim
 	fi
-	mkdir $HOME/.bakvim
+	mkdir $cfg_path/.bakvim
 
-	if [ -d "${HOME}/.vim" ]; then
-		cp $HOME/.vim  $HOME/.bakvim -a
-	fi
-
-	if [ -d "${HOME}/.vimrc" ]; then
-		cp $HOME/.vimrc $HOME/.bakvim
-	fi
-	if [ -d "${HOME}/.bashrc" ]; then
-		cp $HOME/.bashrc $HOME/.bakvim
+	if [ -d "${cfg_path}/.vim" ]; then
+		cp $cfg_path/.vim  $cfg_path/.bakvim -a
 	fi
 
-	if [ -d "${HOME}/.bashrc_my" ]; then
-		cp $HOME/.bashrc_my $HOME/.bakvim
+	if [ -d "${cfg_path}/.vimrc" ]; then
+		cp $cfg_path/.vimrc $cfg_path/.bakvim
+	fi
+	if [ -d "${cfg_path}/.bashrc" ]; then
+		cp $cfg_path/.bashrc $cfg_path/.bakvim
+	fi
+
+	if [ -d "${cfg_path}/.bashrc_my" ]; then
+		cp $cfg_path/.bashrc_my $cfg_path/.bakvim
 	fi
 
 	let prog+=1
@@ -177,7 +178,7 @@ function install_packages()
 	progress_log $prog "====== Install software packages now ! ======"
 
 	while [[ $i -lt $pkg_num ]]; do
-		apt-get install ${packages[i]} --allow-unauthenticated > /dev/null
+		sudo apt-get install ${packages[i]} --allow-unauthenticated > /dev/null
 		let i++
 		let prog+=5
 		progress_log $prog "Install ${packages[i]} ... done"
@@ -189,6 +190,7 @@ function install_packages()
 #build vim
 function build_vim_from_source()
 {
+	local cfg_path=$HOME
 	if which apt-get > /dev/null ; then
 		echo -n ">> install ctags build-essential cmake python-dev python3-dev fontconfig git ... "
 		sudo apt-get install -y ctags build-essential cmake python-dev \
@@ -225,7 +227,7 @@ function build_vim_from_source()
 			fi
 
 			# check if a directory doesn't exist:
-			if [ ! -d "${HOME}/vim" ]; then
+			if [ ! -d "${cfg_path}/vim" ]; then
 				echo -n ">> clone vim ... "
 				git clone https://github.com/vim/vim.git ~/vim > /dev/null
 				echo "done! [path: ~/vim]"
@@ -320,7 +322,7 @@ function add_hilight_code_to_c_vim()
 			echo "Found my_vim_highlight_config! $1 have been modified."
 		else
 			echo "add my_vim_highlight_config to $1 now."
-			cat $skyvim_path/.self_mod/highlight_code.vim >> $1 > /dev/null
+			sudo cat $skyvim_path/.self_mod/highlight_code.vim >> $1 > /dev/null
 		fi
 	else
 		echo "can not found $1"
@@ -364,46 +366,47 @@ function config_vim()
 {
 	local prog=$cur_prog
 	local step=5
+	local cfg_path=$HOME
 
 	progress_log $prog "====== Config your vim now ! ======"
 	# clean the old .vimrc and .vim/
-	if [[ -f $HOME/.vim ]]; then
-		rm $HOME/.vim
+	if [[ -f $cfg_path/.vim ]]; then
+		rm $cfg_path/.vim
 	fi
 
-	if [[ ! -d $HOME/.vim ]]; then
-		mkdir $HOME/.vim
+	if [[ ! -d $cfg_path/.vim ]]; then
+		mkdir $cfg_path/.vim
 	else
 		grep -n --color "Maintainer: sky8336" ~/.vimrc
 		if [ $? -ne 0 ];then
 			echo "remove .vim/ completely"
-			rm $HOME/.vim/ -rf
+			rm $cfg_path/.vim/ -rf
 		else
-			rm -rf $HOME/.vim/README.mk  $HOME/.vim/colors/ $HOME/.vim/macros/ \
-				$HOME/.vim/my_help/ $HOME/.vim/shell/ > /dev/null
+			rm -rf $cfg_path/.vim/README.mk  $cfg_path/.vim/colors/ $cfg_path/.vim/macros/ \
+				$cfg_path/.vim/my_help/ $cfg_path/.vim/shell/ > /dev/null
 		fi
 	fi
 
 	# setup new vim config
-	cp ./.vimrc $HOME
+	cp ./.vimrc $cfg_path
 
 	# add your name to the title
-	sed -i "s/Eric MA/$your_name/" $HOME/.vim/sky8336/setTitle.vim
-	sed -i "s/eric/$your_name/" $HOME/.vim/sky8336/setTitle.vim
+	sed -i "s/Eric MA/$your_name/" $cfg_path/.vim/sky8336/setTitle.vim
+	sed -i "s/eric/$your_name/" $cfg_path/.vim/sky8336/setTitle.vim
 
 	if [ $online -eq 1 ];then
-		cp ./.vim  $HOME -dpRf
+		cp ./.vim  $cfg_path -dpRf
 	else
-		cp ./.vimcfg_offline/.vim  $HOME -dpRf
-		cp ./.vim/sky8336 $HOME/.vim/ -dpRF
+		cp ./.vimcfg_offline/.vim  $cfg_path -dpRf
+		cp ./.vim/sky8336 $cfg_path/.vim/ -dpRF
 		sed -i "s%Install: online$%Install: offline%g" ~/.vimrc
 	fi
 
-	if [[ -d $HOME/.vim ]]; then
-		cp ./README.md $HOME/.vim
-		cp ./my_help/ $HOME/.vim/ -dpRf
+	if [[ -d $cfg_path/.vim ]]; then
+		cp ./README.md $cfg_path/.vim
+		cp ./my_help/ $cfg_path/.vim/ -dpRf
 	else
-		warning_log "where is you $HOME/.vim?? check it"
+		warning_log "where is you $cfg_path/.vim?? check it"
 	fi
 
 
@@ -436,7 +439,7 @@ function config_vim()
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
+			sudo cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
 		fi
 	fi
 
