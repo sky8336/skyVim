@@ -1,6 +1,6 @@
 # skyVim - 一键安装超漂亮的vim配置
-- LastChange: 2019-11-07
--    Version: V0.1.50
+- LastChange: 2019-11-11
+-    Version: V0.1.51
 
 ## About skyVim
 vim config for linux devices driver development and C development，C++, python/shell development<br/>
@@ -43,7 +43,7 @@ vim config for linux devices driver development and C development，C++, python/
 
 ### update {{{2
 	cd skyVim
-	sudo ./update.sh
+	./update.sh
 
 - 一键更新.vimrc及插件和帮助文件
 - 最短耗时不到1分钟，一般很快(3~90s)  

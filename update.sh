@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-09-30
-#    Version: v0.0.35
+# LastChange: 2019-11-11
+#    Version: v0.0.36
 #
 
 blue_log()
@@ -71,11 +71,11 @@ function set_color()
 function check_root_privileges()
 {
 	if [ $UID -eq 0 ]; then
-		echo "You have root privileges!"
-	else
-		echo -e "${color_failed}>>> Error: You don't have root privileges!"
-		echo -e "Please input \"sudo ./update.sh\"${color_reset}"
+		echo -e "${color_failed}>>> Error: Remove you root privileges!"
+		echo -e "Please input \"./update.sh\"${color_reset}"
 		exit
+	else
+		echo "You have normal privileges!"
 	fi
 }
 
@@ -97,7 +97,7 @@ function check_network()
 	if which curl > /dev/null ; then
 		echo "Find curl."
 	else
-		apt-get install curl --allow-unauthenticated > /dev/null
+		sudo apt-get install curl --allow-unauthenticated > /dev/null
 	fi
 
 	if which curl > /dev/null ; then
@@ -249,7 +249,7 @@ function update_vimrc()
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
+			sudo cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
 		fi
 	else
 		#函数名、运算符、括号等高亮
@@ -268,7 +268,7 @@ function update_vimrc()
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			cat $skyvim_path/.self_mod/highlight_code.vim >> $vim_in_usr_share/syntax/c.vim
+			sudo cat $skyvim_path/.self_mod/highlight_code.vim >> $vim_in_usr_share/syntax/c.vim
 		fi
 
 	fi
