@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-11-11
-#    Version: v0.0.39
+#    Version: v0.0.40
 #
 
 blue_log()
@@ -55,7 +55,7 @@ global_variables_setup()
 		# we use vim-plug as plugin manager by default
 	else
 		your_name=$(echo $HOME | awk -F '/' '{print $3}')
-		vim_plug_dir=~/vim/autoload
+		vim_plug_dir=~/.vim/autoload
 	fi
 }
 
@@ -149,31 +149,28 @@ function bakup_vimrc()
 	else
 		local cfg_path=$HOME
 	fi
+	local bak_vim=$cfg_path/.bakvim
 
-	echo "====== Bakup your vim cfg in $cfg_path ! ======"
-	if [[ ! -d $cfg_path/.bakvim ]]; then
-		mkdir .bakvim
+	echo "====== Bakup your vim cfg in $bak_vim ! ======"
+	rm -rf $bak_vim
+	mkdir $bak_vim
+
+	if [ -d "${cfg_path}/.vim" ]; then
+		sudo chown -R $username:$groupname ${cfg_path}/.vim
+		cp -dpRf $cfg_path/.vim  $bak_vim
 	fi
 
-	if [[ -f $cfg_path/.vimrc ]]; then
-		cp $cfg_path/.vimrc $cfg_path/.bakvim
+	if [ -d "${cfg_path}/.vimrc" ]; then
+		cp $cfg_path/.vimrc $bak_vim
+	fi
+	if [ -d "${cfg_path}/.bashrc" ]; then
+		cp $cfg_path/.bashrc $bak_vim
 	fi
 
-	if [[ -f $cfg_path/.vim/README.md ]]; then
-		cp $cfg_path/.vim/README.md $cfg_path/.bakvim
+	if [ -d "${cfg_path}/.bashrc_my" ]; then
+		cp $cfg_path/.bashrc_my $bak_vim
 	fi
 
-	if [[ -d $cfg_path/.vim/my_help ]]; then
-		cp $cfg_path/.vim/my_help/ $cfg_path/.bakvim -dpRf
-	fi
-
-	if [[ -d $cfg_path/.vim/colors ]]; then
-		cp $cfg_path/.vim/colors/ $cfg_path/.bakvim -dpRf
-	fi
-
-	if [[ -d $cfg_path/.vim/sky8336 ]]; then
-		cp $cfg_path/.vim/sky8336 $cfg_path/.baksky8336 -dpRf
-	fi
 
 	echo "update $repo_name -- done"
 }
@@ -230,6 +227,8 @@ function update_vimrc()
 	if [[ ! -d $cfg_path/.vim ]]; then
 		mkdir $cfg_path/.vim
 	fi
+
+	sudo chown $username:$groupname $cfg_path/.vimrc
 
 	cp ./.vimrc $cfg_path
 	cp ./README.md $cfg_path/.vim
@@ -304,7 +303,7 @@ update_package()
 {
 	# TODO
 	echo "install some package using script in utils"
-	cp ./utils/viman /usr/local/bin
+	sudo cp ./utils/viman /usr/local/bin
 }
 
 #instal new plugin
@@ -324,7 +323,7 @@ function install_new_plugin()
 		echo "====== vim-plug was missing, install now ! ======"
 		curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-		chown -R $username:$groupname $vim_plug_dir
+		#sudo chown -R $username:$groupname $vim_plug_dir
 	fi
 
 	echo "====== install new plugin now ! ======"
@@ -339,10 +338,10 @@ function install_new_plugin()
 		vim +PlugInstall +qall
 		#vim +PlugClean +qall
 	fi
-	chown -R $username:$groupname ~/.vim
+	#sudo  chown -R $username:$groupname ~/.vim
 
 	if [[ -f ~/.vim_mru_files ]]; then
-		chown -R $username:$groupname ~/.vim_mru_files
+		sudo chown -R $username:$groupname ~/.vim_mru_files
 	fi
 
 	echo "install new plugin -- done"
