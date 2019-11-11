@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-11-11
-#    Version: v0.0.37
+#    Version: v0.0.38
 #
 
 blue_log()
@@ -141,7 +141,12 @@ function update_vimcfg_bundle()
 #备份OS中vimrc
 function bakup_vimrc()
 {
-	local cfg_path=$HOME
+	if [[ $HOME = "/root" ]]; then
+		local cfg_path="/home/$username"
+	else
+		local cfg_path=$HOME
+	fi
+
 	echo "====== Bakup your vim cfg in $cfg_path ! ======"
 	if [[ ! -d $cfg_path/.bakvim ]]; then
 		mkdir .bakvim
@@ -208,7 +213,11 @@ update_bashrc_my()
 # 更新vimrc
 function update_vimrc()
 {
-	local cfg_path=$HOME
+	if [[ $HOME = "/root" ]]; then
+		local cfg_path="/home/$username"
+	else
+		local cfg_path=$HOME
+	fi
 
 	echo "====== Config your vim now ! ======"
 	if [[ -f $cfg_path/.vim ]]; then
@@ -298,7 +307,12 @@ update_package()
 #instal new plugin
 function install_new_plugin()
 {
-	local cfg_path=${HOME}
+	if [[ $HOME = "/root" ]]; then
+		local cfg_path="/home/$username"
+	else
+		local cfg_path=$HOME
+	fi
+
 	if [ ! -f "$cfg_path/.vim/autoload/plug.vim" ]; then
 		echo "====== vim-plug was missing, install now ! ======"
 		curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
