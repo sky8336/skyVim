@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-11-11
-#    Version: v0.0.38
+#    Version: v0.0.39
 #
 
 blue_log()
@@ -35,11 +35,6 @@ show_logo()
 # used for step2
 global_variables_setup()
 {
-	vim_plug_dir=~/.vim/autoload
-	# we use vim-plug as plugin manager by default
-
-	your_name=$(echo $HOME | awk -F '/' '{print $3}')
-
 	skyvim_path=$(pwd)
 	repo_name=$(echo $skyvim_path | awk -F '/'  '{print $NF}')
 
@@ -54,6 +49,14 @@ global_variables_setup()
 	echo "username=$username"
 	echo "groupname=$groupname"
 
+	if [[ ~ = "/root" ]]; then
+		your_name=$username
+		vim_plug_dir=/home/$your_name/.vim/autoload
+		# we use vim-plug as plugin manager by default
+	else
+		your_name=$(echo $HOME | awk -F '/' '{print $3}')
+		vim_plug_dir=~/vim/autoload
+	fi
 }
 
 #
@@ -313,6 +316,10 @@ function install_new_plugin()
 		local cfg_path=$HOME
 	fi
 
+	if [[ ! -d $vim_plug_dir ]]; then
+		mkdir $vim_plug_dir
+	fi
+
 	if [ ! -f "$cfg_path/.vim/autoload/plug.vim" ]; then
 		echo "====== vim-plug was missing, install now ! ======"
 		curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -416,7 +423,7 @@ main()
 
 		# now update.sh has been updated
 		# execure step2 using new script
-		sudo ./update.sh 1
+		./update.sh 1
 
 		echo_install_time
 	elif [[ $1 -eq 1 ]]; then
