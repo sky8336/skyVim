@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-11-11
-#    Version: v0.0.36
+#    Version: v0.0.37
 #
 
 blue_log()
@@ -141,29 +141,30 @@ function update_vimcfg_bundle()
 #备份OS中vimrc
 function bakup_vimrc()
 {
-	echo "====== Bakup your vimrc ! ======"
-	if [[ ! -d $HOME/.bakvim ]]; then
+	local cfg_path=$HOME
+	echo "====== Bakup your vim cfg in $cfg_path ! ======"
+	if [[ ! -d $cfg_path/.bakvim ]]; then
 		mkdir .bakvim
 	fi
 
-	if [[ -f $HOME/.vimrc ]]; then
-		cp $HOME/.vimrc $HOME/.bakvim
+	if [[ -f $cfg_path/.vimrc ]]; then
+		cp $cfg_path/.vimrc $cfg_path/.bakvim
 	fi
 
-	if [[ -f $HOME/.vim/README.md ]]; then
-		cp $HOME/.vim/README.md $HOME/.bakvim
+	if [[ -f $cfg_path/.vim/README.md ]]; then
+		cp $cfg_path/.vim/README.md $cfg_path/.bakvim
 	fi
 
-	if [[ -d $HOME/.vim/my_help ]]; then
-		cp $HOME/.vim/my_help/ $HOME/.bakvim -dpRf
+	if [[ -d $cfg_path/.vim/my_help ]]; then
+		cp $cfg_path/.vim/my_help/ $cfg_path/.bakvim -dpRf
 	fi
 
-	if [[ -d $HOME/.vim/colors ]]; then
-		cp $HOME/.vim/colors/ $HOME/.bakvim -dpRf
+	if [[ -d $cfg_path/.vim/colors ]]; then
+		cp $cfg_path/.vim/colors/ $cfg_path/.bakvim -dpRf
 	fi
 
-	if [[ -d $HOME/.vim/sky8336 ]]; then
-		cp $HOME/.vim/sky8336 $HOME/.baksky8336 -dpRf
+	if [[ -d $cfg_path/.vim/sky8336 ]]; then
+		cp $cfg_path/.vim/sky8336 $cfg_path/.baksky8336 -dpRf
 	fi
 
 	echo "update $repo_name -- done"
@@ -207,25 +208,27 @@ update_bashrc_my()
 # 更新vimrc
 function update_vimrc()
 {
+	local cfg_path=$HOME
+
 	echo "====== Config your vim now ! ======"
-	if [[ -f $HOME/.vim ]]; then
-		rm $HOME/.vim
+	if [[ -f $cfg_path/.vim ]]; then
+		rm $cfg_path/.vim
 	fi
 
-	if [[ ! -d $HOME/.vim ]]; then
-		mkdir $HOME/.vim
+	if [[ ! -d $cfg_path/.vim ]]; then
+		mkdir $cfg_path/.vim
 	fi
 
-	cp ./.vimrc $HOME
-	cp ./README.md $HOME/.vim
-	cp ./my_help/ $HOME/.vim -dpRf
-	cp ./.vim/colors/ $HOME/.vim -dpRf
-	cp ./.vim/sky8336 $HOME/.vim -dpRf
-	cp ./.vim/tools $HOME/.vim -dpRf
+	cp ./.vimrc $cfg_path
+	cp ./README.md $cfg_path/.vim
+	cp ./my_help/ $cfg_path/.vim -dpRf
+	cp ./.vim/colors/ $cfg_path/.vim -dpRf
+	cp ./.vim/sky8336 $cfg_path/.vim -dpRf
+	cp ./.vim/tools $cfg_path/.vim -dpRf
 
 	# add your name to the title
-	sed -i "s/Eric MA/$your_name/" $HOME/.vim/sky8336/setTitle.vim
-	sed -i "s/eric/$your_name/" $HOME/.vim/sky8336/setTitle.vim
+	sed -i "s/Eric MA/$your_name/" $cfg_path/.vim/sky8336/setTitle.vim
+	sed -i "s/eric/$your_name/" $cfg_path/.vim/sky8336/setTitle.vim
 
 	##追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $skyvim_path/.self_mod/.bashrc_append >> ~/.bashrc
@@ -295,7 +298,8 @@ update_package()
 #instal new plugin
 function install_new_plugin()
 {
-	if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
+	local cfg_path=${HOME}
+	if [ ! -f "$cfg_path/.vim/autoload/plug.vim" ]; then
 		echo "====== vim-plug was missing, install now ! ======"
 		curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
