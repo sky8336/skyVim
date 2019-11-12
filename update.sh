@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-11-11
-#    Version: v0.0.40
+# LastChange: 2019-11-12
+#    Version: v0.0.41
 #
 
 blue_log()
@@ -75,7 +75,7 @@ function check_root_privileges()
 {
 	if [ $UID -eq 0 ]; then
 		echo -e "${color_failed}>>> Error: Remove you root privileges!"
-		echo -e "Please input \"./update.sh\"${color_reset}"
+		echo -e "Please input \"./`basename $0`\"${color_reset}"
 		exit
 	else
 		echo "You have normal privileges!"

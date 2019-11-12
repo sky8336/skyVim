@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-11-11
-#    Version: v0.0.62
+# LastChange: 2019-11-12
+#    Version: v0.0.63
 #
 
 source ./utils.sh
@@ -67,7 +67,7 @@ function check_root_privileges()
 {
 	if [ $UID -eq 0 ]; then
 		echo -e "${color_failed}>>> Error: Remove you root privileges!"
-		echo -e "Please input \"./update.sh\"${color_reset}"
+		echo -e "Please input \"./`basename $0`\"${color_reset}"
 		exit
 	else
 		echo "You have normal privileges!"
