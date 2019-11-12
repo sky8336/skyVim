@@ -85,6 +85,16 @@ BWHT="\[\033[47m\]" # background white
 #PS1="$magenta\u@\h$red:$magenta\w$dark_yellow\$git_branch$dark_yellow\$ $normal"
 #PS1="$magenta\u$cyan@\h$red:$magenta\w$dark_yellow\$git_branch$red\$ $normal"
 PS1="$FCYN\u$cyan@\h$RS$red:$RS$FCYN\w$dark_yellow\$git_branch$red\$ $normal"
+unset color_prompt force_color_prompt
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+*)
+    ;;
+esac
 
 #add some alias
 alias vih='vi ~/.vim/my_help/'
