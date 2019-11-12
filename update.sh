@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-11-12
-#    Version: v0.0.42
+#    Version: v0.0.43
 #
 
 blue_log()
@@ -149,6 +149,7 @@ function bakup_vimrc()
 	fi
 
 	if [ -f "${cfg_path}/.vimrc" ]; then
+		sudo chown $username:$groupname ${cfg_path}/.vimrc
 		cp $cfg_path/.vimrc $bak_vim
 	fi
 	if [ -f "${cfg_path}/.bashrc" ]; then
@@ -156,6 +157,7 @@ function bakup_vimrc()
 	fi
 
 	if [ -f "${cfg_path}/.bashrc_my" ]; then
+		sudo chown $username:$groupname ${cfg_path}/.bashrc_my
 		cp $cfg_path/.bashrc_my $bak_vim
 	fi
 
