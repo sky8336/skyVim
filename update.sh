@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-11-12
-#    Version: v0.0.41
+#    Version: v0.0.42
 #
 
 blue_log()
@@ -91,26 +91,11 @@ function get_start_time()
 #shell脚本下载数据时，先检测网络的畅通性
 function check_network()
 {
-	#超时时间
-	timeout=9
-
 	#目标网站
 	target=www.baidu.com
 
-	if which curl > /dev/null ; then
-		echo "Find curl."
-	else
-		sudo apt-get install curl --allow-unauthenticated > /dev/null
-	fi
-
-	if which curl > /dev/null ; then
-		#获取响应状态码
-		ret_code=`curl -I -s --connect-timeout $timeout $target -w %{http_code} | tail -n1`
-	else
-		echo "check your Network, and install curl."
-	fi
-
-	if [ "x$ret_code" = "x200" ]; then
+	local ret=`ping $target -c 3 | grep -q "ttl=" && echo "yes" || echo "no"`
+	if [[ $ret = "yes" ]]; then
 		#网络畅通
 		echo -e "====== The Internet is connected ! ======"
 	else
@@ -141,7 +126,7 @@ function update_vimcfg_bundle()
 	echo "update $repo_name -- done"
 }
 
-#备份OS中vimrc
+#备份OS中vimrc, ..., etc. all related files
 function bakup_vimrc()
 {
 	if [[ $HOME = "/root" ]]; then
@@ -152,7 +137,10 @@ function bakup_vimrc()
 	local bak_vim=$cfg_path/.bakvim
 
 	echo "====== Bakup your vim cfg in $bak_vim ! ======"
-	rm -rf $bak_vim
+	if [ -d "$bak_vim" ]; then
+		sudo chown -R $username:$groupname $bak_vim
+		rm -rf $bak_vim
+	fi
 	mkdir $bak_vim
 
 	if [ -d "${cfg_path}/.vim" ]; then
@@ -160,17 +148,20 @@ function bakup_vimrc()
 		cp -dpRf $cfg_path/.vim  $bak_vim
 	fi
 
-	if [ -d "${cfg_path}/.vimrc" ]; then
+	if [ -f "${cfg_path}/.vimrc" ]; then
 		cp $cfg_path/.vimrc $bak_vim
 	fi
-	if [ -d "${cfg_path}/.bashrc" ]; then
+	if [ -f "${cfg_path}/.bashrc" ]; then
 		cp $cfg_path/.bashrc $bak_vim
 	fi
 
-	if [ -d "${cfg_path}/.bashrc_my" ]; then
+	if [ -f "${cfg_path}/.bashrc_my" ]; then
 		cp $cfg_path/.bashrc_my $bak_vim
 	fi
 
+	if [ -f "$cfg_path/.gitconfig" ]; then
+		cp $cfg_path/.gitconfig $bak_vim
+	fi
 
 	echo "update $repo_name -- done"
 }
@@ -196,12 +187,10 @@ update_bashrc_my()
 			sed -i "s%^alias vi=.*$%alias vi='/usr/local/vim/bin/vim'%g" ~/.bashrc_my
 			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc_my
 		else
-			cp ~/.bashrc ~/bashrc.bak
 			echo "alias vi='/usr/local/vim/bin/vim'" >> ~/.bashrc
 			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc
 		fi
 
-		cp ~/.gitconfig ~/.gitconfig.update.bak
 		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
 	fi
 	source ~/.bashrc
@@ -317,6 +306,12 @@ function install_new_plugin()
 
 	if [[ ! -d $vim_plug_dir ]]; then
 		mkdir $vim_plug_dir
+	fi
+
+	if which curl > /dev/null ; then
+		echo "Find curl."
+	else
+		sudo apt-get install curl --allow-unauthenticated > /dev/null
 	fi
 
 	if [ ! -f "$cfg_path/.vim/autoload/plug.vim" ]; then

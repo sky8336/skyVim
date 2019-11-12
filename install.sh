@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2019-11-12
-#    Version: v0.0.63
+#    Version: v0.0.64
 #
 
 source ./utils.sh
@@ -94,8 +94,25 @@ function check_network()
 	#目标网站
 	target=www.baidu.com
 
-	#获取响应状态码
-	ret_code=`curl -I -s --connect-timeout $timeout $target -w %{http_code} | tail -n1`
+	local ret=`ping www.baidu.com -c 3 | grep -q "ttl=" && echo "yes" || echo "no"`
+	if [[ $ret = "yes" ]]; then
+		echo "the network connection is available."
+	else
+		echo "the network connection is unavailable."
+	fi
+
+	if which curl > /dev/null ; then
+		echo "Find curl."
+	else
+		sudo apt-get install curl --allow-unauthenticated > /dev/null
+	fi
+
+	if which curl > /dev/null ; then
+		#获取响应状态码
+		ret_code=`curl -I -s --connect-timeout $timeout $target -w %{http_code} | tail -n1`
+	else
+		echo "check your Network, and install curl."
+	fi
 
 	if [ "x$ret_code" = "x200" ]; then
 		#网络畅通
@@ -125,15 +142,19 @@ function bakup_vimconfig()
 		cp $cfg_path/.vim  $cfg_path/.bakvim -a
 	fi
 
-	if [ -d "${cfg_path}/.vimrc" ]; then
+	if [ -f "${cfg_path}/.vimrc" ]; then
 		cp $cfg_path/.vimrc $cfg_path/.bakvim
 	fi
-	if [ -d "${cfg_path}/.bashrc" ]; then
+	if [ -f "${cfg_path}/.bashrc" ]; then
 		cp $cfg_path/.bashrc $cfg_path/.bakvim
 	fi
 
-	if [ -d "${cfg_path}/.bashrc_my" ]; then
+	if [ -f "${cfg_path}/.bashrc_my" ]; then
 		cp $cfg_path/.bashrc_my $cfg_path/.bakvim
+	fi
+
+	if [ -f "$cfg_path/.gitconfig" ]; then
+		cp $cfg_path/.gitconfig $cfg_path/.bakvim
 	fi
 
 	let prog+=1
