@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-11-12
-#    Version: v0.0.44
+#    Version: v0.0.45
 #
 
 blue_log()
@@ -123,6 +123,7 @@ function update_vimcfg_bundle()
 	git_owner=`ls -l .git | grep "ORIG_HEAD" | awk '{print $3}'`
 	if [[ $git_owner = "root" ]]; then
 		sudo chown -R $username:$groupname ../$repo_name
+		sudo chown -R $username:$groupname .git
 	fi
 	git pull
 	echo "update $repo_name -- done"
