@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2019-11-13
-#    Version: v0.0.65
+#    Version: v0.0.66
 #
 
 source ./utils.sh
@@ -165,9 +165,6 @@ function bakup_vimconfig()
 packages=(
 	exuberant-ctags
 	cscope
-	ranger
-	libstdc++6-4.7-doc
-	#nautilus-open-terminal
 	astyle
 	clang-format
 	python-pep8
@@ -175,10 +172,8 @@ packages=(
 	python-autopep8
 	yapf
 	xsel  #copy and paste
-	flameshot # screenshot, usage: flameshot gui &
 )
 # note
-# libstdc++6-4.7-doc: libc++ man page
 # Google开发的Python格式化工具）
 # astyle clang-format python-pep8 python3-pep8 python-autopep8 yapf  --allow-unauthenticated
 # vim-autoformat常用工具:
