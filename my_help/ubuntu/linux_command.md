@@ -1,6 +1,6 @@
 # linux command
-- LastChange: 2019-11-08
--    Version: V0.0.27
+- LastChange: 2019-11-13
+-    Version: V0.0.28
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
@@ -125,6 +125,7 @@ man yes
 Extracting or Uncompressing tar.xz Files 
 xz -d xxx.tar.xz
 tar -xvf xxx.tar
+7z x filename.7z
 
 .tar 
 解包：tar xvf FileName.tar
