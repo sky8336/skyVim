@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-11-12
-#    Version: v0.0.64
+# LastChange: 2019-11-13
+#    Version: v0.0.65
 #
 
 source ./utils.sh
@@ -104,7 +104,7 @@ function check_network()
 	if which curl > /dev/null ; then
 		echo "Find curl."
 	else
-		sudo apt-get install curl --allow-unauthenticated > /dev/null
+		sudo apt-get install curl --allow-unauthenticated 2>&1 > /dev/null
 	fi
 
 	if which curl > /dev/null ; then
@@ -195,14 +195,15 @@ function install_packages()
 
 	local prog=$cur_prog
 	local step=5
+	local let i=0
 
-	progress_log $prog "====== Install software packages now ! ======"
+	progress_log $prog "====== Install software packages(pkg_num=$pkg_num) now ! ======"
 
 	while [[ $i -lt $pkg_num ]]; do
-		sudo apt-get install ${packages[i]} --allow-unauthenticated > /dev/null
-		let i++
+		sudo apt-get install ${packages[i]} --allow-unauthenticated 2>&1 > /dev/null
 		let prog+=5
-		progress_log $prog "Install ${packages[i]} ... done"
+		progress_log $prog "Install packages[$i]: ${packages[i]} ... done"
+		let i++
 	done
 
 	cur_prog=$prog
@@ -215,7 +216,7 @@ function build_vim_from_source()
 	if which apt-get > /dev/null ; then
 		echo -n ">> install ctags build-essential cmake python-dev python3-dev fontconfig git ... "
 		sudo apt-get install -y ctags build-essential cmake python-dev \
-			python3-dev fontconfig git > /dev/null
+			python3-dev fontconfig git 2>&1 > /dev/null
 		echo "done!"
 
 		var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE" --color)
@@ -230,11 +231,11 @@ function build_vim_from_source()
 			sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
 				libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 				libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-				python3-dev ruby-dev lua5.1 lua5.1-dev > /dev/null
+				python3-dev ruby-dev lua5.1 lua5.1-dev 2>&1 > /dev/null
 			echo "done!"
 
-			sudo apt-get remove -y vim vim-runtime gvim > /dev/null
-			sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox > /dev/null
+			sudo apt-get remove -y vim vim-runtime gvim 2>&1 > /dev/null
+			sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox 2>&1 > /dev/null
 
 			if [ -d "/usr/share/vim/vim74" ]; then
 				sudo rm -rf /usr/share/vim/vim74 > /dev/null
@@ -285,7 +286,7 @@ function build_vim_from_source()
 			cd -
 		else
 			echo ">> instll vim using apt ... "
-			sudo apt-get install -y vim > /dev/null
+			sudo apt-get install -y vim 2>&1 > /dev/null
 			echo "done!"
 		fi
 	elif which yum > /dev/null
@@ -326,7 +327,7 @@ function install_vim()
 	progress_log $prog  "install vim ... done"
 
 	if [[ $online -eq 1 ]]; then
-		apt-get install vim-gnome --allow-unauthenticated > /dev/null
+		sudo apt-get install vim-gnome --allow-unauthenticated 2>&1 > /dev/null
 	fi
 	let prog+=5
 	progress_log $prog "install vim-gnome ... done"
