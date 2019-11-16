@@ -35,6 +35,8 @@ show_logo()
 # used for step2
 global_variables_setup()
 {
+
+	echo "--- ${FUNCNAME[0]}():"
 	skyvim_path=$(pwd)
 	repo_name=$(echo $skyvim_path | awk -F '/'  '{print $NF}')
 
@@ -43,8 +45,8 @@ global_variables_setup()
 	# 操作, 如导致git add -A和git commit -s要加sudo; 这里都恢复普通用户
 	username=`ls -l ../ | grep $repo_name | awk '{print $3}'`
 	groupname=`ls -l ../ | grep $repo_name | awk '{print $4}'`
-	echo "repo name: $repo_name"
-	echo "dir_path: $skyvim_path"
+	echo "skyvim_path=$skyvim_path"
+	echo "repo_name=$repo_name"
 
 	echo "username=$username"
 	echo "groupname=$groupname"
@@ -57,6 +59,8 @@ global_variables_setup()
 		your_name=$(echo $HOME | awk -F '/' '{print $3}')
 		vim_plug_dir=~/.vim/autoload
 	fi
+	echo "your_name=$your_name"
+	echo "vim_plug_dir=$vim_plug_dir"
 }
 
 #
@@ -74,11 +78,11 @@ function set_color()
 function check_root_privileges()
 {
 	if [ $UID -eq 0 ]; then
-		echo -e "${color_failed}>>> Error: Remove you root privileges!"
+		echo -e "${FUNCNAME[0]}(): ${color_failed}>>> Error: Remove you root privileges!"
 		echo -e "Please input \"./`basename $0`\"${color_reset}"
 		exit
 	else
-		echo "You have normal privileges!"
+		echo "${FUNCNAME[0]}(): You have normal privileges!"
 	fi
 }
 
@@ -97,7 +101,7 @@ function check_network()
 	local ret=`ping $target -c 3 | grep -q "ttl=" && echo "yes" || echo "no"`
 	if [[ $ret = "yes" ]]; then
 		#网络畅通
-		echo -e "====== The Internet is connected ! ======"
+		echo -e "====== ${FUNCNAME[0]}(): The Internet is connected ! ======"
 	else
 		#网络不畅通
 		echo
@@ -113,20 +117,20 @@ function check_network()
 #
 
 # first step
-function update_vimcfg_bundle()
+function update_skyVim_m
 {
 	skyvim_path=$(pwd)
 	repo_name=$(echo $skyvim_path | awk -F '/'  '{print $NF}')
 
-	echo "====== update $repo_name: git pull ======"
+	echo "====== ${FUNCNAME[0]}(): update $repo_name: git pull ======"
 
 	git_owner=`ls -l .git | grep "ORIG_HEAD" | awk '{print $3}'`
 	if [[ $git_owner = "root" ]]; then
 		sudo chown -R $username:$groupname ../$repo_name
 		sudo chown -R $username:$groupname .git
 	fi
-	git pull
-	echo "update $repo_name -- done"
+	git pull 2>&1 > /dev/null
+	echo "${FUNCNAME[0]}(): update $repo_name -- done"
 }
 
 #备份OS中vimrc, ..., etc. all related files
@@ -139,7 +143,7 @@ function bakup_vimrc()
 	fi
 	local bak_vim=$cfg_path/.bakvim
 
-	echo "====== Bakup your vim cfg in $bak_vim ! ======"
+	echo "====== ${FUNCNAME[0]}(): Bakup your vim cfg in $bak_vim ! ======"
 	if [ -d "$bak_vim" ]; then
 		sudo chown -R $username:$groupname $bak_vim
 		rm -rf $bak_vim
@@ -168,7 +172,7 @@ function bakup_vimrc()
 		cp $cfg_path/.gitconfig $bak_vim
 	fi
 
-	echo "update $repo_name -- done"
+	echo "${FUNCNAME[0]}(): update $repo_name -- done"
 }
 
 update_bashrc_my()
@@ -213,7 +217,7 @@ function update_vimrc()
 		local cfg_path=$HOME
 	fi
 
-	echo "====== Config your vim now ! ======"
+	echo "====== ${FUNCNAME[0]}(): Config your vim now ! ======"
 	if [[ -f $cfg_path/.vim ]]; then
 		rm $cfg_path/.vim
 	fi
@@ -290,13 +294,13 @@ function update_vimrc()
 		sed -i "s/let ubuntu18_04 = 1/let ubuntu18_04 = 0/" ~/.vim/sky8336/plugin.vim
 	fi
 
-	echo "config your vim -- done"
+	echo "${FUNCNAME[0]}(): config your vim -- done"
 }
 
 update_package()
 {
 	# TODO
-	echo "install some package using script in utils"
+	echo "${FUNCNAME[0]}(): install some package using script in utils"
 	sudo cp ./utils/viman /usr/local/bin
 }
 
@@ -316,7 +320,7 @@ function install_new_plugin()
 	if which curl > /dev/null ; then
 		echo "Find curl."
 	else
-		sudo apt-get install curl --allow-unauthenticated > /dev/null
+		sudo apt-get install curl --allow-unauthenticated 2>&1 > /dev/null
 	fi
 
 	if [ ! -f "$cfg_path/.vim/autoload/plug.vim" ]; then
@@ -326,7 +330,7 @@ function install_new_plugin()
 		#sudo chown -R $username:$groupname $vim_plug_dir
 	fi
 
-	echo "====== install new plugin now ! ======"
+	echo "====== ${FUNCNAME[0]}(): install new plugin now ! ======"
 	if [[ $vim_in_usr_local -eq 1 ]]; then
 		# vim-plug
 		/usr/local/vim/bin/vim +PlugInstall +qall
@@ -344,7 +348,7 @@ function install_new_plugin()
 		sudo chown -R $username:$groupname ~/.vim_mru_files
 	fi
 
-	echo "install new plugin -- done"
+	echo "${FUNCNAME[0]}(): install new plugin -- done"
 }
 
 
@@ -372,7 +376,7 @@ function echo_install_time()
 # git config
 function git_config()
 {
-	echo "====== git config ======"
+	echo "====== ${FUNCNAME[0]}(): git config ======"
 	# set merge tool and editor
 	# To use vimdiff as default merge tool:
 	git config --global merge.tool vimdiff
@@ -391,7 +395,7 @@ function git_config()
 
 	# git lg 列出 git 分支图
 	git config --global alias.lg "log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
-	echo "git config -- done"
+	echo "${FUNCNAME[0]}(): git config -- done"
 }
 
 #
@@ -407,9 +411,12 @@ update_vimcfg()
 
 main()
 {
+	echo "------ enter ${FUNCNAME[0]}() ------"
+
 	if [[ -z $1 ]]; then
 		echo
-		blue_log ">> step1: prepare and update $repo_name repo."
+		blue_log ">> step1: ${FUNCNAME[0]}(): prepare and update $repo_name repo."
+		global_variables_setup
 		set_color
 		# prepare
 		check_root_privileges
@@ -417,8 +424,9 @@ main()
 		check_network
 
 		# step1: update $repo_name
-		update_vimcfg_bundle
+		update_skyVim
 		echo "$repo_name repo update -- done"
+		echo
 
 		# now update.sh has been updated
 		# execure step2 using new script
@@ -427,11 +435,12 @@ main()
 		echo_install_time
 	elif [[ $1 -eq 1 ]]; then
 		echo
-		blue_log ">> step2: setup vim config now!"
+		blue_log ">> step2: ${FUNCNAME[0]}(): setup vim config now!"
 		# step2: setup vim config
 		update_vimcfg
-		echo "vim config setup -- done."
+		echo -e "vim config setup -- done.\n"
 		show_logo
+		echo -e "You better execure the following command:\n\t 'source ~/.bashrc'"
 	else
 		echo "invalid  parameter."
 	fi
