@@ -1,6 +1,6 @@
 # linux command
-- LastChange: 2019-11-13
--    Version: V0.0.28
+- LastChange: 2019-11-18
+-    Version: V0.0.29
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
@@ -11,6 +11,9 @@ find ./ * -exec touch {} \;
 搜索文件，执行删除命令
 find private/ -name "*~"| xargs rm
 find . -name "*.c" | xargs chmod a-x
+
+删除除了xxx和yyy之外的文件或文件夹
+rm !(xxx|yyy)
 
 I usually don't let grep do the recursion itself. There are usually a few
 directories you want to skip (.git, .svn...)
