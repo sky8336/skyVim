@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-11-13
-#    Version: v0.0.66
+# LastChange: 2019-11-18
+#    Version: v0.0.67
 #
 
 source ./utils.sh
@@ -488,7 +488,7 @@ function install_plugin_mgr_and_plugin()
 	local prog=$cur_prog
 	local step=5
 	local username=$(echo $HOME | awk -F '/' '{print $3}')
-	local groupname=$(username)
+	local groupname=${username}
 
 	if [ $online -eq 1 ];then
 		if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
