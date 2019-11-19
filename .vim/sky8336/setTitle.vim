@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-09-06
-"    Version: v0.0.02
+" LastChange: 2019-11-19
+"    Version: v0.0.03
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
@@ -108,12 +108,15 @@ func SetTitle()
 		call append(11," *    Version: v0.0.01")
 		call append(12," *")
 		call append(13," */")
-		"call append(14, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
-		"call append(15, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
-		call append(14, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
-		call append(15, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
-		call append(16, "")
-		call append(17, "#endif")
+		call append(14, "")
+		"call append(15, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(16, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		call append(15, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(16, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(17, "")
+		call append(18, "")
+		call setline(20, "#endif")
+		normal G2k
 	elseif expand("%:e") == 'hpp'
 		call append(0,"/*")
 		call append(1," * ".expand("%:t"))
@@ -129,12 +132,16 @@ func SetTitle()
 		call append(11," *    Version: v0.0.01")
 		call append(12," *")
 		call append(13," */")
-		"call append(14, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
-		"call append(15, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
-		call append(14, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
-		call append(15, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
-		call append(16, "")
-		call append(17, "#endif")
+		call append(14, "")
+		"call append(15, "#ifndef _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		"call append(16, "#define _".tr(toupper(expand("%:r")), "/", "_")."_H")
+		call append(15, "#ifndef _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(16, "#define _".substitute(tr(toupper(expand("%:r")), "/", "_"),"\\.._","","g")."_H")
+		call append(17, "")
+		call append(18, "")
+		"call append(19, "#endif")
+		call setline(20, "#endif")
+		normal G2k
 	endif
 	echohl WarningMsg | echo "Successful in adding copyright." | echohl None
 endfunc
@@ -143,4 +150,4 @@ endfunc
 autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
 
 "新建文件后，自动定位到文件末尾
-autocmd BufNewFile * normal G
+"autocmd BufNewFile * normal G
