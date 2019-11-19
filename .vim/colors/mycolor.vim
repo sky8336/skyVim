@@ -62,7 +62,8 @@ hi StatusLineNC         ctermfg=LightGrey       ctermbg=black
 
 "hi VertSplit            ctermfg=Grey            ctermbg=Grey
 hi Visual               term=bold               cterm=bold
-hi Visual               ctermfg=Black           ctermbg=Grey
+"hi Visual               ctermfg=Black           ctermbg=Grey
+hi Visual               ctermfg=none           ctermbg=DarkMagenta
 
 hi Pmenu                ctermbg=Black           ctermfg=Grey
 hi PmenuSel             ctermbg=DarkBlue        ctermfg=LightGreen
