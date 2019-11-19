@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2019-11-19
-"    Version: v0.0.03
+"    Version: v0.0.04
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
@@ -143,7 +143,7 @@ func SetTitle()
 		call setline(20, "#endif")
 		normal G2k
 	endif
-	echohl WarningMsg | echo "Successful in adding copyright." | echohl None
+	"echohl WarningMsg | echo "Successful in adding copyright." | echohl None
 endfunc
 
 "create file settings
