@@ -6,8 +6,8 @@
 "    Created: 2013-06-28
 "    Install: online
 "------------------------------
-" LastChange: 2019-11-07
-"    Version: v0.2.54
+" LastChange: 2019-11-21
+"    Version: v0.2.55
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -247,8 +247,6 @@ nmap <space>np :set nopaste<cr>
 
 nmap  <space>tm :vert terminal<CR>
 nmap  <space>td :packadd termdebug<CR>:Termdebug<CR>
-" vim-repl key-mapping
-nnoremap <space>re :REPLToggle<Cr>
 
 " Linux Programmer's Manual
 " <C-m> is Enter in quickfix window
@@ -373,7 +371,8 @@ inoremap d <c-\><c-o>:PreviewScroll +1<cr>
 autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
-
+" vim-repl key-mapping
+nnoremap <leader>re :REPLToggle<Cr>
 
 "------map_f5------
 " nmap  <F5>
