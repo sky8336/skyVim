@@ -1,5 +1,5 @@
 # ubuntu work environment setup
-- LastChange: 2019-11-08
+- LastChange: 2019-11-21
 -    Version: V0.0.07
 
 可替代windows 环境的工具
@@ -39,6 +39,10 @@
   - 全屏截图是printScreen
   - 活动窗口截图是Alt+printScreen
   - 自己选择区域截图是shift+printScreen，然后选择相应区域。
+
+### 词典
+- sudo apt install goldendict
+  - [goldendict setup](https://www.cnblogs.com/creasing/p/11333728.html)
 
 ## command
 - 查看ubuntu 版本信息:`sudo lsb_release -a`
