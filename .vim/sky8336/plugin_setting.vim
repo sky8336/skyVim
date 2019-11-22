@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2019-11-22
-"    Version: v0.0.08
+"    Version: v0.0.09
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -95,10 +95,10 @@ if plugin_use_autoformat == 1
 
 	"针对某种语言指定特定的格式化工具和相应的参数，比如设定以allman(ansi)的风格格式化
 	"C/C++代码同时在操作符两边加入空格(即--pad-oper参数)，可以这样写
-	let g:formatdef_allman = '"astyle --style=allman --pad-oper --align-pointer=name --align-reference=name"'
+	let g:formatdef_allman = '"astyle --style=allman --pad-oper --align-pointer=name --align-reference=name --pad-header"'
 	let g:formatters_cpp = ['allman']
 
-	let g:formatdef_my_c = '"astyle --style=linux --pad-oper --align-pointer=name --align-reference=name"'
+	let g:formatdef_my_c = '"astyle --style=linux --pad-oper --align-pointer=name --align-reference=name --pad-header"'
 	let g:formatters_c = ['my_c']
 
 else
@@ -110,9 +110,9 @@ else
 	func! FormatCode()
 		exec "w"
 		if &filetype == 'c' || &filetype == 'h'
-			exec "!astyle --style=linux --pad-oper --align-pointer=name --suffix=none %"
+			exec "!astyle --style=linux --pad-oper --align-pointer=name --pad-header --suffix=none %"
 		elseif &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
-			exec "!astyle --style=allman --align-pointer=name --align-reference=name --suffix=none %"
+			exec "!astyle --style=allman --align-pointer=name --align-reference=name --pad-header --suffix=none %"
 		elseif &filetype == 'perl'
 			exec "!astyle --style=gnu --suffix=none %"
 		elseif &filetype == 'py'|| &filetype == 'python'
