@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-11-22
-"    Version: v0.0.09
+" LastChange: 2019-11-25
+"    Version: v0.0.10
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -95,8 +95,14 @@ if plugin_use_autoformat == 1
 
 	"针对某种语言指定特定的格式化工具和相应的参数，比如设定以allman(ansi)的风格格式化
 	"C/C++代码同时在操作符两边加入空格(即--pad-oper参数)，可以这样写
-	let g:formatdef_allman = '"astyle --style=allman --pad-oper --align-pointer=name --align-reference=name --pad-header"'
-	let g:formatters_cpp = ['allman']
+	"let g:formatdef_allman = '"astyle --style=allman --pad-oper --align-pointer=name --align-reference=name --pad-header"'
+	"let g:formatters_cpp = ['allman']
+
+	let g:formatdef_linux_cpp = '"astyle --style=linux --pad-oper --align-pointer=name --align-reference=name --pad-header"'
+	let g:formatters_cpp = ['linux_cpp']
+
+	"let g:formatdef_my_cpp = '"astyle --style=google"'
+	"let g:formatters_my_cpp = ['my_cpp']
 
 	let g:formatdef_my_c = '"astyle --style=linux --pad-oper --align-pointer=name --align-reference=name --pad-header"'
 	let g:formatters_c = ['my_c']
