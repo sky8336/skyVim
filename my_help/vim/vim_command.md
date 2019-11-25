@@ -1,6 +1,6 @@
 # vim 命令及使用技巧
-- LastChange: 2019-11-07
--    Version: V0.0.04
+- LastChange: 2019-11-22
+-    Version: V0.0.05
 
 ## 1. vim简介及设计理念说明： {{{1
 
@@ -363,3 +363,11 @@ bufexplorer提供了一些替换上面命令的快捷键，并且提供了一个
 `:[range]y` 	复制范围，比如 :20,30y 是复制20到30行，:10y 是复制第十行<br/>
 `:[range]d` 	删除范围，比如 :20,30d 是删除20到30行，:10d 是删除第十行<br/>
 `ddp` 	交换两行内容：先删除当前行复制到寄存器，并粘贴<br/>
+## vim Select Mode
+- gh       Start characterwise selection
+- gH      Start linewise selection
+- gCTRL-H      Start block selection
+
+- CTRL-O command switches from selection mode to visual mode for one command.
+- CTRL-G command switches to visual mode without returning
+To switch from visual mode select mode ,use the CTRL-G command
