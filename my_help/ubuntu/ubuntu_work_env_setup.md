@@ -1,6 +1,6 @@
 # ubuntu work environment setup
-- LastChange: 2019-11-27
--    Version: V0.0.08
+- LastChange: 2019-12-02
+-    Version: V0.0.09
 
 可替代windows 环境的工具
 
@@ -41,6 +41,8 @@
   - 自己选择区域截图是shift+printScreen，然后选择相应区域。
 ### 编辑照片
 - Shotwell
+- pinta 图像编辑器
+  - sudo apt-get install pinta
 
 ### 词典
 - sudo apt install goldendict
