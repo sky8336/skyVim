@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-12-06
-#    Version: v0.0.46
+# LastChange: 2019-12-12
+#    Version: v0.0.47
 #
 
 blue_log()
@@ -414,7 +414,7 @@ main()
 	echo "------ enter ${FUNCNAME[0]}() ------"
 
 	if [[ -z $1 ]]; then
-		echo
+		sudo echo
 		blue_log ">> step1: ${FUNCNAME[0]}(): prepare and update $repo_name repo."
 		global_variables_setup
 		set_color

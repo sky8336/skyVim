@@ -9,7 +9,7 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-11-18
+# LastChange: 2019-12-06
 #    Version: v0.0.67
 #
 
@@ -624,6 +624,7 @@ force_build_vim=0
 
 main()
 {
+	sudo echo
 	set_color
 	check_root_privileges
 	get_start_time_and_dir_path
