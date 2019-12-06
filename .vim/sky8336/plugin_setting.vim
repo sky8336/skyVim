@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2019-12-06
-"    Version: v0.0.11
+"    Version: v0.0.12
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -660,7 +660,7 @@ let g:multi_cursor_quit_key            = '<Esc>'
 
 " plugin_setting: vim-auto-save {{{2
 let g:auto_save = 1
-let g:auto_save_events = ["InsertLeave", "TextChanged", "TextChangedI", "CursorHoldI", "CompleteDone"]
+let g:auto_save_events = ["InsertLeave", "CompleteDone"]
 " vim-auto-save end
 
 " PLUGIN_SETTINGS end
