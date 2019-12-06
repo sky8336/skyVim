@@ -54,6 +54,15 @@
 ### 仅windows上有的工具
 virtualbox 装win10
 
+### 播放器
+- vlc
+
+### editors
+#### vim8.1
+#### Visual Studio Code
+- ubuntu software -> all -> Editor's Picks -> Visual Studio Code
+- ubuntu software -> search "Visual Studio Code"
+
 ## command
 - 查看ubuntu 版本信息:`sudo lsb_release -a`
 - backup required package: `sudo apt install duplicity python-gi`
