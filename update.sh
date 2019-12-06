@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-11-12
-#    Version: v0.0.45
+# LastChange: 2019-12-06
+#    Version: v0.0.46
 #
 
 blue_log()
@@ -117,7 +117,7 @@ function check_network()
 #
 
 # first step
-function update_skyVim_m
+function update_skyVim
 {
 	skyvim_path=$(pwd)
 	repo_name=$(echo $skyvim_path | awk -F '/'  '{print $NF}')
