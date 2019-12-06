@@ -5,9 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-"------------------------------
-" LastChange: 2019-11-21
-"    Version: v0.2.55
+" LastChange: 2019-12-06
+"    Version: v0.2.56
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -228,9 +227,9 @@ map <silent><leader>3 :diffget 3<CR>:diffupdate<CR>
 map <silent><leader>4 :diffget 4<CR>:diffupdate<CR>
 
 " space key_mappings. {{{2
-nnoremap <space>e<CR> :e<CR>
-nnoremap <space>w<CR> :w<CR>
-nnoremap <space>q<CR> :q<CR>
+nnoremap <space>je :e<CR>
+nnoremap <space>jw :w<CR>
+nnoremap <space>jq :q<CR>
 nnoremap <space>wq :wq<CR>
 nnoremap <space>wa :wa<CR>
 nnoremap <space>qa :qa<CR>
