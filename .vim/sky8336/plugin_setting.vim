@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2019-12-06
-"    Version: v0.0.12
+" LastChange: 2019-12-09
+"    Version: v0.0.13
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -662,6 +662,16 @@ let g:multi_cursor_quit_key            = '<Esc>'
 let g:auto_save = 1
 let g:auto_save_events = ["InsertLeave", "CompleteDone"]
 " vim-auto-save end
+
+" plugin_setting: DoxygenToolkit {{{2
+let g:DoxygenToolkit_authorName="eric, eric@company.com"
+let s:licenseTag = "Copyright(C)\<enter>"
+let s:licenseTag = s:licenseTag . "For free\<enter>"
+let s:licenseTag = s:licenseTag . "All right reserved\<enter>"
+let g:DoxygenToolkit_licenseTag = s:licenseTag
+let g:DoxygenToolkit_briefTag_funcName="yes"
+let g:doxygen_enhanced_color=1
+" DoxygenToolkit end
 
 " PLUGIN_SETTINGS end
 

@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2019-12-06
-"    Version: v0.0.02
+" LastChange: 2019-12-09
+"    Version: v0.0.03
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -159,6 +159,7 @@ let plugin_enalbe_rainbow_parentheses = 0
 	" vim_plug_setup:  other {{{3
 	Plug 'terryma/vim-multiple-cursors'
 	Plug '907th/vim-auto-save'
+	Plug 'vim-scripts/DoxygenToolkit.vim'
 	"Plug 'L9'
 	" other end
 	" my_vim_plug_plugins end
