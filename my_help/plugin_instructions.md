@@ -1,6 +1,6 @@
 # plugin instructions
-- LastChange: 2019-11-07
--    Version: V0.0.06
+- LastChange: 2019-12-09
+-    Version: V0.0.07
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态
@@ -67,37 +67,36 @@
 	
 #### (2)cscoe用法：
 ##### 普通模式下，光标在要查找的符号上，快速按下以下对应快捷键。
-	在当前窗口跳转:  
+在当前窗口跳转:  
+- `,sc`	 查找调用本函数的函数  
+- `,sd`	 查找本函数调用的函数  
+ 
+- `,sg`	 查找函数、宏、枚举等定义 (类似c tags的功能)  
+- `,ss`	 查找C语言符号(函数名、宏、枚举值等)出现的地方  
+ 
+- `,sf`	 查找并打开文件 (类似vim的find功能)  
+- `,si`	 查找包含本文件的文件  
+ 
+- `,se`	 查找egrep模式 (相当于egrep功能，但查找速度快多了)  
+- `,st`	 查找指定的字符串  
 
-		,sc	 查找调用本函数的函数  
-		,sd	 查找本函数调用的函数  
+跳转时，打开一个垂直分割窗口(第一次跳转时使用):  
+	命令中的s变成v, 即:  
+	,vc  
+	,vd  
+	...  
 
-		,sg	 查找函数、宏、枚举等定义 (类似c tags的功能)  
-		,ss	 查找C语言符号(函数名、宏、枚举值等)出现的地方  
-		
-		,sf	 查找并打开文件 (类似vim的find功能)  
-		,si	 查找包含本文件的文件  
+底行模式中输入要查找的变量，字符串或文件等:  
+	命令中的s变成f, 即:  
+	,fc   
+	,fd  
+	...  
 
-		,se	 查找egrep模式 (相当于egrep功能，但查找速度快多了)  
-		,st	 查找指定的字符串  
+注意：
+	按的慢，如按下,s停顿后，会删除一个字符进入插入模式，只依次需按Esc u即可恢复（回到普通模式，撤销）。
 
-	跳转时，打开一个垂直分割窗口(第一次跳转时使用):  
-		命令中的s变成v, 即:  
-		,vc  
-		,vd  
-		...  
-
-	底行模式中输入要查找的变量，字符串或文件等:  
-		命令中的s变成f, 即:  
-		,fc   
-		,fd  
-		...  
-
-	注意：
-		按的慢，如按下,s停顿后，会删除一个字符进入插入模式，只依次需按Esc u即可恢复（回到普通模式，撤销）。
-
-	回退按：  
-		Ctrl+t
+回退按：  
+	Ctrl+t
 
 ### Gtags
 	传统 ctags 系统虽和 vim 结合紧密，但只能查定义无法查引用，
@@ -953,7 +952,7 @@ b:tablify_divideDelimiter - default value is +, symbol at the row/column interse
 b:tablify_cellLeftPadding - default value is 1, number of spaces used for left cell padding  
 b:tablify_cellRightPadding - default value is 1, number of spaces used for right cell padding  
 
-## 30. asyncrun.vim -
+## 30. asyncrun.vim - {{{1
 
 ### 使用 :AsyncRun 类似！运行各种 shell 命令，只不过是放到后台运行，同时输出（stdout+stderr）重定向到当前 quickfix窗口.
 	在 Quickfix 窗口实时看到后台命令的输出。
@@ -1009,7 +1008,7 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 		h. cd 'tcp_client.c' window
 		i. ,\5 // run tcp_client
 
-## 31. UltiSnips - 代码片段终极解决方案  
+## 31. UltiSnips - 代码片段终极解决方案{{{1  
 	这个补全引擎非常快，而且有非常惊艳的表现，需要配合 vim-snippets 一起使用.
 	 UltiSnips 是补全引擎，真正的补全模板在 vim-snippets  
 	 连续按下两次i触发代码补全
@@ -1017,10 +1016,10 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	只需要关注其中的 UltiSnips 和 snippets 这两个文件夹，snippets 这里面是 snipMate 格式的补全代码，不推荐使用，新入坑的同学应该始终选择 UltiSnips 格式，因为其更灵活.
 
 ###	UltiSnips 风格规则:  
-    代码片段以 snippets 代码片段触发的缩写 "代码片段描述" 开始，以 endsnippet 结束
-    ${x} 定义了跳转点，使用 <c-j> 和 <c-k> 进行切换(请参看我的配置文件)
-    ${0} 比较特殊，它实际上是最后一个跳转点，而不是第一个
-    ${x:statement} 其中的 statement 可以替换成默认显示的文本.
+代码片段以 snippets 代码片段触发的缩写 "代码片段描述" 开始，以 endsnippet 结束
+`${x}` 定义了跳转点，使用 <c-j> 和 <c-k> 进行切换(请参看我的配置文件)
+`${0}` 比较特殊，它实际上是最后一个跳转点，而不是第一个
+`${x:statement}` 其中的 statement 可以替换成默认显示的文本.
 
 
 ## 32、vim-multiple-cursors(多光标选中编辑）{{{1
@@ -1067,69 +1066,71 @@ https://vimawesome.com/plugin/vim-translate-me
 `:tabnew README.md` 在tab中打开后，顶上1 行显示tab<br/>
 `:b 2`	jump buffer号为2的buffer<br/>
 
+## 38. DoxygenToolkit.vim
+`:Dox` 按table键跟出提示
 
 ## 其他 {{{1
-	(a)普通模式下:
-		输入 cM 清除行尾 ^M 符号;
-		输入 cm 去掉行尾空格;  
-		输入 cu 转换成utf-8格式;
-		输入 ci 全部缩进对齐  
-		输入 cy 全部复制  
+(a)普通模式下:
+	输入 cM 清除行尾 ^M 符号;
+	输入 cm 去掉行尾空格;  
+	输入 cu 转换成utf-8格式;
+	输入 ci 全部缩进对齐  
+	输入 cy 全部复制  
 
-	(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
-	(c)窗口焦点切换的映射(insert/normal mode)  
-		 普通模式或插入模式下：  
-		 ctrl+h    焦点移到左边窗口  
-		 ctrl+j 		   下边  
-		 ctrl+k 		   上边  
-		 ctrl+l			   右边  
+(b)启用每行超过80列的字符提示（字体变蓝并加下划线）(未启用)  
+(c)窗口焦点切换的映射(insert/normal mode)  
+	 普通模式或插入模式下：  
+	 ctrl+h    焦点移到左边窗口  
+	 ctrl+j 		   下边  
+	 ctrl+k 		   上边  
+	 ctrl+l			   右边  
 
-	(d)插入模式下光标移动：  
-		光标向上移动 alt+k  
-		光标向下移动 alt+j  
-		光标向左移动 alt+h   
-		光标向右移动 alt+l  
+(d)插入模式下光标移动：  
+	光标向上移动 alt+k  
+	光标向下移动 alt+j  
+	光标向左移动 alt+h   
+	光标向右移动 alt+l  
 
-	(e).bashrc 中更改命令提示行颜色  
-	(f)快捷键映射
-		空格-> :  
-		,cd -> 快速切换到打开VIM时的目录。  
-		比如:  
-		在"~/project"目录下打开VIM，为了编译"~/project/driver/dma"目录而  
-		切换目录":cd driver/dma"，编译完成后可使用",cd"命令切换到"~/project"目录下  
-		\   在命令行显示当前行所在的函数名称  
-		;   after "fx" in normal mode, press ; repeat the cmd
-		:pwd      显示当前路径(相对路径之前的路径)  
-		ctrl+g    在底行显示文件相对路径  
-		1-ctrl+g  先按1,再按下ctrl+g，在底行显示绝对路径  
-	(g) 剪切和复制  
-	    (1) 按住shift键，用鼠标选中复制到vim的"*寄存器(状态栏的文件路径也可复制)，  
-		    粘贴时输入"*p(或鼠标滚轮)即可复制。  
-		(2)	终端选中文字，ctrl+shift+c复制，在vim窗口直接输入p或点击鼠标滚轮即可  
+(e).bashrc 中更改命令提示行颜色  
+(f)快捷键映射
+	空格-> :  
+	,cd -> 快速切换到打开VIM时的目录。  
+	比如:  
+	在"~/project"目录下打开VIM，为了编译"~/project/driver/dma"目录而  
+	切换目录":cd driver/dma"，编译完成后可使用",cd"命令切换到"~/project"目录下  
+	\   在命令行显示当前行所在的函数名称  
+	;   after "fx" in normal mode, press ; repeat the cmd
+	:pwd      显示当前路径(相对路径之前的路径)  
+	ctrl+g    在底行显示文件相对路径  
+	1-ctrl+g  先按1,再按下ctrl+g，在底行显示绝对路径  
+(g) 剪切和复制  
+	(1) 按住shift键，用鼠标选中复制到vim的"*寄存器(状态栏的文件路径也可复制)，  
+		粘贴时输入"*p(或鼠标滚轮)即可复制。  
+	(2)	终端选中文字，ctrl+shift+c复制，在vim窗口直接输入p或点击鼠标滚轮即可  
 
-		(3)实现vim和终端及gedit等之间复制、粘贴的设置：  
-        既可以复制单行命令到终端，又可以复制多行到gedit打开的文件中。  
-   
-        vim-->终端/gedit  
-                （1）在vim普通模式下，输入yy可复制当前行到"+寄存器。  
-                （2）在terminal中：Ctrl-Shift-v，粘贴。  
-                     在gedit中ctrl+v粘贴  
-        终端/gedit-->vim：  
-                （1）在终端选中复制内容，用shift+ctrl+v复制；  
-                （2）在vim普通模式下，输入p复制。  
+	(3)实现vim和终端及gedit等之间复制、粘贴的设置：  
+	既可以复制单行命令到终端，又可以复制多行到gedit打开的文件中。  
 
-	(h)vim和终端切换  
-		ctrl+z : vim切换到后台  
-		fg     : 切换回前台  
+	vim-->终端/gedit  
+			（1）在vim普通模式下，输入yy可复制当前行到"+寄存器。  
+			（2）在terminal中：Ctrl-Shift-v，粘贴。  
+				 在gedit中ctrl+v粘贴  
+	终端/gedit-->vim：  
+			（1）在终端选中复制内容，用shift+ctrl+v复制；  
+			（2）在vim普通模式下，输入p复制。  
 
-		:sh    从vim切换到终端运行shell  
-		Ctrl + D(or exit)  从终端回到vim(to kill the shell and return to vim)  
-		
+(h)vim和终端切换  
+	ctrl+z : vim切换到后台  
+	fg     : 切换回前台  
 
-	(i)改变窗口大小(window-resize)  
-		w= : 高度增加5行  
-		w- : 高度减小5行  
-		w, : 宽度增加5行  
-		w. : 宽度减小5行  
-		
+	:sh    从vim切换到终端运行shell  
+	Ctrl + D(or exit)  从终端回到vim(to kill the shell and return to vim)  
+	
+
+(i)改变窗口大小(window-resize)  
+	w= : 高度增加5行  
+	w- : 高度减小5行  
+	w, : 宽度增加5行  
+	w. : 宽度减小5行  
+	
 
