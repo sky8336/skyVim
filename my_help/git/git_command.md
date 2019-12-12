@@ -1,5 +1,5 @@
 # git command
-- LastChange: 2019-11-07
+- LastChange: 2019-12-12
 -    Version: V0.0.34
 
 ## git clone
@@ -11,12 +11,10 @@
 xx 端口号<br/>
 yy.git 为仓库名字<br/>
 
-----------------------------------------------------------------------
-Git学习教程（5）Git tag {{{1
+## Git学习教程（5）Git tag {{{1
 git push origin :refs/tags/v0.7.5
 
-----------------------------------------------------------------------
-Git学习教程（六）Git 日志 {{{1
+## Git学习教程（六）Git 日志 {{{1
 
 查看每一次提交的补丁内容
 	git log -p
@@ -25,7 +23,7 @@ Git学习教程（六）Git 日志 {{{1
 	git log dir/
 	:!git show commit-id
 
---	!command             Execute the shell command with $SHELL.
+--	!command             Execute the shell command with `$SHELL`.
 
 查看统计数字,添加或删除了多少行
 	git log --stat
@@ -82,8 +80,7 @@ Git学习教程（六）Git 日志 {{{1
 	如果在experiment分支上，也想看到相同的信息，即还没有合并到master的提交:
 	git log master.. --pretty=oneline
 
-----------------------------------------------------------------------
-Git学习教程（七）Git差异比对 {{{1
+## Git学习教程（七）Git差异比对 {{{1
 
 git diff    查看变更还未载入(还未git add)的文件差异
 git diff --stage/--cached   查看载入并未提交的变更差异
@@ -102,10 +99,8 @@ git diff --numstat 表格形式获取增加行数和减少行数
 You can quickly review the changes made to a file using the diff command:
 git diff <commit hash> <filename>
 
-----------------------------------------------------------------------
-查看某次改动的具体修改:
+- 查看某次改动的具体修改:
 	git show git提交版本号 文件名
-
 	git show e17e782 --color=always | less -r
 
 ================================================================================
@@ -233,36 +228,36 @@ After you've set the core.autocrlf option and committed a .gitattributes file, y
 
 The best way to automatically configure your repository's line endings is to first backup your files with Git, delete every file in your repository (except the .git directory), and then restore the files all at once.
 
-    Save your current files in Git, so that none of your work is lost.
+Save your current files in Git, so that none of your work is lost.
 
-    git add . -u
-    git commit -m "Saving files before refreshing line endings"
+git add . -u
+git commit -m "Saving files before refreshing line endings"
 
-    Remove the index and force Git to rescan the working directory.
+Remove the index and force Git to rescan the working directory.
 
-    rm .git/index
+rm .git/index
 
-    Rewrite the Git index to pick up all the new line endings.
+Rewrite the Git index to pick up all the new line endings.
 
-    git reset
+git reset
 
-    Show the rewritten, normalized files.
+Show the rewritten, normalized files.
 
-    git status
+git status
 
-    Add all your changed files back, and prepare them for a commit. This is your chance to inspect which files, if any, were unchanged.
+Add all your changed files back, and prepare them for a commit. This is your chance to inspect which files, if any, were unchanged.
 
-    git add -u
-    # It is perfectly safe to see a lot of messages here that read
-    # "warning: CRLF will be replaced by LF in file."
+git add -u
+# It is perfectly safe to see a lot of messages here that read
+# "warning: CRLF will be replaced by LF in file."
 
-    Rewrite the .gitattributes file.
+Rewrite the .gitattributes file.
 
-    git add .gitattributes
+git add .gitattributes
 
-    Commit the changes to your repository.
+Commit the changes to your repository.
 
-    git commit -m "Normalize all the line endings"
+git commit -m "Normalize all the line endings"
 
 忽略文件权限或者拥有者改变导致的git状态变化 {{{1
 1) 在当前git仓库下执行：
@@ -300,12 +295,11 @@ https://help.github.com/articles/dealing-with-line-endings
 Reset or revert a specific file to a specific revision using Git {{{1
 (1)	Assuming the hash of the commit you want is c5f567:
 
-	git checkout c5f567 -- file1/to/restore file2/to/restore
+git checkout c5f567 -- file1/to/restore file2/to/restore
 
-	The git checkout man page gives more information.
-	If you want to revert to the commit before c5f567, append ~1 (works with any number):
-
-		git checkout c5f567~1 -- file1/to/restore file2/to/restore
+The git checkout man page gives more information.
+If you want to revert to the commit before c5f567, append ~1 (works with any number):
+`git checkout c5f567~1 -- file1/to/restore file2/to/restore`
 
 git合并分支上指定的commit {{{1
 假设分支结构如下：
