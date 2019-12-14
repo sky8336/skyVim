@@ -1,4 +1,17 @@
 #!/bin/bash
+#
+# build_install_vim.sh
+#
+# Copyright (C) 2016-2023 Eric MA  <eric@company.com>. All Rights Reserved.
+#
+# History:
+#    2016/08/17 - [Eric MA] Created file
+#
+# Maintainer: you <your@email.com>
+#    Created: 2016-08-17
+# LastChange: 2019-12-14
+#    Version: v0.0.16
+#
 
 source ./utils.sh
 
@@ -13,6 +26,7 @@ opt_clone_build_install="6"
 opt_update_build_install="7"
 update_bashrc_my="8"
 
+#modify vim version here
 vim_version="v8.1"
 vim_source=~/vim
 
@@ -47,7 +61,12 @@ examples=(
 		`basename $0` $update_bashrc_my	-	update .bashrc_my for vim built from source"
 )
 
-new_vim=vim81
+if [[ $vim_version = "v8.1" ]]; then
+	new_vim=vim81
+elif [[ $vim_version = "v8.2" ]]; then
+	new_vim=vim82
+fi
+
 newvim_c_vim="/usr/share/vim/$new_vim/syntax/c.vim"
 vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
 vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
@@ -163,7 +182,7 @@ build_vim_repo()
 			--enable-gui=gtk2 --enable-cscope --prefix=/usr
 
 		make VIMRUNTIMEDIR=/usr/share/vim/$new_vim
-	elif [[ $vim_version = "v8.1" ]]; then
+	elif [[ $vim_version = "v8.1" || $vim_version = "v8.2" ]]; then
 		blue_log "build $vim_version"
 		# vim8.1 config
 		./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
