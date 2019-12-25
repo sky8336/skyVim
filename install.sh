@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-12-06
-#    Version: v0.0.67
+# LastChange: 2019-12-25
+#    Version: v0.0.68
 #
 
 source ./utils.sh
@@ -172,6 +172,8 @@ packages=(
 	python-autopep8
 	yapf
 	xsel  #copy and paste
+	silversearcher-ag #for ctrlsf.vim
+	ack #for ctrlsf.vim
 )
 # note
 # Google开发的Python格式化工具）

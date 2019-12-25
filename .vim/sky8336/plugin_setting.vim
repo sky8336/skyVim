@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2019-12-09
-"    Version: v0.0.13
+" LastChange: 2019-12-25
+"    Version: v0.0.14
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -184,6 +184,7 @@ vmap     <C-\>f <Plug>CtrlSFVwordExec
 nmap     <C-p>f <Plug>CtrlSFPrompt
 nmap     <C-\>n <Plug>CtrlSFCwordPath
 nmap     <C-\>p <Plug>CtrlSFPwordPath
+nnoremap <Leader>fr :CtrlSF<Space>
 " open/close window
 nnoremap <C-\>o :CtrlSFOpen<CR>
 nnoremap <C-\>c :CtrlSFToggle<CR>

@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-12-12
-#    Version: v0.0.47
+# LastChange: 2019-12-25
+#    Version: v0.0.48
 #
 
 blue_log()
@@ -302,6 +302,7 @@ update_package()
 	# TODO
 	echo "${FUNCNAME[0]}(): install some package using script in utils"
 	sudo cp ./utils/viman /usr/local/bin
+	sudo apt install silversearcher-ag ack --allow-unauthenticated 2>&1 > /dev/null
 }
 
 #instal new plugin
