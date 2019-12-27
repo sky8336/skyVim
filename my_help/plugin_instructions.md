@@ -1,6 +1,6 @@
 # plugin instructions
-- LastChange: 2019-12-09
--    Version: V0.0.07
+- LastChange: 2019-12-27
+-    Version: V0.0.08
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态
@@ -982,12 +982,16 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 		:cclose 关闭F10上
 #### 按键绑定
 	,f5：打开/关闭底部的 quickfix 窗口
-	,;5：单文件, 编译
-	,\5：单文件, 运行
+	,gcc或,g++：单文件, 编译
+	,run：单文件, 运行
 
-	,5f：项目,编译
-	,5;：项目, 测试
-	,5\：项目：运行
+	,Mk：项目,编译
+	,Mkt;：项目, 测试
+	,Mkr：项目：运行
+
+	,mk：文件目录下Makefile,编译
+	,mkt;：文件目录下Makefile, 测试
+	,mkr：文件目录下Makefile：运行
 
 #### example:
 ##### example1

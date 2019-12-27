@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2019-12-25
-"    Version: v0.0.14
+" LastChange: 2019-12-27
+"    Version: v0.0.15
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -578,7 +578,7 @@ let g:airline_theme="dark"
 
 " plugin_setting: asyncrun {{{2
 " 自动打开 quickfix window ，高度为 6
-let g:asyncrun_open = 6
+let g:asyncrun_open = 10
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
 " 定位到文件所属项目的目录: 从文件所在目录向上递归，直到找到名为 “.git”, “.svn”, “.hg”或者 “.root”文件或者目录

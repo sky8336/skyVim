@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2019-12-06
-"    Version: v0.2.56
+" LastChange: 2019-12-27
+"    Version: v0.2.57
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -380,17 +380,24 @@ nnoremap <leader>re :REPLToggle<Cr>
 " 设置 ,f5 打开/关闭 Quickfix 窗口
 nnoremap <leader>f5 :call asyncrun#quickfix_toggle(6)<cr>
 " 编译单个文件
-nnoremap <silent><leader>;5 :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <silent><leader>gcc :AsyncRun gcc -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <silent><leader>g++ :AsyncRun g++ -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 " 运行
-nnoremap <silent><leader>\5 :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+nnoremap <silent><leader>run :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
 
-" ,5f ,5; ,5\	:	项目相关命令
-" “<root>” 或 “$(VIM_ROOT)”表示项目所在路径，按 ,5f 编译整个项目：
-nnoremap <silent><leader>5f :AsyncRun -cwd=<root> make <cr>
+" “<root>” 或 “$(VIM_ROOT)”表示项目所在路径，按 ,Mk 编译整个项目：
+nnoremap <silent><leader>Mk :AsyncRun -cwd=<root> make <cr>
+nnoremap <silent><leader>Mkc :AsyncRun -cwd=<root> make clean<cr>
 " 运行当前项目, makefile 中需要定义怎么 run
-nnoremap <silent><leader>5; :AsyncRun -cwd=<root> -raw make run <cr>
+nnoremap <silent><leader>Mkr :AsyncRun -cwd=<root> -raw make run <cr>
 " 测试
-nnoremap <silent><leader>5\ :AsyncRun -cwd=<root> -raw make test <cr>
+nnoremap <silent><leader>Mkt :AsyncRun -cwd=<root> -raw make test <cr>
+
+" 运行当前文件目录下 makefile 中需要定义怎么 run, test
+nnoremap <silent><leader>mk :AsyncRun -cwd=<VIM_FILEDIR> make <cr>
+nnoremap <silent><leader>mkc :AsyncRun -cwd=<VIM_FILEDIR> make clean<cr>
+nnoremap <silent><leader>mkr :AsyncRun -cwd=<VIM_FILEDIR> -raw make run <cr>
+nnoremap <silent><leader>mkt :AsyncRun -cwd=<VIM_FILEDIR> -raw make test <cr>
 "------map_f5------
 
 nmap  <C-F5> :UndotreeToggle<cr>
