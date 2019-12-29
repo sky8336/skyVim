@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2019-12-27
-"    Version: v0.2.57
+" LastChange: 2019-12-29
+"    Version: v0.2.58
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -259,7 +259,7 @@ nmap <space>wl :vertical res -30<CR>
 nmap <space>wj :res +15<CR>
 nmap <space>wk :res -15<CR>
 
-nmap <space>vr :vertical res 86<CR>
+nmap <space>vr :vertical res 99<CR>
 nmap <space>hr :res 25<CR>
 
 nmap <space>bn :bn<CR>
@@ -543,7 +543,7 @@ function s:Set_focus_window()
 		else
 			"resize the focus window when the window size < 86
 			if winwidth(0) <= 86
-				vertical res 90
+				vertical res 99
 				"echo "The current window has " . winwidth(0) . " columns."
 			endif
 		endif
@@ -581,7 +581,7 @@ function s:Set_InsertEnter_Window()
 	set nornu
 
 	" Window resizing
-	"vertical res 86
+	"vertical res 99
 endfunction
 
 " Normal mode
