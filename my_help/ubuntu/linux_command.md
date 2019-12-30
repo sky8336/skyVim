@@ -1,6 +1,6 @@
 # linux command
 - LastChange: 2019-12-30
--    Version: V0.0.30
+-    Version: V0.0.31
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
@@ -239,3 +239,11 @@ sudo apt install apt-file
 sudo apt-file update
 apt-file search libz.so.1 #apt-file 查找某个命令或库所在的包
 ```
+## cp
+`cp -dpRf ... `
+
+```
+$ cp -vf README.md ~/Downloads/
+'README.md' -> '/home/eric/Downloads/README.md'
+```
+
