@@ -1,6 +1,6 @@
 # ubuntu work environment setup
-- LastChange: 2019-12-02
--    Version: V0.0.09
+- LastChange: 2019-12-30
+-    Version: V0.0.10
 
 可替代windows 环境的工具
 
@@ -10,7 +10,10 @@
 - wps
   https://linux.wps.cn/#
 - pdf
-	sudo apt install zathura
+	- sudo apt install zathura
+	- sudo apt-get install okular #带标注功能
+	- [福昕阅读器linux版](https://www.foxitsoftware.cn/downloads/)
+	  - 下载福昕阅读器，选择平台Linux(64-bit), 下载
 - youdao
 
 - LibreOffice Draw vs. 微软Office Visio
