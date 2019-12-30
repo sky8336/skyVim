@@ -1,6 +1,6 @@
 # linux command
-- LastChange: 2019-11-18
--    Version: V0.0.29
+- LastChange: 2019-12-30
+-    Version: V0.0.30
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
@@ -48,9 +48,8 @@ top
 htop
 
 
-------------------------------------------------------------
 how to output text to both screen and file inside a shell script?
-command | tee -a "$log_file"
+`command | tee -a "$log_file"`
 tee saves input to a file (use -a to append rather than overwrite), and copies
 the input to standard output as well.
 
@@ -65,7 +64,7 @@ readelf
 nm
 nm trusty.ko | grep asan
 
-二进制转换,以ascii码查看:
+## 二进制转换,以ascii码查看:
 od -t c fileName 
 od -c file
 
@@ -226,11 +225,17 @@ gnome-system-monitor &
 
 ======================
 3秒后弹出alert 窗口
-$ sleep 3 && alert "build done"
+`$ sleep 3 && alert "build done"`
 
 查看.bashrc中的alias 命令
-$ alias
+`$ alias`
 =====================
 linux下shell统计文件目录下所有代码行数
-find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.cc" | xargs cat|grep -v ^$|wc -l
+`find . -name "*.c" -o -name "*.cpp" -o -name "*.h" -o -name "*.hpp" -o -name "*.cc" | xargs cat|grep -v ^$|wc -l`
 
+### 查找某个命令或库所在的包
+```
+sudo apt install apt-file
+sudo apt-file update
+apt-file search libz.so.1 #apt-file 查找某个命令或库所在的包
+```
