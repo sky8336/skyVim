@@ -1,6 +1,6 @@
 # ubuntu work environment setup
 - LastChange: 2019-12-30
--    Version: V0.0.10
+-    Version: V0.0.11
 
 可替代windows 环境的工具
 
@@ -22,6 +22,7 @@
   - LibreOffice内建（Writer (文档处理), Calc (电子表格), Impress (幻灯片), Base (数据库)和Math (编辑公式) 和Draw (矢量图）
   - 文件兼容性: LibreOffice不仅可以较为完备地兼容最常见的DOCX、PPTX和XLSX格式文件
   - LibreOffice支持Win/Mac/Linux等，只是移动平台仅有面向Android的LibreOffice Viewer
+- Dia vs visio
 - firefox
   - vimium
   - Dark Background and Light Text
