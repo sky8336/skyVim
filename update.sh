@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-12-25
-#    Version: v0.0.48
+# LastChange: 2019-12-30
+#    Version: v0.0.49
 #
 
 blue_log()
@@ -175,21 +175,34 @@ function bakup_vimrc()
 	echo "${FUNCNAME[0]}(): update $repo_name -- done"
 }
 
+get_built_vim_version()
+{
+	vi_major_ver_str="Vi IMproved 8"
+
+	local vi_ver=$(/usr/local/vim/bin/vim --version | \
+		grep "$vi_major_ver_str" --color | \
+		awk -F '-' '{print $2}' | awk -F '(' '{print $1}' |\
+		awk '$1=$1' | awk -F '(' '{print $1}' | awk '{print $3}')
+
+	echo "$vi_ver" #return string
+}
+
 update_bashrc_my()
 {
-
-	/usr/local/vim/bin/vim --version | grep "Vi IMproved 8.1" --color
-	if [ $? -eq 0 ]; then
-		echo "Vi IMproved 8.1 has been installed!"
-		vim_version="v8.1"
+	real_vi_ver=$(get_built_vim_version)
+	if [[ "${real_vi_ver}" = "8.2" ]]; then
+		blue_log "$real_vi_ver has been installed!"
+		vim_in_usr_local=1
+	elif [[ "$real_vi_ver" = "8.1" ]]; then
+		blue_log "$real_vi_ver has been installed!"
 		vim_in_usr_local=1
 	else
-		echo "vim version is not v8.1"
+		blue_log "vim 8.1 or v8.2 has not been installed!"
 		vim_in_usr_local=0
 		return 0
 	fi
 
-	if [[ $vim_version = "v8.1" ]];then
+	if [[ $vim_in_usr_local -eq 1 ]];then
 		# add the following to ~/.bashrc_my, replace of alias vi=
 		#alias vi='/usr/local/vim/bin/vim'
 		if [ -f ~/.bashrc_my ]; then
@@ -204,9 +217,8 @@ update_bashrc_my()
 	fi
 	source ~/.bashrc
 
-	echo ""update .bashrc_my and .gitconfig -- done
+	echo "update .bashrc_my and .gitconfig -- done"
 }
-
 
 # 更新vimrc
 function update_vimrc()
@@ -252,35 +264,46 @@ function update_vimrc()
 
 
 	if [[ -d "/usr/local/vim" ]]; then
-		# which we built from source
+		# which vim was built from source
+		local_vim_path=/usr/local/vim/share/vim
 		update_bashrc_my
 
-		local vim_syntax_c=/usr/local/vim/share/vim/vim81/syntax/c.vim
+		local vi_ver=$(get_built_vim_version)
+		if [ "${vi_ver}" = "8.2" ]; then
+			local vim_syntax_c="$local_vim_path/vim82/syntax/c.vim"
+		elif [ "${vi_ver}" = "8.1" ]; then
+			local vim_syntax_c="$local_vim_path/vim81/syntax/c.vim"
+		fi
+
 		grep "my_vim_highlight_config" ${vim_syntax_c}
 		if [ $? -eq 0 ]; then
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			sudo cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}
+			sudo sh -c "cat $skyvim_path/.self_mod/highlight_code.vim >> ${vim_syntax_c}"
 		fi
 	else
 		#函数名、运算符、括号等高亮
-		if [[ -d "/usr/share/vim/vim81" ]]; then
-			vim_in_usr_share="/usr/share/vim/vim81"
-		elif [[ -d "/usr/share/vim/vim80" ]]; then
-			vim_in_usr_share="/usr/share/vim/vim80"
-		elif [[ -d "/usr/share/vim/vim74" ]]; then
-			vim_in_usr_share="/usr/share/vim/vim74"
-		elif [[ -d "/usr/share/vim/vim73" ]]; then
-			vim_in_usr_share="/usr/share/vim/vim73"
+		share_vim_path=/usr/share/vim
+
+		if [[ -d "$share_vim_path/vim82" ]]; then
+			vim_in_usr_share="$share_vim_path/vim82"
+		elif [[ -d "share_vim_path/vim81" ]]; then
+			vim_in_usr_share="$share_vim_path/vim81"
+		elif [[ -d "$share_vim_path/vim80" ]]; then
+			vim_in_usr_share="$share_vim_path/vim80"
+		elif [[ -d "$share_vim_path/vim74" ]]; then
+			vim_in_usr_share="$share_vim_path/vim74"
 		fi
 
-		grep "my_vim_highlight_config" $vim_in_usr_share/syntax/c.vim
+		local vim_syntax_c="$vim_in_usr_share/syntax/c.vim"
+
+		grep "my_vim_highlight_config" $vim_syntax_c
 		if [ $? -eq 0 ]; then
 			echo "Found! c.vim have been modified."
 		else
 			echo "Not found! Modify c.vim now."
-			sudo cat $skyvim_path/.self_mod/highlight_code.vim >> $vim_in_usr_share/syntax/c.vim
+			sudo sh -c "$skyvim_path/.self_mod/highlight_code.vim >> $vim_syntax_c"
 		fi
 
 	fi

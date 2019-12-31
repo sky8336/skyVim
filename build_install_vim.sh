@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-08-17
-# LastChange: 2019-12-14
-#    Version: v0.0.16
+# LastChange: 2019-12-31
+#    Version: v0.0.17
 #
 
 source ./utils.sh
@@ -26,12 +26,8 @@ opt_clone_build_install="6"
 opt_update_build_install="7"
 update_bashrc_my="8"
 
-#modify vim version here
-vim_version="v8.1"
-vim_source=~/vim
-
 # show_header specify content
-VERSION=0.05
+VERSION=0.0.17
 tool_name="Initcall_debug setup tool"
 
 # show_usage Specify content
@@ -61,6 +57,10 @@ examples=(
 		`basename $0` $update_bashrc_my	-	update .bashrc_my for vim built from source"
 )
 
+#modify vim version here
+vim_version="v8.2"
+vim_source=~/vim
+
 if [[ $vim_version = "v8.1" ]]; then
 	new_vim=vim81
 elif [[ $vim_version = "v8.2" ]]; then
@@ -68,10 +68,6 @@ elif [[ $vim_version = "v8.2" ]]; then
 fi
 
 newvim_c_vim="/usr/share/vim/$new_vim/syntax/c.vim"
-vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
-vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
-vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
-
 
 #
 # APIs
@@ -88,11 +84,11 @@ function get_dir_path()
 function check_root_privileges()
 {
 	if [ $UID -eq 0 ]; then
-		echo "You have root privileges!"
-	else
-		echo -e "${color_failed}>>> Error: You don't have root privileges!"
-		echo -e "Please input \"sudo ./update.sh\"${color_reset}"
+		echo -e "${FUNCNAME[0]}(): ${color_failed}>>> Error: Remove you root privileges!"
+		echo -e "Please input \"./`basename $0`\"${color_reset}"
 		exit
+	else
+		echo "${FUNCNAME[0]}(): You have normal privileges!"
 	fi
 }
 
@@ -242,69 +238,6 @@ install_vim_after_built()
 	update_bashrc_my
 }
 
-
-# update vim to vim7.4
-function build_and_install_vim()
-{
-	echo "[Need 12 minutes]"
-	git clone https://github.com/vim/vim.git
-
-	cd vim
-	pwd
-
-	echo "====== configure ======"
-	./configure --with-features=huge \
-		--enable-rubyinterp=yes \
-		--enable-pythoninterp=yes \
-		--enable-python3interp=yes \
-		--enable-perlinterp=yes \
-		--enable-luainterp=yes \
-		--enable-gui=gtk2 --enable-cscope --prefix=/usr
-
-	echo "====== make ======"
-	sudo make VIMRUNTIMEDIR=/usr/share/vim/vim74
-	sudo make install
-
-	vim --version | grep Vi
-	cat $vimcfig_bundle_dir_path/.self_mod/highlight_code.vim >> /usr/share/vim/vim74/syntax/c.vim
-}
-
-#build vim
-function build_vim_by_source()
-{
-	if which apt-get > /dev/null ; then
-		sudo apt-get install -y ctags build-essential cmake python-dev python3-dev fontconfig git
-		var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE")
-		#systemVersion='DISTRIB_RELEASE=16.04'
-
-                # fix issue: vim: error while loading shared libraries: libruby-2.3.so.2.3: cannot open shared object file: No such file or directory
-                systemVersion='DISTRIB_RELEASE=18.04'
-		if [ $var == $systemVersion ]; then
-			install_dependent_package
-			sudo apt-get remove -y vim vim-runtime gvim
-			sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox
-
-			#sudo mv /usr/share/vim/vim74 /usr/share/vim/vim74.bak
-			#sudo mv /usr/share/vim/vim80 /usr/share/vim/vim80.bak
-			sudo mv /usr/share/vim/$new_vim /usr/share/vim/$new_vim.bak
-
-			clone_vim_from_github
-			build_vim_repo
-			install_vim_after_built
-			add_hilight_code_to_c_vim $newvim_c_vim
-		else
-			sudo apt-get install -y vim
-		fi
-	elif which yum > /dev/null ; then
-		sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake python-devel python3-devel git
-	fi
-
-	ln /usr/bin/vim /usr/bin/vi
-
-}
-
-
-#
 build_install_vim()
 {
 	build_vim_repo
@@ -374,8 +307,6 @@ main()
 
 	clone_vim=$1
 
-	#build_and_install_vim
-	#build_vim_by_source
 	show_logo
 	echo_execu_time
 }
