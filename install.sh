@@ -125,7 +125,11 @@ function install_packages()
 	progress_log $prog "====== Install software packages(pkg_num=$pkg_num) now ! ======"
 
 	while [[ $i -lt $pkg_num ]]; do
-		sudo apt-get install ${packages[i]} --allow-unauthenticated 2>&1 > /dev/null
+		if which apt-get > /dev/null ; then
+			echo -e "\t${packages[i]} already installed. "
+		else
+			sudo apt-get install ${packages[i]} --allow-unauthenticated 2>&1 > /dev/null
+		fi
 		let prog+=5
 		progress_log $prog "Install packages[$i]: ${packages[i]} ... done"
 		let i++
@@ -214,8 +218,7 @@ function build_vim_from_source()
 			sudo apt-get install -y vim 2>&1 > /dev/null
 			echo "done!"
 		fi
-	elif which yum > /dev/null
-	then
+	elif which yum > /dev/null ; then
 		sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake \
 		python-devel python3-devel git > /dev/null
 	fi
@@ -230,14 +233,16 @@ function install_vim()
 
 	progress_log $prog "====== install vim now! ======"
 	echo "force enter build_vim_from_source?: $1"
-	vim --version | grep "Vi IMproved 8.1" --color
+	local vim_ver_str="Vi IMproved 8.2"
+	vim --version | grep "$vim_ver_str" --color
 	if [ $? -eq 0 ] && [ $1 -eq 0 ]; then
-		echo "Vi IMproved 8.1 has been installed!"
+		echo "$vim_ver_str has been installed!"
 	else
-		if [ -f /usr/local/vim/bin/vim ];then
-			/usr/local/vim/bin/vim --version | grep "Vi IMproved 8.1" --color
+		local vim_bin_local_path="/usr/local/vim/bin"
+		if [ -f "$vim_bin_local_path/vim" ];then
+			$vim_bin_local_path/vim --version | grep "$vim_ver_str" --color
 			if [ $? -eq 0 ] && [ $1 -eq 0 ]; then
-				echo "Vi IMproved 8.1 has been installed in /usr/local/vim/!"
+				echo "$vim_ver_str has been installed in /usr/local/vim/!"
 			else
 				echo "enter build_vim_from_source"
 				build_vim_from_source
