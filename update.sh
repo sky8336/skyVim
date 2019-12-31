@@ -10,27 +10,10 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2019-12-30
-#    Version: v0.0.49
+#    Version: v0.0.50
 #
 
-blue_log()
-{
-	color_blue='\E[1;34m'
-	color_reset="\e[00m"
-	echo -e "${color_blue}$1${color_reset}" 1>&2
-}
-
-logo_path=./utils/.logo
-logo_files=($(ls $logo_path | awk '{print $1}'))
-
-show_logo()
-{
-	cur_second=`date +%S`
-	logo_num=${#logo_files[@]}
-	index=$((10$cur_second%$logo_num))
-	#echo "logo_num:$logo_num"
-	cat $logo_path/${logo_files[index]}
-}
+source ./common.sh
 
 # used for step2
 global_variables_setup()
@@ -63,54 +46,6 @@ global_variables_setup()
 	echo "vim_plug_dir=$vim_plug_dir"
 }
 
-#
-# utils functions
-#
-#set color
-function set_color()
-{
-	color_failed="\e[0;31m"
-	color_success="\e[0;32m"
-	color_reset="\e[00m"
-}
-
-#检查root权限
-function check_root_privileges()
-{
-	if [ $UID -eq 0 ]; then
-		echo -e "${FUNCNAME[0]}(): ${color_failed}>>> Error: Remove you root privileges!"
-		echo -e "Please input \"./`basename $0`\"${color_reset}"
-		exit
-	else
-		echo "${FUNCNAME[0]}(): You have normal privileges!"
-	fi
-}
-
-#获取开始时间和路径
-function get_start_time()
-{
-	start_time=$(date +"%s")
-}
-
-#shell脚本下载数据时，先检测网络的畅通性
-function check_network()
-{
-	#目标网站
-	target=www.baidu.com
-
-	local ret=`ping $target -c 3 | grep -q "ttl=" && echo "yes" || echo "no"`
-	if [[ $ret = "yes" ]]; then
-		#网络畅通
-		echo -e "====== ${FUNCNAME[0]}(): The Internet is connected ! ======"
-	else
-		#网络不畅通
-		echo
-		echo -e "${color_failed}>>> Error: Network connection is unavailable! "
-		echo -e "Please check your Internet connection.${color_reset}"
-		echo
-		exit
-	fi
-}
 
 #
 # update related apis
@@ -173,51 +108,6 @@ function bakup_vimrc()
 	fi
 
 	echo "${FUNCNAME[0]}(): update $repo_name -- done"
-}
-
-get_built_vim_version()
-{
-	vi_major_ver_str="Vi IMproved 8"
-
-	local vi_ver=$(/usr/local/vim/bin/vim --version | \
-		grep "$vi_major_ver_str" --color | \
-		awk -F '-' '{print $2}' | awk -F '(' '{print $1}' |\
-		awk '$1=$1' | awk -F '(' '{print $1}' | awk '{print $3}')
-
-	echo "$vi_ver" #return string
-}
-
-update_bashrc_my()
-{
-	real_vi_ver=$(get_built_vim_version)
-	if [[ "${real_vi_ver}" = "8.2" ]]; then
-		blue_log "$real_vi_ver has been installed!"
-		vim_in_usr_local=1
-	elif [[ "$real_vi_ver" = "8.1" ]]; then
-		blue_log "$real_vi_ver has been installed!"
-		vim_in_usr_local=1
-	else
-		blue_log "vim 8.1 or v8.2 has not been installed!"
-		vim_in_usr_local=0
-		return 0
-	fi
-
-	if [[ $vim_in_usr_local -eq 1 ]];then
-		# add the following to ~/.bashrc_my, replace of alias vi=
-		#alias vi='/usr/local/vim/bin/vim'
-		if [ -f ~/.bashrc_my ]; then
-			sed -i "s%^alias vi=.*$%alias vi='/usr/local/vim/bin/vim'%g" ~/.bashrc_my
-			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc_my
-		else
-			echo "alias vi='/usr/local/vim/bin/vim'" >> ~/.bashrc
-			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc
-		fi
-
-		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
-	fi
-	source ~/.bashrc
-
-	echo "update .bashrc_my and .gitconfig -- done"
 }
 
 # 更新vimrc
@@ -375,28 +265,6 @@ function install_new_plugin()
 	echo "${FUNCNAME[0]}(): install new plugin -- done"
 }
 
-
-#echo install time
-function echo_install_time()
-{
-	end_time=$(date +"%s")
-	tdiff=$(($end_time-$start_time))
-	hours=$(($tdiff / 3600 ))
-	mins=$((($tdiff % 3600) / 60))
-	secs=$(($tdiff % 60))
-	echo
-	echo -n -e "${color_success}#### update completed successfully! "
-	if [ $hours -gt 0 ] ; then
-		echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
-	elif [ $mins -gt 0 ] ; then
-		echo -n -e "($mins:$secs (mm:ss))"
-	elif [ $secs -gt 0 ] ; then
-		echo -n -e "($secs seconds)"
-	fi
-	echo -e " ####${color_reset}"
-	echo
-}
-
 # git config
 function git_config()
 {
@@ -445,7 +313,7 @@ main()
 		# prepare
 		check_root_privileges
 		get_start_time
-		check_network
+		assert_online
 
 		# step1: update $repo_name
 		update_skyVim
