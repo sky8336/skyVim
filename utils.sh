@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2019-06-28
-# LastChange: 2019-08-22
-#    Version: v0.0.03
+# LastChange: 2019-12-31
+#    Version: v0.0.04
 #
 
 logo_path=./utils/.logo
@@ -340,3 +340,73 @@ clean_file()
 
 
 date=`date +%F | sed 's/-//g'``date +%T | sed 's/://g'`
+
+#获取开始时间和路径
+function get_start_time()
+{
+	start_time=$(date +"%s")
+}
+
+#set color
+function set_color()
+{
+	color_failed="\e[0;31m"
+	color_success="\e[0;32m"
+	color_reset="\e[00m"
+}
+
+#echo install time
+function echo_install_time()
+{
+	end_time=$(date +"%s")
+	tdiff=$(($end_time-$start_time))
+	hours=$(($tdiff / 3600 ))
+	mins=$((($tdiff % 3600) / 60))
+	secs=$(($tdiff % 60))
+	echo
+	echo -n -e "${color_success}#### update completed successfully! "
+	if [ $hours -gt 0 ] ; then
+		echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
+	elif [ $mins -gt 0 ] ; then
+		echo -n -e "($mins:$secs (mm:ss))"
+	elif [ $secs -gt 0 ] ; then
+		echo -n -e "($secs seconds)"
+	fi
+	echo -e " ####${color_reset}"
+	echo
+}
+
+#检查root权限
+function check_root_privileges()
+{
+	if [ $UID -eq 0 ]; then
+		echo -e "${color_failed}>>> Error: Remove you root privileges!"
+		echo -e "Please input \"./`basename $0`\"${color_reset}"
+		exit
+	else
+		echo "You have normal privileges!"
+	fi
+}
+
+
+#shell脚本下载数据时，先检测网络的畅通性
+function check_network()
+{
+	#标识网络连接状态
+	online=1
+
+	#目标网站
+	target=www.baidu.com
+
+	local ret=`ping $target -c 3 | grep -q "ttl=" && echo "yes" || echo "no"`
+	if [[ $ret = "yes" ]]; then
+		#网络畅通
+		echo -e "====== ${FUNCNAME[0]}(): The Internet is connected ! ======"
+		online=1
+	else
+		#网络不畅通
+		echo
+		echo "the network connection is unavailable."
+		online=0
+	fi
+}

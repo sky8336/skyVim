@@ -10,10 +10,10 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2019-12-25
-#    Version: v0.0.68
+#    Version: v0.0.69
 #
 
-source ./utils.sh
+source ./common.sh
 
 # show_header specify content
 VERSION=1.00
@@ -54,79 +54,6 @@ examples=(
 vim_plug_dir=~/.vim/autoload
 # we use vim-plug as plugin manager by default
 
-#set color
-function set_color()
-{
-	color_failed="\e[0;31m"
-	color_success="\e[0;32m"
-	color_reset="\e[00m"
-}
-
-#检查root权限
-function check_root_privileges()
-{
-	if [ $UID -eq 0 ]; then
-		echo -e "${color_failed}>>> Error: Remove you root privileges!"
-		echo -e "Please input \"./`basename $0`\"${color_reset}"
-		exit
-	else
-		echo "You have normal privileges!"
-	fi
-}
-
-#获取开始时间和路径
-function get_start_time_and_dir_path()
-{
-	start_time=$(date +"%s")
-	skyvim_path=$(pwd)
-	echo "dir_path: $skyvim_path"
-}
-
-#shell脚本下载数据时，先检测网络的畅通性
-function check_network()
-{
-	#标识网络连接状态
-	online=1
-
-	#超时时间
-	timeout=9
-
-	#目标网站
-	target=www.baidu.com
-
-	local ret=`ping www.baidu.com -c 3 | grep -q "ttl=" && echo "yes" || echo "no"`
-	if [[ $ret = "yes" ]]; then
-		echo "the network connection is available."
-	else
-		echo "the network connection is unavailable."
-	fi
-
-	if which curl > /dev/null ; then
-		echo "Find curl."
-	else
-		sudo apt-get install curl --allow-unauthenticated 2>&1 > /dev/null
-	fi
-
-	if which curl > /dev/null ; then
-		#获取响应状态码
-		ret_code=`curl -I -s --connect-timeout $timeout $target -w %{http_code} | tail -n1`
-	else
-		echo "check your Network, and install curl."
-	fi
-
-	if [ "x$ret_code" = "x200" ]; then
-		#网络畅通
-		echo -e "====== The Internet is connected ! ======"
-	else
-		#网络不畅通,安装.vimcfg_offline中版本
-		echo
-		echo -e "${color_failed}>>> Warnning: Network connection is unavailable! "
-		echo -e "Please check your Internet connection."
-		echo -e "It will be installed offline，maybe not the latest !${color_reset}"
-		online=0
-	fi
-}
-
 #备份OS中vim的配置
 function bakup_vimconfig()
 {
@@ -163,6 +90,7 @@ function bakup_vimconfig()
 }
 
 packages=(
+	curl
 	exuberant-ctags
 	cscope
 	astyle
@@ -348,38 +276,6 @@ function add_hilight_code_to_c_vim()
 	fi
 }
 
-update_bashrc_my()
-{
-
-	/usr/local/vim/bin/vim --version | grep "Vi IMproved 8.1" --color
-	if [ $? -eq 0 ]; then
-		echo "Vi IMproved 8.1 has been installed!"
-		vim_version="v8.1"
-		vim_in_usr_local=1
-	else
-		echo "vim version is not v8.1"
-		vim_in_usr_local=0
-		return 0
-	fi
-
-	if [[ $vim_version = "v8.1" ]];then
-		# add the following to ~/.bashrc_my, replace of alias vi=
-		#alias vi='/usr/local/vim/bin/vim'
-		if [ -f ~/.bashrc_my ]; then
-			sed -i "s%^alias vi=.*$%alias vi='/usr/local/vim/bin/vim'%g" ~/.bashrc_my
-			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc_my
-		else
-			cp ~/.bashrc ~/bashrc.bak
-			echo "alias vi='/usr/local/vim/bin/vim'" >> ~/.bashrc
-			echo "alias vimdiff='/usr/local/vim/bin/vimdiff'" >> ~/.bashrc
-		fi
-
-		cp ~/.gitconfig ~/.gitconfig.bak
-		sed -i "s%^.*editor.*$%\teditor = /usr/local/vim/bin/vim%g" ~/.gitconfig
-	fi
-	source ~/.bashrc
-}
-
 #配置vim
 function config_vim()
 {
@@ -495,9 +391,13 @@ function install_plugin_mgr_and_plugin()
 	if [ $online -eq 1 ];then
 		if [ ! -f "${HOME}/.vim/autoload/plug.vim" ]; then
 			echo "====== Install vim-plug now ! ======"
+			if which curl > /dev/null ; then
+				echo "Find curl."
+			else
+				sudo apt-get install curl --allow-unauthenticated 2>&1 > /dev/null
+			fi
 			curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		fi
-
 
 		if [[ $vim_in_usr_local -eq 1 ]]; then
 			# vim-plug
@@ -600,27 +500,6 @@ function set_cfg_for_winmanager()
 	patch ~/.vim/bundle/taglist.vim/plugin/taglist.vim < ./.self_mod/.plugin_patch/taglist_vim.patch
 }
 
-#echo install time
-function echo_install_time()
-{
-    end_time=$(date +"%s")
-    tdiff=$(($end_time-$start_time))
-    hours=$(($tdiff / 3600 ))
-    mins=$((($tdiff % 3600) / 60))
-    secs=$(($tdiff % 60))
-    echo
-	echo -n -e "${color_success}#### install completed successfully! "
-    if [ $hours -gt 0 ] ; then
-        echo -n -e "($hours:$mins:$secs (hh:mm:ss))"
-    elif [ $mins -gt 0 ] ; then
-        echo -n -e "($mins:$secs (mm:ss))"
-    elif [ $secs -gt 0 ] ; then
-        echo -n -e "($secs seconds)"
-    fi
-	echo -e " ####${color_reset}"
-    echo
-}
-
 # !!note:y ou can modify force_build_vim to build vim from source
 force_build_vim=0
 
@@ -671,7 +550,7 @@ main()
 	fi
 
 
-	check_network
+	online_offline_select
 	bakup_vimconfig
 
 	if [[ $skip_pack -ne 1 ]]; then
