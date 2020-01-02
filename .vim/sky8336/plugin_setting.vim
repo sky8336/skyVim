@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2019-12-27
-"    Version: v0.0.15
+" LastChange: 2020-01-02
+"    Version: v0.0.16
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -224,7 +224,7 @@ let  g:CCTreeJoinProgOpts = ""
 let g:NERDTreeWinPos="right"
 let g:NERDTreeWinSize=30
 let g:NERDTreeShowLineNumbers=1
-let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeQuitOnOpen=0
 let g:NERDTreeDirArrows=0   "目录箭头: 1显示箭头  0传统+-|号
 let g:NERDTreeAutoCenter=1
 " 是否显示隐藏文件
