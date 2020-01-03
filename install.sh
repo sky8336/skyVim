@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2020-01-03
-#    Version: v0.0.70
+#    Version: v0.0.71
 #
 
 source ./common.sh
@@ -126,12 +126,13 @@ function install_packages()
 
 	while [[ $i -lt $pkg_num ]]; do
 		if which ${packages[i]} > /dev/null ; then
-			echo -e "\t${packages[i]} already installed. "
+			local log_str="${packages[i]} already installed."
 		else
 			sudo apt-get install ${packages[i]} --allow-unauthenticated 2>&1 > /dev/null
+			local log_str="Install packages[$i]: ${packages[i]} ... done"
 		fi
 		let prog+=5
-		progress_log $prog "Install packages[$i]: ${packages[i]} ... done"
+		progress_log $prog "$log_str"
 		let i++
 	done
 
