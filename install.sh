@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2019-12-25
-#    Version: v0.0.69
+# LastChange: 2020-01-03
+#    Version: v0.0.70
 #
 
 source ./common.sh
@@ -125,7 +125,7 @@ function install_packages()
 	progress_log $prog "====== Install software packages(pkg_num=$pkg_num) now ! ======"
 
 	while [[ $i -lt $pkg_num ]]; do
-		if which apt-get > /dev/null ; then
+		if which ${packages[i]} > /dev/null ; then
 			echo -e "\t${packages[i]} already installed. "
 		else
 			sudo apt-get install ${packages[i]} --allow-unauthenticated 2>&1 > /dev/null
