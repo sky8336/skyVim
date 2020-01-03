@@ -1,6 +1,6 @@
 # ubuntu work environment setup
-- LastChange: 2019-12-30
--    Version: V0.0.11
+- LastChange: 2020-01-03
+-    Version: V0.0.12
 
 可替代windows 环境的工具
 
@@ -54,6 +54,7 @@
 
 ### 思维导图
 - [xmind](https://www.xmind.net/download/xmind8/)
+- Ubuntu Software: Xmind
 
 ### 仅windows上有的工具
 virtualbox 装win10
