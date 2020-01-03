@@ -1,6 +1,6 @@
 # ubuntu work environment setup
 - LastChange: 2020-01-03
--    Version: V0.0.12
+-    Version: V0.0.13
 
 可替代windows 环境的工具
 
@@ -72,3 +72,11 @@ virtualbox 装win10
 - 查看ubuntu 版本信息:`sudo lsb_release -a`
 - backup required package: `sudo apt install duplicity python-gi`
 - *.7z: `sudo apt-get install p7zip`
+
+## debug tools
+- sudo apt install putty
+  - vim ~/.putty/sessions/session-name: `FontName=client:Monospace 16`
+- sudo apt install minicom
+  - "minicom -s" --> "Serial port setup" --> "A": modify dev node -> 
+	F - Hardware Flow Control : No
+	G - Software Flow Control : No
