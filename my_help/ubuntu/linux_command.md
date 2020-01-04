@@ -1,6 +1,6 @@
 # linux command
-- LastChange: 2019-12-30
--    Version: V0.0.31
+- LastChange: 2020-01-04
+-    Version: V0.0.32
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
@@ -246,4 +246,9 @@ apt-file search libz.so.1 #apt-file 查找某个命令或库所在的包
 $ cp -vf README.md ~/Downloads/
 'README.md' -> '/home/eric/Downloads/README.md'
 ```
-
+## calculate
+### hex add
+- `printf "%#x\n" $((0x1234+0x1))`
+- `printf "%#x\n" $((16#1234+16#1))`
+### binary -> hex
+`printf "%#x\n" $((2#01000010))`
