@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2019-12-29
-"    Version: v0.2.58
+" LastChange: 2020-01-06
+"    Version: v0.2.59
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -529,7 +529,7 @@ ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 "autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 
-" set focus window {{{1
+" ActiveWindow: set focus window {{{1
 "colorcolumn {{{2
 let g:AutoResizeFocusWindow=1
 function s:Set_focus_window()
@@ -551,14 +551,35 @@ function s:Set_focus_window()
 		"echo bufname("%")
 	endif
 
+	augroup BgHighlight
+		"autocmd!
+		"autocmd WinEnter * set cul
+		"autocmd WinLeave * set nocul
+
+		" Highlight the text line of the cursor with CursorLine 'hl-CursorLine'.
+		set cul
+		"set nocul
+	augroup END
+
 endfunction
 
 " define a shortcut key for enabling/disabling auto resize focus window:
 nnoremap  <leader>fx :exe "let g:AutoResizeFocusWindow=exists(\"g:AutoResizeFocusWindow\")?g:AutoResizeFocusWindow*-1+1:1"<CR>
 
+" NonActiveWindow
 function s:Set_lose_focus_window()
 	"before leaving a window, set cc=""
 	set cc=""
+
+	" ActiveWindow
+	augroup BgHighlight
+		"autocmd!
+		"autocmd WinEnter * set cul
+		"autocmd WinLeave * set nocul
+
+		"set cul
+		set nocul
+	augroup END
 endfunction
 
 autocmd WinEnter,BufEnter * call s:Set_focus_window()
