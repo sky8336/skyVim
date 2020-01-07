@@ -42,6 +42,7 @@ hi Error                term=bold               cterm=bold
 hi Error                ctermfg=Red       ctermbg=Black
 
 hi LineNr               ctermfg=DarkGrey        ctermbg=none
+hi CursorLineNr         ctermfg=yellow      ctermbg=none  cterm=bold
 
 hi CursorLine           cterm=underline
 "hi CursorLine          cterm=bold ctermbg=Black
