@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2020-01-08
-"    Version: v0.0.10
+"    Version: v0.0.11
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
@@ -176,14 +176,14 @@ function UpdateProgTitle()
 endfunction
 
 function UpdateMdTitle()
-	execute '/- Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	"execute '/- Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
 	normal gg
 	execute '/- LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
 	execute "noh"
 endfunction
 
 function UpdateVimTitle()
-	execute '/\" Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	"execute '/\" Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
 	normal gg
 	execute '/\" LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
 	execute "noh"
