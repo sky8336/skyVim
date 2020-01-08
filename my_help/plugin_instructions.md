@@ -664,10 +664,10 @@ https://github.com/tpope/vim-fugitive
 	b. 支持文件，MRU，Buffer名称搜索
 
 	CTRL+P 在当前项目目录打开文件搜索
-	alt+m 打开 MRU 搜索，搜索最近打开的文件
-	ALT+f 打开函数搜索，	
-	ALT+b 打开 Buffer 搜索  
-	alt+t :LeaderfTag<cr>
+	,lm 打开 MRU 搜索，搜索最近打开的文件
+	,lf 打开函数搜索，	
+	,lb 打开 Buffer 搜索  
+	,lt :LeaderfTag<cr>
 
 	<ESC>		退出
 
@@ -682,27 +682,24 @@ https://github.com/tpope/vim-fugitive
 ## 19、surround.vim {{{1
     在字符两边插入或改变各种成对的符号在字符两边插入或改变各种成对的符号：单/双引号;大中小括号等
     快捷键的列表：  
-	Normal mode  
-	-----------  
-	ds  - delete a surrounding  
-	cs  - change a surrounding  
-	ys  - add a surrounding  
-	yS  - add a surrounding and place the surrounded text on a new line + indent it  
-	yss - add a surrounding to the whole line  
-	ySs - add a surrounding to the whole line, place it on a new line + indent it  
-	ySS - same as ySs  
+- Normal mode  
+ - ds  - delete a surrounding  
+ - cs  - change a surrounding  
+ - ys  - add a surrounding  
+ - yS  - add a surrounding and place the surrounded text on a new line + indent it  
+ - yss - add a surrounding to the whole line  
+ - ySs - add a surrounding to the whole line, place it on a new line + indent it  
+ - ySS - same as ySs  
 
-	Visual mode  
-	-----------  
-	s   - in visual mode, add a surrounding  
-	S   - in visual mode, add a surrounding but place text on new line + indent it  
+- Visual mode  
+  - s   - in visual mode, add a surrounding  
+  - S   - in visual mode, add a surrounding but place text on new line + indent it  
 
-	Insert mode  
-	-----------  
-	<CTRL-s> - in insert mode, add a surrounding  
-	<CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent  
-	<CTRL-g>s - same as <CTRL-s>  
-	<CTRL-g>S - same as <CTRL-s><CTRL-s>  
+- Insert mode  
+  - <CTRL-s> - in insert mode, add a surrounding  
+  - <CTRL-s><CTRL-s> - in insert mode, add a new line + surrounding + indent  
+  - <CTRL-g>s - same as <CTRL-s>  
+  - <CTRL-g>S - same as <CTRL-s><CTRL-s>  
 
 ### examples   
 	Details follow on the exact semantics, but first, consider the following
