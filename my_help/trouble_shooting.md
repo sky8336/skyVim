@@ -1,6 +1,6 @@
 # trouble shooting
 - LastChange: 2019-11-08
--    Version: V0.0.02
+-    Version: V0.0.03
 
 ## vim plugin issue
 1. 打开vim后，按o插入一行时，报错。
@@ -49,3 +49,9 @@ $ /usr/local/vim/bin/vim --version | grep python3
 skyVim[master]$ git commit --amend
 fatal: could not open '.git/COMMIT_EDITMSG': Permission denied
 ```
+6.  debug mode
+quit debug mode:
+```
+<finish
+```
+`help debug`
