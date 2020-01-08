@@ -143,13 +143,55 @@ function UpdateProgTitle()
 	normal 'k
 endfunction
 
+function VersionInc(line)
+	if a:line =~ '^\s*\*\s*Version\s*:\s*\S*.*$' || a:line =~ '^\s*\#\s*Version\s*:\s*\S*.*$'
+		let s:idx = strridx(a:line, 'v')
+		let s:major = str2nr(strpart(a:line, s:idx+1, 1), 10)
+		let s:minor = str2nr(strpart(a:line, s:idx+3, 1), 10)
+		let s:revise = str2nr(strpart(a:line, s:idx+5, 2), 10)
+
+		if s:revise < 99
+			let s:revise += 1
+		elseif s:minor < 9
+			let s:revise = 0
+			let s:minor += 1
+		elseif s:major < 9
+			let s:revise = 0
+			let s:minor = 0
+			let s:major += 1
+		else
+			echo "warning: version > 9.9.99!!"
+		endif
+
+		"echo "v" s:major s:minor s:revise
+		let ver = "v" . s:major . "." . s:minor . "." . s:revise
+		"echo ver
+
+		normal gg
+		if expand("%:e")=='sh' || expand("%:e") == 'py'
+			execute '/#    Version\s*:/s@:.*$@\=": ".ver@'
+		elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
+			execute '/*    Version\s*:/s@:.*$@\=": ".ver@'
+		endif
+		execute "noh"
+		normal 'k
+
+		"echo s:major s:minor s:revise
+	endif
+endfunction
+
 function UpdateTitle()
 	if expand("%:e")=='sh' || expand("%:e") == 'py'
 		call UpdateScriptTitle()
+		let s:ver_line_num = 13
 	elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
 		call UpdateProgTitle()
+		let s:ver_line_num = 12
 	endif
 	echohl WarningMsg | echo "Updating coryright Successfully !!" | echohl None
+
+	let s:ver_line = getline(s:ver_line_num)
+	call VersionInc(s:ver_line)
 endfunction
 
 
