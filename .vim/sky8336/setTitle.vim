@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2020-01-08
-"    Version: v0.0.08
+"    Version: v0.0.09
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
@@ -207,7 +207,7 @@ endfunction
 
 
 "create file settings
-autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call Additle()"
+autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call AddTitle()"
 
 "新建文件后，自动定位到文件末尾
 "autocmd BufNewFile * normal G
