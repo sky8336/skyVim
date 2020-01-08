@@ -2,7 +2,7 @@
 - Maintainer: sky8336
 -    Created: 2020-01-08
 - LastChange: 2020-01-08
--    Version: V0.0.01
+-    Version: V0.0.02
 
 ## skyVim feature
 ### 无需插件实现
@@ -14,6 +14,8 @@
 - normal/insert 模式下：ctrl+h/j/k/l 在多窗口间跳转
 - 插入模式:  jk 快速推出到normal模式并保存
 - 80列处红色边界，提醒代码长度
+- 自动添加文件头, 支持shell, python, c/cpp/cc/h 文件
+  - 添加的头的Filename, LastChange, Version 可以用快捷键更新
 
 ### 借助插件实现的feature
 - ESC 也退出insert 模式，并保存
@@ -49,4 +51,6 @@
 
 2. sudo ./update.sh 会影响vimcfg_bundle中的git commit -s, 因为sudo 执行了git
 pull
+3. 经常按某些按键进入debug mode, 即在底行出现以`<` 开始的输入行
+  - 需要输入`<finish` 推出
 
