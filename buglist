@@ -1,7 +1,0 @@
-buglist
-=======
-1. 目前的tagbar 自动打开方式，会导致 vi -O 不能打开两个不同的文件;
-	会导致vi a.c +255 不能定位到指定行.
-
-2. sudo ./update.sh 会影响vimcfg_bundle中的git commit -s, 因为sudo 执行了git
-pull
