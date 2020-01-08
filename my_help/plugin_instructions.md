@@ -1,6 +1,8 @@
 # plugin instructions
+- Maintainer: sky8336
+-    Created: 2019-08-25
 - LastChange: 2020-01-08
--    Version: V0.0.10
+-    Version: V0.0.11
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态
