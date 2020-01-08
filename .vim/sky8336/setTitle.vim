@@ -6,13 +6,16 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2020-01-08
-"    Version: v0.0.06
+"    Version: v0.0.08
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
 " script(sh, py, ...) title
 func Set_sh_Title()
-	call append(0,"\#!/bin/bash")
+	let s:first_line = getline(1)
+	if s:first_line != "\#!/bin/bash" && s:first_line != "\#!/bin/sh"
+		call append(0,"\#!/bin/bash")
+	endif
 	call append(1,"#")
 	call append(2,"# Filename: ".expand("%:t"))
 	call append(3,"#")
@@ -29,7 +32,10 @@ func Set_sh_Title()
 endfunc
 
 func Set_py_Title()
-	call append(0,"#!/usr/bin/env python")
+	let s:first_line = getline(1)
+	if s:first_line != "#!/usr/bin/env python" && s:first_line != "\#!/usr/bin/python"
+		call append(0,"#!/usr/bin/env python")
+	endif
 	call append(1,"# coding=utf-8")
 	call append(2,"#")
 	call append(3,"# Filename: ".expand("%:t"))
@@ -102,7 +108,7 @@ func Set_hpp_Title()
 endfunc
 
 " main function
-func SetTitle()
+func AddTitle()
 	if expand("%:e") == 'sh'
 		call Set_sh_Title()
 	elseif expand("%:e") == 'py'
@@ -144,61 +150,67 @@ function UpdateProgTitle()
 endfunction
 
 function VersionInc(line)
-	if a:line =~ '^\s*\*\s*Version\s*:\s*\S*.*$' || a:line =~ '^\s*\#\s*Version\s*:\s*\S*.*$'
-		let s:idx = strridx(a:line, 'v')
-		let s:major = str2nr(strpart(a:line, s:idx+1, 1), 10)
-		let s:minor = str2nr(strpart(a:line, s:idx+3, 1), 10)
-		let s:revise = str2nr(strpart(a:line, s:idx+5, 2), 10)
+	let s:idx = strridx(a:line, 'v')
+	let s:major = str2nr(strpart(a:line, s:idx+1, 1), 10)
+	let s:minor = str2nr(strpart(a:line, s:idx+3, 1), 10)
+	let s:revise = str2nr(strpart(a:line, s:idx+5, 2), 10)
 
-		if s:revise < 99
-			let s:revise += 1
-		elseif s:minor < 9
-			let s:revise = 0
-			let s:minor += 1
-		elseif s:major < 9
-			let s:revise = 0
-			let s:minor = 0
-			let s:major += 1
-		else
-			echo "warning: version > 9.9.99!!"
-		endif
-
-		"echo "v" s:major s:minor s:revise
-		let ver = "v" . s:major . "." . s:minor . "." . s:revise
-		"echo ver
-
-		normal gg
-		if expand("%:e")=='sh' || expand("%:e") == 'py'
-			execute '/#    Version\s*:/s@:.*$@\=": ".ver@'
-		elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
-			execute '/*    Version\s*:/s@:.*$@\=": ".ver@'
-		endif
-		execute "noh"
-		normal 'k
-
-		"echo s:major s:minor s:revise
+	if s:revise < 99
+		let s:revise += 1
+	elseif s:minor < 9
+		let s:revise = 0
+		let s:minor += 1
+	elseif s:major < 9
+		let s:revise = 0
+		let s:minor = 0
+		let s:major += 1
+	else
+		echo "warning: version > 9.9.99!!"
 	endif
+
+	"echo "v" s:major s:minor s:revise
+	let ver = "v" . s:major . "." . s:minor . "." . s:revise
+	"echo ver
+
+	normal gg
+	if expand("%:e")=='sh' || expand("%:e") == 'py'
+		execute '/#    Version\s*:/s@:.*$@\=": ".ver@'
+	elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
+		execute '/*    Version\s*:/s@:.*$@\=": ".ver@'
+	endif
+	execute "noh"
+	normal 'k
+
+	"echo s:major s:minor s:revise
 endfunction
 
 function UpdateTitle()
 	if expand("%:e")=='sh' || expand("%:e") == 'py'
 		call UpdateScriptTitle()
-		let s:ver_line_num = 13
 	elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
 		call UpdateProgTitle()
-		let s:ver_line_num = 12
 	endif
-	echohl WarningMsg | echo "Updating coryright Successfully !!" | echohl None
 
-	let s:ver_line = getline(s:ver_line_num)
-	call VersionInc(s:ver_line)
+	let n = 1
+	while n<16
+		let s:ver_line = getline(n)
+		if s:ver_line =~ '^\s*\*\s*Version\s*:\s*\S*.*$' || s:ver_line =~ '^\s*\#\s*Version\s*:\s*\S*.*$'
+			call VersionInc(s:ver_line)
+			echohl WarningMsg | echo "Updating coryright Successfully !!" | echohl None
+			unlet n
+			return
+		endif
+		let n = n+1
+	endwhile
+
 endfunction
 
 
 "create file settings
-autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
+autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call Additle()"
 
 "新建文件后，自动定位到文件末尾
 "autocmd BufNewFile * normal G
 
+nmap <space>at :call AddTitle()<cr>
 nmap <space>ut :call UpdateTitle()<cr>
