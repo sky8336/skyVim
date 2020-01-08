@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2020-01-08
-"    Version: v0.0.05
+"    Version: v0.0.06
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
@@ -14,7 +14,7 @@
 func Set_sh_Title()
 	call append(0,"\#!/bin/bash")
 	call append(1,"#")
-	call append(2,"# ".expand("%:t"))
+	call append(2,"# Filename: ".expand("%:t"))
 	call append(3,"#")
 	call append(4,"# Copyright (C) 2018-2023 Eric MA  <eric@company.com>. All Rights Reserved.")
 	call append(5,"#")
@@ -32,7 +32,7 @@ func Set_py_Title()
 	call append(0,"#!/usr/bin/env python")
 	call append(1,"# coding=utf-8")
 	call append(2,"#")
-	call append(3,"# ".expand("%:t"))
+	call append(3,"# Filename: ".expand("%:t"))
 	call append(4,"#")
 	call append(5,"# Copyright (C) 2018-2023 Eric MA  <eric@company.com>. All Rights Reserved.")
 	call append(6,"#")
@@ -49,7 +49,7 @@ endfunc
 " c, cpp, title
 func Set_c_common_Title()
 	call append(0,"/*")
-	call append(1," * ".expand("%:t"))
+	call append(1," * Filename: ".expand("%:t"))
 	call append(2," *")
 	call append(3," * Copyright (C) 2018-2023 Eric MA  <eric@company.com>. All Rights Reserved.")
 	call append(4," *")
@@ -121,8 +121,42 @@ func SetTitle()
 	"echohl WarningMsg | echo "Successful in adding copyright." | echohl None
 endfunc
 
+
+function UpdateScriptTitle()
+	normal m'
+	execute '/# LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
+	normal ''
+	normal mk
+	execute '/# Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	execute "noh"
+	normal 'k
+endfunction
+
+function UpdateProgTitle()
+	normal m'
+	"execute '/* Last modified\s*:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M")@'
+	execute '/* LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
+	normal ''
+	normal mk
+	execute '/* Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	execute "noh"
+	normal 'k
+endfunction
+
+function UpdateTitle()
+	if expand("%:e")=='sh' || expand("%:e") == 'py'
+		call UpdateScriptTitle()
+	elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
+		call UpdateProgTitle()
+	endif
+	echohl WarningMsg | echo "Updating coryright Successfully !!" | echohl None
+endfunction
+
+
 "create file settings
 autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call SetTitle()"
 
 "新建文件后，自动定位到文件末尾
 "autocmd BufNewFile * normal G
+
+nmap <space>ut :call UpdateTitle()<cr>
