@@ -1,6 +1,6 @@
 # plugin instructions
-- LastChange: 2019-12-27
--    Version: V0.0.08
+- LastChange: 2020-01-08
+-    Version: V0.0.10
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态
@@ -1035,10 +1035,11 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	(6) 按下列之一编辑`c`, `s`, `I`, `A`
 
 ## 33. vim-repl.sh {{{1
+- shell, python
 ### example
 	(1) vi vimcfg_bundle/test/vim-repl.sh
 	(2) 按,re打开repl窗口
-	(3) 按,w 将光标所在行命令发送到repl窗口中执行,执行后光标跳到下一行，可一次执行
+	(3) 按,w 将光标所在行命令发送到repl窗口中执行, 执行后光标跳到下一行，可依次按,w执行; 代码块，需要按shift+V选中完整代码块，然后按,w发送执行
 	(3) ,re 关闭repl窗口
 ## 34.ctrlsf-vim {{{1
 	reference: https://vimawesome.com/plugin/ctrlsf-vim
