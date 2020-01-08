@@ -6,7 +6,7 @@
 "    Created: 2019-08-24
 "------------------------------
 " LastChange: 2020-01-08
-"    Version: v0.0.09
+"    Version: v0.0.10
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
@@ -107,6 +107,34 @@ func Set_hpp_Title()
 	normal G2k
 endfunc
 
+func Set_md_Title()
+	let s:first_line = getline(1)
+	if s:first_line != "\#"
+		call append(0,"\# ".expand("%:t"))
+	endif
+
+	call append(1,"- Maintainer: eric <eric@email.com>")
+	call append(2,"-    Created: ".strftime("%Y-%m-%d"))
+	call append(3,"- LastChange: ".strftime("%Y-%m-%d"))
+	call append(4,"-    Version: v0.0.01")
+	call append(5,"")
+endfunc
+
+func Set_vim_Title()
+	let s:first_line = getline(1)
+	if s: setTitle.vim
+		call append(0,"\" Filename: ".expand("%:t"))
+	endif
+	call append(1,"\"")
+	call append(2,"\" Copyright (C) 2018-2023 eric  <eric@company.com>. All Rights Reserved.")
+	call append(3,"\"")
+	call append(4,"\" Maintainer: eric <eric@email.com>")
+	call append(5,"\"    Created: ".strftime("%Y-%m-%d"))
+	call append(6,"\" LastChange: ".strftime("%Y-%m-%d"))
+	call append(7,"\"    Version: v0.0.01")
+
+endfunc
+
 " main function
 func AddTitle()
 	if expand("%:e") == 'sh'
@@ -123,30 +151,42 @@ func AddTitle()
 		call Set_h_Title()
 	elseif expand("%:e") == 'hpp'
 		call Set_hpp_Title()
+	elseif expand("%:e") == 'md'
+		call Set_md_Title()
+	elseif expand("%:e") == 'vim'
+		call Set_vim_Title()
 	endif
 	"echohl WarningMsg | echo "Successful in adding copyright." | echohl None
 endfunc
 
 
 function UpdateScriptTitle()
-	normal m'
-	execute '/# LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
-	normal ''
-	normal mk
 	execute '/# Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	normal gg
+	execute '/# LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
 	execute "noh"
-	normal 'k
 endfunction
 
 function UpdateProgTitle()
-	normal m'
+	execute '/* Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	normal gg
 	"execute '/* Last modified\s*:/s@:.*$@\=strftime(": %Y-%m-%d %H:%M")@'
 	execute '/* LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
-	normal ''
-	normal mk
-	execute '/* Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
 	execute "noh"
-	normal 'k
+endfunction
+
+function UpdateMdTitle()
+	execute '/- Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	normal gg
+	execute '/- LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
+	execute "noh"
+endfunction
+
+function UpdateVimTitle()
+	execute '/\" Filename\s*:/s@:.*$@\=": ".expand("%:t")@'
+	normal gg
+	execute '/\" LastChange\s*:/s@:.*$@\=strftime(": %Y-%m-%d")@'
+	execute "noh"
 endfunction
 
 function VersionInc(line)
@@ -177,9 +217,12 @@ function VersionInc(line)
 		execute '/#    Version\s*:/s@:.*$@\=": ".ver@'
 	elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
 		execute '/*    Version\s*:/s@:.*$@\=": ".ver@'
+	elseif expand("%:e")=='md'
+		execute '/-    Version\s*:/s@:.*$@\=": ".ver@'
+	elseif expand("%:e")=='vim'
+		execute '/\"    Version\s*:/s@:.*$@\=": ".ver@'
 	endif
 	execute "noh"
-	normal 'k
 
 	"echo s:major s:minor s:revise
 endfunction
@@ -189,12 +232,16 @@ function UpdateTitle()
 		call UpdateScriptTitle()
 	elseif expand("%:e") == 'cpp' || expand("%:e") == 'cc' || expand("%:e") == 'c' || expand("%:e") == 'h' || expand("%:e") == 'hpp'
 		call UpdateProgTitle()
+	elseif expand("%:e") == 'md'
+		call UpdateMdTitle()
+	elseif expand("%:e") == 'vim'
+		call UpdateVimTitle()
 	endif
 
 	let n = 1
 	while n<16
 		let s:ver_line = getline(n)
-		if s:ver_line =~ '^\s*\*\s*Version\s*:\s*\S*.*$' || s:ver_line =~ '^\s*\#\s*Version\s*:\s*\S*.*$'
+		if s:ver_line =~ '^\s*\*\s*Version\s*:\s*\S*.*$' || s:ver_line =~ '^\s*\#\s*Version\s*:\s*\S*.*$' || s:ver_line =~ '^\s*\-\s*Version\s*:\s*\S*.*$' || s:ver_line =~ '^\s*\"\s*Version\s*:\s*\S*.*$' 
 			call VersionInc(s:ver_line)
 			echohl WarningMsg | echo "Updating coryright Successfully !!" | echohl None
 			unlet n
@@ -207,7 +254,7 @@ endfunction
 
 
 "create file settings
-autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py exec ":call AddTitle()"
+autocmd BufNewFile *.cpp,*.cc,*.c,*.hpp,*.h,*.sh,*.py,*.md,*.vim exec ":call AddTitle()"
 
 "新建文件后，自动定位到文件末尾
 "autocmd BufNewFile * normal G
