@@ -1,8 +1,8 @@
 # skyVim
 - Maintainer: sky8336
 -    Created: 2020-01-08
-- LastChange: 2020-01-08
--    Version: V0.0.02
+- LastChange: 2020-01-10
+-    Version: v0.0.3
 
 ## skyVim feature
 ### 无需插件实现
@@ -19,13 +19,23 @@
 
 ### 借助插件实现的feature
 - ESC 也退出insert 模式，并保存
-- 保存时，自动去行为空格
+- 保存时，自动去行尾空格
 - 浏览代码时，红色高亮空格和tab键混合的缩进
 - 代码跟踪: ctags 和cscope
 - 代码补全:
+- 代码片段补全
+- 脚本 repl 执行环境
 - 代码格式化
 - Tagbar
 - NerdTree
+- 多光标编辑
+- 画图: DrawIt
+- vim-surround
+- 注释
+- 英文翻译
+- markdown 文件通过firefox 预览
+- 模糊搜索
+- vim-gitgutter
 
 ## todo
 1. 按u后，回退到上一个命令，自动保存?
