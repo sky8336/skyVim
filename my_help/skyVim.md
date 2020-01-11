@@ -1,8 +1,8 @@
 # skyVim
 - Maintainer: sky8336
 -    Created: 2020-01-08
-- LastChange: 2020-01-10
--    Version: v0.0.3
+- LastChange: 2020-01-11
+-    Version: v0.0.4
 
 ## skyVim feature
 ### 无需插件实现
@@ -36,6 +36,7 @@
 - markdown 文件通过firefox 预览
 - 模糊搜索
 - vim-gitgutter
+- 弹出热键说明: vim-which-key
 
 ## todo
 1. 按u后，回退到上一个命令，自动保存?
