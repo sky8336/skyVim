@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2019-12-30
-#    Version: v0.0.50
+# LastChange: 2020-01-11
+#    Version: v0.0.51
 #
 
 source ./common.sh
@@ -260,6 +260,10 @@ function install_new_plugin()
 
 	if [[ -f ~/.vim_mru_files ]]; then
 		sudo chown -R $username:$groupname ~/.vim_mru_files
+	fi
+
+	if [[ -f ~/.viminfo ]]; then
+		sudo chown $username:$groupname ~/.viminfo
 	fi
 
 	echo "${FUNCNAME[0]}(): install new plugin -- done"
