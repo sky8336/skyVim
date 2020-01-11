@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-08
-"    Version: v0.0.17
+" LastChange: 2020-01-11
+"    Version: v0.0.18
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -585,6 +585,83 @@ let g:asyncrun_bell = 1
 let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml']
 
 " uncategorized plugin_settings{{{1
+" plugin_setting: vim-which-key{{{2
+" :map => see key map
+" leader key map {{{3
+" 用一个 dict 定义你要展示的信息和执行的操作 {{{4
+let g:which_key_map =  {}
+
+" `name` 是一个特殊字段，如果 dict 里面的元素也是一个 dict，那么表明一个 group，比如 `+file`, 就会高亮和显示 `+file` 。默认是 `+prefix`.
+
+" 基于已经存在的快捷键映射，直接使用一个字符串说明介绍信息即可
+" You can pass a descriptive text to an existing mapping.
+let g:which_key_map.b = { 'name' : '+prefix' }
+let g:which_key_map.b.e = 'start exploring in the current window'
+let g:which_key_map.b.v = 'start exploring in a newly split vertical window'
+let g:which_key_map.b.s = 'start exploring in a newly split horizontal window'
+let g:which_key_map.b.t = 'toggle bufexplorer on or off in the current window'
+
+"nnoremap <silent> <leader>oq  :copen<CR>
+"nnoremap <silent> <leader>ol  :lopen<CR>
+"let g:which_key_map.o = {
+			"\ 'name' : '+open',
+			"\ 'q' : 'open-quickfix'    ,
+			"\ 'l' : 'open-locationlist',
+			"\ }
+
+" 不存在相关的快捷键映射，需要用一个 list：
+" 第一个元素表明执行的操作，第二个是该操作的介绍
+" Provide commands(ex-command, <Plug>/<C-W>/<C-d> mapping, etc.) and descriptions for existing mappings
+"let g:which_key_map.b = {
+			"\ 'name' : '+buffer' ,
+			"\ '1' : ['b1'        , 'buffer 1']        ,
+			"\ '2' : ['b2'        , 'buffer 2']        ,
+			"\ 'd' : ['bd'        , 'delete-buffer']   ,
+			"\ 'f' : ['bfirst'    , 'first-buffer']    ,
+			"\ 'h' : ['Startify'  , 'home-buffer']     ,
+			"\ 'l' : ['blast'     , 'last-buffer']     ,
+			"\ 'n' : ['bnext'     , 'next-buffer']     ,
+			"\ 'p' : ['bprevious' , 'previous-buffer'] ,
+			"\ '?' : ['Buffers'   , 'fzf-buffer']      ,
+			"\ }
+
+"let g:which_key_map.l = {
+			"\ 'name' : '+lsp',
+			"\ 'f' : ['LanguageClient#textDocument_formatting()'     , 'formatting']       ,
+			"\ 'h' : ['LanguageClient#textDocument_hover()'          , 'hover']            ,
+			"\ 'r' : ['LanguageClient#textDocument_references()'     , 'references']       ,
+			"\ 'R' : ['LanguageClient#textDocument_rename()'         , 'rename']           ,
+			"\ 's' : ['LanguageClient#textDocument_documentSymbol()' , 'document-symbol']  ,
+			"\ 'S' : ['LanguageClient#workspace_symbol()'            , 'workspace-symbol'] ,
+			"\ 'g' : {
+			"\ 'name': '+goto',
+			"\ 'd' : ['LanguageClient#textDocument_definition()'     , 'definition']       ,
+			"\ 't' : ['LanguageClient#textDocument_typeDefinition()' , 'type-definition']  ,
+			"\ 'i' : ['LanguageClient#textDocument_implementation()'  , 'implementation']  ,
+			"\ },
+			"\ }
+"注册键位与对应的 dict {{{4
+call which_key#register(',', "g:which_key_map")
+nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR
+
+" <space> key map {{{3
+let g:space_key_map =  {}
+
+call which_key#register('<Space>', "g:space_key_map")
+nnoremap <silent> <space> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <space> :<c-u>WhichKeyVisual '<Space>'<CR
+
+"除了 leader 和 localleader，如果想要提示其他键也可以：
+"let g:l_square_bracket_map =  {}
+"let g:r_square_bracket_map =  {}
+
+"call which_key#register('[', "g:l_square_bracket_map")
+"call which_key#register(']', "g:r_square_bracket_map")
+"nnoremap <silent> ] :<c-u>WhichKey ']'<CR>
+"nnoremap <silent> [ :<c-u>WhichKey '['<CR>
+
+
 " plugin_setting: vim-repl setting {{{2
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
 autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
