@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2019-12-09
-"    Version: v0.0.03
+" LastChange: 2020-01-11
+"    Version: v0.0.04
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -34,6 +34,9 @@ let plugin_use_vim_cpp_enhanced_highlight = 0
 
 
 let plugin_enalbe_rainbow_parentheses = 0
+
+let plugin_enable_Qt_highlight_support = 1
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin web addr: https://vimawesome.com/
@@ -87,9 +90,14 @@ let plugin_enalbe_rainbow_parentheses = 0
 		Plug 'octol/vim-cpp-enhanced-highlight'
 	endif
 
-	if plugin_enalbe_rainbow_parentheses == 1
+	if plugin_enable_rainbow_parentheses == 1
 		Plug 'kien/rainbow_parentheses.vim'
 	endif
+	
+	if plugin_enable_Qt_highlight_support == 1
+		Plug 'vim-scripts/cpp.vim'
+	endif
+
 
 	" Python代码补全插件
 	Plug 'davidhalter/jedi-vim', { 'for': 'python' }
