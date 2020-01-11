@@ -35,6 +35,8 @@ let plugin_use_vim_cpp_enhanced_highlight = 0
 
 let plugin_enalbe_rainbow_parentheses = 0
 
+let plugin_enalbe_Qt_highlight_support = 1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugin web addr: https://vimawesome.com/
 " plugin_manager {{{1
@@ -90,6 +92,11 @@ let plugin_enalbe_rainbow_parentheses = 0
 	if plugin_enalbe_rainbow_parentheses == 1
 		Plug 'kien/rainbow_parentheses.vim'
 	endif
+	
+	if plugin_enalbe_Qt_highlight_support == 1
+		Plug 'vim-scripts/cpp.vim'
+	endif
+
 
 	" Python代码补全插件
 	Plug 'davidhalter/jedi-vim', { 'for': 'python' }
