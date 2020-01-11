@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-01-11
-"    Version: v0.0.18
+"    Version: v0.0.19
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -755,7 +755,7 @@ let g:doxygen_enhanced_color=1
 
 " plugin_autocmd {{{1
 "plugin_autocmd: rainbow_parentheses.vim {{{2
-if plugin_enalbe_rainbow_parentheses == 1
+if plugin_enable_rainbow_parentheses == 1
 	au VimEnter * RainbowParenthesesToggle
 	au Syntax * RainbowParenthesesLoadRound
 	au Syntax * RainbowParenthesesLoadSquare
