@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2020-01-08
-"    Version: v0.0.11
+" LastChange: 2020-01-11
+"    Version: v0.0.12
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " SetTitle
@@ -191,6 +191,19 @@ endfunction
 
 function VersionInc(line)
 	let s:idx = strridx(a:line, 'v')
+	if s:idx == -1
+		let s:idx = strridx(a:line, ':')
+		let s:idx += 2
+		if strpart(a:line, s:idx, 1) == "V"
+			let s:capital = 1 "Vx.x.xx
+		else
+			echo "No Vx.x.xx or vx.x.xx found!!"
+			return
+		endif
+	else
+		let s:capital = 0 " vx.x.xx
+	endif
+
 	let s:major = str2nr(strpart(a:line, s:idx+1, 1), 10)
 	let s:minor = str2nr(strpart(a:line, s:idx+3, 1), 10)
 	let s:revise = str2nr(strpart(a:line, s:idx+5, 2), 10)
@@ -208,8 +221,12 @@ function VersionInc(line)
 		echo "warning: version > 9.9.99!!"
 	endif
 
-	"echo "v" s:major s:minor s:revise
-	let ver = "v" . s:major . "." . s:minor . "." . s:revise
+	if s:capital == 0
+		"echo "v" s:major s:minor s:revise
+		let ver = "v" . s:major . "." . s:minor . "." . s:revise
+	else
+		let ver = "V" . s:major . "." . s:minor . "." . s:revise
+	endif
 	"echo ver
 
 	normal gg
