@@ -89,11 +89,11 @@ let plugin_enalbe_Qt_highlight_support = 1
 		Plug 'octol/vim-cpp-enhanced-highlight'
 	endif
 
-	if plugin_enalbe_rainbow_parentheses == 1
+	if plugin_enable_rainbow_parentheses == 1
 		Plug 'kien/rainbow_parentheses.vim'
 	endif
 	
-	if plugin_enalbe_Qt_highlight_support == 1
+	if plugin_enable_Qt_highlight_support == 1
 		Plug 'vim-scripts/cpp.vim'
 	endif
 
