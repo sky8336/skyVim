@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-11
-"    Version: v0.0.19
+" LastChange: 2020-01-12
+"    Version: v0.0.20
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -716,25 +716,30 @@ vmap <silent> <leader>tr <Plug>TranslateRV
 " uncategorized_plugin setting end
 
 " other plugin settings {{{1
-" plugin_setting: vim-multiple-cursors {{{2
-" 多光标选中编辑
-" multiplecursors
-let g:multi_cursor_exit_from_visual_mode=1
-let g:multi_cursor_exit_from_insert_mode=1
-let g:multi_cursor_use_default_mapping=0
-" Default highlighting (see help :highlight and help :highlight-link)
-highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
-highlight link multiple_cursors_visual Visual
-" Default mapping
-let g:multi_cursor_start_word_key      = '<C-n>'
-let g:multi_cursor_select_all_word_key = 'g<C-a>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-m>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
-" vim-multiple-cursors end
+if plugin_enable_vim_multiple_cursors == 1
+	" plugin_setting: vim-multiple-cursors {{{2
+	" 多光标选中编辑
+	" multiplecursors
+	let g:multi_cursor_exit_from_visual_mode=1
+	let g:multi_cursor_exit_from_insert_mode=1
+	let g:multi_cursor_use_default_mapping=0
+	" Default highlighting (see help :highlight and help :highlight-link)
+	highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
+	highlight link multiple_cursors_visual Visual
+	" Default mapping
+	let g:multi_cursor_start_word_key      = '<C-n>'
+	let g:multi_cursor_select_all_word_key = 'g<C-a>'
+	let g:multi_cursor_start_key           = 'g<C-n>'
+	let g:multi_cursor_select_all_key      = 'g<A-n>'
+	let g:multi_cursor_next_key            = '<C-n>'
+	let g:multi_cursor_prev_key            = '<C-m>'
+	let g:multi_cursor_skip_key            = '<C-x>'
+	let g:multi_cursor_quit_key            = '<Esc>'
+	" vim-multiple-cursors end
+else
+	" vim-visual-multi
+	"
+endif
 
 " plugin_setting: vim-auto-save {{{2
 let g:auto_save = 1
