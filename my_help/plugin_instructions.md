@@ -1,8 +1,8 @@
 # plugin instructions
 - Maintainer: sky8336
 -    Created: 2019-08-25
-- LastChange: 2020-01-08
--    Version: V0.0.11
+- LastChange: 2020-01-12
+-    Version: V0.0.12
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态
@@ -1029,12 +1029,29 @@ b:tablify_cellRightPadding - default value is 1, number of spaces used for right
 	配合 ctrlsf 插件, 搜索后多光标直接编辑保存, 简直是重构神器
 
 ###example
-	(1) vi vimcfg_bundle/test/multiplecursors.c
-	(2) 光标放在old_sum上，按ctrl-n,选中当前光标下变量.（按esc 可退出该选中模式）
-	(3) 继续按ctrl-n, 选中下一个old_sum, 
-	(4) ctrl-m 代替ctrl-p(与搜索插件冲突), 尝试选中后，按<esc>
-	(5) 按g+Ctrl-a都选中(先按g,然后ctrl和a连续按,分别按g+ctrl+a显示ascii相关信息)
-	(6) 按下列之一编辑`c`, `s`, `I`, `A`
+1. vi vimcfg_bundle/test/multiplecursors.c
+2. 光标放在old_sum上，按ctrl-n,选中当前光标下变量.（按esc 可退出该选中模式）
+3. 继续按ctrl-n, 选中下一个old_sum,
+4. ctrl-m 代替ctrl-p(与搜索插件冲突), 尝试选中后，按<esc>
+5. 按g+Ctrl-a都选中(先按g,然后ctrl和a连续按,分别按g+ctrl+a显示ascii相关信息)
+6. 按下列之一编辑`c`, `s`, `I`, `A`
+
+## 32,  vim-visual-multi
+`:help visual-multi`
+
+After VM has started(Ctrl+n), you can also use the following mappings:
+- `n`     find next
+- `N`     find previous
+- `q`     skip and find next (or previous if searching backwards)
+- `]`     go to next
+- `[`     go to previous
+- `<C-f>` go to next (by page)
+- `<C-b>` go to previous (by page)
+
+ctrl+n 选中一个之后，VM就开始了，不需要按ctrl， 直接按上面字母即可<br/>
+
+NOTE: <C-n> behaves both as `find next` if pressed on an existing region, or
+`find word` otherwise, adding a new pattern.
 
 ## 33. vim-repl.sh {{{1
 - shell, python

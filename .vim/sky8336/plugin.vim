@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-11
-"    Version: v0.0.5
+" LastChange: 2020-01-12
+"    Version: v0.0.6
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -34,8 +34,8 @@ let plugin_use_vim_cpp_enhanced_highlight = 0
 
 
 let plugin_enable_rainbow_parentheses = 0
-
 let plugin_enable_Qt_highlight_support = 1
+let plugin_enable_vim_multiple_cursors = 0
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -93,7 +93,7 @@ let plugin_enable_Qt_highlight_support = 1
 	if plugin_enable_rainbow_parentheses == 1
 		Plug 'kien/rainbow_parentheses.vim'
 	endif
-	
+
 	if plugin_enable_Qt_highlight_support == 1
 		Plug 'vim-scripts/cpp.vim'
 	endif
@@ -165,7 +165,11 @@ let plugin_enable_Qt_highlight_support = 1
 	" uncategorized end
 
 	" vim_plug_setup:  other {{{3
-	Plug 'terryma/vim-multiple-cursors'
+	if plugin_enable_vim_multiple_cursors == 1
+		Plug 'terryma/vim-multiple-cursors'
+	else
+		Plug 'mg979/vim-visual-multi'
+	endif
 	Plug '907th/vim-auto-save'
 	Plug 'vim-scripts/DoxygenToolkit.vim'
 	"Plug 'L9'
