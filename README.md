@@ -1,17 +1,19 @@
 # skyVim - 一键安装超漂亮的vim配置
 - LastChange: 2020-01-12
--    Version: V0.1.53
+-    Version: V0.1.54
 
 ## About skyVim
-vim config for linux devices driver development and C development，C++, python/shell development<br/>
+1. vim config for linux devices driver development and C development，C++, qt, python/shell development<br/>
+2. development help document kits
 
 + 工具就是生产力，打造利器, 提高效率…  
-+ 针对vim8.1更新配置...
++ 针对vim8.2更新配置...
 + 记得点击右上角star…    
 
 - 适用于linux 内核/驱动开发的vim配置;  
-- 适用于c/c++的应用编程的vim配置;  
+- 适用于c/c++, qt的应用编程的vim配置;  
 - 适用于shell/python编程的vim配置;  
+- 适用于...
 
 [feature](https://github.com/sky8336/skyVim/blob/master/my_help/skyVim.md)
 
@@ -61,3 +63,10 @@ vim config for linux devices driver development and C development，C++, python/
 ## 3 vim Usage: 使用习惯及场景应用 -- 快速使用{{{1   
 [workflow tips](https://github.com/sky8336/skyVim/blob/master/my_help/workflow_tips.md)<br/>
 [vim command](https://github.com/sky8336/skyVim/blob/master/my_help/vim_command.md)
+[vim](https://github.com/sky8336/skyVim/tree/master/my_help/vim)
+
+## 4. others
+[git](https://github.com/sky8336/skyVim/tree/master/my_help/git)
+[ubuntu](https://github.com/sky8336/skyVim/tree/master/my_help/ubuntu)
+[debug](https://github.com/sky8336/skyVim/tree/master/my_help/debug)
+[program_language](https://github.com/sky8336/skyVim/tree/master/my_help/program_language)
