@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-01-12
-"    Version: v0.0.20
+"    Version: v0.0.21
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -319,7 +319,12 @@ let g:NERDTreeIndicatorMapCustom = {
 ""}}}
 
 
-if plugin_use_deoplete == 0
+if plugin_enable_coc == 1
+	"neoclide/coc.nvim
+	":Cocinstall coc-css
+elseif plugin_use_deoplete == 1
+	"shougo/deoplete.nvim
+else
 	" plugin_setting: OmniCppComplete.vim {{{2
 	"set nocp
 	"filetype plugin on

@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-01-11
-#    Version: v0.0.51
+# LastChange: 2020-01-12
+#    Version: v0.0.52
 #
 
 source ./common.sh
@@ -216,6 +216,10 @@ update_package()
 	echo "${FUNCNAME[0]}(): install some package using script in utils"
 	sudo cp ./utils/viman /usr/local/bin
 	sudo apt install silversearcher-ag ack --allow-unauthenticated 2>&1 > /dev/null
+
+	# for coc
+	#sudo curl -sL install-node.now.sh/lts | bash
+	#sudo curl -o- -L https://yarnpkg.com/install.sh | bash
 }
 
 #instal new plugin

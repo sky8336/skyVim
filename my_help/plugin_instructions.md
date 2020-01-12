@@ -2,7 +2,7 @@
 - Maintainer: sky8336
 -    Created: 2019-08-25
 - LastChange: 2020-01-12
--    Version: V0.0.12
+-    Version: V0.0.13
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态
@@ -1089,6 +1089,10 @@ https://vimawesome.com/plugin/vim-translate-me
 
 ## 38. DoxygenToolkit.vim
 `:Dox` 按table键跟出提示
+
+## 39. coc.nvim
+`:CocConfig`，打开配置文件
+
 
 ## 其他 {{{1
 (a)普通模式下:
