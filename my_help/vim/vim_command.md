@@ -1,8 +1,10 @@
 # vim 命令及使用技巧
-- LastChange: 2019-12-14
--    Version: V0.0.06
+- LastChange: 2020-01-12
+-    Version: V0.0.7
 
 ## 1. vim简介及设计理念说明： {{{1
+- 命令行输入 `vimtutor`: VIM Tutor
+- `:help usr_41.txt`: VIM USER MANUAL - Write a Vim script
 
 ### 1.1 vim简介
 + (1)可以用于在任何类型的终端上编辑各式各样的文件。
