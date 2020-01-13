@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-01-13
-"    Version: v0.0.22
+"    Version: v0.0.23
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -348,7 +348,7 @@ let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 " configure syntastic syntax checking to check on open as well as save
 let g:syntastic_mode_map = {
 			\ "mode": "passive",
-			\ "active_filetypes": ["ruby", "php"]
+			\ "active_filetypes": ["ruby", "php"],
 			\ "passive_filetypes": ["puppet"] }
 let g:syntastic_check_on_open=1
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
