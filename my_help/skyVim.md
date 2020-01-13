@@ -1,12 +1,13 @@
 # skyVim
 - Maintainer: sky8336
 -    Created: 2020-01-08
-- LastChange: 2020-01-11
--    Version: v0.0.4
+- LastChange: 2020-01-13
+-    Version: v0.0.5
 
 ## skyVim feature
 ### 无需插件实现
 - 多窗口跳转，自动放大活动窗口
+- 括号自动匹配, 满足多数情况使用需求:`', ", (, [, {, <`
 - 自动高亮光标所在变量
 - 多窗口，只有当前窗口所在行有下划线，非活动窗口无下划线且行号灰色
 - insert模式，绝对行号，当前行行号蓝色粗体，其余灰色
@@ -16,6 +17,8 @@
 - 80列处红色边界，提醒代码长度
 - 自动添加文件头, 支持shell, python, c/cpp/cc/h 文件
   - 添加的头的Filename, LastChange, Version 可以用快捷键更新
+    - TODO: .vimrc title version 自动更新
+- TODO: vim 按ESC 推出插入模式后，自动切换成英文输入法
 
 ### 借助插件实现的feature
 - ESC 也退出insert 模式，并保存
