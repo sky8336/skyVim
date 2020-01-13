@@ -1,6 +1,6 @@
 # git command
-- LastChange: 2019-12-12
--    Version: V0.0.34
+- LastChange: 2020-01-13
+-    Version: V0.0.35
 
 ## git clone
 ### Git Clone非22端口
@@ -44,6 +44,12 @@ git push origin :refs/tags/v0.7.5
 日期区间:
 	git log --before="2 weeks ago" --after="2016-05-20" --pretty=oneline
 	--查看5月20号之后，2个星期之前的提交内容
+
+- 某时间段内commit 数量
+`git log --since="2019.01.01" --until="2020.03.03" --pretty=oneline | wc -l`
+
+- 两个commit-id 间的commit数量
+`git log <commit-id1>^..<commit-id2> --pretty=oneline  | wc -l`
 
 贡献者过滤器:
 	--查看某个作者发起的提交：--author --commiter
