@@ -6,7 +6,7 @@
 "    Created: 2013-06-28
 "    Install: online
 " LastChange: 2020-01-13
-"    Version: v0.2.60
+"    Version: v0.2.61
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -215,7 +215,7 @@ cmap ,gk :call Generate_kernel_tags_cscope()<CR>
 " alt key_mappings {{{2
 " 设置方法:按下ctrl-v 后，输入alt-想设置的键
 " vim-autoformat
-nnoremap af :Autoformat<CR>
+nnoremap <leader>af :Autoformat<CR>
 
 " vimdiff hot keys {{{2
 " if you know the buffer number, you can use hot key like ",2"
@@ -328,18 +328,18 @@ inoremap jj <c-r>=SkipPair()<CR>
 
 " alt+key mapping {{{2
 " Delete key {{{3
-nnoremap d <DELETE>
-inoremap d <DELETE>
+"nnoremap d <DELETE>
+"inoremap d <DELETE>
 
 " insert mode 光标移动 {{{3
 " alt + k 插入模式下光标向上移动
-imap k <Up>
+"imap k <Up>
 " alt + j 插入模式下光标向下移动
-imap j <Down>
+"imap j <Down>
 " alt + h 插入模式下光标向左移动
-imap h <Left>
+"imap h <Left>
 " alt + l 插入模式下光标向右移动
-imap l <Right>
+"imap l <Right>
 
 " "cd" to change to open directory.{{{2
 let OpenDir=system("pwd")
@@ -361,10 +361,10 @@ nmap  <leader>f3 :exec 'MRU' expand('%:p:h')<CR>
 "<F4> vim-preview
 nmap  <F4> :PreviewTag<CR>
 nmap  <leader>f4 :PreviewTag<CR>
-noremap u :PreviewScroll -1<cr>
-noremap d :PreviewScroll +1<cr>
-inoremap u <c-\><c-o>:PreviewScroll -1<cr>
-inoremap d <c-\><c-o>:PreviewScroll +1<cr>
+noremap <leader>pu :PreviewScroll -1<cr>
+noremap <leader>pd :PreviewScroll +1<cr>
+inoremap <leader>pu <c-\><c-o>:PreviewScroll -1<cr>
+inoremap <leader>pd <c-\><c-o>:PreviewScroll +1<cr>
 
 "the keymap in quickfix window
 autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
