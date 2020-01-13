@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2020-01-06
-"    Version: v0.2.59
+" LastChange: 2020-01-13
+"    Version: v0.2.60
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -316,14 +316,14 @@ if version >= 800
 endif
 
 " 括号自动补全
-inoremap '<TAB> ''<ESC>i
-inoremap "<TAB> ""<ESC>i
-inoremap <<TAB> <><ESC>i
-inoremap (<TAB> ()<ESC>i
-inoremap [<TAB> []<ESC>i
-inoremap {<TAB> {<CR>}<ESC>O
+inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+inoremap < <><ESC>i
+inoremap ( ()<ESC>i
+inoremap [ []<ESC>i
+inoremap { {}<ESC>i
 
-" 将tab键绑定为跳出括号
+" 将 jj 键绑定为跳出括号
 inoremap jj <c-r>=SkipPair()<CR>
 
 " alt+key mapping {{{2
