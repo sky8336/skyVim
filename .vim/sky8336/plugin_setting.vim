@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-12
-"    Version: v0.0.21
+" LastChange: 2020-01-13
+"    Version: v0.0.22
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -324,34 +324,40 @@ if plugin_enable_coc == 1
 	":Cocinstall coc-css
 elseif plugin_use_deoplete == 1
 	"shougo/deoplete.nvim
+elseif plugin_enable_vim_lsp == 1
+	"plugin_setting: 'prabirshrestha/vim-lsp'
+	let g:lsp_diagnostics_enabled = 0 " disable diagnostics(e.g. warnings, errors) support
 else
-	" plugin_setting: OmniCppComplete.vim {{{2
-	"set nocp
-	"filetype plugin on
-	set completeopt=menu,menuone
-	let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
-	let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
-	let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
-	let OmniCpp_NamespaceSearch=1   " 打开命名空间
-	let OmniCpp_GlobalScopeSearch=1
-	let OmniCpp_DefaultNamespace=["std"]
-	let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
-	let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
-
-	" configure syntastic syntax checking to check on open as well as save
-	let g:syntastic_mode_map = {
-				\ "mode": "passive",
-				\ "active_filetypes": ["ruby", "php"],
-				\ "passive_filetypes": ["puppet"] }
-	let g:syntastic_check_on_open=1
-	let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-	let g:syntastic_always_populate_loc_list = 1
-	let g:syntastic_auto_loc_list = 1
-	let g:syntastic_check_on_wq = 0
-	set statusline+=%#warningmsg#
-	set statusline+=%{SyntasticStatuslineFlag()}
-	set statusline+=%*
+	"nothing
 endif
+
+" plugin_setting: OmniCppComplete.vim {{{2
+"set nocp
+"filetype plugin on
+set completeopt=menu,menuone
+let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
+let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
+let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
+let OmniCpp_NamespaceSearch=1   " 打开命名空间
+let OmniCpp_GlobalScopeSearch=1
+let OmniCpp_DefaultNamespace=["std"]
+let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
+let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
+
+" plugin_setting: syntastic{{{2
+" configure syntastic syntax checking to check on open as well as save
+let g:syntastic_mode_map = {
+			\ "mode": "passive",
+			\ "active_filetypes": ["ruby", "php"]
+			\ "passive_filetypes": ["puppet"] }
+let g:syntastic_check_on_open=1
+let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_wq = 0
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " language  plugin_setting:  {{{1
 " plugin_setting: language: vim-markdown {{{2
