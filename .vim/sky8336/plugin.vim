@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-12
-"    Version: v0.0.7
+" LastChange: 2020-01-13
+"    Version: v0.0.8
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -30,6 +30,8 @@ let plugin_use_neomake = 0
 
 let plugin_enable_coc = 0 " unfinished
 let plugin_use_deoplete = 0
+let plugin_enable_vim_lsp = 1
+
 
 let plugin_use_echodoc = 0
 let plugin_use_echofunc = 0
@@ -81,10 +83,18 @@ let plugin_enable_vim_multiple_cursors = 0
 		Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 	elseif plugin_use_deoplete == 1
 		Plug 'shougo/deoplete.nvim'
+	elseif plugin_enable_vim_lsp == 1
+		Plug 'prabirshrestha/async.vim'
+		Plug 'prabirshrestha/asyncomplete.vim'
+		Plug 'prabirshrestha/asyncomplete-lsp.vim'
+		Plug 'prabirshrestha/vim-lsp'
+		Plug 'mattn/vim-lsp-settings' "Auto configurations for Language Server for vim-lsp
 	else
-		Plug 'vim-scripts/AutoComplPop'
-		Plug 'vim-scripts/OmniCppComplete'
 	endif
+
+	Plug 'vim-scripts/AutoComplPop'
+	Plug 'vim-scripts/OmniCppComplete'
+
 	if plugin_use_ultisnips == 1
 		Plug 'SirVer/ultisnips'
 		Plug 'honza/vim-snippets'

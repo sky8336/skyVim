@@ -1,8 +1,8 @@
 # plugin instructions
 - Maintainer: sky8336
 -    Created: 2019-08-25
-- LastChange: 2020-01-12
--    Version: V0.0.13
+- LastChange: 2020-01-13
+-    Version: V0.0.14
 
 ## vim-plug 命令
     :PlugStatus		- 	检查状态
@@ -1092,6 +1092,8 @@ https://vimawesome.com/plugin/vim-translate-me
 
 ## 39. coc.nvim
 `:CocConfig`，打开配置文件
+## 40. vim-lsp and mattn/vim-lsp-settings
+`:LspInstallServer`
 
 
 ## 其他 {{{1
