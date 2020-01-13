@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-01-13
-"    Version: v0.0.24
+"    Version: v0.0.25
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -344,20 +344,26 @@ let OmniCpp_DefaultNamespace=["std"]
 let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
 let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 
-" plugin_setting: syntastic{{{2
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_mode_map = {
-			\ "mode": "passive",
-			\ "active_filetypes": ["ruby", "php", "c", "cpp"],
-			\ "passive_filetypes": ["puppet"] }
-let g:syntastic_check_on_open=0
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_wq = 0
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+if plugin_use_neomake == 1
+	"neomake/neomake
+elseif plugin_enable_syntastic == 1
+	"'scrooloose/syntastic'
+	" plugin_setting: syntastic{{{2
+	" configure syntastic syntax checking to check on open as well as save
+	let g:syntastic_mode_map = {
+				\ "mode": "passive",
+				\ "active_filetypes": ["ruby", "php", "c", "cpp"],
+				\ "passive_filetypes": ["puppet"] }
+	let g:syntastic_check_on_open=0
+	let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
+	let g:syntastic_always_populate_loc_list = 1
+	let g:syntastic_auto_loc_list = 1
+	let g:syntastic_check_on_wq = 0
+	set statusline+=%#warningmsg#
+	set statusline+=%{SyntasticStatuslineFlag()}
+	set statusline+=%*
+else
+endif
 
 " language  plugin_setting:  {{{1
 " plugin_setting: language: vim-markdown {{{2

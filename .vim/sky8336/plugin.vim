@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-01-13
-"    Version: v0.0.8
+"    Version: v0.0.9
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -27,6 +27,7 @@ else
 endif
 
 let plugin_use_neomake = 0
+let plugin_enable_syntastic = 0
 
 let plugin_enable_coc = 0 " unfinished
 let plugin_use_deoplete = 0
@@ -56,8 +57,9 @@ let plugin_enable_vim_multiple_cursors = 0
 	Plug 'tpope/vim-fugitive'
 	if plugin_use_neomake == 1
 		Plug 'neomake/neomake'
-	else
+	elseif plugin_enable_syntastic == 1
 		Plug 'scrooloose/syntastic'
+	else
 	endif
 	Plug 'plasticboy/vim-markdown'
 	Plug 'scrooloose/nerdcommenter'
