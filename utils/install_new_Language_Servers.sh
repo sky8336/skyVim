@@ -10,7 +10,7 @@
 # Maintainer: eric <eric@email.com>
 #    Created: 2020-01-13
 # LastChange: 2020-01-13
-#    Version: v0.0.01
+#    Version: v0.0.2
 #
 
 source ~/.bashrc
@@ -43,7 +43,12 @@ install_lsp()
 		if [[ -d ${language[i]} ]]; then
 			log_str="[${language[i]}] Language Server already exist. "
 		else
-			vi main.${language[i]} +LspInstallServer +qall
+			if [[ -d "/usr/local/vim" ]]; then
+				/usr/local/vim/bin/vim main.${language[i]} +LspInstallServer +qall
+			else
+				vim main.${language[i]} +LspInstallServer +qall
+			fi
+
 			log_str="install language[$i] Language Server: ${language[i]} ... done"
 			sleep 1
 		fi
@@ -56,5 +61,3 @@ install_lsp()
 }
 
 install_lsp
-
-
