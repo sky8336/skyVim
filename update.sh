@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-01-12
-#    Version: v0.0.52
+# LastChange: 2020-01-13
+#    Version: v0.0.53
 #
 
 source ./common.sh
@@ -341,6 +341,7 @@ main()
 		echo -e "vim config setup -- done.\n"
 		show_logo
 		echo -e "You better execure the following command:\n\t 'source ~/.bashrc'"
+		echo "run ./utils/install_new_Language_Servers.sh to install language servers"
 	else
 		echo "invalid  parameter."
 	fi
