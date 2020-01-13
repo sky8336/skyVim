@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-01-12
-"    Version: v0.0.6
+"    Version: v0.0.7
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -27,7 +27,10 @@ else
 endif
 
 let plugin_use_neomake = 0
+
+let plugin_enable_coc = 0 " unfinished
 let plugin_use_deoplete = 0
+
 let plugin_use_echodoc = 0
 let plugin_use_echofunc = 0
 let plugin_use_vim_cpp_enhanced_highlight = 0
@@ -68,8 +71,17 @@ let plugin_enable_vim_multiple_cursors = 0
 	"Plug 'Valloric/YouCompleteMe'
 	"Plug 'Shougo/neocomplete.vim'
 	"Plug 'rstacruz/sparkup'
-	"Plug 'neoclide/coc.nvim'
-	if plugin_use_deoplete == 0
+	if plugin_enable_coc == 1
+		"Plug 'neoclide/coc.nvim', {'branch': 'release'} "Use release branch (recommended)
+		Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+		"Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} "Build from source code
+		Plug 'neoclide/coc-lists', {'do': 'yarn install --frozen-lockfile'}
+		Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+		Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+		Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
+	elseif plugin_use_deoplete == 1
+		Plug 'shougo/deoplete.nvim'
+	else
 		Plug 'vim-scripts/AutoComplPop'
 		Plug 'vim-scripts/OmniCppComplete'
 	endif
@@ -78,9 +90,6 @@ let plugin_enable_vim_multiple_cursors = 0
 		Plug 'honza/vim-snippets'
 	else
 		Plug 'msanders/snipmate.vim'
-	endif
-	if plugin_use_deoplete == 1
-		Plug 'shougo/deoplete.nvim'
 	endif
 
 	" completion end
