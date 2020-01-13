@@ -1,6 +1,6 @@
 # skyVim - 一键安装超漂亮的vim配置
-- LastChange: 2020-01-12
--    Version: V0.1.55
+- LastChange: 2020-01-13
+-    Version: V0.1.56
 
 ## About skyVim
 1. vim config for linux devices driver development and C development，C++, qt, python/shell development<br/>
@@ -15,7 +15,8 @@
 - 适用于shell/python编程的vim配置;  
 - 适用于...
 
-[feature](https://github.com/sky8336/skyVim/blob/master/my_help/skyVim.md)
+[feature](https://github.com/sky8336/skyVim/blob/master/my_help/skyVim.md)<br/>
+some skyVim pictures:[超漂亮 vim 配置：skyVim](https://blog.csdn.net/sky8336/article/details/91351221)
 
 ## 1. Install and update {{{1
 
