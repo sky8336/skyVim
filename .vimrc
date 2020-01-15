@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2020-01-13
-"    Version: v0.2.61
+" LastChange: 2020-01-15
+"    Version: v0.2.62
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -560,7 +560,7 @@ function s:Set_focus_window()
 		set cul
 		"set nocul
 	augroup END
-
+	checktime
 endfunction
 
 " define a shortcut key for enabling/disabling auto resize focus window:
@@ -600,6 +600,8 @@ function s:Set_InsertEnter_Window()
 
 	" Insert mode: the line number is norelativenumber
 	set nornu
+
+	checktime
 
 	" Window resizing
 	"vertical res 99
