@@ -6,7 +6,7 @@
 "    Created: 2013-06-28
 "    Install: online
 " LastChange: 2020-01-15
-"    Version: v0.2.63
+"    Version: v0.2.64
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -626,5 +626,10 @@ endif
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 "It will open a vimdiff-like window with the current buffer and the underlying file highlighting all of the changes between the two.
+" :h vimrc_example
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 			\ | wincmd p | diffthis
+
+" :map messages output to ~/.vim/map.txt
+command -nargs=? Rmap redir! > ~/.vim/map.txt | silent map | redir END
+
