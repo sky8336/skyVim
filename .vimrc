@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2020-01-15
-"    Version: v0.2.64
+" LastChange: 2020-01-16
+"    Version: v0.2.65
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -491,7 +491,7 @@ map ta :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 " define a shortcut key for enabling/disabling highlighting:
 nnoremap  <C-\><F3> :exe "let g:HlUnderCursor=exists(\"g:HlUnderCursor\")?g:HlUnderCursor*-1+1:1"<CR>
 
-map \ :call ShowFuncName()<CR>
+map <leader>\ :call ShowFuncName()<CR>
 nmap  <leader>m :MRU
 " SHORTCUT_SETTINGS end
 """"""""""""""""""""""""""""""

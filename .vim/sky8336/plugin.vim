@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-13
-"    Version: v0.0.9
+" LastChange: 2020-01-16
+"    Version: v0.0.10
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -33,6 +33,7 @@ let plugin_enable_coc = 0 " unfinished
 let plugin_use_deoplete = 0
 let plugin_enable_vim_lsp = 1
 
+let plugin_enable_bufferhint = 1
 
 let plugin_use_echodoc = 0
 let plugin_use_echofunc = 0
@@ -145,6 +146,11 @@ let plugin_enable_vim_multiple_cursors = 0
 		Plug 'tacahiroy/ctrlp-funky'
 	endif
 	Plug 'jlanzarotta/bufexplorer'
+
+	if plugin_enable_bufferhint == 1
+		Plug 'bsdelf/bufferhint'
+	endif
+
 	Plug 'airblade/vim-gitgutter'
 	Plug 'mbbill/undotree'
 	"Plug 'godlygeek/tabular'

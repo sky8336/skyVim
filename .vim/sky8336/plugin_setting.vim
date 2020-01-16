@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-13
-"    Version: v0.0.25
+" LastChange: 2020-01-16
+"    Version: v0.0.26
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -527,6 +527,12 @@ endif
 "<Leader>bs　　水平窗口打来 buffer 列表。
 "<Leader>bv　　垂直窗口打开 buffer 列表。
 
+
+" plugin_setting: bsdelf/bufferhint {{{2
+if plugin_enable_bufferhint == 1
+	nnoremap - :call bufferhint#Popup()<cr>
+	nnoremap \ :call bufferhint#LoadPrevious()<cr>
+endif
 
 " plugin_setting: interface: vim-gitgutter {{{2
 " determines how long (in milliseconds) the plugin will wait after you stop
