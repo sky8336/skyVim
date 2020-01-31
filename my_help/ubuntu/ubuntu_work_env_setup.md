@@ -62,6 +62,10 @@ virtualbox 装win10
 ### 播放器
 - vlc
 
+### krusader : tool like TotalCommander on windows
+- apt-get install krusader
+
+
 ### editors
 #### vim8.1
 #### Visual Studio Code
