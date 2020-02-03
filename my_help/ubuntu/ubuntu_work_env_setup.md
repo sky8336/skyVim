@@ -1,6 +1,6 @@
 # ubuntu work environment setup
-- LastChange: 2020-01-03
--    Version: V0.0.13
+- LastChange: 2020-02-01
+-    Version: V0.0.14
 
 可替代windows 环境的工具
 
@@ -61,6 +61,10 @@ virtualbox 装win10
 
 ### 播放器
 - vlc
+
+### krusader : tool like TotalCommander on windows
+- apt-get install krusader
+
 
 ### editors
 #### vim8.1
