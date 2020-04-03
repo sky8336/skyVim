@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-04-01
-#    Version: v0.0.72
+# LastChange: 2020-04-03
+#    Version: v0.0.73
 #
 
 source ./common.sh
@@ -208,8 +208,12 @@ function build_vim_from_source()
 				--enable-perlinterp \
 				--enable-luainterp \
 				--enable-gui=gtk2 --enable-cscope --prefix=/usr > /dev/null
+
+			local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}')
+			local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
+
 			echo -n ">> vim: make ... "
-			make VIMRUNTIMEDIR=/usr/share/vim/vim81 > /dev/null
+			make VIMRUNTIMEDIR=/usr/share/vim/vim${major}${minor} > /dev/null
 			echo "done!"
 			echo -n ">> vim: make install ... "
 			sudo make install > /dev/null
