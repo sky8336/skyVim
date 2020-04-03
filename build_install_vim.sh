@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-08-17
-# LastChange: 2019-12-31
-#    Version: v0.0.17
+# LastChange: 2020-04-03
+#    Version: v0.0.18
 #
 
 source ./utils.sh
@@ -177,7 +177,10 @@ build_vim_repo()
 			--enable-luainterp \
 			--enable-gui=gtk2 --enable-cscope --prefix=/usr
 
-		make VIMRUNTIMEDIR=/usr/share/vim/$new_vim
+		local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}')
+		local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
+
+		make VIMRUNTIMEDIR=/usr/share/vim/vim${major}${minor}
 	elif [[ $vim_version = "v8.1" || $vim_version = "v8.2" ]]; then
 		blue_log "build $vim_version"
 		# vim8.1 config
@@ -188,8 +191,11 @@ build_vim_repo()
 			--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
 			--prefix=/usr/local/vim
 
+		local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}')
+		local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
+
 		#make VIMRUNTIMEDIR=/usr/local/vim/$new_vim
-		make VIMRUNTIMEDIR=/usr/local/vim/share/vim/$new_vim
+		make VIMRUNTIMEDIR=/usr/local/vim/share/vim/vim${major}${minor}
 
 		# 编译时相关参数说明:
 		# --with-features=huge：支持最大特性
