@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-01-03
-#    Version: v0.0.71
+# LastChange: 2020-04-01
+#    Version: v0.0.72
 #
 
 source ./common.sh
@@ -90,6 +90,7 @@ function bakup_vimconfig()
 }
 
 packages=(
+	vim
 	curl
 	exuberant-ctags
 	cscope
@@ -403,6 +404,10 @@ function install_plugin_mgr_and_plugin()
 				sudo apt-get install curl --allow-unauthenticated 2>&1 > /dev/null
 			fi
 			curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+			if [ $? -ne 0 ];then
+				cp .vimcfg_offline/.vim/autoload/plug.vim ~/.vim/autoload/
+			fi
 		fi
 
 		if [[ $vim_in_usr_local -eq 1 ]]; then
