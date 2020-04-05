@@ -30,7 +30,7 @@ color mycolor
 if &diff
 	"colorscheme blue
 	"colorscheme default
-	"colorscheme murphy
+	colorscheme murphy
 	"colorscheme peachpuff
 	"colorscheme ron
 	"colorscheme torte
