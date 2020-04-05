@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2019-09-04
-"    Version: v0.0.06
+" LastChange: 2020-04-05
+"    Version: v0.0.7
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 生成tags.fn,tags,cscope数据库: 正常生成tags和cscope
@@ -108,6 +108,9 @@ function! FindTags(f)
 		if filereadable(dir . '/tags')
 			exe 'set tags =' . dir . '/tags'
 			let break = 1
+		" else add tags database pointed to by environment
+		elseif $CTAG_DB != ""
+			exe 'set tags+=$CTAG_DB'
 		elseif dir == '/'
 			break
 		endif
@@ -136,6 +139,9 @@ if has("cscope")
 	set nocsverb
 	if filereadable("cscope.out")
 		cs add cscope.out
+	" else add cscope database pointed to by environment
+	elseif $CSCOPE_DB != ""
+		cs add $CSCOPE_DB
 	else
 		call AutoLoadCTagsAndCScope()
 	endif
