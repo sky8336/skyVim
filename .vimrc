@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2020-01-16
-"    Version: v0.2.65
+" LastChange: 2020-04-18
+"    Version: v0.2.66
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -288,6 +288,7 @@ nmap <space>zz <C-w>o
 nmap <space>hm :tabnew ~/.vim/README.md<cr>
 nmap <space>hd :tabnew ~/.vim/my_help/<cr>
 nmap <space>hu :tabnew ~/.vim/my_help/ubuntu<cr>
+nmap <space>hk :tabnew ~/.vim/my_help/key_map.txt<cr>
 "<space>zz  关闭光标所在窗口之外的其他所有窗口
 "<space>hm  tab标签页,打开帮助文档README.md
 "<space>hd  tab标签页,打开my_help directory，可选择需要帮助文档
@@ -631,5 +632,5 @@ command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 			\ | wincmd p | diffthis
 
 " :map messages output to ~/.vim/map.txt
-command -nargs=? Rmap redir! > ~/.vim/map.txt | silent map | redir END
+command -nargs=? Rmap redir! > ~/.vim/my_help/key_map.txt | silent map | redir END
 
