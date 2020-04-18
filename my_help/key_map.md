@@ -1,10 +1,11 @@
 # key map
 - LastChange: 2020-04-18
--    Version: V0.0.10
+-    Version: V0.0.11
 
 ## help
-`:Rmap` - generate or update your key_map.txt
-`<space>hk` - open key_map.txt when you want to know some key map
+`:Rmap` - generate or update your key_map.txt<br/>
+`<space>hk` - open key_map.txt when you want to know some key map<br/>
+`\` - Load Previous buffer<br/>
 
 
 ## Note
