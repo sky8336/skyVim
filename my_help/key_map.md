@@ -1,6 +1,11 @@
 # key map
-- LastChange: 2019-12-06
--    Version: V0.0.09
+- LastChange: 2020-04-18
+-    Version: V0.0.10
+
+## help
+`:Rmap` - generate or update your key_map.txt
+`<space>hk` - open key_map.txt when you want to know some key map
+
 
 ## Note
 - 禁止使用<c-m> 映射，因为与 enter 联系起来，会导致按enter 调用映射的功能<br/>
