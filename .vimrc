@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2020-04-18
-"    Version: v0.2.66
+" LastChange: 2020-04-19
+"    Version: v0.2.67
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -261,6 +261,19 @@ nmap <space>wk :res -15<CR>
 
 nmap <space>vr :vertical res 99<CR>
 nmap <space>hr :res 25<CR>
+
+" buffer switch {{{3
+nmap <space>ls :ls<CR>
+nmap <space>b1 :b1<CR>
+nmap <space>b2 :b2<CR>
+nmap <space>b3 :b3<CR>
+nmap <space>b4 :b4<CR>
+nmap <space>b5 :b5<CR>
+nmap <space>b6 :b6<CR>
+nmap <space>b7 :b7<CR>
+nmap <space>b8 :b8<CR>
+nmap <space>b9 :b9<CR>
+nmap <space>bb :b 
 
 nmap <space>bn :bn<CR>
 nmap <space>bp :bp<CR>

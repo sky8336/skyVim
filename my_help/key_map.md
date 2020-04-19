@@ -1,12 +1,13 @@
 # key map
-- LastChange: 2020-04-18
--    Version: V0.0.11
+- LastChange: 2020-04-19
+-    Version: V0.0.12
 
 ## help
 `:Rmap` - generate or update your key_map.txt<br/>
 `<space>hk` - open key_map.txt when you want to know some key map<br/>
 `\` - Load Previous buffer<br/>
-
+`<space>b1`~`<space>b9` - jump buffer1 ~ buffer9
+`<space>bb` - `:b `
 
 ## Note
 - 禁止使用<c-m> 映射，因为与 enter 联系起来，会导致按enter 调用映射的功能<br/>
