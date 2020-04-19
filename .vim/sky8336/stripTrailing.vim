@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 "------------------------------
-" LastChange: 2020-04-18
-"    Version: v0.0.2
+" LastChange: 2020-04-19
+"    Version: v0.0.3
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! WhitespaceStripTrailing()
@@ -19,6 +19,6 @@ function! WhitespaceStripTrailing()
 endfunction
 
 " whitespace  去除文件的行尾空白, issue: macro
-"autocmd BufWritePre *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc call WhitespaceStripTrailing()
+"autocmd BufWritePre *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py call WhitespaceStripTrailing()
 
-autocmd WinLeave,BufLeave *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py,*.vimrc call WhitespaceStripTrailing()
+autocmd WinLeave,BufLeave *.cpp,*.c,*.h,*.hpp,*.cc,*.cxx,*.sh,*.py call WhitespaceStripTrailing()
