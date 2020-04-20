@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-04-03
-#    Version: v0.0.73
+# LastChange: 2020-04-20
+#    Version: v0.0.74
 #
 
 source ./common.sh
@@ -42,12 +42,12 @@ ret_codes=(
 )
 
 examples=(
-"`basename $0` $skip_nothing	-	skip_nothing
-		`basename $0` $skip_install_packages	-	skip_install_packages
-		`basename $0` $skip_install_vim	-	skip_install_vim
-		`basename $0` $skip_install_bundle_and_plugin	-	skip_install_bundle_and_plugin
-		`basename $0` $skip_install_packages_and_vim	-	skip_install_packages_and_vim [opt$skip_install_packages + opt$skip_install_vim]
-		`basename $0` $skip_insatall_packages_vim_bundle_plugin	-	skip_insatall_packages_vim_bundle_plugin [opt$skip_install_packages + opt$skip_install_vim + opt$skip_install_bundle_and_plugin]"
+"`basename $0` $skip_nothing - skip_nothing
+		`basename $0` $skip_install_packages - skip_install_packages
+		`basename $0` $skip_install_vim - skip_install_vim
+		`basename $0` $skip_install_bundle_and_plugin - skip_install_bundle_and_plugin
+		`basename $0` $skip_install_packages_and_vim - skip_install_packages_and_vim [opt$skip_install_packages + opt$skip_install_vim]
+		`basename $0` $skip_insatall_packages_vim_bundle_plugin - skip_insatall_packages_vim_bundle_plugin [opt$skip_install_packages + opt$skip_install_vim + opt$skip_install_bundle_and_plugin]"
 )
 
 #####
@@ -129,7 +129,7 @@ function install_packages()
 		if which ${packages[i]} > /dev/null ; then
 			local log_str="${packages[i]} already installed."
 		else
-			sudo apt-get install ${packages[i]} --allow-unauthenticated 2>&1 > /dev/null
+			sudo apt-get install ${packages[i]} --allow-unauthenticated
 			local log_str="Install packages[$i]: ${packages[i]} ... done"
 		fi
 		let prog+=5
@@ -359,7 +359,7 @@ function config_vim()
 		# which we built from source
 		update_bashrc_my
 
-		local vim_syntax_c=/usr/local/vim/share/vim/vim81/syntax/c.vim
+		local vim_syntax_c=/usr/local/vim/share/vim/vim82/syntax/c.vim
 		grep "my_vim_highlight_config" ${vim_syntax_c}
 		if [ $? -eq 0 ]; then
 			echo "Found! c.vim have been modified."
@@ -370,21 +370,15 @@ function config_vim()
 	fi
 
 	vim81_c_vim="/usr/share/vim/vim81/syntax/c.vim"
-	vim80_c_vim="/usr/share/vim/vim80/syntax/c.vim"
-	vim74_c_vim="/usr/share/vim/vim74/syntax/c.vim"
-	vim73_c_vim="/usr/share/vim/vim73/syntax/c.vim"
 	vim81_c_vim_usr_local="/usr/local/vim/share/vim/vim81/syntax/c.vim"
+	vim82_c_vim_usr_local="/usr/local/vim/share/vim/vim82/syntax/c.vim"
 
-	if [ -f "$vim81_c_vim_usr_local" ]; then
+	if [ -f "$vim82_c_vim_usr_local" ]; then
+		add_hilight_code_to_c_vim $vim82_c_vim_usr_local
+	elif [ -f "$vim81_c_vim_usr_local" ]; then
 		add_hilight_code_to_c_vim $vim81_c_vim_usr_local
 	elif [ -f "$vim81_c_vim" ]; then
 		add_hilight_code_to_c_vim $vim81_c_vim
-	elif [ -f "$vim80_c_vim" ]; then
-		add_hilight_code_to_c_vim $vim80_c_vim
-	elif [ -f "$vim74_c_vim" ]; then
-		add_hilight_code_to_c_vim $vim74_c_vim
-	elif [ -f "$vim73_c_vim" ]; then
-		add_hilight_code_to_c_vim $vim73_c_vim
 	fi
 	let prog+=$step
 	progress_log $prog "${FUNCNAME[0]} ... done"
