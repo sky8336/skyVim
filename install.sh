@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2020-04-20
-#    Version: v0.0.75
+#    Version: v0.0.76
 #
 
 source ./common.sh
@@ -26,7 +26,7 @@ skip_install_vim="2"
 skip_install_bundle_and_plugin="3"
 skip_install_packages_and_vim="4"
 skip_insatall_packages_vim_bundle_plugin="5"
-opt_num_max=6
+opt_num_max=$skip_insatall_packages_vim_bundle_plugin
 
 # show_usage Specify content
 usage=(
