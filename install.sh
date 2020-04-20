@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2020-04-20
-#    Version: v0.0.74
+#    Version: v0.0.75
 #
 
 source ./common.sh
@@ -200,16 +200,15 @@ function build_vim_from_source()
 				cd /tmp/vim/
 			fi
 
-			./configure --with-features=huge \
-				--enable-multibyte \
-				--enable-rubyinterp \
-				--enable-pythoninterp \
-				--with-python-config-dir=/usr/lib/python2.7/config \
-				--enable-perlinterp \
-				--enable-luainterp \
-				--enable-gui=gtk2 --enable-cscope --prefix=/usr > /dev/null
+		# vim8.1/vim8.2 config
+		./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
+			--enable-pythoninterp --enable-python3interp --enable-luainterp \
+			--enable-cscope --enable-gui=gtk3 --enable-perlinterp \
+			--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ \
+			--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
+			--prefix=/usr/local/vim
 
-			local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}')
+			local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}'| sed 's/^[ \t]*//g')
 			local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
 
 			echo -n ">> vim: make ... "

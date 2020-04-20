@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-08-17
-# LastChange: 2020-04-03
-#    Version: v0.0.18
+# LastChange: 2020-04-20
+#    Version: v0.0.19
 #
 
 source ./utils.sh
@@ -46,15 +46,15 @@ ret_codes=(
 )
 
 examples=(
-"`basename $0` $opt_dependent	-	install dependent package
-		`basename $0` $opt_clone	-	git clone vim
-		`basename $0` $opt_update	-	update vim source
-		`basename $0` $opt_build	-	build vim source
-		`basename $0` $opt_install	-	install_vim_built
-		`basename $0` $opt_build_install	-	build and install
-		`basename $0` $opt_clone_build_install	-	clone, build and install
-		`basename $0` $opt_update_build_install	-	update, build and install
-		`basename $0` $update_bashrc_my	-	update .bashrc_my for vim built from source"
+"`basename $0` $opt_dependent - install dependent package
+		`basename $0` $opt_clone - git clone vim
+		`basename $0` $opt_update - update vim source
+		`basename $0` $opt_build - build vim source
+		`basename $0` $opt_install - install_vim_built
+		`basename $0` $opt_build_install - build and install
+		`basename $0` $opt_clone_build_install - clone, build and install
+		`basename $0` $opt_update_build_install - update, build and install
+		`basename $0` $update_bashrc_my - update .bashrc_my for vim built from source"
 )
 
 #modify vim version here
@@ -177,13 +177,13 @@ build_vim_repo()
 			--enable-luainterp \
 			--enable-gui=gtk2 --enable-cscope --prefix=/usr
 
-		local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}')
+		local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}'| sed 's/^[ \t]*//g')
 		local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
 
 		make VIMRUNTIMEDIR=/usr/share/vim/vim${major}${minor}
 	elif [[ $vim_version = "v8.1" || $vim_version = "v8.2" ]]; then
 		blue_log "build $vim_version"
-		# vim8.1 config
+		# vim8.1/vim8.2 config
 		./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
 			--enable-pythoninterp --enable-python3interp --enable-luainterp \
 			--enable-cscope --enable-gui=gtk3 --enable-perlinterp \
@@ -191,7 +191,7 @@ build_vim_repo()
 			--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
 			--prefix=/usr/local/vim
 
-		local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}')
+		local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}' | sed 's/^[ \t]*//g')
 		local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
 
 		#make VIMRUNTIMEDIR=/usr/local/vim/$new_vim
