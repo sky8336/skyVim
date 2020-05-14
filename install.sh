@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-04-20
-#    Version: v0.0.76
+# LastChange: 2020-05-14
+#    Version: v0.0.77
 #
 
 source ./common.sh
@@ -201,18 +201,19 @@ function build_vim_from_source()
 			fi
 
 		# vim8.1/vim8.2 config
+			local location=/usr/local
 		./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
 			--enable-pythoninterp --enable-python3interp --enable-luainterp \
 			--enable-cscope --enable-gui=gtk3 --enable-perlinterp \
 			--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ \
 			--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
-			--prefix=/usr/local/vim
+			--prefix=$location/vim
 
 			local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}'| sed 's/^[ \t]*//g')
 			local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
 
 			echo -n ">> vim: make ... "
-			make VIMRUNTIMEDIR=/usr/share/vim/vim${major}${minor} > /dev/null
+			make VIMRUNTIMEDIR=$location/vim/share/vim/vim${major}${minor} > /dev/null
 			echo "done!"
 			echo -n ">> vim: make install ... "
 			sudo make install > /dev/null
@@ -508,7 +509,7 @@ function set_cfg_for_winmanager()
 	patch ~/.vim/bundle/taglist.vim/plugin/taglist.vim < ./.self_mod/.plugin_patch/taglist_vim.patch
 }
 
-# !!note:y ou can modify force_build_vim to build vim from source
+# !!note: you can modify force_build_vim to build vim from source
 force_build_vim=0
 
 main()
@@ -555,6 +556,14 @@ main()
 	else
 		echo "do nothing"
 		exit
+	fi
+
+	if [ ! -z $2 ]; then
+		if [ $2 -eq "1" ]; then
+			echo "force build vim from source code!"
+			force_build_vim=1
+		fi
+
 	fi
 
 
