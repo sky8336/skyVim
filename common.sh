@@ -9,8 +9,8 @@
 #
 # Maintainer: eric <eric@email.com>
 #    Created: 2019-12-31
-# LastChange: 2019-12-31
-#    Version: v0.0.01
+# LastChange: 2020-05-14
+#    Version: v0.0.2
 #
 
 source ./utils.sh
@@ -100,3 +100,61 @@ update_bashrc_my()
 	echo "update .bashrc_my and .gitconfig -- done"
 }
 
+build_vim_source_code()
+{
+	local pkgs=(
+		libncurses5-dev
+		libgnome2-dev
+		libgnomeui-dev
+		libgtk2.0-dev
+		libatk1.0-dev
+		libbonoboui2-dev
+		libcairo2-dev
+		libx11-dev
+		libxpm-dev
+		libxt-dev
+		python-dev
+		python3-dev
+		ruby-dev
+		lua5.1
+		lua5.1-dev
+	)
+
+	for item in ${pkgs[@]}
+	do
+		echo -n ">> install $item ... "
+		yes | sudo apt-get --allow-unauthenticated install $item 2>&1 > /dev/null
+		echo "done!"
+	done
+
+
+	# vim8.1/vim8.2 config
+	local location=/usr/local
+
+	./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
+		--enable-pythoninterp --enable-python3interp --enable-luainterp \
+		--enable-cscope --enable-gui=gtk3 --enable-perlinterp \
+		--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ \
+		--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
+		--prefix=$location/vim
+
+	# 编译时相关参数说明:
+	# --with-features=huge：支持最大特性
+	# --enable-rubyinterp：打开对 ruby 编写的插件的支持
+	# --e--enable-pythoninterp：打开对 python 编写的插件的支持
+	# --e--enable-python3interp：打开对 python3 编写的插件的支持
+	# --e--enable-luainterp：打开对 lua 编写的插件的支持
+	# --e--enable-perlinterp：打开对 perl 编写的插件的支持
+	# --e--enable-multibyte：打开多字节支持，可以在 Vim 中输入中文
+	# --e--enable-cscope：打开对cscope的支持
+	# --e--enable-gui=gtk3 表示生成采用 GNOME3 风格的 gvim
+	# --e--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ 指定 python 路径
+	# --e--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ 指定 python3路径
+	# --e--prefix=/usr/local/vim：指定将要安装到的路径
+
+	local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}' | sed 's/^[ \t]*//g')
+	local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
+
+	echo -n ">> vim: make ... "
+	make VIMRUNTIMEDIR=$location/vim/share/vim/vim${major}${minor} > /dev/null
+}

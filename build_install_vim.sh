@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-08-17
-# LastChange: 2020-04-20
-#    Version: v0.0.20
+# LastChange: 2020-05-14
+#    Version: v0.0.21
 #
 
 source ./common.sh
@@ -126,33 +126,9 @@ build_vim_repo()
 
 	if [[ $vim_version = "v8.1" || $vim_version = "v8.2" ]]; then
 		blue_log "build $vim_version"
-		# vim8.1/vim8.2 config
-		./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
-			--enable-pythoninterp --enable-python3interp --enable-luainterp \
-			--enable-cscope --enable-gui=gtk3 --enable-perlinterp \
-			--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ \
-			--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
-			--prefix=/usr/local/vim
 
-		local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}' | sed 's/^[ \t]*//g')
-		local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
+		build_vim_source_code
 
-		#make VIMRUNTIMEDIR=/usr/local/vim/$new_vim
-		make VIMRUNTIMEDIR=/usr/local/vim/share/vim/vim${major}${minor}
-
-		# 编译时相关参数说明:
-		# --with-features=huge：支持最大特性
-		# --enable-rubyinterp：打开对 ruby 编写的插件的支持
-		# --e--enable-pythoninterp：打开对 python 编写的插件的支持
-		# --e--enable-python3interp：打开对 python3 编写的插件的支持
-		# --e--enable-luainterp：打开对 lua 编写的插件的支持
-		# --e--enable-perlinterp：打开对 perl 编写的插件的支持
-		# --e--enable-multibyte：打开多字节支持，可以在 Vim 中输入中文
-		# --e--enable-cscope：打开对cscope的支持
-		# --e--enable-gui=gtk3 表示生成采用 GNOME3 风格的 gvim
-		# --e--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ 指定 python 路径
-		# --e--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ 指定 python3路径
-		# --e--prefix=/usr/local/vim：指定将要安装到的路径
 	else
 		error_exit "specify which vim version to build"
 	fi
