@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2020-05-14
-#    Version: v0.0.77
+#    Version: v0.0.78
 #
 
 source ./common.sh
@@ -106,7 +106,7 @@ packages=(
 )
 # note
 # Google开发的Python格式化工具）
-# astyle clang-format python-pep8 python3-pep8 python-autopep8 yapf  --allow-unauthenticated
+# astyle clang-format python-pep8 python3-pep8 python-autopep8 yapf
 # vim-autoformat常用工具:
 # 分别是astyle（支持C, C++, C++/CLI, Objective‑C, C#和Java）;
 # clang-format（支持C, C++,和Objective-C ）;
@@ -129,7 +129,7 @@ function install_packages()
 		if which ${packages[i]} > /dev/null ; then
 			local log_str="${packages[i]} already installed."
 		else
-			sudo apt-get install ${packages[i]} --allow-unauthenticated
+			yes | sudo apt-get --allow-unauthenticated install ${packages[i]}
 			local log_str="Install packages[$i]: ${packages[i]} ... done"
 		fi
 		let prog+=5
@@ -140,13 +140,41 @@ function install_packages()
 	cur_prog=$prog
 }
 
+
+clone_vim_source_code()
+{
+	local cfg_path=$HOME
+
+	# check if a directory doesn't exist:
+	if [ ! -d "${cfg_path}/vim" ]; then
+		echo -n ">> clone vim ... "
+		git clone https://github.com/vim/vim.git ~/vim > /dev/null
+		echo "done! [path: ~/vim]"
+	fi
+
+	cd ~/vim
+	git remote -v | grep "https://github.com/vim/vim.git" --color
+
+	if [ $? -eq 0 ]; then
+		echo "vim source code has been cloned in ${HOME}/vim!"
+		git checkout .
+		git pull > /dev/null
+	else
+		cd -
+		echo -n ">> clone vim ..."
+		git clone https://github.com/vim/vim.git /tmp/vim
+		echo "done! [path: /tmp/vim]"
+		cd /tmp/vim/
+	fi
+}
+
 #build vim
 function build_vim_from_source()
 {
 	local cfg_path=$HOME
 	if which apt-get > /dev/null ; then
 		echo -n ">> install ctags build-essential cmake python-dev python3-dev fontconfig git ... "
-		sudo apt-get install -y ctags build-essential cmake python-dev \
+		yes | sudo apt-get --allow-unauthenticated install ctags build-essential cmake python-dev \
 			python3-dev fontconfig git 2>&1 > /dev/null
 		echo "done!"
 
@@ -155,18 +183,9 @@ function build_vim_from_source()
 		systemVersion='DISTRIB_RELEASE=18.04'
 		if [ $var == $systemVersion ]; then
 			sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE" --color
-			echo -n ">> install libncurses5-dev libgnome2-dev libgnomeui-dev "\
-				"libgtk2.0-dev libatk1.0-dev libbonoboui2-dev " \
-				"libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev "\
-				"python3-dev ruby-dev lua5.1 lua5.1-dev ... "
-			sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
-				libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
-				libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
-				python3-dev ruby-dev lua5.1 lua5.1-dev 2>&1 > /dev/null
-			echo "done!"
 
-			sudo apt-get remove -y vim vim-runtime gvim 2>&1 > /dev/null
-			sudo apt-get remove -y vim-tiny vim-common vim-gui-common vim-nox 2>&1 > /dev/null
+			yes | sudo apt-get --allow-unauthenticated remove vim vim-runtime gvim 2>&1 > /dev/null
+			yes | sudo apt-get --allow-unauthenticated remove vim-tiny vim-common vim-gui-common vim-nox 2>&1 > /dev/null
 
 			if [ -d "/usr/share/vim/vim74" ]; then
 				sudo rm -rf /usr/share/vim/vim74 > /dev/null
@@ -179,41 +198,10 @@ function build_vim_from_source()
 				sudo rm -rf /usr/share/vim/vim81 > /dev/null
 			fi
 
-			# check if a directory doesn't exist:
-			if [ ! -d "${cfg_path}/vim" ]; then
-				echo -n ">> clone vim ... "
-				git clone https://github.com/vim/vim.git ~/vim > /dev/null
-				echo "done! [path: ~/vim]"
-			fi
+			clone_vim_source_code
 
-			cd ~/vim
-			git remote -v | grep "https://github.com/vim/vim.git" --color
+			build_vim_source_code
 
-			if [ $? -eq 0 ]; then
-				echo "vim source code has been cloned in ${HOME}/vim!"
-				git pull > /dev/null
-			else
-				cd -
-				echo -n ">> clone vim ..."
-				git clone https://github.com/vim/vim.git /tmp/vim
-				echo "done! [path: /tmp/vim]"
-				cd /tmp/vim/
-			fi
-
-		# vim8.1/vim8.2 config
-			local location=/usr/local
-		./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
-			--enable-pythoninterp --enable-python3interp --enable-luainterp \
-			--enable-cscope --enable-gui=gtk3 --enable-perlinterp \
-			--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu/ \
-			--with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
-			--prefix=$location/vim
-
-			local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}'| sed 's/^[ \t]*//g')
-			local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
-
-			echo -n ">> vim: make ... "
-			make VIMRUNTIMEDIR=$location/vim/share/vim/vim${major}${minor} > /dev/null
 			echo "done!"
 			echo -n ">> vim: make install ... "
 			sudo make install > /dev/null
@@ -221,11 +209,11 @@ function build_vim_from_source()
 			cd -
 		else
 			echo ">> instll vim using apt ... "
-			sudo apt-get install -y vim 2>&1 > /dev/null
+			yes | sudo apt-get --allow-unauthenticated  install vim 2>&1 > /dev/null
 			echo "done!"
 		fi
 	elif which yum > /dev/null ; then
-		sudo yum install -y vim ctags automake gcc gcc-c++ kernel-devel cmake \
+		sudo yum install vim ctags automake gcc gcc-c++ kernel-devel cmake \
 		python-devel python3-devel git > /dev/null
 	fi
 
@@ -263,7 +251,7 @@ function install_vim()
 	progress_log $prog  "install vim ... done"
 
 	if [[ $online -eq 1 ]]; then
-		sudo apt-get install vim-gnome --allow-unauthenticated 2>&1 > /dev/null
+		yes | sudo apt-get --allow-unauthenticated install vim-gnome 2>&1 > /dev/null
 	fi
 	let prog+=5
 	progress_log $prog "install vim-gnome ... done"
@@ -399,7 +387,7 @@ function install_plugin_mgr_and_plugin()
 			if which curl > /dev/null ; then
 				echo "Find curl."
 			else
-				sudo apt-get install curl --allow-unauthenticated 2>&1 > /dev/null
+				yes | sudo apt-get --allow-unauthenticated install curl 2>&1 > /dev/null
 			fi
 			curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
