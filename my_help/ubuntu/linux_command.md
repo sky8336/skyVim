@@ -1,6 +1,6 @@
 # linux command
-- LastChange: 2020-01-04
--    Version: V0.0.32
+- LastChange: 2020-06-20
+-    Version: V0.0.33
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'
@@ -42,6 +42,14 @@ scp [参数] 原路径 目标路径
 	-r: 递归复制整个目录
 
 sshpass -p "password" scp -r user@example.com:/some/remote/path /some/local/path
+
+### rename
+rename -v -n 's/Diag/PHM/' *.cpp *.h''
+rename -v 's/Diag/PHM/' *.cpp *.h''
+
+‘-v’选项会显示文件名改变的细节（比如：XXX重命名成YYY）。
+‘-n’选项告诉rename命令在不实际改变名称的情况下显示文件将会重命名的情况。这个选项在你想要在不改变文件名的情况下模拟改变文件名的情况下很有用。
+‘-f’选项强制覆盖存在的文件。
 
 ### 管理进程:
 top

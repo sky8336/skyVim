@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-01-16
-"    Version: v0.0.26
+" LastChange: 2020-07-10
+"    Version: v0.0.27
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -674,6 +674,31 @@ let g:space_key_map =  {}
 call which_key#register('<Space>', "g:space_key_map")
 nnoremap <silent> <space> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <space> :<c-u>WhichKeyVisual '<Space>'<CR
+
+let g:space_key_map.c = { 'name' : '+prefix' }
+let g:space_key_map.c.i = '全部缩进(indent)对齐'
+let g:space_key_map.c.m = '删除行尾空格'
+let g:space_key_map.c.M = '清除行尾 ^M 符号'
+let g:space_key_map.c.y = '复制全部'
+
+let g:space_key_map.l = { 'name' : '+prefix' }
+let g:space_key_map.l.s = 'Show all buffers(:ls的映射)'
+
+let g:space_key_map.b = { 'name' : '+prefix' }
+let g:space_key_map.b.1 = '跳转到buffer 1(左上角显示的buf num)'
+let g:space_key_map.b.2 = '跳转到buffer 2'
+let g:space_key_map.b.3 = '跳转到buffer 3'
+let g:space_key_map.b.4 = '跳转到buffer 4'
+let g:space_key_map.b.5 = '跳转到buffer 5'
+let g:space_key_map.b.6 = '跳转到buffer 6'
+let g:space_key_map.b.7 = '跳转到buffer 7'
+let g:space_key_map.b.8 = '跳转到buffer 8'
+let g:space_key_map.b.9 = '跳转到buffer 9'
+
+let g:space_key_map.b.b = ':b 填充到vim命令行，方便输入数字跳转'
+let g:space_key_map.b.n = 'Go to the next buffer in buffer list'
+let g:space_key_map.b.p = 'Go to the previous buffer in buffer list'
+
 
 "除了 leader 和 localleader，如果想要提示其他键也可以：
 "let g:l_square_bracket_map =  {}
