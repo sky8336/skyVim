@@ -1,73 +1,73 @@
 # git提交
-- LastChange: 2019-11-07
--    Version: V0.0.18
-----------------------------------------------------------------------
+- LastChange: 2020-07-10
+-    Version: V0.0.19
 
-文件中中文较多时，查看文件编码格式，防止在gitk中显示乱码 {{{1
+**note:**
+1. 文件中中文较多时，查看文件编码格式，防止在gitk中显示乱码
 file 文件名
 在Vim 中查看 文件编码
-    :set fileencoding
+`:set fileencoding`
 在Vim中转换文件编码， 转换成utf-8格式
-:set fileencoding=utf-8
+`:set fileencoding=utf-8`
 
-----------------------------------------------------------------------
 
-提交代码两步: {{{1
-1. 本地修改添加到缓存区，缓存区修改提交到HEAD
-    git pull && git status
-    ---同步并显示修改文件路径
+## 1. git提交代码
+### 1.1 正常提交流程
+1. 同步并显示修改文件路径:
+`git pull && git status`
 
-    git add private/a10/JX_s07_KS/vendor/sprd/GSTCustomize
-	git add -A .
-	git add -A :/
-    ---要提交的本地修改添加到缓存区;  空格隔开多个文件路径
+2. 本地修改添加到缓存区
+- `git add private/a10/JX_s07_KS/vendor/sprd/GSTCustomize`
+- `git add -A .`
+- `git add -A :/`
 
-    git commit -m "[GST05][JX_S07_KS]增加客户的开关机动画铃声/客户提供的apk"
-    ---将本地缓存区内容提交到本地HEAD中
-    "代码提交信息"：“【GST01】【项目名称】修改的内容”(GST01：代码优化)
+3. 将本地缓存区内容提交到本地HEAD中
+`git commit -m "[GST05][JX_S07_KS]增加客户的开关机动画铃声/客户提供的apk"`
 
-    git diff HEAD
-    ---显示最后一次提交之后的所有变更。(包括变更的和未变更的)
-    gitk &
-    ---图形界面查看添加的内容。
-        (1)如果有漏添加的修改：
-        1)用git status查看漏提交的修改。
-        2)git add private 漏提交修改的文件
-        3)gitk 确认要提交的本地修改全部添加到缓存区
+代码提交信息: `"[GST01][项目名称] 修改的内容"(GST01：代码优化)`
 
-         (2)修改提交信息：git commit --amend
-                ---修改最后一次提交的信息(未push过)
- 2.同步后提交到远端
-    git pull --rebase origin &&  git push
-    ---同步，并重新基于当前分支将本地修改移至节点树的最前面;
-        (origin 可省略)
-    ---将本地仓库HEAD 中的改动提交到远端仓库
-    gitk &
-    检查确认一下
+4. 显示最后一次提交之后的所有变更(包括变更的和未变更的)
+`git diff HEAD`
+图形界面查看添加的内容: `gitk &`
+- 如果有漏添加的修改：
+  1. 用`git status`查看漏提交的修改。
+  2. `git add private` add漏提交的修改文件到缓存区
+  3. gitk 确认要提交的本地修改全部添加到缓存区
+
+- 修改最后一次提交信息(未push过)：`git commit --amend`
+
+5. 同步后提交到远端
+`git pull --rebase origin &&  git push`
+同步，并重新基于当前分支将本地修改移至节点树的最前面; (origin 可省略)
+将本地仓库HEAD 中的改动提交到远端仓库
+检查确认一下: `gitk &`
+
 此时.若无冲突，结束。
-----------------------------------------------------------------------
-gitk查看，若出现分支，显示merge： {{{1
-        git reset --hard 分支出现前的节点
-                本地HEAD重置为这个节点，
-        再git pull同步一下代码。
-----------------------------------------------------------------------
-若有冲突，提示错误。执行：{{{1
-1. git stash
-    >>>将冲突放一边（暂且这么说）
-2. git pull --rebase origin
-    >>>重新来过
-    git push
-    >>>重新来过，此时就不会有冲突了
-    gitk &
-    >>>查看一下
-3. git stash pop
-    >>>提交完成后执行
 
-======================================================================
-替换掉本地错误改动：{{{1
-    git checkout -- <filename>
+### 1.2 冲突处理
+
+gitk查看，若出现分支，显示merge：
+`git reset --hard` 分支出现前的节点
+本地HEAD重置为这个节点, 再git pull同步一下代码。
+
+若有冲突，提示错误。执行:
+1. `git stash`
+    将冲突放一边（暂且这么说）
+2. `git pull --rebase origin`
+    重新来过
+    `git push`
+    重新来过，此时就不会有冲突了
+    gitk &
+    查看一下
+3. git stash pop
+    提交完成后执行
+
+## git 常用操作
+### 替换掉本地错误改动
+    `git checkout -- <filename>`
 使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到缓存区的改动，
 以及新文件，都不受影响。
+
 ======================================================================
 commit 后发现有错误：{{{1
 
@@ -118,10 +118,8 @@ git remote -v
 
 
 
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-intel提交代码命令：{{{1
+## intel提交代码到gerrit：
 VR_MRD
-
 
 一、建立本地分支（必须）
 	repo start  --all xxx
@@ -187,10 +185,9 @@ git log
 git stash pop
 git log
 
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-repo sync{{{1
+## repo sync
 
-case 1:
+### case 1:
 1) git checkout -b temp
 2) save the change file as local commit
    git add .
@@ -205,42 +202,43 @@ case 1:
 8) if you just want it stay in local, make it not staged for comiit
 	git reset last-but-one-commit-id
 
-case 2:
+### case 2:
 
-*****************************
-patch -p1 {{{1
+#### patch -p1
 1) patch apply:
-	patch -p1 < ~/Desktop/6834367d.diff 
-	git status
-	git diff
-	git add .
-	git commit -e 
-	same Change-ID  I21fc35e67b56f0589387971e29db819291fc1bdd
-	git push origin HEAD:refs/for/integ/bxtp_ivi_m
+```shell
+patch -p1 < ~/Desktop/6834367d.diff 
+git status
+git diff
+git add .
+git commit -e 
+same Change-ID  I21fc35e67b56f0589387971e29db819291fc1bdd
+git push origin HEAD:refs/for/integ/bxtp_ivi_m
+```
 
 2) patch update:
-	patch -p1 < ~/disk2/nma1x-wk/b414b1d8.diff 
-	patching file sound/hda/hdac_stream.c
-	Reversed (or previously applied) patch detected!  Assume -R? [n] y
-	patching file sound/hda/hdac_sysfs.c
-	Reversed (or previously applied) patch detected!  Assume -R? [n] y
+```shell
+patch -p1 < ~/disk2/nma1x-wk/b414b1d8.diff 
+patching file sound/hda/hdac_stream.c
+Reversed (or previously applied) patch detected!  Assume -R? [n] y
+patching file sound/hda/hdac_sysfs.c
+Reversed (or previously applied) patch detected!  Assume -R? [n] y
 
-	then again:
-	patch -p1 < ~/disk2/nma1x-wk/b414b1d8.diff 
+then again:
+patch -p1 < ~/disk2/nma1x-wk/b414b1d8.diff 
+```
 
-create and apply a patch with git {{{1
+#### create and apply a patch with git
 If you fix a bug or create a new feature – do it in a separate branch!
 
------------------
-Before you start:
+**Before you start:**
 clone repository and create a new branch for the fix you have in mind.
 	git checkout -b fix_empty_poster
 
 Now, in the new fix_empty_poster branch you can hack whatever you need
 to fix.  Write tests, update code etc. etc.
 
-------------------
-Creating the patch:
+**Creating the patch:**
 FYI: I’m assuming you made a few commits in the fix_empty_poster branch and did
 not yet merge it back in to the master branch.
 
@@ -249,13 +247,12 @@ git format-patch master --stdout > fix_empty_poster.patch
 This will create a new file fix_empty_poster.patch with all changes from the
 current (fix_empty_poster) against master. 
 
-------------------
-Apllying the patch
+**Apllying the patch**
 (1) take a look at what changes are in the patch.
-	git apply --stat fix_empty_poster.patch
+	`git apply --stat fix_empty_poster.patch`
 
 (2) how troublesome the patch is going to be. Test the patch before you actually apply it.
-	git apply --check fix_empty_poster.patch
+	`git apply --check fix_empty_poster.patch`
 
 	If you don’t get any errors, the patch can be applied cleanly.
 	Otherwise you may see what trouble you’ll run into. 
@@ -263,52 +260,59 @@ Apllying the patch
 (3) To apply the patch, I’ll use git am instead of git apply. The reason for
 this is that git am allows you to sign off an applied patch. This may be useful
 for later reference.
-	git am --signoff < fix_empty_poster.patch
+`git am --signoff < fix_empty_poster.patch`
 
 	run your tests again to make sure nothing got borked.
 
-========================
-gitlab push {{{1
-	git clone git@xxx.xxx.xxx.xxx:prj_name/git-repo.git
-	cd git-repo
-	touch README.md
-	git add README.md
-	git commit -m "add README"
-	git push -u origin master
+## gitlab push
+```shell
+git clone git@xxx.xxx.xxx.xxx:prj_name/git-repo.git
+cd git-repo
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+```
 
 
-create your-repo on gitlab {{{1
-================================
-Create a new repository
------------------------
+### create your-repo on gitlab
+#### Create a new repository
 
-	git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
-	cd your-repo
-	touch README.md
-	git add README.md
-	git commit -m "add README"
-	git push -u origin master
+```shell
+git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
+cd your-repo
+touch README.md
+git add README.md
+git commit -m "add README"
+git push -u origin master
+```
 
-
-
-Existing_folder
----------------
+#### Existing_folder
 create your-repo 
-	cd existing_folder
-	git init
-	git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
-	git add .
-	git commit -m "Initial commit"
-	git push -u origin master
+````
+cd existing_folder
+git init
+git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
+git add .
+git commit -m "Initial commit"
+git push -u origin master
+````
 
 
 
-Existing Git repository
------------------------
+#### Existing Git repository
+```
+cd existing_repo
+git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
+git push -u origin --all
+git push -u origin --tags
+````
 
-	cd existing_repo
-	git remote add origin git@xxx.xxx.xxx.xxx:xxx/your-repo.git
-	git push -u origin --all
-	git push -u origin --tags
-
-
+## repo操作导致代码消失
+FA&Q:
+在分支的detached状态(no branch)时，repo sync 导致本地commit丢失。
+1. 查找之前提交的信息: `git reflog`
+2. 切换到相应的分支: `git checkout yourbranch`
+3. 合并刚才reflog看到的行应commit: `git merge commitID`
+4. 提交
+`git reflog`: 可以查看所有分支的所有操作记录（包括已经被删除的 commit 记录和 reset 的操作）
