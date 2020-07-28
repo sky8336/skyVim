@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2020-04-19
-"    Version: v0.2.67
+" LastChange: 2020-07-28
+"    Version: v0.2.68
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -302,6 +302,8 @@ nmap <space>hm :tabnew ~/.vim/README.md<cr>
 nmap <space>hd :tabnew ~/.vim/my_help/<cr>
 nmap <space>hu :tabnew ~/.vim/my_help/ubuntu<cr>
 nmap <space>hk :tabnew ~/.vim/my_help/key_map.txt<cr>
+nmap <space>sn :tabnew ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
+nmap <space>sc :tabnew ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
 "<space>zz  关闭光标所在窗口之外的其他所有窗口
 "<space>hm  tab标签页,打开帮助文档README.md
 "<space>hd  tab标签页,打开my_help directory，可选择需要帮助文档

@@ -1,6 +1,6 @@
 # workflow tips
-- LastChange: 2019-11-07
--    Version: V0.0.07
+- LastChange: 2020-07-28
+-    Version: V0.0.8
 
 ## vim 窗口中操作:  
 
@@ -262,3 +262,17 @@ man 命名空间::头文件<br/>
 - man std::函数名
 - man std::类名
 如，查找std::cout 函数，需要现查找man std::iostream，再找到cout函数
+
+## 其他快捷键
+,hp: 查看当前行和git 暂存之间的改动
+-: 已打开过的文件的buffer
+
+## help
+```shell
+nmap <space>hm :tabnew ~/.vim/README.md<cr>
+nmap <space>hd :tabnew ~/.vim/my_help/<cr>
+nmap <space>hu :tabnew ~/.vim/my_help/ubuntu<cr>
+nmap <space>hk :tabnew ~/.vim/my_help/key_map.txt<cr>
+nmap <space>sn :tabnew ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
+nmap <space>sc :tabnew ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
+```
