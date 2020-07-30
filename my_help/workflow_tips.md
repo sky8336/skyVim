@@ -1,6 +1,6 @@
 # workflow tips
-- LastChange: 2020-07-28
--    Version: V0.0.8
+- LastChange: 2020-07-30
+-    Version: V0.0.9
 
 ## vim 窗口中操作:  
 
@@ -276,3 +276,6 @@ nmap <space>hk :tabnew ~/.vim/my_help/key_map.txt<cr>
 nmap <space>sn :tabnew ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
 nmap <space>sc :tabnew ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
 ```
+## snippet 补全
+比如输入switch后，按tab键，补全switch语句。在SELECT模式下直接输入来替换第一个
+位置内容，输入完成后按ctrl+j跳到下一个可编辑区域，按ctrl+k跳到上一个可编辑区域
