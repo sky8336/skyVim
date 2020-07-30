@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-03-23
-"    Version: v0.0.12
+" LastChange: 2020-07-30
+"    Version: v0.0.13
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -17,7 +17,7 @@ if ubuntu18_04 == 1
 	let plugin_use_leaderf = 1
 	let plugin_use_ultisnips = 1
 	let plugin_use_autoformat = 1
-	let latex_live_preview = 1
+	let latex_live_preview = 0
 else
 	" ubuntu16.04 maybe python < 2.7
 	let plugin_use_leaderf = 0
