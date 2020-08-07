@@ -1,8 +1,8 @@
 # vim 命令及使用技巧
-- LastChange: 2020-01-12
--    Version: V0.0.7
+- LastChange: 2020-08-07
+-    Version: V0.0.8
 
-## 1. vim简介及设计理念说明： {{{1
+## 1. vim简介及设计理念说明：
 - 命令行输入 `vimtutor`: VIM Tutor
 - `:help usr_41.txt`: VIM USER MANUAL - Write a Vim script
 
@@ -32,9 +32,9 @@
 	`i`（insert/插入）:当前光标前插入
 
 
-## 2. 基本命令 {{{1
+## 2. 基本命令
 
-### 2.1 vi编辑器的启动与退出 {{{2
+### 2.1 vi编辑器的启动与退出
 
 #### 2.1.1 vi的启动
 	启动vi后，会进入一个临时缓冲区，
@@ -108,9 +108,9 @@ Careful: If caps-lock is on, this command becomes<br/>
 
 :h table
 
-## 3. 使用技巧 {{{1
+## 3. 使用技巧
 
-### 3.1 vimgrep和quickfix列表: {{{2
+### 3.1 vimgrep和quickfix列表:
 #### 3.1.1 在文件及目录中查找字符串:
 	+ (1)在所有打开的文件中查找字符串
 	+ (2)在某一个目录及它的子目录中查找
@@ -143,7 +143,7 @@ j:    只更新结果列表(quickfix); 缺省，VIM跳转至第一个关键字�
 3 在当前目录及其子目录中查找：<br/>
 `:vimgrep /the menu/ **/*.*`
 
-### 3.2 buffers 切换:{{{2
+### 3.2 buffers 切换:
 
 #### 3.2.1 同时打开多个文件：
   `vim test1 test2 test3`
@@ -236,7 +236,7 @@ bufexplorer提供了一些替换上面命令的快捷键，并且提供了一个
 
 `:help indent.txt`
 
-## 4 Vim 有什么奇技淫巧？{{{2
+## 4 Vim 有什么奇技淫巧？
 ### 4.1 vim参数：
 `vim -b` 用二进制打开<br/>
 `vim +number`  打开并定位到底nunber行<br/>
