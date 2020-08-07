@@ -1,9 +1,9 @@
 # skyVim - 一键安装超漂亮的vim配置
 - LastChange: 2020-08-07
--    Version: V0.1.57
+-    Version: V0.1.58
 
 ## About skyVim
-1. vim config for linux devices driver development and C development，C++, qt, python/shell development<br/>
+1. vim config for linux devices driver development and C，C++, qt, python/shell development<br/>
 2. development help document kits
 
 + 工具就是生产力，打造利器, 提高效率…  
@@ -14,6 +14,7 @@
 - 适用于c/c++, qt的应用编程的vim配置;  
 - 适用于shell/python编程的vim配置;  
 - 适用于...
+- my_help 目录存储了一些常用linux命令，git命令等使用笔记
 
 [feature](https://github.com/sky8336/skyVim/blob/master/my_help/skyVim.md)<br/>
 some skyVim pictures:[超漂亮 vim 配置：skyVim](https://blog.csdn.net/sky8336/article/details/91351221)
@@ -59,16 +60,16 @@ vim使用相关文档，请参考以下文档：<br/>
 [Quick Start Guide](https://github.com/sky8336/skyVim/blob/master/my_help/quick_start_guide.md)<br/>
 [plugin list](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_list.md)<br/>
 [快捷键说明](https://github.com/sky8336/skyVim/blob/master/my_help/key_map.md)<br/>
-[plugin instructions](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_instructions.md)<br/>
+[插件说明](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_instructions.md)<br/>
 [trouble_shooting](https://github.com/sky8336/skyVim/blob/master/my_help/trouble_shooting.md)<br/>
 
-## 3 vim Usage: 使用习惯及场景应用 -- 快速使用{{{1   
-[workflow tips](https://github.com/sky8336/skyVim/blob/master/my_help/workflow_tips.md)<br/>
-[vim command](https://github.com/sky8336/skyVim/blob/master/my_help/vim_command.md)<br/>
-[vim](https://github.com/sky8336/skyVim/tree/master/my_help/vim)<br/>
+## 3 vim Usage: 使用习惯及场景应用 -- 快速使用   
+[使工作流顺畅的使用技巧](https://github.com/sky8336/skyVim/blob/master/my_help/workflow_tips.md)<br/>
+[vim基础命令及使用技巧](https://github.com/sky8336/skyVim/blob/master/my_help/vim/vim_command.md)<br/>
+[vim文档所在目录](https://github.com/sky8336/skyVim/tree/master/my_help/vim)<br/>
 
-## 4. others
-[git](https://github.com/sky8336/skyVim/tree/master/my_help/git)<br/>
-[ubuntu](https://github.com/sky8336/skyVim/tree/master/my_help/ubuntu)<br/>
-[debug](https://github.com/sky8336/skyVim/tree/master/my_help/debug)<br/>
-[program_language](https://github.com/sky8336/skyVim/tree/master/my_help/program_language)<br/>
+## 4. 其他文档
+[git文档目录](https://github.com/sky8336/skyVim/tree/master/my_help/git)<br/>
+[ubuntu相关文档目录](https://github.com/sky8336/skyVim/tree/master/my_help/ubuntu)<br/>
+[debug相关文档目录](https://github.com/sky8336/skyVim/tree/master/my_help/debug)<br/>
+[编程语言相关文档目录](https://github.com/sky8336/skyVim/tree/master/my_help/program_language)<br/>
