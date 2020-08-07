@@ -1,6 +1,6 @@
 # skyVim - 一键安装超漂亮的vim配置
-- LastChange: 2020-01-13
--    Version: V0.1.56
+- LastChange: 2020-08-07
+-    Version: V0.1.57
 
 ## About skyVim
 1. vim config for linux devices driver development and C development，C++, qt, python/shell development<br/>
@@ -18,9 +18,9 @@
 [feature](https://github.com/sky8336/skyVim/blob/master/my_help/skyVim.md)<br/>
 some skyVim pictures:[超漂亮 vim 配置：skyVim](https://blog.csdn.net/sky8336/article/details/91351221)
 
-## 1. Install and update {{{1
+## 1. Install and update
 
-### install {{{2
+### install
 第一次安装时，执行install.sh ,以后若更新本配置，执行update.sh快速更新   
 
 `sudo ./install.sh`<br/>
@@ -46,7 +46,7 @@ some skyVim pictures:[超漂亮 vim 配置：skyVim](https://blog.csdn.net/sky83
         vi a.c  
         输入main后，按tab键看是否成功自动补全。 
 
-### update {{{2
+### update
 	cd skyVim
 	./update.sh
 
@@ -54,7 +54,8 @@ some skyVim pictures:[超漂亮 vim 配置：skyVim](https://blog.csdn.net/sky83
 - 最短耗时不到1分钟，一般很快(3~90s)  
 - ubuntu 系统自带vim是vim.tiny，迷你版，.vimrc 有一些命令不支持，不过install.sh会自动安装完整版vim    
 
-## 2 vim使用说明 {{{1
+## 2 vim使用说明
+vim使用相关文档，请参考以下文档：<br/>
 [Quick Start Guide](https://github.com/sky8336/skyVim/blob/master/my_help/quick_start_guide.md)<br/>
 [plugin list](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_list.md)<br/>
 [快捷键说明](https://github.com/sky8336/skyVim/blob/master/my_help/key_map.md)<br/>
@@ -63,7 +64,7 @@ some skyVim pictures:[超漂亮 vim 配置：skyVim](https://blog.csdn.net/sky83
 
 ## 3 vim Usage: 使用习惯及场景应用 -- 快速使用{{{1   
 [workflow tips](https://github.com/sky8336/skyVim/blob/master/my_help/workflow_tips.md)<br/>
-[vim command](https://github.com/sky8336/skyVim/blob/master/my_help/vim_command.md)
+[vim command](https://github.com/sky8336/skyVim/blob/master/my_help/vim_command.md)<br/>
 [vim](https://github.com/sky8336/skyVim/tree/master/my_help/vim)<br/>
 
 ## 4. others
