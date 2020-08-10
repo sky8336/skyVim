@@ -1,6 +1,6 @@
 # quick start guide
 - LastChange: 2020-08-10
--    Version: V0.0.3
+-    Version: V0.0.4
 
 ## 1. 帮助说明
 - `,hm`: 打开本README.md  
@@ -24,6 +24,8 @@
 
 ## 3. vim 基础命令   
 [vim基础命令及使用技巧](https://github.com/sky8336/skyVim/blob/master/my_help/vim/vim_command.md): vim 默认支持的命令及技巧<br/>
+[vim使用笔记](https://github.com/sky8336/skyVim/blob/master/my_help/vim/vim_usage_ref.md): vim 命令及技巧的总结<br/>
+
 
 ## 4. 其他文档
 [git文档目录](https://github.com/sky8336/skyVim/tree/master/my_help/git)<br/>
