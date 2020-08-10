@@ -1,0 +1,31 @@
+#!/bin/bash
+#
+# Filename: auto_format
+#
+# Copyright (C) 2018-2023 eric  <eric@company.com>. All Rights Reserved.
+#
+# History:
+#    2020/08/10 - [eric] Created file
+#
+# Maintainer: eric <eric@email.com>
+#    Created: 2020-08-10
+# LastChange: 2020-08-10
+#    Version: v0.0.01
+#
+
+if [[ -f $1 ]]; then
+	/usr/local/vim/bin/vim $1 +Autoformat +wq
+else
+	src_files=($(find $1 -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp'))
+	let i=0
+	pkg_num=${#src_files[@]}
+
+	while [[ $i -lt $pkg_num ]]; do
+		/usr/local/vim/bin/vim ${src_files[i]} +Autoformat +wq
+
+		log_str="format src_files[$i]: ${src_files[i]} ... done"
+		echo ${log_str}
+		let i++
+	done
+
+fi

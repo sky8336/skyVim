@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# updates.sh
+# Filename: update.sh
 #
 # Copyright (C) 2016-2023 Eric MA  <eric@company.com>. All Rights Reserved.
 #
@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-04-01
-#    Version: v0.0.54
+# LastChange: 2020-08-10
+#    Version: v0.0.55
 #
 
 source ./common.sh
@@ -136,6 +136,10 @@ function update_vimrc()
 	cp ./.vim/colors/ $cfg_path/.vim -dpRf
 	cp ./.vim/sky8336 $cfg_path/.vim -dpRf
 	cp ./.vim/tools $cfg_path/.vim -dpRf
+
+	if [[ ! -f /usr/local/bin/auto_format ]]; then
+		sudo cp ./utils/auto_format /usr/local/bin
+	fi
 
 	# add your name to the title
 	sed -i "s/Eric MA/$your_name/" $cfg_path/.vim/sky8336/setTitle.vim
