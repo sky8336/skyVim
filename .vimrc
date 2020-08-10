@@ -304,6 +304,7 @@ nmap <space>hu :tabnew ~/.vim/my_help/ubuntu<cr>
 nmap <space>hk :tabnew ~/.vim/my_help/key_map.txt<cr>
 nmap <space>sn :tabnew ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
 nmap <space>sc :tabnew ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
+nmap <space>sd :tabnew ~/.vim/plugged/vim-snippets/snippets/<cr>
 "<space>zz  关闭光标所在窗口之外的其他所有窗口
 "<space>hm  tab标签页,打开帮助文档README.md
 "<space>hd  tab标签页,打开my_help directory，可选择需要帮助文档
