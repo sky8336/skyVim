@@ -1,10 +1,10 @@
 # workflow tips
-- LastChange: 2020-07-30
--    Version: V0.0.9
+- LastChange: 2020-08-10
+-    Version: V0.0.10
 
 ## vim 窗口中操作:  
 
-### 源码跟踪：{{{1
+### 源码跟踪：
 	见 1、tags.o.fn、tags和cscope生成及使用方法  
 
 	cscope
@@ -14,9 +14,9 @@
 	ctrl-\+F9  
 	ctrl-\+<	调用函数  
 
-### 源码预览{{{1
+### 源码预览
 
-### 查找文件{{{1
+### 查找文件
 	1.cscope 查找:  
 		查找并打开文件(打开头文件)		  ,sf ,vf    
 		底行输入要查找的文件(支持正则)    ,ff    
@@ -36,7 +36,7 @@
 	7.tabf查找:  
 		查找当前目录文件并用标签打开    :tabf xxx  
 
-### 查找字符串{{{1
+### 查找字符串
 	1.cscope 查找：  
 		查找指定的字符串	,st	 
 		查找字符串			,se  
@@ -47,7 +47,7 @@
 		在当前文件父目录下的.c和.h中搜索//gj双斜杠中填写的关键字 		Ctrl-\+F6   
 
 
-### 查找变量和函数{{{1
+### 查找变量和函数
 	1.cscope 正则查找  
 		正则查找变量或函数    ,fe pattern   
 	2.cscope 查找:  
@@ -57,7 +57,7 @@
 		,ss  
 	3.vimgrep 查找:  
 	    见查找字符串  
-### 窗口布局 | 多文件编辑{{{1
+### 窗口布局 | 多文件编辑
 	1.窗口分割：  
 		sp  
 		vsp  
@@ -70,7 +70,7 @@
 	3.bufexplorer使用  
 		,bv  
 
-### vim 与终端交互 | 执行bash 命令  {{{1
+### vim 与终端交互 | 执行bash 命令
 		vim 和终端切换: ctrl+z  <--> fg  
 
 	在终端直接查找:  
@@ -79,7 +79,7 @@
 
 ga命令可以查看，当前光标所在位置的字符的编码，将显示在屏幕下方。（参见：h ga）
 
-## 复制粘贴问题{{{1  
+## 复制粘贴问题
 ### 复制  
 	,mv -> 鼠标选中 -> 鼠标右键copy  
 	,mv 是:set mouse=v 的映射，visual mode 可以用鼠标复制，可以需要复制的时候，切换成visual mode,   
@@ -98,7 +98,7 @@ ga命令可以查看，当前光标所在位置的字符的编码，将显示在
 
 :r !ls<br/>
 
-### 文本对象 {{{1
+### 文本对象
 ### textobject
 
 文本对象, 是进行快速编辑的基础秘诀. 将一个单词, 句子, 段落当成一个对象看待, 可以进行快速选中/替换/删除等操作
@@ -157,7 +157,7 @@ Plug 'kana/vim-textobj-indent'
 `ciw`, 改写光标所处的单词, 改写后，在下一个单词上按`.`重复上次命令，可多次改写
 `cw` 改写光标开始处的当前单词
 
-### vim原生快捷键 - 备忘 {{{1
+### vim原生快捷键 - 备忘
 	q:		- 	command line
 	p		-   复制到光标字符后
 	P		-   复制到光标字符前
@@ -172,7 +172,7 @@ Plug 'kana/vim-textobj-indent'
                 See CTRL-W_gF.
 `{count}gt`       Go to tab page {count}.  The first tab page has number one.
 
-## vim8.1: 新特性{{{1  
+## vim8.1: 新特性
 ### 1) 支持在 Vim 窗口中运行终端  
 		打开	-	<F8> or ,f8 or :vert term
 		关闭	-	ctrl+w+q  
@@ -240,7 +240,7 @@ Plug 'kana/vim-textobj-indent'
 	在窗口顶部的一个工具条可用于单步调试代码而不改变焦点.
 	一个气球（Vim中的弹出窗口——译者注）为在鼠标指针下的符号显示信息.
 
-## tools {{{1
+## tools
 - hs 共享当前目录，可以通过web打开来下载文件.
 - mhs 共享当前目录，可以通过web打开来上传或下载文件
 
@@ -249,11 +249,11 @@ Plug 'kana/vim-textobj-indent'
 即可下载，或上传文件<br/>
 如果关闭共享，可以fg后，按ctrl+c 中断hs或mhs起的httpserver<br/>
 
-## git tag {{{1
+## git tag
 	v1.0.4_release_for_v7.4_v8.0	
 	--	这个tag之前的配置，在vim7.4及vim8.0上测试过。这个tag之后的版本，主要在vim8.1上测试j
 
-## man {{{1
+## man
 ### man Page中查找C++函数
 http://www.cplusplus.com/info/ <br/>
 man 命名空间::头文件<br/>
