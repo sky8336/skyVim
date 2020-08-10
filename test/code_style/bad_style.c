@@ -1,5 +1,5 @@
 /*
- * a.c
+ * Filename: bad_style.c
  *
  * Copyright (C) 2018-2023 eric  <eric@company.com>. All Rights Reserved.
  *
@@ -8,8 +8,8 @@
  *
  * Maintainer: eric <eric@email.com>
  *    Created: 2019-11-22
- * LastChange: 2019-11-22
- *    Version: v0.0.01
+ * LastChange: 2020-08-10
+ *    Version: v0.0.2
  *
  */
 #include <stdio.h>
