@@ -20,7 +20,7 @@
 [skyVim 特性和插件列表](https://github.com/sky8336/skyVim/blob/master/my_help/skyVim_feature_and_plugin_list.md)<br/>
 [skyVim快捷键说明](https://github.com/sky8336/skyVim/blob/master/my_help/key_map.md): 定制快捷键为主<br/>
 [skyVim插件说明](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_instructions.md): skyVim 使用的插件说明<br/>
-[使用skyVim的使工作流顺畅的技巧](https://github.com/sky8336/skyVim/blob/master/my_help/workflow_tips.md): 使用习惯及场景应用<br/>
+[skyVim使工作流顺畅的技巧](https://github.com/sky8336/skyVim/blob/master/my_help/workflow_tips.md): 使用习惯及场景应用<br/>
 
 ## 3. vim 基础命令   
 [vim基础命令及使用技巧](https://github.com/sky8336/skyVim/blob/master/my_help/vim/vim_command.md): vim 默认支持的命令及技巧<br/>
