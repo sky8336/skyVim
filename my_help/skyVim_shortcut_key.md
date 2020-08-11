@@ -1,6 +1,198 @@
+# skyVim快捷键及使用说明
+- LastChange: 2020-08-11
+-    Version: V0.0.16
+
+## help
+### 查找快捷键的方式：
+- `:Rmap` - 生成或更新key_map.txt, key_map.txt 保存当前用到的快捷键映射<br/>
+- `<space>hk` - 快速查找快捷键，建议从此处查找快捷键<br/>
+- 按一下快捷键开头按键，等待 vim-which-key 插件弹出提示
+- 打开 .vimrc, 搜索'key_mapping' 和'mapping' 查找
+- 打开 ~/.vim/sky8336/plugin_setting.vim, 搜索插件名或key-mappings的地方找快捷键
+
+- `\` - Load Previous buffer<br/>
+- `<space>b1`~`<space>b9` - 跳转到buffer1 ~ buffer9
+- `<space>bb`: 等同于`:b `, 其后跟要跳转到的buffer 号, buffer
+  号在左上角可以看到，样式如`1: plugin_instructions.md`, `1`即buffer 号
+
+`<space>hm`: tabnew方式打开 ~/.vim/README.md<cr>
+`<space>hd`: tabnew方式打开 ~/.vim/my_help/<cr>
+`<space>hu`: tabnew方式打开 ~/.vim/my_help/ubuntu<cr>
+`<space>hk`: tabnew方式打开 ~/.vim/my_help/key_map.txt<cr>
+`<space>sn`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
+`<space>sc`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
+`<space>sd`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets, 然后可搜索具体语言对应的snippets<cr>
+
+## Note
+- 禁止使用<c-m> 映射，因为与 enter 联系起来，会导致按enter 调用映射的功能<br/>
+  " <C-m> is Enter in quickfix window <br/>
+
+## 快捷键盘开头的type
+- `<leader>` - 指定为`,`
+- `<space>` - 空格
+- `ALT` - 未使用
+- `[`
+- `]`
+
+##  快捷键说明
+### 插件(plugin)相关的快捷键
+[插件相关快捷键](https://github.com/sky8336/skyVim/blob/master/my_help/plugin_instructions.md): 插件相关的快捷键，放在插件说明文档中，以','开头, 本文档仅仅列举常用的和插件相关的快捷键。
+
+
+### leader 即,开头的快捷键
+- 按,停顿，等待 vim-which-key 弹出提示
+
+### space 开头的快捷键
+- 按“空格”停顿，等待 vim-which-key 弹出提示
+- 在.vimrc 中搜索 "space key_mappings"
+
+#### 与vim保存退出等相关原生命令相关的映射，仅仅把空格当成:的作用来映射，后面按键顺序一致，保持一贯的习惯。
+目前这些快捷键都以空格开头，后面加两个字母，或加1个字母和空格，如：
+- `空格+jw`: 保存，即`:w<CR>`
+- `空格+wq`: 保存后退出
+原生命令的映射，仅仅改动按:的方式为按空格即可。
+
+**note:**
+这里把vim默认支持的命令，成为原生命令。
+
+#### space 开头插件相关
+`空格+tm`: 打开terminal<br/>
+`空格+td`: 打开termdebug<br/>
+
+`空格+w+v`: vertical res 86<CR><cr/>
+`空格+w+v`: res 25<CR><cr/>
+`space+mm`: Man manual<cr/>
+`space+m2`: Man manual 2<cr/>
+
+
+	这样设计是为了保持3个按键，使得space开头的快捷键尽可能多。并且空格键不需要移动手指，也方便快捷。
+
+
+#### cmap command
+`cmap ,e <ESC>`<br/>
+`cmap ,pi PlugInstall`<br/>
+`cmap ,gk :call Generate_kernel_tags_cscope()<CR>`<br/>
+
+### 其他方便的快捷键
+	插入模式快速按 js 		切换到normal 模式并保存 
+	插入模式快速按 jk 		切换到normal 模式不并保存,因为有时切入normal模式是为了按u恢复
+
+	<enter>	leaderf mru
+
+### F1~F12相关快捷键 
+
+#### 普通模式下：  
+小写字母f: 按键f
+	
+`F1`    帮助:GNOME Terminal Manual
+`,f1`		tagbar开关 
+
+`F2` 或`,f2`   NERDTree开关
+`,F2`    VimExplorer开关
+
+`F3`    打开MRU,在路径列表中，光标在工程名处按shift+*,高亮相应工程，便于选择;
+	  :q  退出MRU
+`,m`    按,m后，将在终端复制的项目名粘贴到底行，按回车后打开MRU，文件路径匹配输入的项目名  
+( Ctrl+F1 ~ Ctrl+F4不可用 )
+
+`F4`       
+`,F4`       
+
+`F5`      
+`Ctrl+F5` UndotreeToggle  
+`,F5`   在底行//gj的双斜杠中间输入要查找的关键字，用vimgrep在当前文件父目录下的.c和.h中搜索//中输入的关键字  
+
+`F6`    用vimgrep在当前文件父目录下的.c和.h中搜索光标所在的单词    
+`Ctrl+F6`    用vimgrep在状态行显示的相对路径父目录下.c和.h中递归搜索光标所在的单词  
+`,F6`    用vimgrep在底行输入的路径文件中搜索光标所在的单词  
+
+`F7`
+
+`F8`    
+`Ctrl+F8` 
+
+`F9`    在kernel/目录或linux-stable/目录下，生成arm平台的tags和cscope数据库；  
+	  否则，通用，生成及tags和cscope数据库  
+`Ctrl+F9`	  实现递归查找上级目录中的ctags和cscope并自动载入，向上查找包含当前目录在内的5级目录  
+
+( F10/F11系统占用 )  
+`Ctrl+F10`   
+`Ctrl+F11`   
+
+`F12`        
+`Ctrl+F12`   
+
+## snippets(片段补全)
+- `空格+sn`: 打开cpp补全的snippets来参考
+- `空格+sc`: 打开cpp补全的snippets来参考
+- `空格+sd`: 打开snippets 目录，用来选择打开需要的参考文件
+
+## 其他 
+1. 普通模式下:
+- `<space>cM`: 清除行尾 ^M 符号;
+- `<space>cm`: 去掉行尾空格;  
+- `<space>cu`: 转换成utf-8格式;
+- `<space>ci`: 全部缩进对齐  
+- `<space>cy`: 全部复制  
+
+2. 启用每行超过80列的字符提示（右侧红色竖线）  
+3. 窗口焦点切换的映射(insert/normal mode)  
+普通模式或插入模式下：  
+- `ctrl+h`: 焦点移到左边窗口  
+- `ctrl+j`: 焦点移到下边窗口  
+- `ctrl+k`: 焦点移到上边窗口  
+- `ctrl+l`: 焦点移到右边窗口  
+
+4. 插入模式下光标移动：  
+- `alt+k`: 标向上移动  
+- `alt+j`: 标向下移动  
+- `alt+h`: 标向左移动  
+- `alt+l`: 标向右移动  
+
+5. ~/.bashrc_my 中更改命令提示行颜色等  
+6. 快捷键映射
+	空格-> :  
+	,cd -> 快速切换到打开VIM时的目录。  
+	比如:  
+	在"~/project"目录下打开VIM，为了编译"~/project/driver/dma"目录而  
+	切换目录":cd driver/dma"，编译完成后可使用",cd"命令切换到"~/project"目录下  
+	\   在命令行显示当前行所在的函数名称  
+	;   after "fx" in normal mode, press ; repeat the cmd
+	:pwd      显示当前路径(相对路径之前的路径)  
+	ctrl+g    在底行显示文件相对路径  
+	1-ctrl+g  先按1,再按下ctrl+g，在底行显示绝对路径  
+7. 剪切和复制  
+	(1) 按住shift键，用鼠标选中复制到vim的"*寄存器(状态栏的文件路径也可复制)，  
+		粘贴时输入"*p(或鼠标滚轮)即可复制。  
+	(2)	终端选中文字，ctrl+shift+c复制，在vim窗口直接输入p或点击鼠标滚轮即可  
+
+	(3)实现vim和终端及gedit等之间复制、粘贴的设置：  
+	既可以复制单行命令到终端，又可以复制多行到gedit打开的文件中。  
+
+	vim-->终端/gedit  
+			（1）在vim普通模式下，输入yy可复制当前行到"+寄存器。  
+			（2）在terminal中：Ctrl-Shift-v，粘贴。  
+				 在gedit中ctrl+v粘贴  
+	终端/gedit-->vim：  
+			（1）在终端选中复制内容，用shift+ctrl+v复制；  
+			（2）在vim普通模式下，输入p复制。  
+
+8. vim和终端切换  
+ctrl+z : vim切换到后台  
+fg     : 切换回前台  
+
+:sh    从vim切换到终端运行shell  
+Ctrl + D(or exit)  从终端回到vim(to kill the shell and return to vim)  
+	
+
+9. 改变窗口大小(window-resize)  
+- `<space>wj`: 高度增加15行  
+- `<space>wk`: 高度减小15行  
+- `<space>wh`: 宽度增加30行  
+- `<space>wl`: 宽度减小30行  
+
+
 # workflow tips
-- LastChange: 2020-08-10
--    Version: V0.0.10
 
 ## vim 窗口中操作:  
 
@@ -267,15 +459,6 @@ man 命名空间::头文件<br/>
 ,hp: 查看当前行和git 暂存之间的改动
 -: 已打开过的文件的buffer
 
-## help
-```shell
-nmap <space>hm :tabnew ~/.vim/README.md<cr>
-nmap <space>hd :tabnew ~/.vim/my_help/<cr>
-nmap <space>hu :tabnew ~/.vim/my_help/ubuntu<cr>
-nmap <space>hk :tabnew ~/.vim/my_help/key_map.txt<cr>
-nmap <space>sn :tabnew ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
-nmap <space>sc :tabnew ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
-```
 ## snippet 补全
 比如输入switch后，按tab键，补全switch语句。在SELECT模式下直接输入来替换第一个
 位置内容，输入完成后按ctrl+j跳到下一个可编辑区域，按ctrl+k跳到上一个可编辑区域
