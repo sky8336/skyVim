@@ -2,7 +2,7 @@
 - Maintainer: sky8336
 -    Created: 2016-10-10
 - LastChange: 2020-08-11
--    Version: V0.0.17
+-    Version: V0.0.18
 
 ## help
 ### 查找快捷键的方式：
@@ -124,7 +124,10 @@
 `F12`        
 `Ctrl+F12`   
 
-## snippets(片段补全)
+## snippet(片段补全)
+比如输入switch后，按tab键，补全switch语句。在SELECT模式下直接输入来替换第一个
+位置内容，输入完成后按ctrl+j跳到下一个可编辑区域，按ctrl+k跳到上一个可编辑区域
+
 - `空格+sn`: 打开cpp补全的snippets来参考
 - `空格+sc`: 打开cpp补全的snippets来参考
 - `空格+sd`: 打开snippets 目录，用来选择打开需要的参考文件
@@ -460,7 +463,3 @@ man 命名空间::头文件<br/>
 ## 其他快捷键
 ,hp: 查看当前行和git 暂存之间的改动
 -: 已打开过的文件的buffer
-
-## snippet 补全
-比如输入switch后，按tab键，补全switch语句。在SELECT模式下直接输入来替换第一个
-位置内容，输入完成后按ctrl+j跳到下一个可编辑区域，按ctrl+k跳到上一个可编辑区域
