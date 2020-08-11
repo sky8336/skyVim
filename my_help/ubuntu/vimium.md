@@ -1,6 +1,8 @@
 # vimium快捷键列表
-- LastChange: 2019-11-07
--    Version: V0.0.02
+- Maintainer: sky8336
+-    Created: 2018-08-11
+- LastChange: 2020-08-11
+-    Version: V0.0.3
 
 来源
 一个使用快捷键来操作浏览器页面的插件。
