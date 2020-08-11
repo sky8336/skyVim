@@ -1,4 +1,6 @@
 # Vim使用笔记
+- Maintainer: sky8336
+-    Created: 2018-08-11
 - LastChange: 2019-11-07
 -    Version: V0.0.02
 
