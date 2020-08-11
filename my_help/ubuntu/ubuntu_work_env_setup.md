@@ -1,6 +1,8 @@
 # ubuntu work environment setup
-- LastChange: 2020-02-01
--    Version: V0.0.14
+- Maintainer: sky8336
+-    Created: 2018-08-11
+- LastChange: 2020-08-11
+-    Version: V0.0.15
 
 可替代windows 环境的工具
 

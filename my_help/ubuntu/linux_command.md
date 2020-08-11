@@ -1,6 +1,8 @@
 # linux command
-- LastChange: 2020-06-20
--    Version: V0.0.33
+- Maintainer: sky8336
+-    Created: 2018-08-11
+- LastChange: 2020-08-11
+-    Version: V0.0.34
 
 ### find
 sudo find -name "* *" -type f | sudo rename 's/ /_/g'

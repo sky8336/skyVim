@@ -1,6 +1,6 @@
 # skyVim feature and plugin list
 - Maintainer: sky8336
--    Created: 2020-01-08
+-    Created: 2019-01-08
 - LastChange: 2020-08-10
 -    Version: v0.0.7
 
