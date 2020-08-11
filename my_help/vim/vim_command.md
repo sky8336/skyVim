@@ -1,4 +1,6 @@
 # vim 命令及使用技巧
+- Maintainer: sky8336
+-    Created: 2018-08-11
 - LastChange: 2020-08-07
 -    Version: V0.0.8
 

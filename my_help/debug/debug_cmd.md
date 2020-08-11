@@ -1,5 +1,7 @@
-debug command
+# debug command
 linux 设备驱动调试技术
+- Maintainer: sky8336
+-    Created: 2018-08-11
 - LastChange: 2019-11-07
 -    Version: V0.0.07
 ============================================================
