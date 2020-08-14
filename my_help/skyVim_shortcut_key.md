@@ -1,8 +1,8 @@
 # skyVim快捷键及使用说明
 - Maintainer: sky8336
 -    Created: 2016-10-10
-- LastChange: 2020-08-11
--    Version: V0.0.18
+- LastChange: 2020-08-14
+-    Version: V0.0.19
 
 ## help
 ### 查找快捷键的方式：
@@ -17,13 +17,19 @@
 - `<space>bb`: 等同于`:b `, 其后跟要跳转到的buffer 号, buffer
   号在左上角可以看到，样式如`1: plugin_instructions.md`, `1`即buffer 号
 
-`<space>hm`: tabnew方式打开 ~/.vim/README.md<cr>
-`<space>hd`: tabnew方式打开 ~/.vim/my_help/<cr>
-`<space>hu`: tabnew方式打开 ~/.vim/my_help/ubuntu<cr>
-`<space>hk`: tabnew方式打开 ~/.vim/my_help/key_map.txt<cr>
-`<space>sn`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
-`<space>sc`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
-`<space>sd`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets, 然后可搜索具体语言对应的snippets<cr>
+- `<space>hm`: tabnew方式打开 ~/.vim/README.md<cr>
+- `<space>hd`: tabnew方式打开 ~/.vim/my_help/， 根据需要选择打开对应帮助文档<cr>
+  - 打开c语言运算符优先级帮助文档, 位置如下:
+	```
+	▾ program_language/
+        c_operator_precedence.txt
+	```
+
+- `<space>hu`: tabnew方式打开 ~/.vim/my_help/ubuntu<cr>
+- `<space>hk`: tabnew方式打开 ~/.vim/my_help/key_map.txt<cr>
+- `<space>sn`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets/cpp.snippets<cr>
+- `<space>sc`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets/c.snippets<cr>
+- `<space>sd`: tabnew方式打开 ~/.vim/plugged/vim-snippets/snippets, 然后可搜索具体语言对应的snippets<cr>
 
 ## Note
 - 禁止使用<c-m> 映射，因为与 enter 联系起来，会导致按enter 调用映射的功能<br/>
@@ -463,3 +469,6 @@ man 命名空间::头文件<br/>
 ## 其他快捷键
 ,hp: 查看当前行和git 暂存之间的改动
 -: 已打开过的文件的buffer
+## 代码格式化
+- 方式一: 已打开的c/c++文件，可以用`,af`格式化，基于google风格，部分调整，如tab缩进
+- 方式二: `auto_format xxx.c/.cpp`格式化指定c/cpp文件, `auto_format xxx/` 格式化制定目录下的c/cpp文件
