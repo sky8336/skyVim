@@ -1,4 +1,6 @@
 # skyVim快捷键及使用说明
+- Maintainer: sky8336
+-    Created: 2020-08-10
 - LastChange: 2020-08-11
 -    Version: V0.0.16
 

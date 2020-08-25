@@ -1,6 +1,8 @@
 # tools
-- LastChange: 2019-11-07
--    Version: V0.0.03
+- Maintainer: sky8336
+-    Created: 2018-08-11
+- LastChange: 2020-08-11
+-    Version: V0.0.4
 
 1. ranger主要用来在终端浏览文件的, 使用起来也比较优于平时常用的cd命令.
 
