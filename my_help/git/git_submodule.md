@@ -1,6 +1,8 @@
 # 使用Git Submodule管理子模块
-- LastChange: 2019-11-07
--    Version: V0.0.02
+- Maintainer: sky8336
+-    Created: 2018-08-11
+- LastChange: 2020-08-11
+-    Version: V0.0.3
 
 # 1 什么是Submodule?
 
