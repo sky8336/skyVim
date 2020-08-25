@@ -1,6 +1,6 @@
 # quick start guide
 - Maintainer: sky8336
--    Created: 2019-08-01
+-    Created: 2019-05-01
 - LastChange: 2020-08-11
 -    Version: V0.0.6
 

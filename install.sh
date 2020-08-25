@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# install.sh
+# Filename: install.sh
 #
 # Copyright (C) 2016-2023 Eric MA  <eric@company.com>. All Rights Reserved.
 #
@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-05-14
-#    Version: v0.0.78
+# LastChange: 2020-08-14
+#    Version: v0.0.79
 #
 
 source ./common.sh
@@ -303,6 +303,10 @@ function config_vim()
 
 	# setup new vim config
 	cp ./.vimrc $cfg_path
+
+	if [[ ! -f /usr/local/bin/auto_format ]]; then
+		sudo cp ./utils/auto_format /usr/local/bin
+	fi
 
 	# add your name to the title
 	sed -i "s/Eric MA/$your_name/" $cfg_path/.vim/sky8336/setTitle.vim

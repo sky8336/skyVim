@@ -1,4 +1,6 @@
 # trouble shooting
+- Maintainer: sky8336
+-    Created: 2019-11-07
 - LastChange: 2019-11-08
 -    Version: V0.0.03
 

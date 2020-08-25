@@ -8,8 +8,8 @@
  *
  * Maintainer: eric <eric@email.com>
  *    Created: 2020-08-10
- * LastChange: 2020-08-10
- *    Version: v0.0.01
+ * LastChange: 2020-08-11
+ *    Version: v0.0.2
  *
  */
 #include <stdio.h>
@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
     int i=5;
 	int foo=1;
     char * name = "hello";
+	CMsgQueuePtr   message_ptr_;
 
     if(i==5)
 	{
