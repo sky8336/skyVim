@@ -9,9 +9,15 @@
 #
 # Maintainer: eric <eric@email.com>
 #    Created: 2020-08-10
-# LastChange: 2020-08-10
-#    Version: v0.0.01
+# LastChange: 2020-08-14
+#    Version: v0.0.02
 #
+
+if [[ -z $1 ]]; then
+	echo "please specify a directory or file"
+	echo "`basename $0` [options]"
+	exit
+fi
 
 if [[ -f $1 ]]; then
 	/usr/local/vim/bin/vim $1 +Autoformat +wq

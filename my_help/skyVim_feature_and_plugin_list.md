@@ -1,8 +1,8 @@
 # skyVim feature and plugin list
 - Maintainer: sky8336
--    Created: 2020-01-08
-- LastChange: 2020-08-10
--    Version: v0.0.7
+-    Created: 2019-01-08
+- LastChange: 2020-08-11
+-    Version: v0.0.8
 
 ## skyVim feature
 ### 无需插件实现
@@ -71,9 +71,12 @@ pull
 
 
 ## 插件列表 plugin_list
-	目前在用插件及历史使用过的插件列表  
+`:PlugStatus`: 查看已安装的插件状态
+具体插件说明，参考[skyVim插件说明](https://github.com/sky8336/skyVim/blob/master/my_help/skyVim_plugin_instructions.md)<br/>
+
+目前在用插件及历史使用过的插件列表  
 	[X] - 已不用
-	<插件类型>
+
 - 插件管理  
 	- vim-plug  插件管理  
 - Display tags of a file ordered by scope
@@ -96,8 +99,8 @@ pull
 	- MRU  
 
 - 文件搜索  
-	- ctrlP + ctrlp-funky		[x]		<interface>
-	- leaderf		<interface>
+	- ctrlP + ctrlp-funky		[x]
+	- leaderf
 
 - Buffer Explorer   
 	- bufexplorer  
@@ -154,8 +157,8 @@ pull
 
 ### statusline 
 default statusline in .vimrc (when not use plugin)<br/>
-	looks like:
-	[+1]build_install_vim.sh                       [61%:339L,0][Git(master)][SH|utf-8]
+looks like:
+`[+1]build_install_vim.sh                       [61%:339L,0][Git(master)][SH|utf-8]`
 
 - 状态栏中表示的信息：
   1. 修改未保存时，红色+,保存后消失；[+1]
@@ -166,5 +169,3 @@ default statusline in .vimrc (when not use plugin)<br/>
   6. [文本类型|字符编码类型]
   7. 插入模式颜色品红；normal模式白色；
   8. 分屏时，光标不在的窗口状态栏变灰色；
-
-
