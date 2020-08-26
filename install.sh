@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-08-14
-#    Version: v0.0.79
+# LastChange: 2020-08-26
+#    Version: v0.0.80
 #
 
 source ./common.sh
@@ -346,6 +346,7 @@ function config_vim()
 	cd /usr/include
 	pwd
 	sudo ctags -I __THROW -I __THROWNL -I __nonnull -R --c-kinds=+p --fields=+ianS --extra=+q > /dev/null
+	cd -
 
 	if [[ -d "/usr/local/vim" ]]; then
 		# which we built from source
