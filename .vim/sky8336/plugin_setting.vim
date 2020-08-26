@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-07-10
-"    Version: v0.0.27
+" LastChange: 2020-08-26
+"    Version: v0.0.28
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -280,9 +280,9 @@ let g:nerdtree_tabs_focus_on_files = 0
 let g:nerdtree_tabs_startup_cd = 1
 
 " plugin_setting: nerdtree-git-plugin.vim {{{2
-" NERDTreeShowGitStatus 为0，不加载git信息;为1,加载，引起打开vim慢（甚至十几秒）
-let g:NERDTreeShowGitStatus = 0
-let g:NERDTreeIndicatorMapCustom = {
+" NERDTreeGitStatusEnable 为0，不加载git信息;为1,加载，引起打开vim慢（甚至十几秒）
+let g:NERDTreeGitStatusEnable = 0
+let g:NERDTreeGitStatusIndicatorMapCustom = {
 			\ "Modified"  : "✹",
 			\ "Staged"    : "✚",
 			\ "Untracked" : "✭",
