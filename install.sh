@@ -9,11 +9,19 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-08-26
-#    Version: v0.0.80
+# LastChange: 2020-08-28
+#    Version: v0.0.81
 #
 
 source ./common.sh
+
+declare -A map_ver_commitid
+
+# vim: version - commitID map
+map_ver_commitid=(
+    ["8.2.752"]="e06a28f5e"
+)
+
 
 # show_header specify content
 VERSION=1.00
@@ -200,7 +208,8 @@ function build_vim_from_source()
 
 			clone_vim_source_code
 
-			build_vim_source_code
+			local commid_id=${map_ver_commitid["8.2.752"]}
+			build_vim_source_code ${commid_id}
 
 			echo "done!"
 			echo -n ">> vim: make install ... "
