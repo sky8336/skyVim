@@ -9,8 +9,8 @@
 #
 # Maintainer: eric <eric@email.com>
 #    Created: 2019-12-31
-# LastChange: 2020-05-14
-#    Version: v0.0.2
+# LastChange: 2020-08-28
+#    Version: v0.0.3
 #
 
 source ./utils.sh
@@ -130,6 +130,12 @@ build_vim_source_code()
 
 	# vim8.1/vim8.2 config
 	local location=/usr/local
+
+	if [ ! -z $1 ]; then
+		local commit_id=$1
+		git reset --hard ${commit_id}
+	fi
+
 
 	./configure --with-features=huge --enable-multibyte --enable-rubyinterp \
 		--enable-pythoninterp --enable-python3interp --enable-luainterp \
