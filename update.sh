@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-08-10
-#    Version: v0.0.55
+# LastChange: 2020-08-29
+#    Version: v0.0.56
 #
 
 source ./common.sh
@@ -284,24 +284,7 @@ function install_new_plugin()
 function git_config()
 {
 	echo "====== ${FUNCNAME[0]}(): git config ======"
-	# set merge tool and editor
-	# To use vimdiff as default merge tool:
-	git config --global merge.tool vimdiff
-	git config --global mergetool.prompt false
-	if [[ $vim_in_usr_local -eq 1 ]]; then
-		git config --global core.editor /usr/local/vim/bin/vim
-	else
-		git config --global core.editor /usr/bin/vim
-	fi
-	git config --global push.default simple
-
-	# git d //open files to diff
-	git config --global diff.tool vimdiff
-	git config --global difftool.prompt false
-	git config --global alias.d difftool
-
-	# git lg 列出 git 分支图
-	git config --global alias.lg "log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+	config_git
 	echo "${FUNCNAME[0]}(): git config -- done"
 }
 
