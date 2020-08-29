@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# common.sh
+# Filename: common.sh - common function used for install vim
 #
 # Copyright (C) 2018-2023 eric  <eric@company.com>. All Rights Reserved.
 #
@@ -9,8 +9,8 @@
 #
 # Maintainer: eric <eric@email.com>
 #    Created: 2019-12-31
-# LastChange: 2020-08-28
-#    Version: v0.0.3
+# LastChange: 2020-08-29
+#    Version: v0.0.4
 #
 
 source ./utils.sh
@@ -161,6 +161,6 @@ build_vim_source_code()
 	local major=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $1}' | sed 's/^[ \t]*//g')
 	local minor=$(git log --graph --decorate --pretty=oneline --abbrev-commit --all | grep "origin/master" | awk -F 'patch' '{print $2}' | awk -F ':' '{print $1}' | awk -F '.' '{print $2}')
 
-	echo -n ">> vim: make ... "
+	echo -n ">> ${FUNCNAME[0]}: make ... "
 	make VIMRUNTIMEDIR=$location/vim/share/vim/vim${major}${minor} > /dev/null
 }
