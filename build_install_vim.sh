@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# build_install_vim.sh
+# Filename: build_install_vim.sh
 #
 # Copyright (C) 2016-2023 Eric MA  <eric@company.com>. All Rights Reserved.
 #
@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-08-17
-# LastChange: 2020-05-14
-#    Version: v0.0.21
+# LastChange: 2020-08-29
+#    Version: v0.0.23
 #
 
 source ./common.sh
@@ -31,11 +31,15 @@ opt_max=$opt_update_bashrc_my
 VERSION=0.0.17
 tool_name="Initcall_debug setup tool"
 
+#modify vim version here
+vim_version="v8.2"
+vim_source=~/vim
+
 # show_usage Specify content
 usage=(
 "`basename $0` [options]
-		vim_version: $vim_version
-		vim_source: $vim_source"
+		vim_version(target): $vim_version
+		vim_source(path): $vim_source"
 )
 
 options=(
@@ -58,9 +62,6 @@ examples=(
 		`basename $0` $opt_update_bashrc_my - update .bashrc_my for vim built from source"
 )
 
-#modify vim version here
-vim_version="v8.2"
-vim_source=~/vim
 
 if [[ $vim_version = "v8.1" ]]; then
 	new_vim=vim81
