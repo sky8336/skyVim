@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-08-26
-"    Version: v0.0.28
+" LastChange: 2020-09-11
+"    Version: v0.0.29
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -363,6 +363,32 @@ elseif plugin_enable_syntastic == 1
 	set statusline+=%{SyntasticStatuslineFlag()}
 	set statusline+=%*
 else
+	"plugin_setting: ale {{{2
+	"let g:ale_linters_explicit = 1
+	"let g:ale_completion_delay = 500
+	"let g:ale_echo_delay = 20
+	"let g:ale_lint_delay = 500
+	"let g:ale_echo_msg_format = '[%linter%] %code: %%s'
+	let g:ale_lint_on_text_changed = 'never'
+	let g:ale_lint_on_insert_leave = 0
+	" if you don't want linters to run on opening a file
+	let g:ale_lint_on_enter = 1
+	"let g:airline#extensions#ale#enabled = 1
+
+	"let g:ale_c_gcc_options = '-Wall -O2 -std=c99'
+	"let g:ale_cpp_gcc_options = '-Wall -O2 -std=c++14'
+	"let g:ale_c_cppcheck_options = ''
+	"let g:ale_cpp_cppcheck_options = ''
+
+	"重新定义了警告和错误的样式，去除默认难看的红色背景，代码正文使用干净的波浪下划线表示
+	""let g:ale_sign_error = "\ue009\ue009"
+	hi! clear SpellBad
+	"hi! clear SpellCap
+	"hi! clear SpellRare
+	hi! SpellBad cterm=underline ctermfg=red
+	"hi! SpellCap gui=undercurl guisp=blue
+	"hi! SpellRare gui=undercurl guisp=magenta
+
 endif
 
 " language  plugin_setting:  {{{1

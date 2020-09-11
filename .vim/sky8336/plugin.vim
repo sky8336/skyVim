@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-07-30
-"    Version: v0.0.13
+" LastChange: 2020-09-11
+"    Version: v0.0.14
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -61,6 +61,7 @@ let plugin_enable_vim_multiple_cursors = 1
 	elseif plugin_enable_syntastic == 1
 		Plug 'scrooloose/syntastic'
 	else
+		Plug 'w0rp/ale'
 	endif
 	Plug 'plasticboy/vim-markdown'
 	Plug 'scrooloose/nerdcommenter'
