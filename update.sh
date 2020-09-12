@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2020-09-12
-#    Version: v0.0.57
+#    Version: v0.0.58
 #
 
 source ./common.sh
@@ -226,6 +226,12 @@ update_package()
 	else
 		yes | sudo apt --allow-unauthenticated install python3-pip
 		pip3 install --user pynvim
+	fi
+
+	if which clang > /dev/null ; then
+		echo "clang already installed."
+	else
+		yes | sudo apt --allow-unauthenticated install clang
 	fi
 
 	# for coc
