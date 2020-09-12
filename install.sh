@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-08-29
-#    Version: v0.0.82
+# LastChange: 2020-09-12
+#    Version: v0.0.83
 #
 
 source ./common.sh
@@ -111,6 +111,7 @@ packages=(
 	xsel  #copy and paste
 	silversearcher-ag #for ctrlsf.vim
 	ack #for ctrlsf.vim
+	python3-pip
 )
 # note
 # Google开发的Python格式化工具）
@@ -336,6 +337,8 @@ function config_vim()
 		warning_log "where is you $cfg_path/.vim?? check it"
 	fi
 
+	" used for deoplete
+	pip3 install --user pynvim
 
 	#追加到.bashrc,不会覆盖.bashrc原有配置
 	#cat $skyvim_path/.self_mod/.bashrc_append >> ~/.bashrc

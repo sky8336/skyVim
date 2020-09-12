@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-08-29
-#    Version: v0.0.56
+# LastChange: 2020-09-12
+#    Version: v0.0.57
 #
 
 source ./common.sh
@@ -220,6 +220,13 @@ update_package()
 	echo "${FUNCNAME[0]}(): install some package using script in utils"
 	sudo cp ./utils/viman /usr/local/bin
 	sudo apt install silversearcher-ag ack --allow-unauthenticated 2>&1 > /dev/null
+
+	if which pip3 > /dev/null ; then
+		echo "python3-pip already installed."
+	else
+		yes | sudo apt --allow-unauthenticated install python3-pip
+		pip3 install --user pynvim
+	fi
 
 	# for coc
 	#sudo curl -sL install-node.now.sh/lts | bash

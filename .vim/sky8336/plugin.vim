@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-09-11
-"    Version: v0.0.14
+" LastChange: 2020-09-12
+"    Version: v0.0.15
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -30,8 +30,8 @@ let plugin_use_neomake = 0
 let plugin_enable_syntastic = 0
 
 let plugin_enable_coc = 0 " unfinished
-let plugin_use_deoplete = 0
-let plugin_enable_vim_lsp = 1
+let plugin_use_deoplete = 1
+let plugin_enable_vim_lsp = 0
 
 let plugin_enable_bufferhint = 1
 
@@ -86,7 +86,9 @@ let plugin_enable_vim_multiple_cursors = 1
 		Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
 		Plug 'weirongxu/coc-explorer', {'do': 'yarn install --frozen-lockfile'}
 	elseif plugin_use_deoplete == 1
-		Plug 'shougo/deoplete.nvim'
+		Plug 'Shougo/deoplete.nvim'
+		Plug 'roxma/nvim-yarp'
+		Plug 'roxma/vim-hug-neovim-rpc'
 	elseif plugin_enable_vim_lsp == 1
 		Plug 'prabirshrestha/async.vim'
 		Plug 'prabirshrestha/asyncomplete.vim'
@@ -94,10 +96,10 @@ let plugin_enable_vim_multiple_cursors = 1
 		Plug 'prabirshrestha/vim-lsp'
 		Plug 'mattn/vim-lsp-settings' "Auto configurations for Language Server for vim-lsp
 	else
+		"too old ...
+		Plug 'vim-scripts/AutoComplPop'
+		Plug 'vim-scripts/OmniCppComplete'
 	endif
-
-	Plug 'vim-scripts/AutoComplPop'
-	Plug 'vim-scripts/OmniCppComplete'
 
 	if plugin_use_ultisnips == 1
 		Plug 'SirVer/ultisnips'

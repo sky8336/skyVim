@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-09-11
-"    Version: v0.0.29
+" LastChange: 2020-09-12
+"    Version: v0.0.30
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -324,25 +324,26 @@ if plugin_enable_coc == 1
 	":Cocinstall coc-css
 elseif plugin_use_deoplete == 1
 	"shougo/deoplete.nvim
+	" Use deoplete.
+	let g:deoplete#enable_at_startup = 1
 elseif plugin_enable_vim_lsp == 1
 	"plugin_setting: 'prabirshrestha/vim-lsp'
 	let g:lsp_diagnostics_enabled = 0 " disable diagnostics(e.g. warnings, errors) support
 else
-	"nothing
-endif
+	" plugin_setting: OmniCppComplete.vim {{{2
+	"set nocp
+	"filetype plugin on
+	set completeopt=menu,menuone
+	let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
+	let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
+	let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
+	let OmniCpp_NamespaceSearch=1   " 打开命名空间
+	let OmniCpp_GlobalScopeSearch=1
+	let OmniCpp_DefaultNamespace=["std"]
+	let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
+	let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
 
-" plugin_setting: OmniCppComplete.vim {{{2
-"set nocp
-"filetype plugin on
-set completeopt=menu,menuone
-let OmniCpp_MayCompleteDot=1    " 打开  . 操作符
-let OmniCpp_MayCompleteArrow=1  " 打开 -> 操作符
-let OmniCpp_MayCompleteScope=1  " 打开 :: 操作符
-let OmniCpp_NamespaceSearch=1   " 打开命名空间
-let OmniCpp_GlobalScopeSearch=1
-let OmniCpp_DefaultNamespace=["std"]
-let OmniCpp_ShowPrototypeInAbbr=1    " 打开显示函数原型
-let OmniCpp_SelectFirstItem = 2      " 自动弹出时自动跳至第一个
+endif
 
 if plugin_use_neomake == 1
 	"neomake/neomake
