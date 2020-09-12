@@ -10,7 +10,7 @@
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
 # LastChange: 2020-09-12
-#    Version: v0.0.83
+#    Version: v0.0.84
 #
 
 source ./common.sh
@@ -112,6 +112,7 @@ packages=(
 	silversearcher-ag #for ctrlsf.vim
 	ack #for ctrlsf.vim
 	python3-pip
+	clang #for deoplete
 )
 # note
 # Google开发的Python格式化工具）
