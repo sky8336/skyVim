@@ -1,8 +1,11 @@
 # plugin instructions
 - Maintainer: sky8336
 -    Created: 2016-09-28
-- LastChange: 2020-08-10
--    Version: V0.0.15
+- LastChange: 2020-09-12
+-    Version: V0.0.16
+
+## vim插件网站
+https://vimawesome.com/
 
 ## vim-plug 命令
 `:PlugStatus`		- 	检查状态
@@ -677,7 +680,7 @@ CTRL+P 在当前项目目录打开文件搜索
 
 按 i 进入模糊匹配，按TAB切换回列表选择
 
-## 19、surround.vim 
+## 19、[surround.vim](https://vimawesome.com/plugin/surround-vim)
 在字符两边插入或改变各种成对的符号在字符两边插入或改变各种成对的符号：单/双引号;大中小括号等
 快捷键的列表：  
 - Normal mode  
