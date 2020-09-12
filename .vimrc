@@ -5,8 +5,8 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2013-06-28
 "    Install: online
-" LastChange: 2020-07-28
-"    Version: v0.2.68
+" LastChange: 2020-09-12
+"    Version: v0.2.69
 " major.minor.patch-build.desc (linux kernel format)
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -599,8 +599,11 @@ function s:Set_lose_focus_window()
 	augroup END
 endfunction
 
-autocmd WinEnter,BufEnter * call s:Set_focus_window()
-autocmd WinLeave,BufLeave * call s:Set_lose_focus_window()
+" 不是 vimdiff 时，自动改变窗口大小; vimdiff 窗口不自动改变大小
+if &diff == 0
+	autocmd WinEnter,BufEnter * call s:Set_focus_window()
+	autocmd WinLeave,BufLeave * call s:Set_lose_focus_window()
+endif
 
 " set statusline color {{{2
 " default the statusline to White (black character) when entering Vim
