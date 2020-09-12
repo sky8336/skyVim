@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-09-12
-"    Version: v0.0.30
+"    Version: v0.0.31
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -625,6 +625,7 @@ let g:airline#extensions#whitespace#show_message = 0
 " plugin_setting: vim-airline-themes {{{2
 "let g:airline_theme="bubblegum"
 let g:airline_theme="dark"
+set noshowmode
 
 " plugin_setting: asyncrun {{{2
 " 自动打开 quickfix window ，高度为 6
