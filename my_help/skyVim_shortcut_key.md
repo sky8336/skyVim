@@ -1,8 +1,8 @@
 # skyVim快捷键及使用说明
 - Maintainer: sky8336
 -    Created: 2016-10-10
-- LastChange: 2020-08-14
--    Version: V0.0.19
+- LastChange: 2020-09-13
+-    Version: V0.0.20
 
 ## help
 ### 查找快捷键的方式：
@@ -34,6 +34,7 @@
 ## Note
 - 禁止使用<c-m> 映射，因为与 enter 联系起来，会导致按enter 调用映射的功能<br/>
   " <C-m> is Enter in quickfix window <br/>
+-  To make sure the left bracket ( is not mapped by other plugins. You may check it using `:imap (`.
 
 ## 快捷键盘开头的type
 - `<leader>` - 指定为`,`
