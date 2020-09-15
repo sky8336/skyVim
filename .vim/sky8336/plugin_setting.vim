@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-09-15
-"    Version: v0.0.32
+"    Version: v0.0.33
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -587,6 +587,16 @@ else
 	"let g:snips_email="cmdxiaoha@163.com"
 	"let g:snips_copyright="SicMicro, Inc"
 endif
+
+"auto-pairs {{2
+"<M-p> : Toggle Autopairs
+let g:AutoPairsShortcutToggle = '<C-1>'
+"<M-e> : Fast Wrap
+let g:AutoPairsShortcutFastWrap = '<c-2>'
+"<M-n> : Jump to next closed pair
+let g:AutoPairsShortcutJump = '<c-3>'
+"<M-b> : BackInsert
+let g:AutoPairsShortcutBackInsert = '<c-4>'
 
 
 " plugin_setting: dirdiff.vim {{{2

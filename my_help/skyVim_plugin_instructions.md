@@ -1,8 +1,10 @@
 # plugin instructions
 - Maintainer: sky8336
 -    Created: 2016-09-28
-- LastChange: 2020-09-12
--    Version: V0.0.16
+- LastChange: 2020-09-15
+-    Version: V0.0.17
+
+具体快捷键用法，请参见各快捷键所在标题中链接。
 
 ## vim插件网站
 https://vimawesome.com/
@@ -731,7 +733,7 @@ cctree窗口提供跳转功能:
 2.按Enter  
 3.ctrl+p  
 
-## 21、  
+## 21、[auto-pairs](https://vimawesome.com/plugin/auto-pairs)
 
 ## 22、  
 

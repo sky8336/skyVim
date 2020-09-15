@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-09-15
-"    Version: v0.0.18
+"    Version: v0.0.19
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -111,6 +111,8 @@ let plugin_enable_vim_multiple_cursors = 1
 	else
 		Plug 'msanders/snipmate.vim'
 	endif
+
+	Plug 'jiangmiao/auto-pairs'
 
 	" completion end
 
