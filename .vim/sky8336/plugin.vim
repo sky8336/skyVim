@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-09-12
-"    Version: v0.0.17
+" LastChange: 2020-09-15
+"    Version: v0.0.18
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " function_switch: plugin_select config table {{{1
@@ -73,7 +73,7 @@ let plugin_enable_vim_multiple_cursors = 1
 	" language end
 
 	" vim_plug_setup:  completion {{{3
-	"Plug 'ervandew/supertab'
+	Plug 'ervandew/supertab'
 	"Plug 'Valloric/YouCompleteMe'
 	"Plug 'Shougo/neocomplete.vim'
 	"Plug 'rstacruz/sparkup'
