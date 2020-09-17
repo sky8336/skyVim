@@ -96,6 +96,7 @@ set wildignore=*.bak,*.o,*.e,*~
 set wildmenu
 set wildmode=list:longest,full
 set wrap
+set paste
 set t_Co=256
 
 " splitting a window will put the new window below the currentone
