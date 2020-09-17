@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-09-12
-#    Version: v0.0.58
+# LastChange: 2020-09-17
+#    Version: v0.0.59
 #
 
 source ./common.sh
@@ -225,8 +225,8 @@ update_package()
 		echo "python3-pip already installed."
 	else
 		yes | sudo apt --allow-unauthenticated install python3-pip
-		pip3 install --user pynvim
 	fi
+	pip3 install --user pynvim
 
 	if which clang > /dev/null ; then
 		echo "clang already installed."
