@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-09-12
-#    Version: v0.0.84
+# LastChange: 2020-09-17
+#    Version: v0.0.85
 #
 
 source ./common.sh
@@ -338,7 +338,7 @@ function config_vim()
 		warning_log "where is you $cfg_path/.vim?? check it"
 	fi
 
-	" used for deoplete
+	# used for deoplete
 	pip3 install --user pynvim
 
 	#追加到.bashrc,不会覆盖.bashrc原有配置
