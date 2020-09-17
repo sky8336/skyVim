@@ -96,6 +96,7 @@ set wildignore=*.bak,*.o,*.e,*~
 set wildmenu
 set wildmode=list:longest,full
 set wrap
+set paste
 set t_Co=256
 
 " splitting a window will put the new window below the currentone
@@ -217,7 +218,7 @@ cmap ,gk :call Generate_kernel_tags_cscope()<CR>
 " vim-autoformat
 nnoremap <leader>af :Autoformat<CR>
 
-" vimdiff hot keys {{{2
+" zimdiff hot keys {{{2
 " if you know the buffer number, you can use hot key like ",2"
 " (press comma first, then press two as quickly as possible) to
 " pull change from buffer number two.set up hot keys:
