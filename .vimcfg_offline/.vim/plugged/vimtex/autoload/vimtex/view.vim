@@ -8,17 +8,15 @@ function! vimtex#view#init_buffer() abort " {{{1
   if !g:vimtex_view_enabled | return | endif
 
   command! -buffer -nargs=? -complete=file VimtexView
-        \ call b:vimtex.viewer.view(<q-args>)
+        \ call vimtex#view#view(<q-args>)
   if has_key(b:vimtex.viewer, 'reverse_search')
-    command! -buffer -nargs=* VimtexRSearch
-          \ call b:vimtex.viewer.reverse_search()
+    command! -buffer -nargs=* VimtexViewRSearch
+         \ call vimtex#view#reverse_search()
   endif
 
-  nnoremap <buffer> <plug>(vimtex-view)
-        \ :call b:vimtex.viewer.view('')<cr>
+  nnoremap <buffer> <plug>(vimtex-view) :VimtexView<cr>
   if has_key(b:vimtex.viewer, 'reverse_search')
-    nnoremap <buffer> <plug>(vimtex-reverse-search)
-          \ :call b:vimtex.viewer.reverse_search()<cr>
+    nnoremap <buffer> <plug>(vimtex-reverse-search) :VimtexViewRSearch<cr>
   endif
 endfunction
 
@@ -26,6 +24,12 @@ endfunction
 function! vimtex#view#init_state(state) abort " {{{1
   if !g:vimtex_view_enabled | return | endif
   if has_key(a:state, 'viewer') | return | endif
+
+  if g:vimtex_view_use_temp_files
+    augroup vimtex_view_buffer
+      autocmd User VimtexEventCompileSuccess call b:vimtex.viewer.copy_files()
+    augroup END
+  endif
 
   try
     let a:state.viewer = vimtex#view#{g:vimtex_view_method}#new()
@@ -35,31 +39,21 @@ function! vimtex#view#init_state(state) abort " {{{1
           \ 'Please see :h g:vimtex_view_method')
     return
   endtry
+endfunction
 
-  " Make the following code more concise
-  let l:v = a:state.viewer
+" }}}1
 
-  "
-  " Add compiler callback to callback hooks (if it exists)
-  "
-  if exists('*l:v.compiler_callback')
-    call add(g:vimtex_compiler_callback_hooks,
-          \ 'b:vimtex.viewer.compiler_callback')
+function! vimtex#view#view(...) abort " {{{1
+  if exists('*b:vimtex.viewer.view')
+    call b:vimtex.viewer.view(a:0 > 0 ? a:1 : '')
   endif
+endfunction
 
-  "
-  " Create view and/or callback hooks (if they exist)
-  "
-  for l:point in ['view', 'callback']
-    execute 'let l:hook = ''g:vimtex_view_'
-          \ . g:vimtex_view_method . '_hook_' . l:point . ''''
-    if exists(l:hook)
-      execute 'let hookfunc = ''*'' . ' . l:hook
-      if exists(hookfunc)
-        execute 'let l:v.hook_' . l:point . ' = function(' . l:hook . ')'
-      endif
-    endif
-  endfor
+" }}}1
+function! vimtex#view#reverse_search() abort " {{{1
+  if exists('*b:vimtex.viewer.reverse_search')
+    call b:vimtex.viewer.reverse_search()
+  endif
 endfunction
 
 " }}}1
@@ -94,9 +88,9 @@ function! vimtex#view#reverse_goto(line, filename) abort " {{{1
     let l:pids = reverse(split(system('pstree -s -p ' . getpid()), '\D\+'))
 
     let l:xwinids = []
-    call map(copy(l:pids), 'extend(l:xwinids, reverse(split('
-          \ . "system('xdotool search --onlyvisible --pid ' . v:val)"
-          \ . ')))')
+    call map(copy(l:pids),
+          \ {_, x -> extend(l:xwinids, reverse(split(system(
+          \   'xdotool search --onlyvisible --pid ' . x))))})
     call filter(l:xwinids, '!empty(v:val)')
 
     if !empty(l:xwinids)

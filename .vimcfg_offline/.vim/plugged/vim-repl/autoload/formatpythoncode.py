@@ -40,7 +40,32 @@ class pythoncodes:
         self.trunctindent()
         return self
 
-    # @profile
+    def tructcomments(self, line):
+        doublecomment = False
+        singlecomment = False
+        index = 0
+        while index < len(line):
+            if doublecomment:
+                if line[index] == "\\":
+                    index += 2
+                    continue
+                if line[index] == '"':
+                    doublecomment = False
+            elif singlecomment:
+                if line[index] == "\\":
+                    index += 2
+                    continue
+                if line[index] == "'":
+                    singlecomment = False
+            elif line[index] == '"':
+                doublecomment = True
+            elif line[index] == "'":
+                singlecomment = True
+            elif line[index] == "#":
+                return line[:index].rstrip()
+            index += 1
+        return line
+
     def removecomments(self):
         newrawcontents = list()
         i = 0
@@ -72,7 +97,7 @@ class pythoncodes:
                 # self.rawcontents = self.rawcontents[:i] + self.rawcontents[j+1:]
                 # self.removecomments()
                 # return
-            newrawcontents.append(self.rawcontents[i])
+            newrawcontents.append(self.tructcomments(self.rawcontents[i]))
             i += 1
         self.rawcontents = newrawcontents
 
@@ -224,10 +249,17 @@ class pythoncodes:
                                 temp.append(''.join(["\b" * lastback]) + block[j].strip())
                             else:
                                 temp.append(block[j].strip())
+                # print("temp", temp)
+
                 if i == len(self.blocks) - 1 and self.codeindent[self.blocks[i][1][-1]][1] == False:
                     pass
                 else:
                     if self.blocks[i][0][0].startswith('def '):
+                        if currentindent - 4 * AutoStop(block[lastline]) == 0:
+                            temp += ["", ""]
+                        else:
+                            temp += [""]
+                    elif self.blocks[i][0][0].startswith('async def '):
                         if currentindent - 4 * AutoStop(block[lastline]) == 0:
                             temp += ["", ""]
                         else:
@@ -247,12 +279,17 @@ class pythoncodes:
                             temp += ["", ""]
                         else:
                             temp += [""]
-                    elif self.blocks[i][0][0].startswith('try '):
+                    elif self.blocks[i][0][0].startswith('try:'):
                         if currentindent - 4 * AutoStop(block[lastline]) == 0:
                             temp += ["", ""]
                         else:
                             temp += [""]
                     elif self.blocks[i][0][0].startswith('if '):
+                        if currentindent - 4 * AutoStop(block[lastline]) == 0:
+                            temp += ["", ""]
+                        else:
+                            temp += [""]
+                    elif self.blocks[i][0][0].startswith('with '):
                         if currentindent - 4 * AutoStop(block[lastline]) == 0:
                             temp += ["", ""]
                         else:
@@ -292,15 +329,19 @@ class pythoncodes:
                 else:
                     if self.blocks[i][0][0].startswith('def '):
                         temp += [""]
+                    elif self.blocks[i][0][0].startswith('async def '):
+                        temp += [""]
                     elif self.blocks[i][0][0].startswith('class '):
                         temp += [""]
                     elif self.blocks[i][0][0].startswith('for '):
                         temp += [""]
                     elif self.blocks[i][0][0].startswith('while '):
                         temp += [""]
-                    elif self.blocks[i][0][0].startswith('try '):
+                    elif self.blocks[i][0][0].startswith('try:'):
                         temp += [""]
                     elif self.blocks[i][0][0].startswith('if '):
+                        temp += [""]
+                    elif self.blocks[i][0][0].startswith('with '):
                         temp += [""]
                 # print(temp)
 
@@ -316,17 +357,20 @@ class pythoncodes:
                 else:
                     if self.blocks[i][0][0].startswith('def '):
                         temp += [""]
+                    elif self.blocks[i][0][0].startswith('async def '):
+                        temp += [""]
                     elif self.blocks[i][0][0].startswith('class '):
                         temp += [""]
                     elif self.blocks[i][0][0].startswith('for '):
                         temp += [""]
                     elif self.blocks[i][0][0].startswith('while '):
                         temp += [""]
-                    elif self.blocks[i][0][0].startswith('try '):
+                    elif self.blocks[i][0][0].startswith('try:'):
                         temp += [""]
                     elif self.blocks[i][0][0].startswith('if '):
                         temp += [""]
-                # print(temp)
+                    elif self.blocks[i][0][0].startswith('with '):
+                        temp += [""]
 
                 self.blocks[i] = (temp, self.blocks[i][1])
 
@@ -340,8 +384,7 @@ class pythoncodes:
 
 # @profile
 def format_to_repl(codes, pythonprogram = "ipython", mergeunfinishline=False, version=""):
-    # print(codes, pythonprogram, mergeunfinishline, version)
-    pc = pythoncodes(replprogram = pythonprogram, flag_mergefinishline = mergeunfinishline, version = version)
+    pc = pythoncodes(replprogram=pythonprogram, flag_mergefinishline=mergeunfinishline, version=version)
     pc.getcode(codes)
     return pc.generatecodes()
 

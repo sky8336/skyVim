@@ -1,5 +1,5 @@
 function! health#vimtex#check() abort
-  call vimtex#init_options()
+  call vimtex#options#init()
 
   call health#report_start('vimtex')
 
@@ -18,11 +18,6 @@ function! s:check_general() abort " {{{1
 
   if !executable('bibtex')
     call health#report_warn('bibtex is not executable, so bibtex completions are disabled.')
-  endif
-
-  if g:vimtex_complete_bib.recursive && !executable('kpsewhich')
-    call health#report_warn(
-          \ 'kpsewhich is not executable, and is required for recursive bib search')
   endif
 endfunction
 
@@ -65,19 +60,14 @@ endfunction
 " }}}1
 
 function! s:check_plugin_clash() abort " {{{1
-  let l:scriptnames = split(execute('scriptnames'), "\n")
+  " Note: This duplicates the code in after/ftplugin/tex.vim
+  let l:scriptnames = vimtex#util#command('scriptnames')
 
   let l:latexbox = !empty(filter(copy(l:scriptnames), "v:val =~# 'latex-box'"))
   if l:latexbox
     call health#report_warn('Conflicting plugin detected: LaTeX-Box')
     call health#report_info('vimtex does not work as expected when LaTeX-Box is installed!')
     call health#report_info('Please disable or remove it to use vimtex!')
-
-    let l:polyglot = !empty(filter(copy(l:scriptnames), "v:val =~# 'polyglot'"))
-    if l:polyglot
-      call health#report_info('LaTeX-Box is included with vim-polyglot and may be disabled with:')
-      call health#report_info('let g:polyglot_disabled = [''latex'']')
-    endif
   endif
 endfunction
 
@@ -154,7 +144,7 @@ function! s:check_view_skim() abort " {{{1
         \ '''tell application "Finder" to POSIX path of ',
         \ '(get application file id (id of application "Skim") as alias)''',
         \])
-  
+
   if system(l:cmd)
     call health#report_error('Skim is not installed!')
   else

@@ -19,6 +19,7 @@ let s:option_list = {
     \ '-matchcase'  : {'args': 0},
     \ '-regex'      : {'args': 0},
     \ '-smartcase'  : {'args': 0},
+    \ '-hidden'     : {'args': 0},
     \ '-A': {'fullname': '-after'},
     \ '-B': {'fullname': '-before'},
     \ '-C': {'fullname': '-context'},
@@ -27,6 +28,7 @@ let s:option_list = {
     \ '-L': {'fullname': '-literal'},
     \ '-R': {'fullname': '-regex'},
     \ '-S': {'fullname': '-matchcase'},
+    \ '-T': {'fullname': '-filetype'},
     \ '-W': {'fullname': '-word'},
     \ }
 

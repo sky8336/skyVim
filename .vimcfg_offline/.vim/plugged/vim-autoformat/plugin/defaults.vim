@@ -128,6 +128,12 @@ if !exists('g:formatters_objc')
 endif
 
 
+" Protobuf
+if !exists('g:formatters_proto')
+    let g:formatters_proto = ['clangformat']
+endif
+
+
 " Java
 if !exists('g:formatdef_astyle_java')
     if filereadable('.astylerc')
@@ -165,7 +171,7 @@ endif
 
 
 if !exists('g:formatdef_prettier')
-    let g:formatdef_prettier = '"prettier --stdin --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
+    let g:formatdef_prettier = '"prettier --stdin-filepath ".expand("%:p").(&textwidth ? " --print-width ".&textwidth : "")." --tab-width=".shiftwidth()'
 endif
 
 
@@ -178,7 +184,7 @@ if !exists('g:formatdef_xo_javascript')
         let content = getline('1', '$')
         call writefile(content, l:xo_js_tmp_file)
         return "xo --fix ".l:xo_js_tmp_file." 1> /dev/null; exit_code=$?
-                     \ cat ".l:xo_js_tmp_file."; rm -f ".l:xo_js_tmp_file."; exit $exit_code"
+                    \ cat ".l:xo_js_tmp_file."; rm -f ".l:xo_js_tmp_file."; exit $exit_code"
     endfunction
     let g:formatdef_xo_javascript = "g:BuildXOLocalCmd()"
 endif
@@ -187,6 +193,22 @@ endif
 " corresponding config is found they are used, otherwiese the formatter fails.
 " No windows support at the moment.
 if !exists('g:formatdef_eslint_local')
+    " returns unique file name near original
+    function! g:BuildESLintTmpFile(path, ext)
+        let l:i = 0
+        let l:result = a:path.'_eslint_tmp_'.l:i.a:ext
+        while filereadable(l:result) && l:i < 100000
+            let l:i = l:i + 1
+            let l:result = a:path.'_eslint_tmp_'.l:i.a:ext
+        endwhile
+        if filereadable(l:result)
+            echoerr "Temporary file could not be created for ".a:path
+            echoerr "Tried from ".a:path.'_eslint_tmp_0'.a:ext." to ".a:path.'_eslint_tmp_'.l:i.a:ext
+            return ''
+        endif
+        return l:result
+    endfunction
+
     function! g:BuildESLintLocalCmd()
         let l:path = fnamemodify(expand('%'), ':p')
         let l:ext = ".".expand('%:p:e')
@@ -201,6 +223,8 @@ if !exists('g:formatdef_eslint_local')
             if empty(l:prog)
                 let l:prog = findfile('/usr/local/bin/eslint')
             endif
+        else
+            let l:prog = getcwd()."/".l:prog
         endif
 
         "initial
@@ -208,11 +232,11 @@ if !exists('g:formatdef_eslint_local')
 
         if empty(l:cfg)
             let l:cfg_fallbacks = [
-                \'.eslintrc.yaml',
-                \'.eslintrc.yml',
-                \'.eslintrc.json',
-                \'.eslintrc',
-            \]
+                        \'.eslintrc.yaml',
+                        \'.eslintrc.yml',
+                        \'.eslintrc.json',
+                        \'.eslintrc',
+                        \]
 
             for i in l:cfg_fallbacks
                 let l:tcfg = findfile(i, l:path.";")
@@ -243,11 +267,11 @@ if !exists('g:formatdef_eslint_local')
 
         " This formatter uses a temporary file as ESLint has not option to print
         " the formatted source to stdout without modifieing the file.
-        let l:eslint_tmp_file = fnameescape(tempname().l:ext)
+        let l:eslint_tmp_file = g:BuildESLintTmpFile(l:path, l:ext)
         let content = getline('1', '$')
         call writefile(content, l:eslint_tmp_file)
         return l:prog." -c ".l:cfg." --fix ".l:eslint_tmp_file." 1> /dev/null; exit_code=$?
-                     \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
+                    \ cat ".l:eslint_tmp_file."; rm -f ".l:eslint_tmp_file."; exit $exit_code"
     endfunction
     let g:formatdef_eslint_local = "g:BuildESLintLocalCmd()"
 endif
@@ -289,7 +313,7 @@ endif
 
 " HTML
 if !exists('g:formatdef_htmlbeautify')
-    let g:formatdef_htmlbeautify = '"html-beautify - -".(&expandtab ? "s ".shiftwidth() : "t")'
+    let g:formatdef_htmlbeautify = '"html-beautify - -".(&expandtab ? "s ".shiftwidth() : "t").(&textwidth ? " -w ".&textwidth : "")'
 endif
 
 if !exists('g:formatdef_tidy_html')
@@ -373,6 +397,14 @@ if !exists('g:formatters_typescript')
     let g:formatters_typescript = ['tsfmt', 'prettier']
 endif
 
+" Haxe
+if !exists('g:formatdef_haxe_formatter')
+    let g:formatdef_haxe_formatter = "'haxelib run formatter --stdin --source " . fnamemodify("%", ":p:h") . "'"
+endif
+
+if !exists('g:formatters_haxe')
+    let g:formatters_haxe = ["haxe_formatter"]
+endif
 
 " Golang
 " Two definitions are provided for two versions of gofmt.
@@ -395,7 +427,7 @@ endif
 
 " Rust
 if !exists('g:formatdef_rustfmt')
-    let g:formatdef_rustfmt = '"rustfmt"'
+    let g:formatdef_rustfmt = '"rustfmt --edition 2018"'
 endif
 
 if !exists('g:formatters_rust')
@@ -438,6 +470,15 @@ endif
 
 if !exists('g:formatters_haskell')
     let g:formatters_haskell = ['stylish_haskell']
+endif
+
+" Purescript
+if !exists('g:formatdef_purty')
+    let g:formatdef_purty = '"purty -"'
+endif
+
+if !exists('g:formatters_purescript')
+    let g:formatters_purescript = ['purty']
 endif
 
 " Markdown
@@ -487,4 +528,48 @@ if !exists('g:formatdef_sqlformat')
 endif
 if !exists('g:formatters_sql')
     let g:formatters_sql = ['sqlformat']
+endif
+
+" CMake
+if !exists('g:formatdef_cmake_format')
+    let g:formatdef_cmake_format = '"cmake-format - --tab-size ".shiftwidth()." ".(&textwidth ? "--line-width=".&textwidth : "")'
+endif
+
+if !exists('g:formatters_cmake')
+    let g:formatters_cmake = ['cmake_format']
+endif
+
+" Latex
+if !exists('g:formatdef_latexindent')
+    let g:formatdef_latexindent = '"latexindent.pl -"'
+endif
+
+if !exists('g:formatters_latex')
+    let g:formatters_tex = ['latexindent']
+endif
+
+" OCaml
+if !exists('g:formatdef_ocp_indent')
+    let g:formatdef_ocp_indent = '"ocp-indent"'
+endif
+
+if !exists('g:formatdef_ocamlformat')
+    if filereadable('.ocamlformat')
+        let g:formatdef_ocamlformat = '"ocamlformat --enable-outside-detected-project --name " . expand("%:p") . " -"'
+    else
+        let g:formatdef_ocamlformat = '"ocamlformat --profile=ocamlformat --enable-outside-detected-project --name " . expand("%:p") . " -"'
+    endif
+endif
+
+if !exists('g:formatters_ocaml')
+    let g:formatters_ocaml = ['ocamlformat', 'ocp_indent']
+endif
+
+" Assembly
+if !exists('g:formatdef_asm_format')
+    let g:formatdef_asm_format = '"asmfmt"'
+endif
+
+if !exists('g:formatters_asm')
+    let g:formatters_asm = ['asm_format']
 endif

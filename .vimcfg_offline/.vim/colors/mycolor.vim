@@ -42,6 +42,7 @@ hi Error                term=bold               cterm=bold
 hi Error                ctermfg=Red       ctermbg=Black
 
 hi LineNr               ctermfg=DarkGrey        ctermbg=none
+hi CursorLineNr         ctermfg=yellow      ctermbg=none  cterm=bold
 
 hi CursorLine           cterm=underline
 "hi CursorLine          cterm=bold ctermbg=Black
@@ -51,7 +52,9 @@ hi CursorLine           cterm=underline
 "hi ColorColumn          cterm=NONE ctermbg=Black ctermfg=White guibg=NONE guifg=NONE
 "hi ColorColumn          ctermbg=darkblue
 
-hi IncSearch            ctermfg=DarkYellow      ctermbg=Black  cterm=bold
+"hi IncSearch            ctermfg=White      ctermbg=DarkMagenta  cterm=bold
+hi IncSearch            ctermfg=White      ctermbg=DarkBlue  cterm=bold
+"hi IncSearch            ctermfg=White      ctermbg=Brown  cterm=bold
 hi Search               ctermfg=Black           ctermbg=Yellow cterm=bold
 "hi StatusLine           term=bold               cterm=bold
 "hi StatusLine           ctermfg=Black           ctermbg=Grey
@@ -60,7 +63,8 @@ hi StatusLineNC         ctermfg=LightGrey       ctermbg=black
 
 "hi VertSplit            ctermfg=Grey            ctermbg=Grey
 hi Visual               term=bold               cterm=bold
-hi Visual               ctermfg=Black           ctermbg=Grey
+"hi Visual               ctermfg=Black           ctermbg=Grey
+hi Visual               ctermfg=none           ctermbg=DarkMagenta
 
 hi Pmenu                ctermbg=Black           ctermfg=Grey
 hi PmenuSel             ctermbg=DarkBlue        ctermfg=LightGreen

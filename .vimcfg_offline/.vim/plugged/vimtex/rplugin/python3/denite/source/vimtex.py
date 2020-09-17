@@ -22,7 +22,7 @@ class Source(Base):
                'section',
                'subsection',
                'subsubsection',
-               'subsubsubsection'] if n[k] is not 0]
+               'subsubsubsection'] if n[k] != 0]
 
         if n['appendix']:
             num[0] = chr(int(num[0]) + 64)
@@ -41,6 +41,6 @@ class Source(Base):
                 'action__line': e.get('line', 0)}
 
     def gather_candidates(self, context):
-        entries = self.vim.eval('vimtex#parser#toc(b:vimtex.tex)')
+        entries = self.vim.eval('vimtex#parser#toc()')
         depth = max([int(e['level']) for e in entries])
         return [Source.create_candidate(e, depth) for e in entries]

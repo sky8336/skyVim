@@ -23,6 +23,8 @@ endf
 
 " IsSearchDone()
 "
+" A search is done either finished or cancelled.
+"
 func! ctrlsf#async#IsSearchDone() abort
     return s:done == 1 && s:IsAllConsumed()
 endf
@@ -36,6 +38,8 @@ endf
 " Reset()
 "
 func! ctrlsf#async#Reset() abort
+    call ctrlsf#async#ForceStopSearch()
+
     let s:job_id = -1
     let s:timer_id = -1
     let s:done = -1
@@ -114,13 +118,7 @@ endf
 "
 func! ctrlsf#async#StopSearch() abort
     call ctrlsf#log#Debug("StopSearch")
-    if type(s:job_id) != type(-1)
-        if has('nvim')
-            call jobstop(s:job_id)
-        else
-            call job_stop(s:job_id, "int")
-        endif
-    endif
+    call s:StopJob()
     if ctrlsf#async#IsSearching()
         call s:DiscardResult()
         let s:cancelled = 1
@@ -198,9 +196,15 @@ endf
 " StopParse()
 "
 func! ctrlsf#async#StopParse() abort
-    call ctrlsf#log#Debug("StopTimer: id=%s", s:timer_id)
-    call timer_stop(s:timer_id)
+    call s:StopTimer()
 endf
+
+" ForceStopSearch()
+"
+func! ctrlsf#async#ForceStopSearch() abort
+  call s:StopJob()
+  call s:StopTimer()
+endfunc
 
 " SearchDone()
 "
@@ -224,7 +228,29 @@ func! s:SearchDone() abort
 
     if !ctrlsf#async#IsCancelled()
         call ctrlsf#log#Notice("Done!")
+    else
+        call ctrlsf#log#Notice("Cancelled.")
     endif
 
     call ctrlsf#log#Debug("ParseFinish")
+endf
+
+" StopJob()
+"
+func! s:StopJob() abort
+    call ctrlsf#log#Debug("StopJob")
+    if type(s:job_id) != type(-1)
+        if has('nvim')
+            call jobstop(s:job_id)
+        else
+            call job_stop(s:job_id, "int")
+        endif
+    endif
+endfunc
+
+" StopTimer()
+"
+func! s:StopTimer() abort
+  call ctrlsf#log#Debug("StopTimer: id=%s", s:timer_id)
+  call timer_stop(s:timer_id)
 endf

@@ -1,7 +1,11 @@
 def f(a, b):
-    c = 0
-    for i in range(len(a)):
-        c = a[i] * b[i]
-    return c
+    print("hello")
+    print("hello")
+    print("hello")
+    print("hello")
+    print("hello")
 
 f(range(4), range(3))
+
+for i in [1, 2, 3]:
+    print(i)

@@ -28,11 +28,9 @@ Currently this repository contains the following themes:
     * alduin
     * angr
     * atomic
-    * aurora
     * ayu_light
     * ayu_mirage
     * ayu_dark
-    * badcat
     * badwolf
     * base16 (|airline-theme-base16|)
     * base16_vim (|airline-theme-base16_vim|)
@@ -60,6 +58,7 @@ Currently this repository contains the following themes:
     * base16_google
     * base16_grayscale
     * base16_greenscreen
+    * base16_gruvbox_dark_hard
     * base16_harmonic16
     * base16_hopscotch
     * base16_isotope
@@ -92,7 +91,6 @@ Currently this repository contains the following themes:
     * desertink
     * deus
     * distinguished
-    * dracula
     * durant
     * faryfloss
     * fruit_punch
@@ -114,6 +112,7 @@ Currently this repository contains the following themes:
     * night_owl
     * onedark (|airline-theme-onedark|)
     * ouo
+    * owo
     * papercolor
     * peaksea
     * powerlineish
@@ -121,6 +120,7 @@ Currently this repository contains the following themes:
     * raven
     * ravenpower
     * seagull
+    * seoul256
     * serene
     * sierra
     * silver
@@ -134,7 +134,6 @@ Currently this repository contains the following themes:
     * tomorrow
     * ubaryd
     * understated
-    * vice
     * violet
     * wombat
     * xtermlight
@@ -244,6 +243,12 @@ Turns the outer-most section of the statusline Solarized green, making it
 look more like classic powerline in normal mode. To enable it: >
     let g:airline_solarized_normal_green = 1
 <
+                                                *airline_solarized_dark_inactive_background*
+
+For buffer(s) in the tabline that are displayed in an inactive window pane,
+use a darker background for the buffer display in the tabline. To enable it: >
+    let g:airline_solarized_dark_inactive_background = 1
+<
                                                 *g:airline_solarized_dark_text*
 
 Turns the text color of the outer-most sections of the statusline to be dark.
@@ -255,6 +260,11 @@ To enable it: >
 Changes inactive window panes to have a dark bottom border instead
 of light by default. To enable it: >
     let g:airline_solarized_dark_inactive_border = 1
+<
+                                        *g:airline_solarized_enable_command_color*
+
+In command mode, set the status line to its own color (violet). To enable it: >
+    let airline_solarized_enable_command_color = 1
 <
                                                         *g:solarized_base16*
 
@@ -287,6 +297,6 @@ Contributions and pull requests are welcome.
 ==============================================================================
 LICENSE                                            *airline-themes-license*
 
-MIT License.  Copyright © 2013-2016 Bailey Ling, et al
+MIT License.  Copyright © 2013-2020 Bailey Ling, et al
 
  vim:tw=78:ts=8:ft=help:norl:

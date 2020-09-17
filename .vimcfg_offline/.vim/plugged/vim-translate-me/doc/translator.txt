@@ -1,0 +1,175 @@
+*translator.txt*    Vim/Neovim plugin for translating   Last change: 2019-02-16
+
+Author : voldikss <https://github.com/voldikss>
+License: MIT license
+NOTE: This is outdated, please refer to the README file:
+    ../README.md
+    or
+    https://github.com/voldikss/vim-translator/blob/master/README.md
+==============================================================================
+CONTENTS                                               *translator-contents*
+
+    Introduction                                       |translator-introduction|
+    Install                                            |translator-install|
+    Variables                                          |translator-variables|
+    Keymappings                                        |translator-key-mappings|
+    Commands                                           |translator-commands|
+    Highlight                                          |translator-highlight|
+    Repository                                         |translator-repository|
+
+
+==============================================================================
+INTRODUCTION                                        *translator-introduction*
+
+	Asynchronous translating plugin for Vim/Neovim
+
+
+==============================================================================
+INSTALL                                                 *translator-install*
+
+	Using vim-plug:
+ >
+	    Plug 'voldikss/vim-translator'
+<
+
+==============================================================================
+VARIABLES                                            *translator-variables*
+
+g:translator_target_lang                            *g:translator_target_lang*
+
+		Refer to https://github.com/voldikss/vim-translator/wiki
+		Default: "zh"
+
+g:translator_source_lang                            *g:translator_source_lang*
+
+		Refer to https://github.com/voldikss/vim-translator/wiki
+		Default: "auto"
+
+g:translator_default_engines                   *g:translator_default_engines*
+
+		Available: "bing", "iciba", "google", "youdao", "trans", "sdcv".
+		Default: ["iciba", "youdao"] if |g:translator_target_lang|
+		is "zh"`, otherwise ["google", "bing"]
+
+g:translator_proxy_url                               *g:translator_proxy_url*
+
+		E.g.
+		`let g:translator_proxy_url = 'socks5://127.0.0.1:1080'`
+		Default: |v:null|
+
+g:translator_history_enable                      *g:translator_history_enable*
+
+		Default: |v:false|
+
+g:translator_enable_history                      *g:translator_enable_history*
+
+		Default: |v:false|
+
+g:translator_window_type                            *g:translator_window_type*
+
+		Available: "popup"(use floatwin in nvim or popup in vim),
+			   "preview"
+
+		Default: "popup"
+
+g:translator_window_max_width                  *g:translator_window_max_width*
+
+		Max width value of the popup/floating window
+		Default: 0.6*&columns
+
+g:translator_window_max_height                *g:translator_window_max_height*
+
+		Max width value of the popup/floating height
+		Default: 0.6*&lines
+
+g:translator_window_borderchars              *g:translator_window_borderchars*
+
+		Border will be disabled if |g:translator_window_borderchars|
+		is set to |[]|
+		Default: ['─', '│', '─', '│', '┌', '┐', '┘', '└']
+
+
+==============================================================================
+
+MAPPINGS                                       *translator-key-mappings*
+
+		This plugin doesn't supply any default mappings.
+	    >
+		""" Configuration example
+
+		" Echo translation in the cmdline
+		nmap <silent> <Leader>t <Plug>Translate
+		vmap <silent> <Leader>t <Plug>TranslateV
+		" Display translation in a window
+		nmap <silent> <Leader>w <Plug>TranslateW
+		vmap <silent> <Leader>w <Plug>TranslateWV
+		" Replace the text with translation
+		nmap <silent> <Leader>r <Plug>TranslateR
+		vmap <silent> <Leader>r <Plug>TranslateRV
+
+
+==============================================================================
+COMMANDS                                    *translator-commands*
+
+:Translate[!] [-e engine] [-t text] [-tl target_lang] [-sl source_lang] *:Translate*
+
+	Translate the `text` to target language `target_lang` with `engine`, echo
+	the result in the cmdline
+
+	If no `engine`, use |g:translator_default_engines|
+
+	If no `text`, use the text under the cursor
+
+	If no `target_lang`, use |g:translator_target_lang|
+
+	If `!` is included, the plugin will perform a reverse translating by
+	switching `target_lang` and `source_lang`
+
+	The command can also be passed to a range, i.e., `:'<,'>Translate ...`,
+	which translates text in visual selection
+
+:TranslateW[!] [-e engine] [-t text] [-tl target_lang] [-sl source_lang] *:TranslateW*
+
+	Display the translation in a window
+
+:TranslateR[!] [-e engine] [-t text] [-tl target_lang] [-sl source_lang] *:TranslateR*
+
+	Replace the current text with the translation
+
+:TranslateH                                                    *:TranslateH*
+
+	Export translation history
+
+
+    Example:
+ >
+	:TranslateW -t text -e bing youdao -tl zh
+
+
+==============================================================================
+HIGHLIGHT                                                *translator-highlight*
+
+    Here are the default highlight links.
+    To customize, use |highlight| command.
+    >
+		" Text highlight of translator window
+		hi def link TranslatorQuery             Identifier
+		hi def link TranslatorPhonetic          Type
+		hi def link TranslatorExplain           Statement
+		hi def link TranslatorDelimiter         Special
+
+		" Background of translator window border
+		hi def link TranslatorNF                NormalFloat
+		hi def link TranslatorBorderNF          NormalFloat
+
+
+==============================================================================
+REPOSITORY                                          *translator-repository-page*
+
+    |vim-translator| is developed on GitHub.
+
+    https://github.com/voldikss/vim-translator
+
+
+==============================================================================
+vim:tw=78:nosta:noet:ts=8:sts=0:ft=help:noet:fen:fdm=marker:

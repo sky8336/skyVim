@@ -105,8 +105,8 @@ function! s:xwin_template.view(file) dict abort " {{{1
     call self.start(outfile)
   endif
 
-  if has_key(self, 'hook_view')
-    call self.hook_view()
+  if exists('#User#VimtexEventView')
+    doautocmd <nomodeline> User VimtexEventView
   endif
 endfunction
 
@@ -151,16 +151,19 @@ function! s:xwin_template.xwin_exists() dict abort " {{{1
   " If xwin_id is unset, check if matching viewer windows exist
   "
   if self.xwin_id == 0
-    if has_key(self, 'get_pid')
+    let l:pid = has_key(self, 'get_pid') ? self.get_pid() : 0
+    if l:pid > 0
       let cmd = 'xdotool search'
-            \ . ' --all --pid ' . self.get_pid()
+            \ . ' --all --pid ' . l:pid
             \ . ' --name ' . fnamemodify(self.out(), ':t')
       let self.xwin_id = get(split(system(cmd), '\n'), 0)
     else
       let cmd = 'xdotool search --name ' . fnamemodify(self.out(), ':t')
       let ids = split(system(cmd), '\n')
-      let ids_already_used = filter(map(deepcopy(vimtex#state#list_all()),
-            \ "get(get(v:val, 'viewer', {}), 'xwin_id')"), 'v:val > 0')
+      let ids_already_used = filter(map(
+            \   deepcopy(vimtex#state#list_all()),
+            \   {_, x -> get(get(x, 'viewer', {}), 'xwin_id')}),
+            \ 'v:val > 0')
       for id in ids
         if index(ids_already_used, id) < 0
           let self.xwin_id = id
@@ -182,6 +185,26 @@ function! s:xwin_template.xwin_send_keys(keys) dict abort " {{{1
   let cmd  = 'xdotool key --window ' . self.xwin_id
   let cmd .= ' ' . a:keys
   silent call system(cmd)
+endfunction
+
+" }}}1
+function! s:xwin_template.move(arg) abort " {{{1
+  if !executable('xdotool') || self.xwin_id <= 0
+    return
+  endif
+
+  let l:cmd = 'xdotool windowmove ' . self.xwin_get_id() . ' ' . a:arg
+  silent call system(l:cmd)
+endfunction
+
+" }}}1
+function! s:xwin_template.resize(arg) abort " {{{1
+  if !executable('xdotool') || self.xwin_id <= 0
+    return
+  endif
+
+  let l:cmd = 'xdotool windowsize ' . self.xwin_get_id()  . ' ' . a:arg
+  silent call system(l:cmd)
 endfunction
 
 " }}}1

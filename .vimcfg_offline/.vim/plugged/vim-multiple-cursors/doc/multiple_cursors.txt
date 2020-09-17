@@ -94,6 +94,10 @@ otherwise you'll have a tough time quitting from multicursor mode.
 
 Currently there are four additional global settings one can tweak:
 
+*g:multi_cursor_support_imap* (Default: 1)
+
+If set to 0, insert mappings won't be supported in |insert-mode| anymore.
+
 *g:multi_cursor_exit_from_visual_mode* (Default: 0)
 
 If set to 0, then pressing |g:multi_cursor_quit_key| in |visual-mode| will quit
@@ -164,6 +168,10 @@ like the following in your vimrc: >
 
 ==============================================================================
 7. FAQ                                              *multiple-cursors-faq*
+
+Q:  Pressing <i> after selecting words with <C-n> makes the plugin hang, why?
+A:  When selecting words with <C-n>, the plugin behaves like in `visual` mode.
+    Once you pressed <i>, you can still press <I> to insert text.
 
 Q:  <A-n> doesn't seem to work in VIM but works in gVIM, why?
 A:  This is a well known terminal/Vim [9], different terminal have different

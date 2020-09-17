@@ -1,0 +1,87 @@
+% TeX Root = main.tex
+
+\chapter[Short title]{Long title}
+\begin{equation}
+  \label{eq:test}
+  f=1
+\end{equation}
+
+\chapter{Parsing {toc entries works
+  also for} multi-line \texorpdfstring{stuff}{entries}
+--- Hurray!}
+
+\section{\texorpdfstring{\textcolor{red}{Very important title}} {Very important title}}
+\label{sec:test2}
+
+\section{Test section 1}\label{sec:TesSec1}
+
+% \includegraphics{test.jpg}
+\todo[inline]{
+En test til her, ja.}
+
+\begin{figure}[htpb]
+  \centering
+  \input{test.tikz}
+  \caption{Silly example}
+  \label{fig:example1}
+\end{figure}
+
+\subsection{sub}
+
+\subsubsection{subsub}
+
+\paragraph{par}
+
+\subsection{Test sub section 1}
+
+\section{$\alpha$}
+
+\subsection{Test sub section 1}
+
+\subsection{Test sub section 2}
+Some text.
+
+\chapter[Parsing toc specific entries works 
+  also for multi-line --- A second Hurray!]{Parsing {toc entries works
+  also for} multi-line \texorpdfstring{stuff}{entries}
+--- Hurray!}
+
+\chapter*{Test chapter 1}
+Test of starred chapter.
+
+\chapter{Test chapter 2}
+\label{chap:second test}
+
+\section{Testing TOC levels}
+Testing more input and TOC levels.
+
+\subsection{Testing TOC sub levels}
+
+\subsubsection{Testing TOC sub sub levels}
+Hello world.
+
+\paragraph{something}
+asdasd
+
+\subsubsection{Text $\Gamma^{r}(\ensuremath{{\mathbf{Z}}}_p^d,\mathbf{K})$}
+
+\begin{equation}
+  \label{eq:test equation label}
+  f(x) = 1
+\end{equation}
+
+\subsection{Another test subsection}
+
+\subsubsection{Other text $\Gamma^{r}$}
+
+\paragraph{something}
+asdasd
+
+\section{Testing more appendix levels}
+Testing more input and TOC levels.
+
+\subsection{Testing TOC sub levels}
+
+\section{Testing included section contents}
+
+\input{sections}

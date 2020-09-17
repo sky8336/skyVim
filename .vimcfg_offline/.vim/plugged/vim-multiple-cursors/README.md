@@ -1,5 +1,7 @@
+# **❗ This plugin is deprecated, use [vim-visual-multi](https://github.com/mg979/vim-visual-multi) instead ❗**
+
 # vim-multiple-cursors
-[![Build Status](https://travis-ci.org/terryma/vim-multiple-cursors.svg)](https://travis-ci.org/terryma/vim-multiple-cursors)
+[![Build Status](https://travis-ci.org/terryma/vim-multiple-cursors.svg?branch=master)](https://travis-ci.org/github/terryma/vim-multiple-cursors)
 
 ## Contents
  - [About](#about)
@@ -103,6 +105,9 @@ let g:multi_cursor_quit_key            = '<Esc>'
 ## Settings
 Currently there are four additional global settings one can tweak:
 
+### ```g:multi_cursor_support_imap``` (Default: 1)
+If set to 0, insert mappings won't be supported in _Insert_ mode anymore.
+
 ### ```g:multi_cursor_exit_from_visual_mode``` (Default: 0)
 If set to 1, then pressing `g:multi_cursor_quit_key` in _Visual_ mode will quit and
 delete all existing cursors, just skipping normal mode with multiple cursors.
@@ -169,6 +174,10 @@ highlight link multiple_cursors_visual Visual
 ```
 
 ## FAQ
+
+#### **Q**  Pressing <kbd>i</kbd> after selecting words with <kbd>C-n</kbd> makes the plugin hang, why?
+**A** When selecting words with <kbd>C-n</kbd>, the plugin behaves like in **visual** mode.
+Once you pressed <kbd>i</kbd>, you can still press <kbd>I</kbd> to insert text.
 
 #### **Q** <kbd>ALT</kbd>+<kbd>n</kbd> doesn't seem to work in VIM but works in gVIM, why?
 **A** This is a well known terminal/Vim [issue](http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal), different terminal have different ways to send ```Alt+key```.

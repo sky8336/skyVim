@@ -1,4 +1,0 @@
-- [ ] File browser mode
-- [ ] Rebasing mode
-- [ ] Bisecting mode
-- [ ] With custom bindings

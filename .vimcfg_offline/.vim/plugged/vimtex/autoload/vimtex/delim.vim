@@ -33,10 +33,11 @@ endfunction
 
 function! vimtex#delim#close() abort " {{{1
   let l:save_pos = vimtex#pos#get_cursor()
-  let l:pos_val_cursor = vimtex#pos#val(l:save_pos)
+  let l:posval_cursor = vimtex#pos#val(l:save_pos)
+  let l:posval_current = l:posval_cursor
+  let l:posval_last = l:posval_cursor + 1
 
-  let l:lnum = l:save_pos[1] + 1
-  while l:lnum > 1
+  while l:posval_current < l:posval_last
     let l:open  = vimtex#delim#get_prev('all', 'open',
           \ { 'syn_exclude' : 'texComment' })
     if empty(l:open) || get(l:open, 'name', '') ==# 'document'
@@ -49,19 +50,16 @@ function! vimtex#delim#close() abort " {{{1
       return l:open.corr
     endif
 
-    if vimtex#pos#val(l:open) == l:pos_val_cursor
-      call vimtex#pos#set_cursor(vimtex#pos#prev(l:open))
-      continue
-    endif
-
-    let l:pos_val_try = vimtex#pos#val(l:close) + strlen(l:close.match)
-    if l:pos_val_try > l:pos_val_cursor
+    let l:posval_last = l:posval_current
+    let l:posval_current = vimtex#pos#val(l:open)
+    let l:posval_try = vimtex#pos#val(l:close) + strlen(l:close.match)
+    if l:posval_current != l:posval_cursor
+          \ && l:posval_try > l:posval_cursor
       call vimtex#pos#set_cursor(l:save_pos)
       return l:open.corr
-    else
-      let l:lnum = l:open.lnum
-      call vimtex#pos#set_cursor(vimtex#pos#prev(l:open))
     endif
+
+    call vimtex#pos#set_cursor(vimtex#pos#prev(l:open))
   endwhile
 
   call vimtex#pos#set_cursor(l:save_pos)
@@ -232,8 +230,9 @@ function! vimtex#delim#change_with_args(open, close, new) abort " {{{1
     let [l:beg, l:end] = ['{', '}']
   else
     let l:side = a:new =~# g:vimtex#delim#re.delim_math.close
-    let l:index = index(map(copy(g:vimtex#delim#lists.delim_math.name),
-          \   'v:val[' . l:side . ']'),
+    let l:index = index(map(
+          \   copy(g:vimtex#delim#lists.delim_math.name),
+          \   {_, x -> x[l:side]}),
           \ a:new)
     if l:index >= 0
       let [l:beg, l:end] = g:vimtex#delim#lists.delim_math.name[l:index]
@@ -273,7 +272,7 @@ function! vimtex#delim#change_input_complete(lead, cmdline, pos) abort " {{{1
   let l:close = map(copy(l:all), 'v:val[1]')
 
   let l:lead_re = escape(a:lead, '\$[]')
-  return filter(l:open + l:close, 'v:val =~# ''^' . l:lead_re . '''')
+  return filter(l:open + l:close, {_, x -> v:val =~# '^' . l:lead_re})
 endfunction
 
 " }}}1
@@ -466,14 +465,14 @@ function! s:get_delim(opts) abort " {{{1
   let l:re = g:vimtex#delim#re[a:opts.type][a:opts.side]
   while 1
     let [l:lnum, l:cnum] = a:opts.direction ==# 'next'
-          \ ? searchpos(l:re, 'cnW', line('.') + s:stopline)
+          \ ? searchpos(l:re, 'cnW', line('.') + g:vimtex_delim_stopline)
           \ : a:opts.direction ==# 'prev'
-          \   ? searchpos(l:re, 'bcnW', max([line('.') - s:stopline, 1]))
+          \   ? searchpos(l:re, 'bcnW', max([line('.') - g:vimtex_delim_stopline, 1]))
           \   : searchpos(l:re, 'bcnW', line('.'))
     if l:lnum == 0 | break | endif
 
     if has_key(a:opts, 'syn_exclude')
-          \ && vimtex#util#in_syntax(a:opts.syn_exclude, l:lnum, l:cnum)
+          \ && vimtex#syntax#in(a:opts.syn_exclude, l:lnum, l:cnum)
       call vimtex#pos#set_cursor(vimtex#pos#prev(l:lnum, l:cnum))
       continue
     endif
@@ -546,6 +545,11 @@ function! s:parser_env(match, lnum, cnum, ...) abort " {{{1
   let result.is_open = result.side ==# 'open'
   let result.get_matching = function('s:get_matching_env')
 
+  let result.gms_flags = result.is_open ? 'nW' : 'bnW'
+  let result.gms_stopline = result.is_open
+        \ ? line('.') + g:vimtex_delim_stopline
+        \ : max([1, line('.') - g:vimtex_delim_stopline])
+
   if result.is_open
     let result.env_cmd = vimtex#cmd#get_at(a:lnum, a:cnum)
   endif
@@ -580,18 +584,22 @@ function! s:parser_tex(match, lnum, cnum, side, type, direction) abort " {{{1
   let result = {}
   let result.type = 'env'
   let result.corr = a:match
-  let result.get_matching = function('s:get_matching_tex')
   let result.re = {
         \ 'this'  : '\m' . escape(a:match, '$'),
         \ 'corr'  : '\m' . escape(a:match, '$'),
         \ 'open'  : '\m' . escape(a:match, '$'),
         \ 'close' : '\m' . escape(a:match, '$'),
         \}
-  let result.side = vimtex#util#in_syntax(
+  let result.side = vimtex#syntax#in(
         \   (a:match ==# '$' ? 'texMathZoneX' : 'texMathZoneY'),
         \   a:lnum, a:cnum+1)
         \ ? 'open' : 'close'
   let result.is_open = result.side ==# 'open'
+  let result.get_matching = function('s:get_matching_tex')
+  let result.gms_flags = result.is_open ? 'nW' : 'bnW'
+  let result.gms_stopline = result.is_open
+        \ ? line('.') + g:vimtex_delim_stopline
+        \ : max([1, line('.') - g:vimtex_delim_stopline])
 
   if (a:side !=# 'both') && (a:side !=# result.side)
     "
@@ -629,14 +637,20 @@ function! s:parser_latex(match, lnum, cnum, ...) abort " {{{1
   let result.side = a:match =~# '\\(\|\\\[' ? 'open' : 'close'
   let result.is_open = result.side ==# 'open'
   let result.get_matching = function('s:get_matching_latex')
+  let result.gms_flags = result.is_open ? 'nW' : 'bnW'
+  let result.gms_stopline = result.is_open
+        \ ? line('.') + g:vimtex_delim_stopline
+        \ : max([1, line('.') - g:vimtex_delim_stopline])
 
   let result.corr = result.is_open
         \ ? substitute(substitute(a:match, '\[', ']', ''), '(', ')', '')
         \ : substitute(substitute(a:match, '\]', '[', ''), ')', '(', '')
 
   let result.re = {
-        \ 'open'  : a:match =~# '\\(\|\\)' ? '\m\\(' : '\m\\\[',
-        \ 'close' : a:match =~# '\\(\|\\)' ? '\m\\)' : '\m\\\]',
+        \ 'open'  : g:vimtex#re#not_bslash
+        \   . (a:match =~# '\\(\|\\)' ? '\m\\(' : '\m\\\['),
+        \ 'close' : g:vimtex#re#not_bslash
+        \   . (a:match =~# '\\(\|\\)' ? '\m\\)' : '\m\\\]'),
         \}
 
   let result.re.this = result.is_open ? result.re.open  : result.re.close
@@ -653,6 +667,10 @@ function! s:parser_delim(match, lnum, cnum, ...) abort " {{{1
         \ a:match =~# g:vimtex#delim#re.delim_all.open ? 'open' : 'close'
   let result.is_open = result.side ==# 'open'
   let result.get_matching = function('s:get_matching_delim')
+  let result.gms_flags = result.is_open ? 'nW' : 'bnW'
+  let result.gms_stopline = result.is_open
+        \ ? line('.') + g:vimtex_delim_stopline
+        \ : max([1, line('.') - g:vimtex_delim_stopline])
 
   "
   " Find corresponding delimiter and the regexps
@@ -704,6 +722,10 @@ function! s:parser_delim_unmatched(match, lnum, cnum, ...) abort " {{{1
         \ a:match =~# g:vimtex#delim#re.delim_all.open ? 'open' : 'close'
   let result.is_open = result.side ==# 'open'
   let result.get_matching = function('s:get_matching_delim_unmatched')
+  let result.gms_flags = result.is_open ? 'nW' : 'bnW'
+  let result.gms_stopline = result.is_open
+        \ ? line('.') + g:vimtex_delim_stopline
+        \ : max([1, line('.') - g:vimtex_delim_stopline])
   let result.delim = '.'
   let result.corr_delim = '.'
 
@@ -716,7 +738,7 @@ function! s:parser_delim_unmatched(match, lnum, cnum, ...) abort " {{{1
     let result.corr = '\right.'
     let re1 = '\\left\s*\.'
     let re2 = s:parser_delim_get_regexp('\right', 1, 'mods')
-          \  . '\s*' . s:parser_delim_get_regexp('.', 1)
+          \  . '\s*' . s:parser_delim_get_regexp('.', 0)
   else
     let result.mod = '\right'
     let result.corr_mod = '\left'
@@ -746,8 +768,9 @@ function! s:parser_delim_get_regexp(delim, side, ...) abort " {{{1
   endif
 
   " Next check normal delimiters
-  let l:index = index(map(copy(g:vimtex#delim#lists[l:type].name),
-        \   'v:val[' . a:side . ']'),
+  let l:index = index(map(
+        \   copy(g:vimtex#delim#lists[l:type].name),
+        \   {_, x -> x[a:side]}),
         \ a:delim)
   return l:index >= 0
         \ ? g:vimtex#delim#lists[l:type].re[l:index][a:side]
@@ -770,66 +793,69 @@ endfunction
 " }}}1
 
 function! s:get_matching_env() dict abort " {{{1
-  let [re, flags, stopline] = self.is_open
-        \ ? [self.re.close,  'nW', line('.') + s:stopline]
-        \ : [self.re.open,  'bnW', max([line('.') - s:stopline, 1])]
+  try
+    let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
+          \ self.gms_flags, '', 0, s:get_timeout())
+  catch /E118/
+    let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
+          \ self.gms_flags, '', self.gms_stopline)
+  endtry
 
-  let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
-        \ flags, '', stopline)
-  let match = matchstr(getline(lnum), '^' . re, cnum-1)
-
+  let match = matchstr(getline(lnum), '^' . self.re.corr, cnum-1)
   return [match, lnum, cnum]
 endfunction
 
 " }}}1
 function! s:get_matching_tex() dict abort " {{{1
-  let [re, flags, stopline] = self.is_open
-        \ ? [self.re.open,  'nW', line('.') + s:stopline]
-        \ : [self.re.open, 'bnW', max([line('.') - s:stopline, 1])]
+  let [lnum, cnum] = searchpos(self.re.corr, self.gms_flags, self.gms_stopline)
 
-  let [lnum, cnum] = searchpos(re, flags, stopline)
-  let match = matchstr(getline(lnum), '^' . re, cnum-1)
-
+  let match = matchstr(getline(lnum), '^' . self.re.corr, cnum-1)
   return [match, lnum, cnum]
 endfunction
 
 " }}}1
 function! s:get_matching_latex() dict abort " {{{1
-  let [re, flags, stopline] = self.is_open
-        \ ? [self.re.close, 'nW', line('.') + s:stopline]
-        \ : [self.re.open, 'bnW', max([line('.') - s:stopline, 1])]
+  let [lnum, cnum] = searchpos(self.re.corr, self.gms_flags, self.gms_stopline)
 
-  let [lnum, cnum] = searchpos(re, flags, stopline)
-  let match = matchstr(getline(lnum), '^' . re, cnum-1)
-
+  let match = matchstr(getline(lnum), '^' . self.re.corr, cnum-1)
   return [match, lnum, cnum]
 endfunction
 
 " }}}1
 function! s:get_matching_delim() dict abort " {{{1
-  let [re, flags, stopline] = self.is_open
-        \ ? [self.re.close,  'nW', line('.') + s:stopline]
-        \ : [self.re.open,  'bnW', max([line('.') - s:stopline, 1])]
+  try
+    let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
+          \ self.gms_flags,
+          \ 'synIDattr(synID(line("."), col("."), 0), "name") =~? "comment"',
+          \ 0, s:get_timeout())
+  catch /E118/
+    let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
+          \ self.gms_flags,
+          \ 'synIDattr(synID(line("."), col("."), 0), "name") =~? "comment"',
+          \ self.gms_stopline)
+  endtry
 
-  let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
-        \ flags, '', stopline)
-  let match = matchstr(getline(lnum), '^' . re, cnum-1)
-
+  let match = matchstr(getline(lnum), '^' . self.re.corr, cnum-1)
   return [match, lnum, cnum]
 endfunction
 
 " }}}1
 function! s:get_matching_delim_unmatched() dict abort " {{{1
-  let [re, flags, stopline] = self.is_open
-        \ ? [self.re.close,  'nW', line('.') + s:stopline]
-        \ : [self.re.open,  'bnW', max([line('.') - s:stopline, 1])]
-
   let tries = 0
   let misses = []
   while 1
-    let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close, flags,
-          \ 'index(misses, [line("."), col(".")]) >= 0', stopline)
-    let match = matchstr(getline(lnum), '^' . re, cnum-1)
+    try
+      let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
+            \ self.gms_flags,
+            \ 'index(misses, [line("."), col(".")]) >= 0',
+            \ 0, s:get_timeout())
+    catch /E118/
+      let [lnum, cnum] = searchpairpos(self.re.open, '', self.re.close,
+            \ self.gms_flags,
+            \ 'index(misses, [line("."), col(".")]) >= 0',
+            \ self.gms_stopline)
+    endtry
+    let match = matchstr(getline(lnum), '^' . self.re.corr, cnum-1)
     if lnum == 0 | break | endif
 
     let cand = vimtex#delim#get_matching(extend({
@@ -849,6 +875,14 @@ function! s:get_matching_delim_unmatched() dict abort " {{{1
   endwhile
 
   return ['', 0, 0]
+endfunction
+
+" }}}1
+
+function! s:get_timeout() abort " {{{1
+  return (empty(v:insertmode) ? mode() : v:insertmode) ==# 'i'
+        \ ? g:vimtex_delim_insert_timeout
+        \ : g:vimtex_delim_timeout
 endfunction
 
 " }}}1
@@ -879,6 +913,10 @@ function! s:init_delim_lists() abort " {{{1
         \   'name' : [
         \     ['[', ']'],
         \     ['{', '}'],
+        \   ],
+        \   're' : [
+        \     ['\[', '\]'],
+        \     ['\\\@<!{', '\\\@<!}'],
         \   ]
         \ },
         \ 'delim_math' : {
@@ -928,7 +966,7 @@ function! s:init_delim_lists() abort " {{{1
   for l:type in values(l:lists)
     if !has_key(l:type, 're') && has_key(l:type, 'name')
       let l:type.re = map(deepcopy(l:type.name),
-            \ 'map(v:val, ''escape(v:val, ''''\$[]'''')'')')
+            \ {i1, x -> map(x, {i2, y -> escape(y, '\$[]')})})
     endif
   endfor
 
@@ -965,11 +1003,11 @@ function! s:init_delim_regexes() abort " {{{1
   " Matches modified math delimiters
   "
   let l:re.delim_mod_math = {
-        \ 'open' : '\%(\%(' . l:re.mods.open . '\)\)\s*\%('
+        \ 'open' : '\%(\%(' . l:re.mods.open . '\)\)\s*\\\@<!\%('
         \   . l:o . '\)\|\\left\s*\.',
-        \ 'close' : '\%(\%(' . l:re.mods.close . '\)\)\s*\%('
+        \ 'close' : '\%(\%(' . l:re.mods.close . '\)\)\s*\\\@<!\%('
         \   . l:c . '\)\|\\right\s*\.',
-        \ 'both' : '\%(\%(' . l:re.mods.both . '\)\)\s*\%('
+        \ 'both' : '\%(\%(' . l:re.mods.both . '\)\)\s*\\\@<!\%('
         \   . l:o . '\|' . l:c . '\)\|\\\%(left\|right\)\s*\.',
         \}
 
@@ -977,11 +1015,11 @@ function! s:init_delim_regexes() abort " {{{1
   " Matches possibly modified math delimiters
   "
   let l:re.delim_modq_math = {
-        \ 'open' : '\%(\%(' . l:re.mods.open . '\)\s*\)\?\%('
+        \ 'open' : '\%(\%(' . l:re.mods.open . '\)\s*\)\?\\\@<!\%('
         \   . l:o . '\)\|\\left\s*\.',
-        \ 'close' : '\%(\%(' . l:re.mods.close . '\)\s*\)\?\%('
+        \ 'close' : '\%(\%(' . l:re.mods.close . '\)\s*\)\?\\\@<!\%('
         \   . l:c . '\)\|\\right\s*\.',
-        \ 'both' : '\%(\%(' . l:re.mods.both . '\)\s*\)\?\%('
+        \ 'both' : '\%(\%(' . l:re.mods.both . '\)\s*\)\?\\\@<!\%('
         \   . l:o . '\|' . l:c . '\)\|\\\%(left\|right\)\s*\.',
         \}
 
@@ -1010,9 +1048,9 @@ function! s:init_delim_regexes_generator(list_name) abort " {{{1
   let l:close = join(map(copy(l:list.re), 'v:val[1]'), '\|')
 
   return {
-        \ 'open' : '\%(' . l:open . '\)',
-        \ 'close' : '\%(' . l:close . '\)',
-        \ 'both' : '\%(' . l:open . '\|' . l:close . '\)'
+        \ 'open' : '\\\@<!\%(' . l:open . '\)',
+        \ 'close' : '\\\@<!\%(' . l:close . '\)',
+        \ 'both' : '\\\@<!\%(' . l:open . '\|' . l:close . '\)'
         \}
 endfunction
 
@@ -1030,7 +1068,6 @@ let g:vimtex#delim#re = s:init_delim_regexes()
 "
 " Initialize script variables
 "
-let s:stopline = get(g:, 'vimtex_delim_stopline', 500)
 let s:types = [
       \ {
       \   're' : '\\\%(begin\|end\)\>',

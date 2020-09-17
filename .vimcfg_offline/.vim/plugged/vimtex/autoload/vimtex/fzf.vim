@@ -5,21 +5,29 @@
 "
 
 function! vimtex#fzf#run(...) abort " {{{1
-  " The filter argument may be used to select certain entry types according to
-  " the different "layers" of vimtex-toc:
+  " Arguments: Two optional arguments
+  "
+  " First argument: ToC filter (default: 'ctli')
+  "   This may be used to select certain entry types according to the different
+  "   "layers" of vimtex-toc:
   "     c:  content: This is the main part and the "real" ToC
   "     t:  todo: This shows TODOs from comments and `\todo{...}` commands
   "     l:  label: This shows `\label{...}` commands
   "     i:  include: This shows included files
-  " The default behavior is to show all entries, e.g. 'ctli'
+  "
+  " Second argument: Custom options for fzf
+  "   It should be an object containing the parameters passed to fzf#run().
 
-  " The --with-nth 3.. option hides the first two words from the fzf window
-  " which we used to pass on the file name and line number
-  call fzf#run({
+  " Note: The '--with-nth 3..' option hides the first two words from the fzf
+  "       window. These words are the file name and line number and are used by
+  "       the sink.
+  let l:opts = extend({
       \ 'source': <sid>parse_toc(a:0 == 0 ? 'ctli' : a:1),
       \ 'sink': function('vimtex#fzf#open_selection'),
       \ 'options': '--ansi --with-nth 3..',
-      \})
+      \}, a:0 > 1 ? a:2 : {})
+
+  call fzf#run(l:opts)
 endfunction
 
 " }}}1
@@ -85,7 +93,7 @@ def create_candidate(e, depth):
   number = format_number(dict(e['number']))
   return f"{e.get('line', 0)} {e['file']} {colorize(e)} {number}"
 
-entries = vim.eval('vimtex#parser#toc(b:vimtex.tex)')
+entries = vim.eval('vimtex#parser#toc()')
 depth = max([int(e['level']) for e in entries])
 filter = vim.eval("a:filter")
 candidates = [create_candidate(e, depth)

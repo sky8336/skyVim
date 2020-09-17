@@ -19,7 +19,6 @@ import itertools as _itertools
 from codecs import BOM_UTF8
 
 from parso.python.token import PythonTokenTypes
-from parso._compatibility import py_version
 from parso.utils import split_lines
 
 
@@ -50,7 +49,7 @@ BOM_UTF8_STRING = BOM_UTF8.decode('utf-8')
 
 _token_collection_cache = {}
 
-if py_version >= 30:
+if sys.version_info.major >= 3:
     # Python 3 has str.isidentifier() to check if a char is a valid identifier
     is_identifier = str.isidentifier
 else:
@@ -86,7 +85,7 @@ def _all_string_prefixes(version_info, include_fstring=False, only_fstring=False
     #  and don't contain any permuations (include 'fr', but not
     #  'rf'). The various permutations will be generated.
     valid_string_prefixes = ['b', 'r', 'u']
-    if version_info >= (3, 0):
+    if version_info.major >= 3:
         valid_string_prefixes.append('br')
 
     result = set([''])
@@ -106,7 +105,7 @@ def _all_string_prefixes(version_info, include_fstring=False, only_fstring=False
             # create a list with upper and lower versions of each
             #  character
             result.update(different_case_versions(t))
-    if version_info <= (2, 7):
+    if version_info.major == 2:
         # In Python 2 the order cannot just be random.
         result.update(different_case_versions('ur'))
         result.update(different_case_versions('br'))
@@ -164,7 +163,7 @@ def _create_token_collection(version_info):
     else:
         Hexnumber = r'0[xX][0-9a-fA-F]+'
         Binnumber = r'0[bB][01]+'
-        if version_info >= (3, 0):
+        if version_info.major >= 3:
             Octnumber = r'0[oO][0-7]+'
         else:
             Octnumber = '0[oO]?[0-7]+'
@@ -314,17 +313,19 @@ class FStringNode(object):
 
 def _close_fstring_if_necessary(fstring_stack, string, start_pos, additional_prefix):
     for fstring_stack_index, node in enumerate(fstring_stack):
-        if string.startswith(node.quote):
+        lstripped_string = string.lstrip()
+        len_lstrip = len(string) - len(lstripped_string)
+        if lstripped_string.startswith(node.quote):
             token = PythonToken(
                 FSTRING_END,
                 node.quote,
                 start_pos,
-                prefix=additional_prefix,
+                prefix=additional_prefix+string[:len_lstrip],
             )
             additional_prefix = ''
             assert not node.previous_lines
             del fstring_stack[fstring_stack_index:]
-            return token, '', len(node.quote)
+            return token, '', len(node.quote) + len_lstrip
     return None, additional_prefix, 0
 
 
@@ -482,8 +483,20 @@ def tokenize_lines(lines, version_info, start_pos=(1, 0)):
                     yield fstring_end_token
                     continue
 
-            pseudomatch = pseudo_token.match(line, pos)
-            if not pseudomatch:                             # scan for tokens
+            # in an f-string, match until the end of the string
+            if fstring_stack:
+                string_line = line
+                for fstring_stack_node in fstring_stack:
+                    quote = fstring_stack_node.quote
+                    end_match = endpats[quote].match(line, pos)
+                    if end_match is not None:
+                        end_match_string = end_match.group(0)
+                        if len(end_match_string) - len(quote) + pos < len(string_line):
+                            string_line = line[:pos] + end_match_string[:-len(quote)]
+                pseudomatch = pseudo_token.match(string_line, pos)
+            else:
+                pseudomatch = pseudo_token.match(line, pos)
+            if not pseudomatch:  # scan for tokens
                 match = whitespace.match(line, pos)
                 if pos == 0:
                     for t in dedent_if_necessary(match.end()):
@@ -560,7 +573,12 @@ def tokenize_lines(lines, version_info, start_pos=(1, 0)):
                 new_line = True
             elif initial == '#':  # Comments
                 assert not token.endswith("\n")
-                additional_prefix = prefix + token
+                if fstring_stack and fstring_stack[-1].is_in_expr():
+                    # `#` is not allowed in f-string expressions
+                    yield PythonToken(ERRORTOKEN, initial, spos, prefix)
+                    pos = start + 1
+                else:
+                    additional_prefix = prefix + token
             elif token in triple_quoted:
                 endprog = endpats[token]
                 endmatch = endprog.match(line, pos)
@@ -616,10 +634,13 @@ def tokenize_lines(lines, version_info, start_pos=(1, 0)):
                     else:
                         if paren_level:
                             paren_level -= 1
-                elif token == ':' and fstring_stack \
+                elif token.startswith(':') and fstring_stack \
                         and fstring_stack[-1].parentheses_count \
                         - fstring_stack[-1].format_spec_count == 1:
+                    # `:` and `:=` both count
                     fstring_stack[-1].format_spec_count += 1
+                    token = ':'
+                    pos = start + 1
 
                 yield PythonToken(OP, token, spos, prefix)
 

@@ -28,6 +28,12 @@ endfunction
 
 " }}}1
 
+function! vimtex#log#get() abort " {{{1
+  return s:logger.entries
+endfunction
+
+" }}}1
+
 function! vimtex#log#open() abort " {{{1
   call vimtex#scratch#new(s:logger)
 endfunction
@@ -59,10 +65,10 @@ let s:logger = {
 function! s:logger.add(msg_arg, type) abort dict " {{{1
   let l:msg_list = []
   for l:msg in a:msg_arg
-    if type(l:msg) == type('')
+    if type(l:msg) == v:t_string
       call add(l:msg_list, l:msg)
-    elseif type(l:msg) == type([])
-      call extend(l:msg_list, filter(l:msg, "type(v:val) == type('')"))
+    elseif type(l:msg) == v:t_list
+      call extend(l:msg_list, filter(l:msg, 'type(v:val) == v:t_string'))
     endif
   endfor
 
@@ -84,9 +90,9 @@ function! s:logger.add(msg_arg, type) abort dict " {{{1
         \ [self.type_to_highlight[a:type], 'vimtex:'],
         \ ' ' . l:msg_list[0]
         \])
-  for l:line in l:msg_list[1:]
-    call vimtex#echo#echo('        ' . l:line)
-  endfor
+  if len(l:msg_list) > 1
+    call vimtex#echo#echo(join(map(l:msg_list[1:], "'        ' . v:val"), "\n"))
+  endif
 endfunction
 
 " }}}1

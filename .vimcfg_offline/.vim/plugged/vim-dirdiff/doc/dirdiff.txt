@@ -20,8 +20,21 @@ REQUIREMENTS                                    *dirdiff-requirements*
 
 INSTALLATION                                    *dirdiff-installation*
 
-    cd ~/.vim/bundle
-    git clone git://github.com/will133/vim-dirdiff
+    With pathogen.vim:
+
+        $ cd ~/.vim/bundle
+        $ git clone git://github.com/will133/vim-dirdiff
+
+    With vim-plug, put this in your ~/.vimrc:
+
+        Plug 'will133/vim-dirdiff'
+
+    With Vim 8+'s default packaging system, run this:
+
+        $ mkdir -p ~/.vim/pack/bundle/start
+        $ cd ~/.vim/pack/bundle/start
+        $ git clone git://github.com/will133/vim-dirdiff
+
 
 USAGE                                           *dirdiff-usage* *:DirDiff*
  >
@@ -115,6 +128,7 @@ Default to do nothing: >
     let g:DirDiffEnableMappings = 0
 <
 Ignore FileName case during diff: >
+
     let g:DirDiffIgnoreFileNameCase = 0
 
 Sets default exclude pattern: >
@@ -144,6 +158,16 @@ Force setting the LANG variable before running DirDiff: >
 You can set g:DirDiffForceLang to "" in turn this off (the system's LANG would
 be used in such case).  You may need to customize the following variables so
 DirDiff can match the correct text in your locale.
+
+Force the diff execution shell: >
+
+    let g:DirDiffForceShell = "C"
+
+If empty, the default shell would not be changed before running the diff
+command.  If not, then the shell would be set to this before running the diff
+command (and restored after the execuation).  This is useful for people who
+are using shells that are not compatible.  If you are getting a message saying
+that there's no diff for some shell, you may want to set this to "sh".
 
 Dynamically figure out the diff text.  If you are using and i18n version of
 diff, this will try to get the specific diff text during runtime.  It's turned
@@ -175,6 +199,12 @@ To specify a valid theme (e.g. github): >
 To use [ and ] rather than [c and ]c motions: >
 
     let g:DirDiffSimpleMap = 1
+
+Add extra options to the "diff" tool. For example, use "-w" to ignore white
+spaces or "-N" to list all new files even when inside a new folder (instead of
+just listing the new folder name)
+
+    let g:DirDiffAddArgs = "-w"
 
 OPTIONS EXAMPLE                                 *dirdiff-options-example*
 
@@ -233,6 +263,8 @@ THANKS                                          *dirdiff-thanks*
 
 HISTORY                                         *dirdiff-history*
 
+1.1.6  - Fixed problem with vim 8.2 where the :drop would not work with
+         wildignore.  Added option to set shell.
 1.1.5  - Fixed split windows problems caused by some .vimrc settings.
 1.1.4  - Fixed split windows problems caused by some .vimrc settings.
 1.1.3  - Applied the patch to 1.1.2 by Wu WeiWei in order to make diff

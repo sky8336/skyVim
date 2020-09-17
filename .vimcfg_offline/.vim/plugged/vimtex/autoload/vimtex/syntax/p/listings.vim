@@ -10,9 +10,9 @@ function! vimtex#syntax#p#listings#load() abort " {{{1
 
   " First some general support
   syntax match texInputFile
-        \ "\\lstinputlisting\s*\(\[.*\]\)\={.\{-}}"
+        \ "\\lstinputlisting\s*\(\[.\{-}\]\)\={.\{-}}"
         \ contains=texStatement,texInputCurlies,texInputFileOpt
-  syntax match texZone "\\lstinline\s*\(\[.*\]\)\={.\{-}}"
+  syntax match texZone "\\lstinline\s*\(\[.\{-}\]\)\={.\{-}}"
 
   " Set all listings environments to listings
   syntax cluster texFoldGroup add=texZoneListings
@@ -65,7 +65,7 @@ endfunction
 function! s:get_nested_languages() abort " {{{1
   return map(
         \ filter(getline(1, '$'), "v:val =~# 'language='"),
-        \ 'matchstr(v:val, ''language=\zs\w\+'')')
+        \ {_, x -> matchstr(x, 'language=\zs\w\+')})
 endfunction
 
 " }}}1

@@ -105,9 +105,14 @@ endfunction
 " }}}1
 
 function! vimtex#env#is_inside(env) abort " {{{1
-  let l:stopline = max([line('.') - 50, 1])
-  return searchpairpos('\\begin\s*{' . a:env . '\*\?}', '',
-        \ '\\end\s*{' . a:env . '\*\?}', 'bnW', '', l:stopline)
+  let l:re_start = '\\begin\s*{' . a:env . '\*\?}'
+  let l:re_end = '\\end\s*{' . a:env . '\*\?}'
+  try
+    return searchpairpos(l:re_start, '', l:re_end, 'bnW', '', 0, 100)
+  catch /E118/
+    let l:stopline = max([line('.') - 500, 1])
+    return searchpairpos(l:re_start, '', l:re_end, 'bnW', '', l:stopline)
+  endtry
 endfunction
 
 " }}}1
@@ -115,12 +120,12 @@ function! vimtex#env#input_complete(lead, cmdline, pos) abort " {{{1
   let l:cands = map(vimtex#complete#complete('env', '', '\begin'), 'v:val.word')
 
   " Never include document and remove current env (place it first)
-  call filter(l:cands, 'index([''document'', s:env_name], v:val) < 0')
+  call filter(l:cands, "index(['document', s:env_name], v:val) < 0")
 
   " Always include current env and displaymath
   let l:cands = [s:env_name] + l:cands + ['\[']
 
-  return filter(l:cands, 'v:val =~# ''^' . a:lead . '''')
+  return filter(l:cands, {_, x -> x =~# '^' . a:lead})
 endfunction
 
 " }}}1

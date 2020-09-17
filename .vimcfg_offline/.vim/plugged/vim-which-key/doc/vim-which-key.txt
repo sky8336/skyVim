@@ -6,6 +6,7 @@ CONTENTS                                              *vim-which-key-contents*
   1. Introduction........................................|vim-which-key-intro|
   2. Usage...............................................|vim-which-key-usage|
   3. Configuration......................................|vim-which-key-config|
+    3.1 Highlights..................................|vim-which-key-highlights|
   4. Commands.........................................|vim-which-key-commands|
   5. Functions.......................................|vim-which-key-functions|
 
@@ -216,9 +217,28 @@ the initial char instead of the seperator. Possible value: `{0, 1}` .
 Type: |Number|
 Default: `0`
 
-Use neovim's floating window instead of splitting a new one if avaliable.
+Use neovim's floating or vim's popup window if avaliable. The adavantage is to
+put your current window layout untouched compared to splitting a new window.
 >
   let g:which_key_use_floating_win = 1
+<
+
+                                              *g:which_key_floating_relative_win*
+Type: |Number|
+Default: `0`
+
+Make the vim popup or neovim floating_win relative to current window.
+
+                                                   *g:which_key_floating_opts*
+Type: |Dict|
+Default: `Undefined`
+
+You could use this variable to adjust the floating window layout. The
+key is either `row`, `col`, `width` or `height`. The value is a String of `+[number]`
+or `-[number]` which means plus or minus `numberl` based on the default value
+caculated by vim-which-key.
+>
+ let g:which_key_floating_opts = { 'row': '-1' }
 <
                                                 *g:which_key_run_map_on_popup*
 Type: |Number|
@@ -251,13 +271,13 @@ when the configuration dictionary has no corrosponding entry.
                                                         *g:WhichKeyFormatFunc*
 
 Type: |Funcref|
-Default: `function('which_key#util#format')`
+Default: `function('which_key#format')`
 
 WhichKeyFormatFunc is a Funcref called on every display item, which could be
 used to hide all trailing <CR> as well as all leading <Plug> substring in the
 guide buffer.
 >
-  let g:WhichKeyFormatFunc = function('which_key#util#format')
+  let g:WhichKeyFormatFunc = function('which_key#format')
 <
 
                                                         *g:which_key_timeout*
@@ -268,6 +288,15 @@ Similar to `timeoutlen`, but for vim-which-key particularly. By default it's
 same with option `timeoutlen`.
 >
   let g:which_key_timeout = 300
+<
+                                                           *g:which_key_exit*
+
+Type: |Number| | |String| | |List|
+Default: `["\<C-[>", "\<Esc>"]`
+
+Exit which-key when the key is triggered. For example, use `<C-G>` to exit: >
+
+    let g:which_key_exit = "\<C-G>"
 <
                                             *g:which_key_ignore_invalid_key*
 Type: |Number|
@@ -282,7 +311,38 @@ If you wish to hide a mapping from the menu set its description to
 >
     nnoremap <leader>1 :1wincmd w<CR>
     let g:which_key_map.1 = 'which_key_ignore'
+<
+                                            *g:which_key_fallback_to_native_key*
+Type: |Number|
+Default: `0`
+
+Executes native commands if keymap is not defined.
+For example, you can use `:WhichKey 'g'` and get `gg` work correct:
 >
+    let g:which_key_fallback_to_native_key=1
+<
+
+                                            *g:which_key_display_names*
+Type: |Dict|
+Default: `{ ' ': 'SPC', '<C-H>': 'BS', '<C-I>': 'TAB', '<TAB>': 'TAB', }`
+
+Override the default symbols used for mappings. Dict keys should be all
+uppercase.
+>
+    let g:which_key_display_names = {'<CR>': '↵', '<TAB>': '⇆'}
+<
+
+                                            *g:which_key_disable_default_offset*
+Type: |Number|
+Default: `0`
+
+The which-key floating window applies an offset according to the width of
+line number and signcolumn of the current window by default. Set this option
+to 1 if you do not want to have this offset.
+>
+    let g:which_key_disable_default_offset = 1
+<
+
 ==============================================================================
 COMMANDS                                              *vim-which-key-commands*
 
@@ -306,6 +366,19 @@ COMMANDS                                              *vim-which-key-commands*
 :[range]WhichKeyVisual[!]                                    *:WhichKeyVisual*
 
   Same as |:WhichKey|, but opening the menu in visual mode.
+
+
+------------------------------------------------------------------------------
+|HIGHLIGHTS|                                            *vim-which-key-highlights*
+
+>
+    highlight default link WhichKey          Function
+    highlight default link WhichKeySeperator DiffAdded
+    highlight default link WhichKeyGroup     Keyword
+    highlight default link WhichKeyDesc      Identifier
+
+    highlight default link WhichKeyFloating Pmenu
+<
 
 ==============================================================================
 FUNCTIONS                                            *vim-which-key-functions*
@@ -335,7 +408,7 @@ which_key#parse_mappings()                        *which_key#parse_mappings()*
 
   Update the cache manually by calling this function.
 
-which_key#util#format({mapping})                     *which_key#util#format()*
+which_key#format({mapping})                               *which_key#format()*
 
   This function is called on all for every display string in the guide buffer.
   By default |vim-which-key| will hide all trailing <CR> as well as all

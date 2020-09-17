@@ -265,9 +265,9 @@ alias for '-context'.
 >
     :CtrlSF -C 0 foo
 <
-'-filetype'                                             *ctrlsf_args_filetype*
+'-filetype', '-T'                                       *ctrlsf_args_filetype*
 
-Defines which type of files should the search be restricted to. view
+Defines which type of files should the search be restricted to. View
 `ack --help=types` for all available types.
 >
     :CtrlSF -filetype vim foo
@@ -292,6 +292,12 @@ option depends on what backend you are using. The actual option used
 here is '--ignore' for ag and '--ignore-dir' for ack.
 >
     :CtrlSF -ignoredir "bower_components" 'console.log'
+<
+'-hidden'                                                 *ctrlsf_args_hidden*
+
+Search hidden files and directories.
+>
+    :CtrlSF -hidden foo
 <
 '-literal', '-L'                           *ctrlsf_args_L* *ctrlsf_args_literal*
 
@@ -381,6 +387,13 @@ Example:
         \ "at" : "done",
         \ "duration_less_than": 1000
         \ }
+<
+g:ctrlsf_auto_preview                                  *'g:ctrlsf_auto_preview'*
+Default: 0
+Defines whether CtrlSF shows the preview window automatically while moving from
+match to match in the results pane.
+>
+    let g:ctrlsf_auto_preview = 1
 <
 g:ctrlsf_case_sensitive                              *'g:ctrlsf_case_sensitive'*
 Default: 'smart'

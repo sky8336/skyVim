@@ -1,0 +1,191 @@
+\documentclass[% Options of scrbook
+  %
+  % Preamble fold starts here, unless 'documentclass' is added to the
+  % g:vimtex_fold_commands option.
+  %
+  % draft,
+  fontsize=12pt,
+  %smallheadings,
+  headings=big,
+  english,
+  paper=a4,
+  twoside,
+  open=right,
+  DIV=14,
+  BCOR=20mm,
+  headinclude=false,
+  footinclude=false,
+  mpinclude=false,
+  pagesize,
+  titlepage,
+  parskip=half,
+  headsepline,
+  chapterprefix=false,
+  appendixprefix=Appendix,
+  appendixwithprefixline=true,
+  bibliography=totoc,
+  toc=graduated,
+  numbers=noenddot,
+]{scrbook}
+
+%
+% Fold commands (single)
+%
+\hypersetup{
+  ...,
+}
+\tikzset{
+  testing,
+  tested,
+}
+
+%
+% Fold commands (single_opt)
+%
+\usepackage[
+  ...
+]{test}
+\usepackage[
+  backend=biber,
+  style=numeric-comp,
+  maxcitenames=99,
+  doi=false,
+  url=false,
+  giveninits=true,
+]{biblatex}
+
+%
+% Fold commands (multi)
+%
+\renewcommand{\marginpar}{%
+  \marginnote%
+}
+\newcommand*{\StoreCiteField}[3]{%
+  \begingroup
+    \global\let\StoreCiteField@Result\relax
+    \citefield{#2}[StoreCiteField]{#3}%
+  \endgroup
+  \let#1\StoreCiteField@Result
+}
+\newenvironment{theo}[1][]{%
+  \stepcounter{theo}%
+  \ifstrempty{#1}{%
+    \mdfsetup{
+      frametitle={%
+        \tikz[baseline=(current bounding box.east),outer sep=0pt]%
+        \node[anchor=east,rectangle,fill=blue!20] {\strut Theorem~\thetheo};%
+      }%
+    }%
+  }%
+  {% else ifstrempty:
+    \mdfsetup{
+      frametitle={
+        \tikz[baseline=(current bounding box.east),outer sep=0pt]%
+      \node[anchor=east,rectangle,fill=blue!20]{\strut Theorem~\thetheo:~#1};}%
+    }%
+  }%
+  \mdfsetup{
+    innertopmargin=10pt,
+    linecolor=blue!20,
+    linewidth=2pt,topline=true,
+    frametitleaboveskip=\dimexpr-\ht\strutbox\relax,
+  }%
+  \begin{mdframed}[]\relax%
+    }{%
+  \end{mdframed}%
+}
+
+\begin{document}
+
+Hello World
+
+%
+% Fold commands (single)
+%
+\pgfplotstableread[col sep=semicolon,trim cells]{
+x    ; y    ; z   ; type  ; reference       ; comment
+0.01 ; 1.00 ; nan ; type1 ; ref-unspecified ;
+0.02 ; 2.00 ; nan ; type2 ; ref-unspecified ;
+0.03 ; 3.00 ; nan ; type3 ; ref-unspecified ;
+}{\datatable}
+
+%
+% Fold commands (single)
+%
+\pgfplotstableread[col sep=semicolon,trim cells]{
+x    ; y    ; z   ; type  ; reference       ; comment
+0.01 ; 1.00 ; nan ; type1 ; ref-unspecified ;
+0.02 ; 2.00 ; nan ; type2 ; ref-unspecified ;
+0.03 ; 3.00 ; nan ; type3 ; ref-unspecified ;
+}
+\datatable
+
+%
+% Test for cmd_addplot
+%
+\begin{tikzpicture}
+\begin{axis}
+\addplot+[error bars/.cd,x dir=both,x explicit] coordinates {
+    (0,0)   +- (0.1,0)
+    (0.5,1) +- (0.4,0.2)
+    (1,2)
+    (2,5)   +- (1,0.1)
+};
+\end{axis}
+\end{tikzpicture}
+
+\section{test 1}
+
+\begin{equation}
+  f(x) = 1
+  \label{sec:test1}
+\end{equation}
+
+\subsection{test 1.1}
+
+\begin{equation}
+  f(x) = 1
+  \label{sec:test1-longer label}
+\end{equation}
+
+\section{test 2}
+
+% {{{ Testing markers
+Folded stuff
+
+% }}}
+
+Testing markers %<<:
+this fold was NOT recognized by vimtex before issue #1515
+
+%:>>
+
+%<<:
+this fold worked before issue #1515
+
+%:>>
+
+\subsection{test 2.1}
+
+\subsection{test 2.2}
+
+\section{test 3}
+
+\begin{itemize}
+  \item test of fold
+    folded here
+    \begin{enumerate}
+      \item new fold level heere
+        and here
+      \item new fold level heere
+        and here
+      \item new fold level heere
+        and here
+      \item and not here
+    \end{enumerate}
+    folded more here
+  \item test of fold
+    folded here
+\end{itemize}
+
+\end{document}

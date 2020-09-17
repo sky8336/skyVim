@@ -3,6 +3,21 @@
 Changelog
 ---------
 
+0.6.0 (2020-01-26)
+++++++++++++++++++
+
+- Dropped Python 2.6/Python 3.3 support
+- del_stmt names are now considered as a definition
+  (for ``name.is_definition()``)
+- Bugfixes
+
+0.5.2 (2019-12-15)
+++++++++++++++++++
+
+- Add include_setitem to get_definition/is_definition and get_defined_names (#66)
+- Fix named expression error listing (#89, #90)
+- Fix some f-string tokenizer issues (#93)
+
 0.5.1 (2019-07-13)
 ++++++++++++++++++
 

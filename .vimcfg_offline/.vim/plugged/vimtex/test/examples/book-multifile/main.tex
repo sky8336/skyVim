@@ -1,0 +1,38 @@
+\documentclass{book}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{todonotes}
+
+\input{preamble}
+% \addbibresource{book.bib}
+% \addglobalbib{book.bib}
+
+\begin{document}
+
+\frontmatter
+\input{ frontmatter}
+
+\mainmatter
+% Todo This should NOT match
+\input{chapters}
+\todo[inline]{Match more things}
+
+\appendix
+\input{appendix}
+% TODO: This should be much better!
+
+% IMPORTANT: Mucho importante
+
+% IMPORTANTE: Very important
+
+\backmatter
+% FIXME Be smarter
+\input{backmatter}
+\begin{equation}
+  \label{eq:finito}
+  f=2
+\end{equation}
+
+\bibliography{book.bib,test}
+\end{document}

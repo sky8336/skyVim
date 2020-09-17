@@ -114,6 +114,16 @@ func! ctrlsf#win#DrawIncr() abort
                     \ call ctrlsf#buf#SetLine(s:MAIN_BUF_NAME, s:drawn_lines + 1, new_lines)
     endif
     let s:drawn_lines = s:drawn_lines + len(new_lines)
+
+    if ctrlsf#CurrentMode() == 'compact' && ctrlsf#async#IsSearchDone()
+        " overwrite 'Searching...' to 'Nothing found' or 'Cancelled'
+        if empty(ctrlsf#db#ResultSet())
+            silent! undojoin | keepjumps
+                        \ call ctrlsf#buf#SetLine(s:MAIN_BUF_NAME, 1,
+                        \ ctrlsf#async#IsCancelled() ? "Cancelled." : "Nothing found!")
+            let s:drawn_lines = 1
+        endif
+    endif
 endf
 
 " SetModifiable()
@@ -389,14 +399,44 @@ endf
 " width/height of fixed sized windows such like NERDTree's.
 "
 func! ctrlsf#win#BackupAllWinSize()
-    let t:ctrlsf_winrestcmd = winrestcmd()
+    if !exists("t:ctrlsf_winrestcmd")
+        let t:ctrlsf_winrestcmd = []
+    endif
+    call add(t:ctrlsf_winrestcmd, join(s:BuildResizeCmd(winlayout(), 0, 0), '|'))
+endf
+
+func! s:BuildResizeCmd(layout, resize, vresize) abort
+    let cmds = []
+    if a:layout[0] ==# 'leaf'
+        let winnr = win_id2win(a:layout[1])
+        if a:resize
+            call add(cmds, printf('%dresize %d', winnr, winheight(winnr)))
+        endif
+        if a:vresize
+            call add(cmds, printf('vert %dresize %d', winnr, winwidth(winnr)))
+        endif
+    else
+        let nested_layout = a:layout[1]
+        let nested_len = len(nested_layout)
+        for i in range(nested_len)
+            let should_resize = (i + 1 != nested_len)
+            if a:layout[0] ==# 'col'
+                let cmds += s:BuildResizeCmd(nested_layout[i], should_resize, a:vresize)
+            else
+                let cmds += s:BuildResizeCmd(nested_layout[i], a:resize, should_resize)
+            endif
+        endfor
+    endif
+    return cmds
 endf
 
 " RestoreAllWinSize()
 "
 func! ctrlsf#win#RestoreAllWinSize()
-    if exists("t:ctrlsf_winrestcmd")
-        execute t:ctrlsf_winrestcmd
+    if exists("t:ctrlsf_winrestcmd") && !empty(t:ctrlsf_winrestcmd)
+        let winrestcmd = remove(t:ctrlsf_winrestcmd, -1)
+        if !empty(winrestcmd)
+            execute winrestcmd
+        endif
     endif
 endf
-

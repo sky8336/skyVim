@@ -1,0 +1,58 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  vader-tests:
+    name: Vader tests
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        neovim: [true] # only test on neovim currently
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Checkout vader.vim
+        uses: actions/checkout@v2
+        with:
+          repository: junegunn/vader.vim
+          path: vader.vim
+      - name: Install Neovim
+        uses: rhysd/action-setup-vim@v1
+        id: vim
+        with:
+          neovim: ${{ matrix.neovim }}
+      - name: Run vader tests
+        env:
+          VIM_EXEC: ${{ steps.vim.outputs.executable }}
+        run: |
+          $VIM_EXEC --version
+          $VIM_EXEC -u test/vimrc -c 'Vader! test/*'
+
+  vint:
+    name: Run vint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v1
+      - run: pip install vim-vint
+      - run: vint --error --verbose --enable-neovim --color --style ./autoload ./plugin ./syntax
+
+  translator-script:
+    name: Test translator.py
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install python
+        uses: actions/setup-python@v1
+      - name: Install translate-shell
+        run: |
+          sudo apt-get install gawk -y
+          git clone https://github.com/soimort/translate-shell
+          cd translate-shell/
+          make
+          sudo make install
+          cd -
+      - name: Run translator tests
+        run: |
+          python --version
+          python ./test/test_translator.py

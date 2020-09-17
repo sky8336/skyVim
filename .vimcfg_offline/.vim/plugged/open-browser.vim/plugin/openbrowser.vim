@@ -8,17 +8,7 @@ if exists('g:loaded_openbrowser') && g:loaded_openbrowser
 endif
 let g:loaded_openbrowser = 1
 
-
-let s:is_unix = has('unix')
-let s:is_mswin = has('win16') || has('win32') || has('win64')
-let s:is_cygwin = has('win32unix')
-let s:is_macunix = !s:is_mswin && !s:is_cygwin && (has('mac') || has('macunix') || has('gui_macvim') || (!executable('xdg-open') && system('uname') =~? '^darwin'))
-lockvar s:is_unix
-lockvar s:is_mswin
-lockvar s:is_cygwin
-lockvar s:is_macunix
-
-if !(s:is_unix || s:is_mswin || s:is_cygwin || s:is_macunix)
+if !(has('unix') || has('win32'))
   echohl WarningMsg
   echomsg 'Your platform is not supported!'
   echohl None
@@ -59,6 +49,8 @@ command!
 " Key-mapping
 nnoremap <silent> <Plug>(openbrowser-open) :<C-u>call openbrowser#_keymap_open('n')<CR>
 xnoremap <silent> <Plug>(openbrowser-open) :<C-u>call openbrowser#_keymap_open('v')<CR>
+nnoremap <silent> <Plug>(openbrowser-open-incognito) :<C-u>call openbrowser#_keymap_open('n', 0, ['--incognito'])<CR>
+xnoremap <silent> <Plug>(openbrowser-open-incognito) :<C-u>call openbrowser#_keymap_open('v', 0, ['--incognito'])<CR>
 nnoremap <silent> <Plug>(openbrowser-search) :<C-u>call openbrowser#_keymap_search('n')<CR>
 xnoremap <silent> <Plug>(openbrowser-search) :<C-u>call openbrowser#_keymap_search('v')<CR>
 nnoremap <silent> <Plug>(openbrowser-smart-search) :<C-u>call openbrowser#_keymap_smart_search('n')<CR>

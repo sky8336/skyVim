@@ -34,15 +34,21 @@ function! vimtex#include#expr() abort " {{{1
   endif
 
   "
+  " Check if v:fname matches in $TEXINPUTS
+  "
+  let l:candidate = s:search_candidates_texinputs(l:fname)
+  if !empty(l:candidate)
+    return s:visited.check(l:candidate)
+  endif
+
+  "
   " Search for file with kpsewhich
   "
   if g:vimtex_include_search_enabled
-    for l:file in s:gather_candidates(l:fname)
-      let l:candidate = s:kpsewhich_find(l:file)
-      if !empty(l:candidate)
-        return s:visited.check(l:candidate)
-      endif
-    endfor
+    let l:candidate = s:search_candidates_kpsewhich(l:fname)
+    if !empty(l:candidate)
+      return s:visited.check(l:candidate)
+    endif
   endif
 
   return s:visited.check(l:fname)
@@ -55,6 +61,8 @@ function! s:input(fname, type) abort " {{{1
   if l:lnum == 0 | return a:fname | endif
 
   let l:cmd = vimtex#cmd#get_at(l:lnum, l:cnum)
+  if empty(l:cmd) | return a:fname | endif
+
   let l:file = join(map(
         \   get(l:cmd, 'args', [{}]),
         \   "get(v:val, 'text', '')"),
@@ -62,11 +70,28 @@ function! s:input(fname, type) abort " {{{1
   let l:file = substitute(l:file, '^\s*"\|"\s*$', '', 'g')
   let l:file = substitute(l:file, '\\space', '', 'g')
 
+  if l:file[-3:] !=# a:type
+    let l:file .= '.' . a:type
+  endif
+
   return l:file
 endfunction
 
 " }}}1
-function! s:gather_candidates(fname) abort " {{{1
+function! s:search_candidates_texinputs(fname) abort " {{{1
+  for l:suffix in [''] + split(&l:suffixesadd, ',')
+    let l:candidates = glob(b:vimtex.root . '/**/'
+          \ . fnameescape(a:fname) . l:suffix, 0, 1)
+    if !empty(l:candidates)
+      return l:candidates[0]
+    endif
+  endfor
+
+  return ''
+endfunction
+
+" }}}1
+function! s:search_candidates_kpsewhich(fname) abort " {{{1
   " Split input list on commas, and if applicable, ensure that the entry that
   " the cursor is on is placed first in the queue
   let l:files = split(a:fname, '\s*,\s*')
@@ -87,20 +112,12 @@ function! s:gather_candidates(fname) abort " {{{1
     endif
   endfor
 
-  return l:candidates
-endfunction
+  for l:file in l:candidates
+    let l:candidate = vimtex#kpsewhich#find(l:file)
+    if !empty(l:candidate) && filereadable(l:candidate) | return l:candidate | endif
+  endfor
 
-" }}}1
-function! s:kpsewhich_find(fname) abort " {{{1
-  if !has_key(s:kpsewhich_cache, a:fname)
-    let l:file = vimtex#kpsewhich#find(a:fname)
-    if filereadable(l:file)
-      let s:kpsewhich_cache[a:fname] = l:file
-    else
-      let s:kpsewhich_cache[a:fname] = ''
-    endif
-  endif
-  return s:kpsewhich_cache[a:fname]
+  return ''
 endfunction
 
 " }}}1
@@ -127,5 +144,3 @@ function! s:visited.check(fname) abort dict " {{{1
 endfunction
 
 " }}}1
-
-let s:kpsewhich_cache = {}

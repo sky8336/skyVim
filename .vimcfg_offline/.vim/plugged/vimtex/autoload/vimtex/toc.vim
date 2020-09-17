@@ -67,11 +67,13 @@ function! s:toc.open() abort dict " {{{1
   call self.get_entries(0)
 
   if self.mode > 1
-    call setloclist(0, map(filter(deepcopy(self.entries), 'v:val.active'), '{
-          \ ''lnum'': v:val.line,
-          \ ''filename'': v:val.file,
-          \ ''text'': v:val.title,
-          \}'))
+    call setloclist(0, map(filter(deepcopy(self.entries), 'v:val.active'),
+          \ {_, x -> {
+          \   'lnum': x.line,
+          \   'filename': x.file,
+          \   'text': x.title,
+          \ }
+          \}))
     try
       call setloclist(0, [], 'r', {'title': self.name})
     catch
@@ -135,7 +137,7 @@ function! s:toc.get_entries(force) abort dict " {{{1
     return self.entries
   endif
 
-  let self.entries = vimtex#parser#toc(b:vimtex.tex)
+  let self.entries = vimtex#parser#toc()
   let self.topmatters = vimtex#parser#toc#get_topmatters()
 
   "
@@ -186,7 +188,8 @@ endfunction
 
 " }}}1
 function! s:toc.get_visible_entries() abort dict " {{{1
-  return filter(deepcopy(get(self, 'entries', [])), 'self.entry_is_visible(v:val)')
+  return filter(deepcopy(get(self, 'entries', [])),
+        \ 'self.entry_is_visible(v:val)')
 endfunction
 
 " }}}1
@@ -204,6 +207,7 @@ function! s:toc.create() abort dict " {{{1
   let l:bufnr = bufnr('')
   let l:winid = win_getid()
   let l:vimtex = get(b:, 'vimtex', {})
+  let l:vimtex_syntax = get(b:, 'vimtex_syntax', {})
 
   if self.split_pos ==# 'full'
     silent execute 'edit' escape(self.name, ' ')
@@ -220,6 +224,7 @@ function! s:toc.create() abort dict " {{{1
   let self.prev_winid = l:winid
   let b:toc = self
   let b:vimtex = l:vimtex
+  let b:vimtex_syntax = l:vimtex_syntax
 
   setlocal bufhidden=wipe
   setlocal buftype=nofile
@@ -253,28 +258,28 @@ function! s:toc.create() abort dict " {{{1
           \ : self.tocdepth))
   endif
 
-  nnoremap <silent><nowait><buffer><expr> gg b:toc.show_help ? 'gg}}j' : 'gg'
-  nnoremap <silent><nowait><buffer> <esc>OA k
-  nnoremap <silent><nowait><buffer> <esc>OB j
-  nnoremap <silent><nowait><buffer> <esc>OC k
-  nnoremap <silent><nowait><buffer> <esc>OD j
-  nnoremap <silent><nowait><buffer> q             :call b:toc.close()<cr>
-  nnoremap <silent><nowait><buffer> <esc>         :call b:toc.close()<cr>
-  nnoremap <silent><nowait><buffer> <space>       :call b:toc.activate_current(0)<cr>
-  nnoremap <silent><nowait><buffer> <2-leftmouse> :call b:toc.activate_current(0)<cr>
-  nnoremap <silent><nowait><buffer> <cr>          :call b:toc.activate_current(1)<cr>
-  nnoremap <buffer><nowait><silent> h             :call b:toc.toggle_help()<cr>
-  nnoremap <buffer><nowait><silent> f             :call b:toc.filter()<cr>
-  nnoremap <buffer><nowait><silent> F             :call b:toc.clear_filter()<cr>
-  nnoremap <buffer><nowait><silent> s             :call b:toc.toggle_numbers()<cr>
-  nnoremap <buffer><nowait><silent> t             :call b:toc.toggle_sorted_todos()<cr>
-  nnoremap <buffer><nowait><silent> r             :call b:toc.get_entries(1)<cr>
-  nnoremap <buffer><nowait><silent> -             :call b:toc.decrease_depth()<cr>
-  nnoremap <buffer><nowait><silent> +             :call b:toc.increase_depth()<cr>
+  nnoremap <silent><buffer><nowait><expr> gg b:toc.show_help ? 'gg}}j' : 'gg'
+  nnoremap <silent><buffer><nowait> <esc>OA k
+  nnoremap <silent><buffer><nowait> <esc>OB j
+  nnoremap <silent><buffer><nowait> <esc>OC k
+  nnoremap <silent><buffer><nowait> <esc>OD j
+  nnoremap <silent><buffer><nowait> q             :call b:toc.close()<cr>
+  nnoremap <silent><buffer><nowait> <esc>         :call b:toc.close()<cr>
+  nnoremap <silent><buffer><nowait> <space>       :call b:toc.activate_current(0)<cr>
+  nnoremap <silent><buffer><nowait> <2-leftmouse> :call b:toc.activate_current(0)<cr>
+  nnoremap <silent><buffer><nowait> <cr>          :call b:toc.activate_current(1)<cr>
+  nnoremap <silent><buffer><nowait> h             :call b:toc.toggle_help()<cr>
+  nnoremap <silent><buffer><nowait> f             :call b:toc.filter()<cr>
+  nnoremap <silent><buffer><nowait> F             :call b:toc.clear_filter()<cr>
+  nnoremap <silent><buffer><nowait> s             :call b:toc.toggle_numbers()<cr>
+  nnoremap <silent><buffer><nowait> t             :call b:toc.toggle_sorted_todos()<cr>
+  nnoremap <silent><buffer><nowait> r             :call b:toc.get_entries(1)<cr>
+  nnoremap <silent><buffer><nowait> -             :call b:toc.decrease_depth()<cr>
+  nnoremap <silent><buffer><nowait> +             :call b:toc.increase_depth()<cr>
 
   for [type, key] in items(self.layer_keys)
     execute printf(
-          \ 'nnoremap <buffer><nowait><silent> %s'
+          \ 'nnoremap <silent><buffer><nowait> %s'
           \ . ' :call b:toc.toggle_type(''%s'')<cr>',
           \ key, type)
   endfor
@@ -282,7 +287,7 @@ function! s:toc.create() abort dict " {{{1
   if self.hotkeys_enabled
     for entry in self.entries
       execute printf(
-            \ 'nnoremap <buffer><nowait><silent> %s%s'
+            \ 'nnoremap <silent><buffer><nowait> %s%s'
             \ . ' :call b:toc.activate_hotkey(''%s'')<cr>',
             \ self.hotkeys_leader, entry.hotkey, entry.hotkey)
     endfor
@@ -290,6 +295,10 @@ function! s:toc.create() abort dict " {{{1
 
   " Jump to closest index
   call vimtex#pos#set_cursor(self.get_closest_index())
+
+  if exists('#User#VimtexEventTocCreated')
+    doautocmd <nomodeline> User VimtexEventTocCreated
+  endif
 endfunction
 
 " }}}1
@@ -344,35 +353,42 @@ function! s:toc.set_syntax() abort dict "{{{1
     highlight link VimtexTocHelpKeySeparator VimtexTocHelp
   endif
 
-  syntax match VimtexTocNum /\v(([A-Z]+>|\d+)(\.\d+)*)?\s*/ contained
   execute 'syntax match VimtexTocTodo'
-        \ '/\v\s\zs%(' . toupper(join(g:vimtex_toc_todo_keywords, '|')) . '): /'
+        \ '/\v\s\zs%('
+        \   . toupper(join(keys(g:vimtex_toc_todo_labels), '|')) . '): /'
         \ 'contained'
-  syntax match VimtexTocHotkey /\[[^]]\+\]/ contained
 
-  syntax match VimtexTocSec0 /^L0.*/ contains=@VimtexTocStuff
-  syntax match VimtexTocSec1 /^L1.*/ contains=@VimtexTocStuff
-  syntax match VimtexTocSec2 /^L2.*/ contains=@VimtexTocStuff
-  syntax match VimtexTocSec3 /^L3.*/ contains=@VimtexTocStuff
-  syntax match VimtexTocSec4 /^L4.*/ contains=@VimtexTocStuff
-  syntax match VimtexTocSecLabel /^L\d / contained conceal
-        \ nextgroup=VimtexTocNum
-  syntax cluster VimtexTocStuff
-        \ contains=VimtexTocSecLabel,VimtexTocHotkey,VimtexTocTodo,@Tex
-
-  syntax match VimtexTocIncl /\v^L\d (\[i\])?\s*(\[\w+\] )?\w+ incl:/
-        \ contains=VimtexTocSecLabel,VimtexTocHotkey
-        \ nextgroup=VimtexTocInclPath
   syntax match VimtexTocInclPath /.*/ contained
+  syntax match VimtexTocIncl /\w\+ incl:/ contained
+        \ nextgroup=VimtexTocInclPath
 
-  syntax match VimtexTocLabelsSecs /\v^L\d \s*(\[\w+\] )?(chap|sec):.*$/
-        \ contains=VimtexTocSecLabel,VimtexTocHotkey
-  syntax match VimtexTocLabelsEq   /\v^L\d \s*(\[\w+\] )?eq:.*$/
-        \ contains=VimtexTocSecLabel,VimtexTocHotkey
-  syntax match VimtexTocLabelsFig  /\v^L\d \s*(\[\w+\] )?fig:.*$/
-        \ contains=VimtexTocSecLabel,VimtexTocHotkey
-  syntax match VimtexTocLabelsTab  /\v^L\d \s*(\[\w+\] )?tab:.*$/
-        \ contains=VimtexTocSecLabel,VimtexTocHotkey
+  syntax match VimtexTocLabelsSecs /\v(chap|sec):.*$/ contained
+  syntax match VimtexTocLabelsEq   /eq:.*$/ contained
+  syntax match VimtexTocLabelsFig  /fig:.*$/ contained
+  syntax match VimtexTocLabelsTab  /tab:.*$/ contained
+
+  syntax cluster VimtexTocTitleStuff add=VimtexTocIncl
+  syntax cluster VimtexTocTitleStuff add=VimtexTocTodo
+  syntax cluster VimtexTocTitleStuff add=VimtexTocLabelsSecs
+  syntax cluster VimtexTocTitleStuff add=VimtexTocLabelsEq
+  syntax cluster VimtexTocTitleStuff add=VimtexTocLabelsFig
+  syntax cluster VimtexTocTitleStuff add=VimtexTocLabelsTab
+  syntax cluster VimtexTocTitleStuff add=@Tex
+
+  syntax match VimtexTocTitle /.*$/ contained transparent
+        \ contains=@VimtexTocTitleStuff
+  syntax match VimtexTocNum /\v(([A-Z]+>|\d+)(\.\d+)*)?\s*/ contained
+        \ nextgroup=VimtexTocTitle
+  syntax match VimtexTocHotkey /\[[^] ]\+\]\s*/ contained
+        \ nextgroup=VimtexTocNum
+  syntax match VimtexTocSecLabel /^L\d / contained conceal
+        \ nextgroup=VimtexTocHotkey,VimtexTocNum,VimtexTocTitle
+
+  syntax match VimtexTocSec0 /^L0.*/     contains=VimtexTocSecLabel
+  syntax match VimtexTocSec1 /^L1.*/     contains=VimtexTocSecLabel
+  syntax match VimtexTocSec2 /^L2.*/     contains=VimtexTocSecLabel
+  syntax match VimtexTocSec3 /^L3.*/     contains=VimtexTocSecLabel
+  syntax match VimtexTocSec4 /^L[4-9].*/ contains=VimtexTocSecLabel
 endfunction
 
 " }}}1
@@ -419,10 +435,7 @@ endfunction
 
 " }}}1
 function! s:toc.print_entries() abort dict " {{{1
-  let self.number_width = self.layer_status.content
-        \ ? max([0, 2*(self.tocdepth + 2)])
-        \ : 0
-  let self.number_format = '%-' . self.number_width . 's'
+  call self.set_number_format()
 
   for entry in self.get_visible_entries()
     call self.print_entry(entry)
@@ -432,15 +445,20 @@ endfunction
 " }}}1
 function! s:toc.print_entry(entry) abort dict " {{{1
   let output = 'L' . a:entry.level . ' '
+
+  if self.hotkeys_enabled
+    let output .= printf('[%S] ', a:entry.hotkey)
+  endif
+
+  if self.indent_levels
+    let output .= repeat('  ', a:entry.level)
+  endif
+
   if self.show_numbers
     let number = a:entry.level >= self.tocdepth + 2 ? ''
           \ : strpart(self.print_number(a:entry.number),
           \           0, self.number_width - 1)
     let output .= printf(self.number_format, number)
-  endif
-
-  if self.hotkeys_enabled
-    let output .= printf('[%S] ', a:entry.hotkey)
   endif
 
   let output .= a:entry.title
@@ -451,7 +469,7 @@ endfunction
 " }}}1
 function! s:toc.print_number(number) abort dict " {{{1
   if empty(a:number) | return '' | endif
-  if type(a:number) == type('') | return a:number | endif
+  if type(a:number) == v:t_string | return a:number | endif
 
   if get(a:number, 'part_toggle')
     return s:int_to_roman(a:number.part)
@@ -482,6 +500,19 @@ function! s:toc.print_number(number) abort dict " {{{1
   endif
 
   return join(number, '.')
+endfunction
+
+" }}}1
+function! s:toc.set_number_format() abort dict " {{{1
+  let number_width = 0
+  for entry in self.get_visible_entries()
+    let number_width = max([number_width, strlen(self.print_number(entry.number)) + 1])
+  endfor
+
+  let self.number_width = self.layer_status.content
+        \ ? max([0, min([2*(self.tocdepth + 2), number_width])])
+        \ : 0
+  let self.number_format = '%-' . self.number_width . 's'
 endfunction
 
 " }}}1
@@ -574,13 +605,18 @@ function! s:toc.activate_entry(entry, close_after) abort dict "{{{1
     " Return to toc window
     execute toc_winnr . 'wincmd w'
   endif
+
+  " Allow user entry points through autocmd events
+  if exists('#User#VimtexEventTocActivated')
+    doautocmd <nomodeline> User VimtexEventTocActivated
+  endif
 endfunction
 
 " }}}1
 function! s:toc.toggle_help() abort dict "{{{1
   let l:pos = vimtex#pos#get_cursor()
   if self.show_help
-    let l:pos[1] -= self.help_nlines
+    let l:pos[1] = max([l:pos[1] - self.help_nlines, 1])
     call vimtex#pos#set_cursor(l:pos)
   endif
 
@@ -728,7 +764,7 @@ endfunction
 function! s:foldtext() abort " {{{1
   let l:line = getline(v:foldstart)[3:]
   if b:toc.todo_sorted
-        \ && l:line =~# '\v%(' . join(g:vimtex_toc_todo_keywords, '|') . ')'
+        \ && l:line =~# '\v%(' . join(keys(g:vimtex_toc_todo_labels), '|') . ')'
     return substitute(l:line, '\w+\zs:.*', 's', '')
   else
     return l:line

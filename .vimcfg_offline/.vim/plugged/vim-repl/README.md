@@ -10,10 +10,11 @@
          * [How to switch to REPL environment](#how-to-switch-to-repl-environment)
          * [How to hide the REPL environment](#how-to-hide-the-repl-environment)
          * [How to debug python script?](#how-to-debug-python-script)
+         * [How to open python with virtual environment?](#how-to-open-python-with-virtual-environment)
       * [Setting](#setting)
-   * [My Configuation for Vim-Repl](#my-configuation-for-vim-repl)
-   * [Updates:](#updates)
-   * [Troubleshooting](#troubleshooting)
+      * [My Configuation for Vim-Repl](#my-configuation-for-vim-repl)
+      * [Updates](#updates)
+      * [Troubleshooting](#troubleshooting)
 
 ## Introduction
 
@@ -27,23 +28,28 @@ Read–Eval–Print Loop (REPL), also known as an interactive toplevel or langua
 
 ![usage](https://github.com/sillybun/vim-repl/blob/master/assets/repl.gif)
 
-Use vim to open a file, run `:REPLToggle` to open the REPL environment.
+Use vim to open a file, run `:REPLToggle` to open the REPL environment. If the REPL is already open. `:REPLToggle` will close REPL.
 
-By default, Python and Perl are supported. If you run `:REPLToggle` in a `python` file, you will get `python` in the terminal buffer. In a `perl` file, vim-repl will try to use `perlconsole`, `reply` and `re.pl` (in that order); so one of them should be installed.
+By default, Python Perl and Vimscript are supported. If you run `:REPLToggle` in a `python` file, you will get `python` in the terminal buffer. In a `perl` file, vim-repl will try to use `perlconsole`, `reply` and `re.pl` (in that order); so one of them should be installed. In a `vim` file, `vim-repl` will try to open `vim -e`.
 In order to support more languages, you will have to specify which program to run for each specific filetype.
 
-There are three ways to send codes to REPL environment, the first way: stay in normal mode and press `<leader>w` and the whole line of the cursor will be sent to REPL.
+There are three ways to send codes to REPL environment:
+
+- the first way: stay in normal mode and press `<leader>w` and the whole line of the cursor will be sent to REPL.
 
 ![usage](https://github.com/sillybun/vim-repl/blob/master/assets/usage-1.gif)
 
-The second way is that in normal mode, move the cursor to the first line of one block (start of a function: `def functionname(argv):`, start of a for/while loop, start of a if-else statement) and press `<leader>w`, the whole block will be sent to REPL automatically.
+- The second way is that in normal mode, move the cursor to the first line of one block (start of a function: `def functionname(argv):`, start of a for/while loop, start of a if-else statement) and press `<leader>w`, the whole block will be sent to REPL automatically.
 
 ![usage](https://github.com/sillybun/vim-repl/blob/master/assets/usage2.gif)
 
-The third way is to select some lines in visual mode and press `<leader>w`, the seleted code will be sent to REPL.
+- The third way is to select some lines in visual mode and press `<leader>w`, the seleted code will be sent to REPL.
 
 ![usage](https://github.com/sillybun/vim-repl/blob/master/assets/usage-3.gif)
-If the REPL is already open. `:REPLToggle` will close REPL.
+
+- The last way is to select some word in visual mode and press `<leader>w` and the selected word will be sent to REPL.
+
+![usage](https://github.com/sillybun/vim-repl/blob/master/assets/usage4.gif)
 
 ## Installation
 
@@ -79,6 +85,7 @@ For MacOS, Windows and Linux Users (vim should have `+terminal` and `+timers` su
 - In Normal Mode, press `<leader>w`, code in the current line (including leading space and the end center) will be transmitted to REPL
 - In Normal Mode, move the cursor to the begin of a block and press `<leader>w` and the whole block will be sent to REPL (By default, code block start with `def`, `class`, `while`, `for`, `if` will be automatically sent. You can control the definition of start of code block by setting `g:repl_auto_sends`)
 - In Visual Mode, press `<leader>w`, selected code (whole line includeing leading space and the last center) will be trasmitted to REPL
+- In Visual Mode, selected a word and press `<leader>w`, and the selected word will be sent to REPL according to certain rules defined by `g:repl_sendvariable_template`.
 
 Currently, asynchronous transmission is completed and it is supported for all language if you correctly set the input symbols of the corresponding language.
 Setting for python is already done by author. Supported command shell for python include `python`, `ipython` and `ptpython`.
@@ -119,6 +126,8 @@ use `REPLUnhide` or `REPLToggle` to reveal the hidden terminal.
 
 ### How to debug python script?
 
+You should have to install `ipdb` to debug python script.
+
 I suggest the following key binding:
 
 ```
@@ -130,6 +139,53 @@ autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
 To debug python code, move the cursor to certain line and press `<F12>`, and ipdb will be run and the program will be stopped at that line. Press `<F10>` will run a single line and Press `<F11>` will also run a single line but will jump into functions.
 
 ![usage](https://github.com/sillybun/vim-repl/blob/master/assets/debug-python.gif)
+
+### How to send code block to REPL?
+
+For python code, surround code block with `# BEGIN` and `# END`:
+
+```
+# BEGIN <name of block or just empty>
+
+block-of-code
+
+# END <you can add whatever you like here>
+```
+
+Example:
+
+```
+# BEGIN header
+import numpy as np
+import os
+
+def f(a, b):
+    return a + b
+# END
+```
+
+Place the cursor in the code block and run command `:REPLSendSession` and then the whole block will be sent to the REPL environment.
+
+### How to open python with virtual environment?
+
+There are two ways to open python with virtual environment.
+
+The first method (global) is that put:
+```
+g:repl_python_pre_launch_command = 'source /path_to_new_venv/bin/activate'
+```
+in `.vimrc`. And once you toggle python, the following command will be run:
+```
+:terminal [g:repl_program['default'][0]/bash/cmd.exe]
+source /path_to_new_venv/bin/activate
+python/ipython/ptpython
+```
+
+The second method (specific virtual environment) is that put:
+```
+#REPLENV: /path_to_new_venv/bin/activate
+```
+in python script. If you open this python file with vim and toggle vim-repl, python will be run in specific virtual environment.
 
 ## Setting
 
@@ -180,8 +236,8 @@ It controls which program will be run for certain filetype. If there is no entry
 
 ```
 let g:repl_program = {
-			\	'python': 'python',
-			\	'default': 'bash'
+			\	'python': ['python'],
+			\	'default': ['bash']
 			\	}
 ```
 
@@ -218,7 +274,7 @@ Once user run `:REPLToggle` when the REPL environment is already open, this plug
 - if the program is not close, then send two `\n` and the `exit_command + \n` to the program.
 
 ```
-let g:repl_auto_sends = ['class ', 'def ', 'for ', 'if ', 'while ']
+let g:repl_auto_sends = ['class ', 'def ', 'for ', 'if ', 'while ', 'with ']
 ```
 
 If `g:repl_auto_sends` is defined, once user sends a line starts with any pattern contained in the list, whole block will be send automatically.
@@ -253,13 +309,32 @@ let g:repl_vimscript_engine = 0
 ```
 
 If your vim doesn't support python or python3, I provides limited supported for it:
-- It works for `python`
-- It also works for `ipython` and `ptpython` but every line of the codes to be send should be complete, which means if you seperate a line of code into two or more lines, the plugin will not handle it correctly.
+- It works for `python` and `ipython`
+- It also works for `ptpython` but every line of the codes to be send should be complete, which means if you seperate a line of code into two or more lines, the plugin will not handle it correctly.
 
+```
+let g:repl_sendvariable_template = {
+            \ 'python': 'print(<input>)',
+            \ 'ipython': 'print(<input>)',
+            \ 'ptpython': 'print(<input>)',
+            \ }
+```
 
-Name of REPL environment.
+`g:repl_sendvariable_template` defines how word is sent to REPL. For example, by default, if you select `some_variable` and presss `<leader>w`, `print(some_variable)` will be sent to REPL. You can define your rule with the help of `g:repl_sendvariable_template`. `<input>` will be replaced by selected word and then be sent to REPL.
 
-# My Configuation for Vim-Repl
+```
+let g:repl_unhide_when_send_lines = 0
+```
+
+If `g:repl_unhide_when_send_lines = 1`, when REPL is hidden and you want to send lines, REPL environment will be unhiden before the code is sent.
+
+```
+g:repl_output_copy_to_register
+```
+
+If `g:repl_output_copy_to_register` is set to a letter (a-z), then output of REPL program will be copied to the corresponding register. (Currently only support ipython)
+
+## My Configuation for Vim-Repl
 
 ```
 Plug 'sillybun/vim-repl'
@@ -268,6 +343,7 @@ let g:repl_program = {
             \   'default': 'zsh',
             \   'r': 'R',
             \   'lua': 'lua',
+            \   'vim': 'vim -e',
             \   }
 let g:repl_predefine_python = {
             \   'numpy': 'import numpy as np',
@@ -276,36 +352,58 @@ let g:repl_predefine_python = {
 let g:repl_cursor_down = 1
 let g:repl_python_automerge = 1
 let g:repl_ipython_version = '7'
+let g:repl_output_copy_to_register = "t"
 nnoremap <leader>r :REPLToggle<Cr>
+nnoremap <leader>e :REPLSendSession<Cr>
 autocmd Filetype python nnoremap <F12> <Esc>:REPLDebugStopAtCurrentLine<Cr>
 autocmd Filetype python nnoremap <F10> <Esc>:REPLPDBN<Cr>
 autocmd Filetype python nnoremap <F11> <Esc>:REPLPDBS<Cr>
 let g:repl_position = 3
 ```
 
-# Updates:
+## Updates
 
-## 2019.8.10
+### 2020.4.29
+
+- Add support for mulitiple repl program. Thanks to @roachsinai 's great work.
+
+### 2019.10.14
+
+- Add support for python virtual environment.
+
+### 2019.8.27
+
+- Set the default program in Windows to `cmd.exe`
+
+### 2019.8.16
+
+- Add support for vimscript REPL.
+
+### 2019.8.11
+
+- Add send selected word function and `g:repl_sendvariable_template`.
+
+### 2019.8.10
 
 - `vim-repl` no longer need the support of `vim-async` anymore.
 
-## 2019.8.9
+### 2019.8.9
 
 - Add almost full support for vim without `+python` or `+python3` support.
 - Rewrite `vim-async` using `timer_start`
 - Set the default value of `g:repl_auto_sends` to `['class ', 'def ', 'for ', 'if ', 'while ']`
 - Set the default value of `g:repl_cursor_down` to 1
 
-## 2019.8.7
+### 2019.8.7
 
 - Fix bug for windows
 - `g:repl_cursor_down` will also affect SendCurrentLine
 
-## 2019.8.6
+### 2019.8.6
 
 - Add support for ipython version >= 7
 
-## 2019.8.3
+### 2019.8.3
 
 - Rewrite the program to format python codes using python language
 - Abandon using C++ to handle python code
@@ -314,28 +412,28 @@ let g:repl_position = 3
 - Support both `python` and `python3`
 - Remove Checkpoint function
 
-## 2019.5.28
+### 2019.5.28
 
 - Support REPL environment for Windows.
 
-## 2019.5.14
+### 2019.5.14
 
 - `g:repl_cursor_down` is provided.
 
-## 2019.4.27
+### 2019.4.27
 
 - Async feature is provided by [vim-async](https://github.com/sillybun/vim-async)
 
-## 2018.7.7
+### 2018.7.7
 
 - Use job feature in vim 8.0 to provide better performance.
 
-## 2018.7.26
+### 2018.7.26
 
 - Add support for temporary hide the terminal window.
 If the REPL is already open. `:REPLToggle` will close REPL.
 
-# Troubleshooting
+## Troubleshooting
 
 - The python code cannot send porperly to REPL environment
 
@@ -355,3 +453,31 @@ print(some_dict)
 ```
 
 For vim with `+python` or `+python3` support, this problem will not happen. If it happens, check whether `g:repl_vimscript_engine` is set to `0`. If `g:repl_vimscript_engine = 0`, there is a bug here. Please report the bug; If `g:repl_vimscript_engine=1`, search `let g:repl_vimscript_engine = 1` in vimrc and remove it.
+
+- `<space>r` doesn't work for my vim
+
+`<space>` in the example mean the leader key. Check the your leader key mapping in vimrc. To set leader key to `<space>`, add `let g:mapleader=' '`
+
+- Error detected while processing function repl#REPLToggle [10].. repl #REPLOpen
+
+The reason of this error is that vim-repl try to open the program which is not installed on your machine. For example, if you havn't install `ipython` and set `g:repl_program['python']=['ipython']`, this error will occur.
+
+- How to change to Normal Mode in REPL environment?
+
+In REPL environment, press `<C-W>N`. Or you can use the setting:
+
+```
+tnoremap <C-n> <C-w>N
+tnoremap <ScrollWheelUp> <C-w>Nk
+tnoremap <ScrollWheelDown> <C-w>Nj
+```
+
+And then you can press `<C-n>` to change to Normal Mode.
+
+-----
+
+If you like my plugin, please buy me a cup of coffee to support me!
+
+<p align="center">
+<img src="https://github.com/sillybun/vim-repl/blob/master/assets/wechat.JPG" width="400">
+</p>

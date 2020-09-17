@@ -1,5 +1,7 @@
 # NERD Commenter
 
+[![Vint](https://github.com/preservim/nerdcommenter/workflows/Vint/badge.svg)](https://github.com/preservim/nerdcommenter/actions?workflow=Vint)
+
 Comment functions so powerful—no comment necessary.
 
 ## Installation
@@ -8,19 +10,19 @@ Comment functions so powerful—no comment necessary.
 
 #### [Vim-Plug](https://github.com/junegunn/vim-plug)
 
-1. Add `Plug 'scrooloose/nerdcommenter'` to your vimrc file.
+1. Add `Plug 'preservim/nerdcommenter'` to your vimrc file.
 2. Reload your vimrc or restart
 3. Run `:PlugInstall`
 
 #### [Vundle](https://github.com/VundleVim/Vundle.vim) or similar
 
-1. Add `Plugin 'scrooloose/nerdcommenter'` to your vimrc file.
+1. Add `Plugin 'preservim/nerdcommenter'` to your vimrc file.
 2. Reload your vimrc or restart
 3. Run `:BundleInstall`
 
 #### [NeoBundle](https://github.com/Shougo/neobundle.vim)
 
-1. Add `NeoBundle 'scrooloose/nerdcommenter'` to your vimrc file.
+1. Add `NeoBundle 'preservim/nerdcommenter'` to your vimrc file.
 2. Reload your vimrc or restart
 3. Run `:NeoUpdate`
 
@@ -28,7 +30,7 @@ Comment functions so powerful—no comment necessary.
 
 ```sh
 cd ~/.vim/bundle
-git clone https://github.com/scrooloose/nerdcommenter.git
+git clone https://github.com/preservim/nerdcommenter.git
 ```
 
 ### Manual Installation
@@ -39,9 +41,9 @@ git clone https://github.com/scrooloose/nerdcommenter.git
 
 ```sh
 curl -fLo ~/.vim/plugin/NERD_Commenter.vim --create-dirs \
-  https://raw.githubusercontent.com/scrooloose/nerdcommenter/master/plugin/NERD_commenter.vim
+  https://raw.githubusercontent.com/preservim/nerdcommenter/master/plugin/NERD_commenter.vim
 curl -fLo ~/.vim/doc/NERD_Commenter.txt --create-dirs \
-  https://raw.githubusercontent.com/scrooloose/nerdcommenter/master/doc/NERD_commenter.txt
+  https://raw.githubusercontent.com/preservim/nerdcommenter/master/doc/NERD_commenter.txt
 ```
 
 #### Windows (PowerShell)
@@ -49,8 +51,8 @@ curl -fLo ~/.vim/doc/NERD_Commenter.txt --create-dirs \
 ```powershell
 md ~\vimfiles\plugin
 md ~\vimfiles\doc
-$pluguri = 'https://raw.githubusercontent.com/scrooloose/nerdcommenter/master/plugin/NERD_commenter.vim'
-$docsuri = 'https://raw.githubusercontent.com/scrooloose/nerdcommenter/master/doc/NERD_commenter.txt'
+$pluguri = 'https://raw.githubusercontent.com/preservim/nerdcommenter/master/plugin/NERD_commenter.vim'
+$docsuri = 'https://raw.githubusercontent.com/preservim/nerdcommenter/master/doc/NERD_commenter.txt'
 (New-Object Net.WebClient).DownloadFile($pluguri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("~\vimfiles\plugin\NERD_commenter.vim"))
 (New-Object Net.WebClient).DownloadFile($docsuri, $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath("~\vimfiles\doc\NERD_commenter.txt"))
 ```
@@ -157,3 +159,7 @@ Most of the following mappings are for normal/visual mode only. The **|NERDComme
   * `[count]<leader>cu` **|NERDCommenterUncomment|**
 
     Uncomments the selected line(s).
+
+## Contributions
+
+This plugin was originally written in 2007 by [Martin Grenfell (@scrooloose)](https://github.com/scrooloose/). Lots of features and many of the supported filetypes have come from [community contributors](https://github.com/preservim/nerdcommenter/graphs/contributors). Since 2016 it has been maintained primarily by [Caleb Maclennan (@alerque)](https://github.com/alerque). Additional file type support, bug fixes, and new feature contributons are all welcome, please send them as Pull Requests on Github. If you can't contribute yourself please also feel free to open issues to report problems or request features.

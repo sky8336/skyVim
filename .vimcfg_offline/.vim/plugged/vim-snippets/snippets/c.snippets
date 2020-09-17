@@ -344,3 +344,38 @@ snippet todo
 # This is kind of convenient
 snippet .
 	[${1}]
+
+#
+# my private snippets
+#
+
+# my printf
+snippet pf
+	printf("[%s][%d] ${1:%s}\n",__func__, __LINE__${2:});${3:}
+
+# printk
+snippet pk
+	printk("[%s][%d] ${1:%s}\n",__func__, __LINE__${2});${3}
+
+# return
+# return sucess
+snippet r
+	return ${1:0};
+# return error
+snippet re
+	return ${1:-1};
+# return null
+snippet rn
+	return ${1:NULL};
+
+# ifdef...elif defined...endif
+snippet ifdef2
+	#ifdef ${1:FOO}
+		${2:#define }
+	#elif defined ${3:FOO1}
+		${4:#define }
+	#endif
+
+snippet #elifd
+	#elif defined ${1:FOO}
+

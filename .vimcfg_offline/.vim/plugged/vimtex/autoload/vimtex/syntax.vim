@@ -21,44 +21,65 @@ endfunction
 
 " }}}1
 function! vimtex#syntax#load() abort " {{{1
-  if !exists('b:current_syntax')
-    let b:current_syntax = 'tex'
-  elseif b:current_syntax !=# 'tex'
-    return
-  endif
+  if s:is_loaded() | return | endif
 
   " Initialize project cache (used e.g. for the minted package)
   if !has_key(b:vimtex, 'syntax')
     let b:vimtex.syntax = {}
   endif
 
+  " Initialize b:vimtex_syntax
+  let b:vimtex_syntax = {}
+
+  " Reset included syntaxes (necessary e.g. when doing :e)
+  call vimtex#syntax#misc#include_reset()
+
   " Set some better defaults
   syntax spell toplevel
   syntax sync maxlines=500
 
-  " Initialize b:vimtex_syntax if necessary
-  let b:vimtex_syntax = get(b:, 'vimtex_syntax', {})
-
   " Load some general syntax improvements
   call vimtex#syntax#load#general()
 
-  "
-  " Load syntax for documentclass
-  "
-  try
-    call vimtex#syntax#p#{b:vimtex.documentclass}#load()
-  catch /E117:/
-  endtry
+  " Load syntax for documentclass and packages
+  call vimtex#syntax#load#packages()
 
-  "
-  " Load syntax for packages
-  "
-  for l:package in keys(b:vimtex.packages)
-    try
-      call vimtex#syntax#p#{l:package}#load()
-    catch /E117:/
-    endtry
-  endfor
+  " Hack to make it possible to determine if vimtex syntax was loaded
+  syntax match texVimtexLoaded 'dummyVimtexLoadedText' contained
+endfunction
+
+" }}}1
+
+function! vimtex#syntax#stack(...) abort " {{{1
+  let l:pos = a:0 > 0 ? [a:1, a:2] : [line('.'), col('.')]
+  if mode() ==# 'i'
+    let l:pos[1] -= 1
+  endif
+  call map(l:pos, 'max([v:val, 1])')
+
+  return map(synstack(l:pos[0], l:pos[1]), "synIDattr(v:val, 'name')")
+endfunction
+
+" }}}1
+function! vimtex#syntax#in(name, ...) abort " {{{1
+  return match(call('vimtex#syntax#stack', a:000), '^' . a:name) >= 0
+endfunction
+
+" }}}1
+function! vimtex#syntax#in_comment(...) abort " {{{1
+  return call('vimtex#syntax#in', ['texComment'] + a:000)
+endfunction
+
+" }}}1
+function! vimtex#syntax#in_mathzone(...) abort " {{{1
+  return call('vimtex#syntax#in', ['texMathZone'] + a:000)
+endfunction
+
+" }}}1
+
+function! s:is_loaded() abort " {{{1
+  let l:result = vimtex#util#command('syntax')
+  return !empty(filter(l:result, 'v:val =~# "texVimtexLoaded"'))
 endfunction
 
 " }}}1

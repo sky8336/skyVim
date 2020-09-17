@@ -170,6 +170,14 @@ func! s:BuildCommand(args, for_shell) abort
     call add(tokens,
         \ s:backend_args_map[runner]['follow'][g:ctrlsf_follow_symlinks])
 
+    " search hidden files (NOT SUPPORTED BY ALL BACKEND)
+    " support backend: ag, rg, pt
+    if !empty(ctrlsf#opt#GetOpt('hidden'))
+      if runner !=# 'ack'
+        call add(tokens, "--hidden")
+      endif
+    endif
+
     " default
     call add(tokens,
         \ s:backend_args_map[runner]['default'])
@@ -300,7 +308,10 @@ func! ctrlsf#backend#Run(args) abort
 endf
 
 func! ctrlsf#backend#RunAsync(args) abort
-    let command = s:BuildCommand(a:args, 0)
+    " NeoVim executes commands using shell which is different from Vim
+    let for_shell = has('nvim')
+
+    let command = s:BuildCommand(a:args, for_shell)
     call ctrlsf#log#Debug("ExecCommand: %s", command)
 
     call ctrlsf#async#StartSearch(command)

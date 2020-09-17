@@ -147,3 +147,46 @@ ${1}($2){
 }
 endsnippet
 # vim:ft=snippets:
+
+#
+# my private snippets
+#
+# Doxygen简明注释语法
+snippet mhead "doxygen style File Header" b
+/**
+ * @file `!p snip.rv = fn`
+ * @brief ${2}
+ * @details ${3}
+ * @mainpage ${4}
+ * @author ${5}
+ * @email ${6}
+ * @version ${7:v0.01}
+ * @date `date +%Y-%m-%d`
+ * @license ${9}
+ */
+${0}
+endsnippet
+
+
+snippet mfunc "doxygen style Function Header"
+/**
+ * $1() - $4
+ * @brief ${4}
+ *`!p
+snip.rv = ""
+snip >> 2
+
+args = get_args(t[2])
+if args:
+	for arg in args:
+		snip.rv += '\n' + ' * @param' + ' '*1 + arg + ' - TODO'
+snip << 2
+`
+ * @return ${5}
+ *   @retval ${6}
+ */
+${1}($2)
+{
+	${0}
+}
+endsnippet

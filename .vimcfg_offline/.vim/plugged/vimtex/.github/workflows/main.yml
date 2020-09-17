@@ -1,0 +1,42 @@
+name: CI tests
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'doc/*'
+      - 'docker/*'
+      - 'media/*'
+      - '*.md'
+  push:
+    paths-ignore:
+      - 'doc/*'
+      - 'docker/*'
+      - 'media/*'
+      - '*.md'
+
+jobs:
+  run-tests:
+    name: Test on ubuntu-latest
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install packages
+      run: |
+        sudo add-apt-repository ppa:neovim-ppa/stable
+        sudo apt update
+        sudo apt install neovim \
+          texlive texlive-latex-extra texlive-extra-utils \
+          texlive-bibtex-extra libtext-bibtex-perl \
+          latexmk \
+          gcc moreutils \
+          libmodule-build-perl \
+          libconfig-autoconf-perl \
+          libextutils-libbuilder-perl
+    - uses: actions/checkout@master
+      with:
+        fetch-depth: 1
+    - name: Test with neovim
+      run: cd test/tests && make -j1
+    - name: Test with vim
+      env:
+        MYVIM: vim -T dumb --not-a-term -n
+      run: cd test/tests && make -j1

@@ -27,6 +27,9 @@ function! s:_vital_loaded(V) abort
 
   let s:is_cygwin = has('win32unix')
   let s:is_mswin = has('win16') || has('win32') || has('win64')
+  let s:use_wslpath = has('unix') && filereadable('/proc/version_signature')
+  \ && get(readfile('/proc/version_signature', 'b', 1), 0, '') =~# '^Microsoft'
+  \ && executable('wslpath')
 
   let s:Opener = a:V.import('OpenBrowser.Opener')
   let s:URIExtractor = a:V.import('OpenBrowser.URIExtractor')
@@ -55,8 +58,9 @@ function! s:new(config) abort
 endfunction
 
 " @param uri URI object or String
-function! s:_OpenBrowser_open(uri) abort dict
+function! s:_OpenBrowser_open(uri, ...) abort dict
   let uri = a:uri
+  let options = a:0 && type(a:1) ==# type([]) ? a:1 : []
   if type(uri) isnot# type('')
     call s:_throw('s:OpenBrowser.open() received non-String argument: uri = ' . string(uri))
   endif
@@ -87,6 +91,14 @@ function! s:_OpenBrowser_open(uri) abort dict
         \   })
         echo msg
       endif
+    endif
+
+    if type(b.cmd.args) == v:t_string
+      "String (Windows)
+      let b.cmd.args = join([b.cmd.args] + map(copy(options), 'shellescape(v:val)'), ' ')
+    else
+      "Array (Other platforms)
+      let b.cmd.args += options
     endif
 
     let opener = b.build()
@@ -146,6 +158,11 @@ function! s:_get_opener_builder(uristr, config) abort
       return s:O.some(builder)
     else
       let fullpath = tr(fullpath, '\', '/')
+      " Windows Subsystem for Linux: Convert Unix path to Windows UNC path
+      if s:use_wslpath
+        let fullpath = substitute(
+        \ system('wslpath -am ' . shellescape(fullpath)), '\n', '', '')
+      endif
       " Convert to file:// string.
       " NOTE: cygwin cannot treat file:// URI,
       " pass a string as fullpath.
@@ -304,7 +321,7 @@ function! s:_OpenBrowser_cmd_search(cmdline) abort dict
     call s:Msg.error(':OpenBrowserSearch [-{search-engine}] {query}')
     return
   endif
-  return self.search(c, s:O.get_or(engine, ''))
+  return self.search(c, s:O.get_or(engine, { -> '' }))
 endfunction
 
 " Parse command-line arguments of:
@@ -358,17 +375,18 @@ function! s:_OpenBrowser_cmd_smart_search(cmdline) abort dict
     call s:Msg.error(':OpenBrowserSmartSearch [-{search-engine}] {query}')
     return
   endif
-  return self.smart_search(c, s:O.get_or(engine, ''))
+  return self.smart_search(c, s:O.get_or(engine, { -> '' }))
 endfunction
 
 " <Plug>(openbrowser-open)
 function! s:_OpenBrowser_keymap_open(mode, ...) abort dict
   let silent = get(a:000, 0, self.config.get('message_verbosity') is# 0)
+  let options = get(a:000, 1, [])
   if a:mode is# 'n'
     " URL
     let url = s:_get_url_on_cursor(self.config)
     if !empty(url)
-      call self.open(url)
+      call self.open(url, options)
       return 1
     endif
     " FilePath
@@ -552,7 +570,7 @@ endfunction
 " :help openbrowser-url-detection
 function! s:_get_url_on_cursor(config) abort
   let url = s:_get_thing_on_cursor('s:_detect_url_cb', [a:config])
-  return s:O.get_or(url, '')
+  return s:O.get_or(url, { -> '' })
 endfunction
 
 function! s:_detect_url_cb(config) abort
@@ -567,7 +585,7 @@ endfunction
 " :help openbrowser-filepath-detection
 function! s:_get_filepath_on_cursor() abort
   let filepath = s:_get_thing_on_cursor('s:_detect_filepath_cb', [])
-  return s:O.get_or(filepath, '')
+  return s:O.get_or(filepath, { -> '' })
 endfunction
 
 function! s:_detect_filepath_cb() abort

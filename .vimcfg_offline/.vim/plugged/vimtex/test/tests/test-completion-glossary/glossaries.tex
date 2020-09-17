@@ -1,0 +1,27 @@
+\documentclass{minimal}
+\usepackage[nonumberlist,acronymlists={gloss,symbolslist}]{glossaries}
+
+\loadglsentries{glsentries}
+\longnewglossaryentry{baz}{name={test}}
+
+\begin{document}
+
+Hello World!
+
+\glsaddall
+
+\printglossary[
+  type=gloss,
+  style=long,
+  title={Glossary},
+  toctitle={Glossary}
+]
+
+\printglossary[
+  type=symbols,
+  style=long,
+  title={List of Symbols},
+  toctitle={List of Symbols}
+]
+
+\end{document}

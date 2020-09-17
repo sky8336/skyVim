@@ -4,8 +4,8 @@ import sys
 from textwrap import dedent
 
 import pytest
+import sys
 
-from parso._compatibility import py_version
 from parso.utils import split_lines, parse_version_string
 from parso.python.token import PythonTokenTypes
 from parso.python import tokenize
@@ -137,7 +137,7 @@ def test_identifier_contains_unicode():
     ''')
     token_list = _get_token_list(fundef)
     unicode_token = token_list[1]
-    if py_version >= 30:
+    if sys.version_info.major >= 3:
         assert unicode_token[0] == NAME
     else:
         # Unicode tokens in Python 2 seem to be identified as operators.
@@ -185,19 +185,19 @@ def test_ur_literals():
             assert typ == NAME
 
     check('u""')
-    check('ur""', is_literal=not py_version >= 30)
-    check('Ur""', is_literal=not py_version >= 30)
-    check('UR""', is_literal=not py_version >= 30)
+    check('ur""', is_literal=not sys.version_info.major >= 3)
+    check('Ur""', is_literal=not sys.version_info.major >= 3)
+    check('UR""', is_literal=not sys.version_info.major >= 3)
     check('bR""')
     # Starting with Python 3.3 this ordering is also possible.
-    if py_version >= 33:
+    if sys.version_info.major >= 3:
         check('Rb""')
 
     # Starting with Python 3.6 format strings where introduced.
-    check('fr""', is_literal=py_version >= 36)
-    check('rF""', is_literal=py_version >= 36)
-    check('f""', is_literal=py_version >= 36)
-    check('F""', is_literal=py_version >= 36)
+    check('fr""', is_literal=sys.version_info >= (3, 6))
+    check('rF""', is_literal=sys.version_info >= (3, 6))
+    check('f""', is_literal=sys.version_info >= (3, 6))
+    check('F""', is_literal=sys.version_info >= (3, 6))
 
 
 def test_error_literal():
@@ -385,8 +385,32 @@ def test_backslash():
             NAME, OP, FSTRING_START, FSTRING_STRING, OP, NAME, OP,
             FSTRING_STRING, OP, FSTRING_STRING, OP, NAME, OP, FSTRING_END, OP
         ]),
+        # issue #86, a string-like in an f-string expression
+        ('f"{ ""}"', [
+            FSTRING_START, OP, FSTRING_END, STRING
+        ]),
+        ('f"{ f""}"', [
+            FSTRING_START, OP, NAME, FSTRING_END, STRING
+        ]),
     ]
 )
 def test_fstring(code, types, version_ge_py36):
     actual_types = [t.type for t in _get_token_list(code, version_ge_py36)]
+    assert types + [ENDMARKER] == actual_types
+
+
+@pytest.mark.parametrize(
+    ('code', 'types'), [
+        # issue #87, `:=` in the outest paratheses should be tokenized
+        # as a format spec marker and part of the format
+        ('f"{x:=10}"', [
+            FSTRING_START, OP, NAME, OP, FSTRING_STRING, OP, FSTRING_END
+        ]),
+        ('f"{(x:=10)}"', [
+            FSTRING_START, OP, OP, NAME, OP, NUMBER, OP, OP, FSTRING_END
+        ]),
+    ]
+)
+def test_fstring_assignment_expression(code, types, version_ge_py38):
+    actual_types = [t.type for t in _get_token_list(code, version_ge_py38)]
     assert types + [ENDMARKER] == actual_types

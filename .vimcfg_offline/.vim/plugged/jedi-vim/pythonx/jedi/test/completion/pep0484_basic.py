@@ -1,6 +1,6 @@
 """ Pep-0484 type hinting """
 
-# python >= 3.4
+# python > 2.7
 
 
 class A():
@@ -24,7 +24,7 @@ def function_parameters(a: A, b, c: str, d: int, e: str, f: str, g: int=4):
     d
     #? str()
     e
-    #? int() str()
+    #? str()
     f
     # int()
     g
@@ -44,7 +44,7 @@ def return_none() -> None:
     """
     pass
 
-#?
+#? None
 return_none()
 
 
