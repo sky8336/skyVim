@@ -5,7 +5,7 @@
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
 " LastChange: 2020-09-21
-"    Version: v0.0.34
+"    Version: v0.0.35
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -296,7 +296,7 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 			\ }
 
 " supertab {{{2
-let g:SuperTabDefaultCompletionType = "<c-n>"
+let g:SuperTabDefaultCompletionType = "<c-p>"
 
 "" plugin_setting:  YCM {{{2
 "let g:ycm_confirm_extra_conf = 0
