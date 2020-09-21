@@ -1,8 +1,8 @@
 # git提交
 - Maintainer: sky8336
 -    Created: 2018-08-11
-- LastChange: 2020-07-10
--    Version: V0.0.19
+- LastChange: 2020-09-21
+-    Version: V0.0.20
 
 **note:**
 1. 文件中中文较多时，查看文件编码格式，防止在gitk中显示乱码
@@ -70,80 +70,82 @@ gitk查看，若出现分支，显示merge：
 使用 HEAD 中的最新内容替换掉你的工作目录中的文件。已添加到缓存区的改动，
 以及新文件，都不受影响。
 
-======================================================================
-commit 后发现有错误：{{{1
+### commit 后发现有错误：
 
 丢弃所有的本地改动与提交，获取服务器上最新版本并将本地主分支指向它：
+```bash
     git fetch origin
     git reset --hard origin/master
-----------------------------------------------------------------------
+```
 commit后发现有漏修改或漏commit的文件 {{{1
     git reset --soft：回退到某个版本，只回退了commit的信息，不会恢复到
 	index file一级。如果还要提交，直接commit即可
-----------------------------------------------------------------------
-git删除错误提交的commit{{{1
 
+### git删除错误提交的commit
+```bash
 	git reset --hard <commit_id>
 	git push origin HEAD --force
+```
 
 其他:
-    –soft –mixed –hard，对working tree和index和HEAD进行重置:
+–soft –mixed –hard，对working tree和index和HEAD进行重置:
 
-    git reset –mixed：默认，不带参数的git reset，即这方式，它回退到某个版本，只保
-	留源码，回退commit和index信息
+git reset –mixed：默认，不带参数的git reset，即这方式，它回退到某个版本，只保
+留源码，回退commit和index信息
 
-    git reset –soft：回退到某个版本，只回退commit的信息，不会恢复到index file一级。
-	如果还要提交，直接commit即可.
+git reset –soft：回退到某个版本，只回退commit的信息，不会恢复到index file一级。
+如果还要提交，直接commit即可.
 
-    git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容.
+git reset –hard：彻底回退到某个版本，本地的源码也会变为上一个版本的内容.
 
 
-    HEAD 最近一个提交
-    HEAD^ 上一次
-    <commit_id> 每次commit的SHA1值.
+HEAD 最近一个提交
+HEAD^ 上一次
+`<commit_id>` 每次commit的SHA1值.
 
-----------------------------------------------------------------------
 git 合并分支上指定的commit{{{1
+```bash
 	git checkout master
 	git cherry-pick 3b6360
-----------------------------------------------------------------------
-整体更新代码，全编 {{{1
+```
+
+### 整体更新代码，全编
 在工程根目录下：
 git clean -df     (删除没有 git add 的 目录 和 文件)
 git chekout .     撤消对文件的修改
 git pull          从服务器 pull（同步）新的改动
 
 拷贝私有到main目录下
-----------------------------------------------------------------------
-查看git地址: {{{1
-git remote -v
 
-
+### 查看git地址: 
+`git remote -v`
 
 ## intel提交代码到gerrit：
 VR_MRD
 
 一、建立本地分支（必须）
-	repo start  --all xxx
-	repo start xxx .
+```bash
+repo start  --all xxx
+repo start xxx .
+```
 二、在本地分支下进行上传：
-	1、git status (查看修改状态)
-	2、git add （将要提交的文件添加进缓存）
-	3、git commit （写添加改动信息）
-		git commit -s   在改动信息中添加 修改人信息
-		在 commit 中要写明修改原因，修复什么样的问题，
-		在Tracked-on：中要写修复bug的链接，或者bug号
-	4,提交修改：
-		repo upload
+1、`git status` (查看修改状态)
+2、`git add` （将要提交的文件添加进缓存）
+3、`git commit` （写添加改动信息）
+	`git commit -s`   在改动信息中添加 修改人信息
+	在 commit 中要写明修改原因，修复什么样的问题，
+	在`Tracked-on`：中要写修复bug的链接，或者bug号
+4,提交修改：
+`repo upload`
 
-//git push origin HEAD:refs/for/branch-name
+或
+`git push origin HEAD:refs/for/branch-name`
 
-git 命令：
-
-	git am xxx.patch
+## git 命令：
+	`git am xxx.patch`
 	(xxx.patch 是由 git format-patch 生成的)
 
-	git commit -s –amend 修改上次的提交
+	`git commit -s –amend` 修改上次的提交
 
 	abandon local branch(删除本地分支):
 		repo abandon local_branch
@@ -318,3 +320,11 @@ FA&Q:
 3. 合并刚才reflog看到的行应commit: `git merge commitID`
 4. 提交
 `git reflog`: 可以查看所有分支的所有操作记录（包括已经被删除的 commit 记录和 reset 的操作）
+
+## 分支与master保持同步
+1. 将本地的master 拉到最新: `repo sync .` 或 `git checkout master && git pull`
+2. 使dev保持与master 同步
+```shell
+git checkout dev
+git merge master #或 git rebase master
+```
