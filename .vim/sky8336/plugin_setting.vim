@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-09-15
-"    Version: v0.0.33
+" LastChange: 2020-09-21
+"    Version: v0.0.34
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -823,6 +823,21 @@ if plugin_enable_vim_multiple_cursors == 1
 	let g:multi_cursor_prev_key            = '<C-m>'
 	let g:multi_cursor_skip_key            = '<C-x>'
 	let g:multi_cursor_quit_key            = '<Esc>'
+
+	" deoplete insert giberrish, fix this here.
+	func! Multiple_cursors_before()
+		if deoplete#is_enabled()
+			call deoplete#disable()
+			let g:deoplete_is_enable_before_multi_cursors = 1
+		else
+			let g:deoplete_is_enable_before_multi_cursors = 0
+		endif
+	endfunc
+	func! Multiple_cursors_after()
+		if g:deoplete_is_enable_before_multi_cursors
+			call deoplete#enable()
+		endif
+	endfunc
 	" vim-multiple-cursors end
 else
 	" vim-visual-multi
