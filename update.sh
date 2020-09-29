@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-09-17
-#    Version: v0.0.59
+# LastChange: 2020-09-29
+#    Version: v0.0.60
 #
 
 source ./common.sh
@@ -262,7 +262,7 @@ function install_new_plugin()
 		echo "====== vim-plug was missing, install now ! ======"
 		curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		if [ $? -ne 0 ];then
-			cp .vimcfg_offline/.vim/autoload/plug.vim ~/.vim/autoload/
+			cp .vim/autoload/plug.vim ~/.vim/autoload/
 		fi
 
 		#sudo chown -R $username:$groupname $vim_plug_dir
