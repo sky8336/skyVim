@@ -1,8 +1,8 @@
 # git提交
 - Maintainer: sky8336
 -    Created: 2018-08-11
-- LastChange: 2020-09-21
--    Version: V0.0.20
+- LastChange: 2020-09-22
+-    Version: V0.0.21
 
 **note:**
 1. 文件中中文较多时，查看文件编码格式，防止在gitk中显示乱码
@@ -328,3 +328,5 @@ FA&Q:
 git checkout dev
 git merge master #或 git rebase master
 ```
+创建本地分支并关联远程分支:
+`branch --set-upstream-to=origin/master master`
