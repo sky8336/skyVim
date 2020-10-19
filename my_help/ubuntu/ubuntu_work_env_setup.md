@@ -1,8 +1,8 @@
 # ubuntu work environment setup
 - Maintainer: sky8336
 -    Created: 2018-08-11
-- LastChange: 2020-08-11
--    Version: V0.0.15
+- LastChange: 2020-10-19
+-    Version: V0.0.16
 
 可替代windows 环境的工具
 
@@ -29,6 +29,7 @@
   - vimium
   - Dark Background and Light Text
 
+- [feishu](https://github.com/Ericwyn/electron-lark/)
 ## 2. ubuntu18.04 issue
 - 桌面卡死 <br/>
   pkill X; start X
