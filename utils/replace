@@ -1,0 +1,22 @@
+#!/bin/bash
+#
+# Filename: replace.sh
+#
+# Copyright (C) 2018-2023 eric  <eric@company.com>. All Rights Reserved.
+#
+# History:
+#    2020/10/21 - [eric] Created file
+#
+# Maintainer: eric <eric@email.com>
+#    Created: 2020-10-21
+# LastChange: 2020-10-21
+#    Version: v0.0.01
+#
+
+
+if [[ $# -lt 2 ]]; then
+	echo "批量替换当前目录下所有文件中的'old_str'为'new_str'"
+	echo "$0 old_str new_str"
+fi
+
+find ./*  -exec  sed -i "s/$1/$2/g" {} \;

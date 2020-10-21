@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-09-29
-#    Version: v0.0.60
+# LastChange: 2020-10-21
+#    Version: v0.0.61
 #
 
 source ./common.sh
@@ -214,11 +214,16 @@ function update_vimrc()
 	echo "${FUNCNAME[0]}(): config your vim -- done"
 }
 
+update_utils()
+{
+	sudo cp ./utils/viman /usr/local/bin
+	sudo cp ./utils/replace /usr/local/bin
+}
+
 update_package()
 {
 	# TODO
 	echo "${FUNCNAME[0]}(): install some package using script in utils"
-	sudo cp ./utils/viman /usr/local/bin
 	sudo apt install silversearcher-ag ack --allow-unauthenticated 2>&1 > /dev/null
 
 	if which pip3 > /dev/null ; then
@@ -308,6 +313,7 @@ update_vimcfg()
 	bakup_vimrc
 	update_vimrc
 	update_package
+	update_utils
 	install_new_plugin
 	git_config
 }
