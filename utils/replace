@@ -19,4 +19,4 @@ if [[ $# -lt 2 ]]; then
 	echo "$0 old_str new_str"
 fi
 
-find ./*  -exec  sed -i "s/$1/$2/g" {} \;
+find . -type f -exec sed -i "s/$1/$2/g" {} \;
