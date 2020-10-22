@@ -542,10 +542,6 @@ autocmd BufReadPost *
 
 " insert time
 ab xtime <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
-
-" insert todo tag , only work in insert mode
-iab TODO [TODO][<c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>][<c-r>=system("echo -n $USER")<cr>]
-
 " 不自动添加新的注释行 {{{2
 "autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
