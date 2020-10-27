@@ -116,7 +116,7 @@ alias glfr='git log --graph --decorate --pretty=fuller --abbrev-commit --all'
 alias gle='git log --graph --decorate --pretty=email --abbrev-commit --all'
 alias gh='echo "gl, gls, glm, glf, glfr, gle"'
 #git lg #already used
-alias hs='python -m SimpleHTTPServer &'
+alias hs='python -m SimpleHTTPServer 8001 &'
 alias mhs='python ~/.vim/tools/MTHTTPServerWFM.py &'
 
 # git commit -a 提交代码时，编辑器默认为vim的另一种方法
