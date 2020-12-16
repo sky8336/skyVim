@@ -9,6 +9,5 @@ snippet ctor
 snippet dtor
        ${1:`vim_snippets#Filename('$1', 'ClassName')`}::${2:~`vim_snippets#Filename('$1', 'ClassName')`}(${3})
        {
-               std::cout << __func__ << std::endl;
-               ${0}
+               std::cout << __func__ << std::endl;${0}
        }
