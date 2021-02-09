@@ -4,8 +4,8 @@
 "
 " Maintainer: sky8336 <1919592995@qq.com>
 "    Created: 2019-08-24
-" LastChange: 2020-09-21
-"    Version: v0.0.35
+" LastChange: 2020-10-12
+"    Version: v0.0.36
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " PLUGIN_SETTINGS begin:
@@ -97,13 +97,13 @@ if plugin_use_autoformat == 1
 	"let g:formatdef_allman = '"astyle --style=allman --pad-oper --align-pointer=name --align-reference=name --pad-header"'
 	"let g:formatters_cpp = ['allman']
 
-	let g:formatdef_linux_cpp = '"astyle --style=linux --pad-oper --pad-comma --align-pointer=name --align-reference=name --indent=force-tab --pad-header"'
+	let g:formatdef_linux_cpp = '"astyle --style=linux --unpad-paren --pad-oper --pad-comma --align-pointer=name --align-reference=name --indent=force-tab --pad-header"'
 	let g:formatters_cpp = ['linux_cpp']
 
 	"let g:formatdef_my_cpp = '"astyle --style=google"'
 	"let g:formatters_my_cpp = ['my_cpp']
 
-	let g:formatdef_my_c = '"astyle --style=linux --pad-oper --pad-comma --align-pointer=name --align-reference=name --indent=force-tab --pad-header"'
+	let g:formatdef_my_c = '"astyle --style=linux --unpad-paren --pad-oper --pad-comma --align-pointer=name --align-reference=name --indent=force-tab --pad-header"'
 	let g:formatters_c = ['my_c']
 
 else
@@ -115,9 +115,9 @@ else
 	func! FormatCode()
 		exec "w"
 		if &filetype == 'c' || &filetype == 'h'
-			exec "!astyle --style=linux --pad-comma --pad-oper --align-pointer=name --pad-header --indent=force-tab --suffix=none %"
+			exec "!astyle --style=linux --unpad-paren --pad-oper --pad-comma --align-pointer=name --align-reference=name --indent=force-tab --pad-header --suffix=none %"
 		elseif &filetype == 'cpp' || &filetype == 'cc' || &filetype == 'hpp'
-			exec "!astyle --style=allman --pad-comma --align-pointer=name --align-reference=name --pad-header --indent=force-tab --suffix=none %"
+			exec "!astyle --style=linux --unpad-paren --pad-oper --pad-comma --align-pointer=name --align-reference=nam --indent=force-tabe --pad-header --suffix=none %"
 		elseif &filetype == 'perl'
 			exec "!astyle --style=gnu --suffix=none %"
 		elseif &filetype == 'py'|| &filetype == 'python'

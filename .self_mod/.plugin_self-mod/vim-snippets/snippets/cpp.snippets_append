@@ -1,0 +1,13 @@
+# add by Eric
+# constructor
+snippet ctor
+       ${1:`vim_snippets#Filename('$1', 'ClassName')`}::${2:`vim_snippets#Filename('$1', 'ClassName')`}(${3})
+       {
+               ${0}
+       }
+# destructor
+snippet dtor
+       ${1:`vim_snippets#Filename('$1', 'ClassName')`}::${2:~`vim_snippets#Filename('$1', 'ClassName')`}(${3})
+       {
+               std::cout << __func__ << std::endl;${0}
+       }

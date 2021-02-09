@@ -10,7 +10,7 @@
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
 # LastChange: 2021-01-28
-#    Version: v0.0.60
+#    Version: v0.0.62
 #
 
 source ./common.sh
@@ -214,11 +214,16 @@ function update_vimrc()
 	echo "${FUNCNAME[0]}(): config your vim -- done"
 }
 
+update_utils()
+{
+	sudo cp ./utils/viman /usr/local/bin
+	sudo cp ./utils/replace /usr/local/bin
+}
+
 update_package()
 {
 	# TODO
 	echo "${FUNCNAME[0]}(): install some package using script in utils"
-	sudo cp ./utils/viman /usr/local/bin
 	sudo apt install silversearcher-ag ack --allow-unauthenticated 2>&1 > /dev/null
 
 	if which pip3 > /dev/null ; then
@@ -262,7 +267,7 @@ function install_new_plugin()
 		echo "====== vim-plug was missing, install now ! ======"
 		curl -fLo $vim_plug_dir/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 		if [ $? -ne 0 ];then
-			cp .vimcfg_offline/.vim/autoload/plug.vim ~/.vim/autoload/
+			cp .vim/autoload/plug.vim ~/.vim/autoload/
 		fi
 
 		#sudo chown -R $username:$groupname $vim_plug_dir
@@ -308,6 +313,7 @@ update_vimcfg()
 	bakup_vimrc
 	update_vimrc
 	update_package
+	update_utils
 	install_new_plugin
 	git_config
 }

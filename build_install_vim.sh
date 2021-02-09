@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-08-17
-# LastChange: 2020-08-29
-#    Version: v0.0.23
+# LastChange: 2020-09-29
+#    Version: v0.0.24
 #
 
 source ./common.sh
@@ -96,7 +96,7 @@ function add_hilight_code_to_c_vim()
 #
 install_dependent_package()
 {
-	sudo apt-get install -y libncurses5-dev libgnome2-dev libgnomeui-dev \
+	sudo apt install --allow-unauthenticated libncurses5-dev libgnome2-dev libgnomeui-dev \
 		libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
 		libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
 		python3-dev ruby-dev lua5.1 lua5.1-dev

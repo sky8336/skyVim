@@ -1,8 +1,8 @@
 # git command
 - Maintainer: sky8336
 -    Created: 2018-08-11
-- LastChange: 2020-01-13
--    Version: V0.0.35
+- LastChange: 2020-10-28
+-    Version: V0.0.36
 
 ## git clone
 ### Git Clone非22端口
@@ -422,3 +422,6 @@ doc/*.txt # 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 	2. 再提交，就不会出现忽略的文件了。
 
 注意：.gitignore 只能作用于未被跟踪的文件，
+## git 查看修改了哪些文件
+git diff --stat  --name-only HEAD^ HEAD
+git show --name-only
