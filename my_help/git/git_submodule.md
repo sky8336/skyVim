@@ -1,44 +1,52 @@
 # 使用Git Submodule管理子模块
 - Maintainer: sky8336
 -    Created: 2018-08-11
-- LastChange: 2020-08-11
--    Version: V0.0.3
+- LastChange: 2021-02-09
+-    Version: V0.0.4
 
-# 1 什么是Submodule?
+## 1.什么是Submodule?
 
-git Submodule 是一个很好的项目协作工具，他允许类库项目做为repository,子项目做为
-一个单独的git项目存在父项目中，子项目可以有自己的独立的commit，push，pull。
-而父项目以Submodule的形式包含子项目，父项目可以指定子项目header，父项目中会提交
-Submodule的信息，在clone父项目的时候可以把Submodule初始化。
+- `git Submodule`: `项目协作工具`，
+- 子项目作为单独的git项目存在父项目中，
+- 子项目有自己独立的`commit`，`push`，`pull`
+- 父项目以Submodule的形式包含子项目，
+- 父项目指定`子项目header`，
+- 父项目中提交`Submodule的信息`，
+- clone父项目时可以初始化Submodule
 
-# 2 在项目中添加Submodule
-`git submodule add git@github.com:jjz/pod-library.git pod-library`
+## 2. 在项目中添加Submodule
+### 添加submodule 方式1
+```bash
+$ git clone git@github.com:jjz/pod-library.git
+$ git submodule add git@github.com:jjz/pod-library.git pod-library
+```
 
-使用 git status命令可以看到, 多了两个需要提交的文件:
+`git status`看到, 多了两个需要提交的文件:
+```bash
     new file: .gitmodules
     new file: pod-library
+```
 
-+ .gitmodules: 记录了子项目的目录和子项目的git信息
-+ git并不会记录Submodule的文件变动
+- .gitmodules: 记录`子项目的目录`和`子项目的git信息`
+- git 不会记录Submodule的文件变动
 
+### 添加Submodule:
+```bash
+$ git add .gitmodules pod-ibrary
+$ git commit -m "pod-library submodule"
+$ git submodule init
+```
 
-这两个文件都需要提交到父项目的git中
+### 2.1 修改提交Submodule
 
-我们还可以这样添加Submodule:
-1. git add .gitmodules pod-ibrary
-2. git commit -m "pod-library submodule"
-3. git submodule init
-
-## 2.1 修改提交Submodule
-
-首先要确认有对Submodule的commit权限<br/>
+确认有对Submodule的commit权限<br/>
 
 1. 进入Submodule目录<br/>
 `cd pod-library/`
 
-2. 修改其中的一个文件看下文件的变动<br/>
-```
-git status
+2. 修改文件看下文件的变动<br/>
+```bash
+$ git status
 modified: pod-library/UseAFHTTP.h
 ```
 
@@ -50,77 +58,66 @@ modified: pod-library/UseAFHTTP.h
 `git push`
 
 5. 再回到父目录<br/>
-```
-cd ..
-
-git status
-
+```bash
+$ cd ..
+$ git status
 on branch master
 modified: pod-library (new commits)
 ```
 
-可以看到pod-library已经变更为最新的commit id<br/>
+pod-library 变更为最新的commit id<br/>
 
 >Subproject commit 330417cf3fc1d2c42092b20506b0d296d90d0b5f  
->我们需要把推送到父项目的远端  
+>我们需要推送到父项目的远端  
 
+```bash
+$ git commit -m 'update submodule'
+$ git push
 ```
-git commit -m 'update submodule'
 
-git push
-```
-
-## 2.2 更新Submodule
+### 2.2 更新Submodule
 
 更新的方法有两种:<br/>
 + 在父项目的目录下运行<br/>
 `git submodule foreach git pull`
 
 + 在Submodule的目录下面更新<br/>
-  ```
-  cd pod-library
-  //git pull
-  git submodule update
-  ```
+```bash
+$ cd pod-library
+$ #git pull
+$ git submodule update
+```
 
 注意:<br/>
-更新Submodule的时候如果有新的commit id产生，需要在父项目产生一个新的提交，<br/>
+更新 Submodule 时, 如果有新的commit id产生，需要在父项目产生一个新的提交，<br/>
 pod-libray文件中的 Subproject commit会变为最新的commit id
 
 
-## 2.3 在clone的时候初始化Submodule
+### 2.3 clone时初始化Submodule
 
-1. 采用递归参数 --recursive<br/>
+1. clone 父项目时, 加递归参数 `--recursive`, 自动init Submodule<br/>
 `git clone git@github.com:jjz/pod-project.git --recursive`
 
-
-会自动init Submodule
-
 2. 第二种方法: 先clone父项目<br/>
+```bash
+$ git clone git@github.com:jjz/pod-project.git
+$ cd pod-project
+$ git submodule init
+$ git submodule update
 ```
-git clone git@github.com:jjz/pod-project.git
-cd pod-project
-git submodule init
-git submodule update
-```
 
+### 2.4 删除Submodule
+git 不支持直接删除Submodule, 需要手动删除对应的文件<br/>
+```bash
+$ cd pod-project
+$ git rm --cached pod-library
+$ rm -rf pod-library
+$ rm .gitmodules
 
-## 2.4 删除Submodule
-
-git 并不支持直接删除Submodule需要手动删除对应的文件<br/>
-```
-cd pod-project
-git rm --cached pod-library
-rm -rf pod-library
-rm .gitmodules
-
-vim .git/config
-
+$ vim .git/config
 [submodule "pod-library"]
-
 url = git@github.com:jjz/pod-library.git
+# 删除submodule相关的内容
 
-删除submodule相关的内容
-
-git commit -a -m 'remove pod-library submodule'
+$ git commit -a -m 'remove pod-library submodule'
 ```

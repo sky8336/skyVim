@@ -9,8 +9,8 @@
 #
 # Maintainer: Eric MA <eric@email.com>
 #    Created: 2016-04-27
-# LastChange: 2020-09-17
-#    Version: v0.0.59
+# LastChange: 2021-01-28
+#    Version: v0.0.60
 #
 
 source ./common.sh
@@ -312,6 +312,12 @@ update_vimcfg()
 	git_config
 }
 
+setup_ubuntu()
+{
+	# Ubuntu 18.04 实现"Alt+Tab" 和 "Alt+`"不跨工作区
+	gsettings set org.gnome.shell.app-switcher current-workspace-only true
+}
+
 main()
 {
 	echo "------ enter ${FUNCNAME[0]}() ------"
@@ -341,6 +347,7 @@ main()
 		blue_log ">> step2: ${FUNCNAME[0]}(): setup vim config now!"
 		# step2: setup vim config
 		update_vimcfg
+		setup_ubuntu
 		echo -e "vim config setup -- done.\n"
 		show_logo
 		echo -e "You better execure the following command:\n\t 'source ~/.bashrc'"
