@@ -9,8 +9,8 @@
 #
 # Maintainer: you <your@email.com>
 #    Created: 2016-02-22
-# LastChange: 2020-09-29
-#    Version: v0.0.86
+# LastChange: 2021-02-09
+#    Version: v0.0.87
 #
 
 source ./common.sh
@@ -20,7 +20,9 @@ declare -A map_ver_commitid
 # vim: version - commitID map
 map_ver_commitid=(
     ["8.2.752"]="e06a28f5e"
+	["8.2.2488"]="a85308947"
 )
+vim_version="8.2.2488"
 
 
 # show_header specify content
@@ -34,7 +36,8 @@ skip_install_vim="2"
 skip_install_bundle_and_plugin="3"
 skip_install_packages_and_vim="4"
 skip_insatall_packages_vim_bundle_plugin="5"
-opt_num_max=$skip_insatall_packages_vim_bundle_plugin
+install_vim_only="6"
+opt_num_max=$install_vim_only
 
 # show_usage Specify content
 usage=(
@@ -55,7 +58,9 @@ examples=(
 		`basename $0` $skip_install_vim - skip_install_vim
 		`basename $0` $skip_install_bundle_and_plugin - skip_install_bundle_and_plugin
 		`basename $0` $skip_install_packages_and_vim - skip_install_packages_and_vim [opt$skip_install_packages + opt$skip_install_vim]
-		`basename $0` $skip_insatall_packages_vim_bundle_plugin - skip_install_packages_vim_bundle_plugin [opt$skip_install_packages + opt$skip_install_vim + opt$skip_install_bundle_and_plugin]"
+		`basename $0` $skip_insatall_packages_vim_bundle_plugin - skip_install_packages_vim_bundle_plugin [opt$skip_install_packages + opt$skip_install_vim + opt$skip_install_bundle_and_plugin]
+		`basename $0` $install_vim_only - install vim$vim_version by building source code"
+
 )
 
 #####
@@ -210,7 +215,7 @@ function build_vim_from_source()
 
 			clone_vim_source_code
 
-			local commid_id=${map_ver_commitid["8.2.752"]}
+			local commid_id=${map_ver_commitid[${vim_version}]}
 			build_vim_source_code ${commid_id}
 
 			echo "done!"
@@ -499,9 +504,6 @@ function set_cfg_for_winmanager()
 	patch ~/.vim/bundle/taglist.vim/plugin/taglist.vim < ./.self_mod/.plugin_patch/taglist_vim.patch
 }
 
-# !!note: you can modify force_build_vim to build vim from source
-force_build_vim=0
-
 main()
 {
 	sudo echo
@@ -518,6 +520,14 @@ main()
 
 	show_logo
 
+	# !!note: you can modify force_build_vim to build vim from source
+	if [ ! -z $2 ]; then
+		echo "force build vim from source code!"
+		force_build_vim=1
+	else
+		force_build_vim=0
+	fi
+
 	if [ -z "$1" ]; then
 		show_header
 		show_usage
@@ -525,37 +535,40 @@ main()
 		exit
 	elif [ "$1" = $skip_nothing ]; then
 		blue_log "skip_nothing"
+		flag_config_git=1
 	elif [ "$1" = $skip_install_packages ]; then
 		blue_log "skip_install_packages"
 		skip_pack=1
+		flag_config_git=1
 	elif [ "$1" = $skip_install_vim ]; then
 		blue_log "skip_install_vim"
 		skip_vim=1
+		flag_config_git=1
 	elif [ "$1" = $skip_install_bundle_and_plugin ]; then
 		blue_log "skip_install_bundle_and_plugin"
 		skip_plugin_mgr_plugin=1
+		flag_config_git=1
 	elif [ "$1" = $skip_install_packages_and_vim ]; then
 		blue_log "skip_install_packages_and_vim"
 		skip_pack=1
 		skip_vim=1
+		flag_config_git=1
 	elif [ "$1" = $skip_insatall_packages_vim_bundle_plugin ]; then
 		blue_log "skip_insatall_packages_vim_bundle_plugin"
 		skip_pack=1
 		skip_vim=1
 		skip_plugin_mgr_plugin=1
+		flag_config_git=1
+	elif [ "$1" = $install_vim_only ]; then
+		blue_log "install_vim_only"
+		skip_pack=1
+		skip_vim=0
+		flag_config_git=0
+		force_build_vim=1
 	else
 		echo "do nothing"
 		exit
 	fi
-
-	if [ ! -z $2 ]; then
-		if [ $2 -eq "1" ]; then
-			echo "force build vim from source code!"
-			force_build_vim=1
-		fi
-
-	fi
-
 
 	online_offline_select
 	bakup_vimconfig
@@ -576,7 +589,10 @@ main()
 	fi
 	#install_ycm
 	#set_cfg_for_winmanager
-	git_config
+
+	if [[ $flag_config_git -eq 1 ]]; then
+		git_config
+	fi
 	progress_log 100 "install ... done"
 
 	show_logo
