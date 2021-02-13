@@ -1,8 +1,8 @@
 # git command
 - Maintainer: sky8336
 -    Created: 2018-08-11
-- LastChange: 2020-10-28
--    Version: V0.0.36
+- LastChange: 2021-02-13
+-    Version: V0.0.37
 
 ## git clone
 ### Git Clone非22端口
@@ -378,6 +378,8 @@ git diff origin/master origin/YT-Dms-Demo
 远程分支前面要加上remote名称/
 git diff local_branch origin/YT-Dms-Demo
 
+git diff 排除指定目录，如排除`toolchain`
+`git diff ':!toolchain'`
 
 Git show-branch显示提交信息{{{1
 git show-branch
