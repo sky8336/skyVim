@@ -1,0 +1,13 @@
+bottomcaption
+setSTheight
+shrinkheight
+tablecaption
+tablefirsthead
+tablehead
+tablelasttail
+tabletail
+topcaption
+\begin{mpsupertabular}
+\begin{mpsupertabular*}
+\begin{supertabular}
+\begin{supertabular*}
