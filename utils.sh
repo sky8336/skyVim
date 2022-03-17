@@ -379,7 +379,7 @@ function echo_install_time()
 #检查root权限
 function check_root_privileges()
 {
-	if [ $UID -eq 0 ]; then
+	if [ $(id -u) -eq 0 ]; then
 		echo -e "${color_failed}>>> Error: Remove you root privileges!"
 		echo -e "Please input \"./`basename $0`\"${color_reset}"
 		exit
