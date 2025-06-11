@@ -203,11 +203,13 @@ function update_vimrc()
 	fi
 
 	var=$(sudo cat /etc/lsb-release | grep "DISTRIB_RELEASE" --color)
-	systemVersion='DISTRIB_RELEASE=18.04'
-	if [ $var == $systemVersion ]; then
-		echo "using default .vimrc"
-	else
-		echo "DISTRIB_RELEASE is not 18.04, maybe 16.04"
+	#systemVersion='DISTRIB_RELEASE=18.04'
+	sys_version=$(echo $var | cut -d'=' -f2)
+	result=$(echo "$sys_version > 18" | bc)
+	if [ $result -eq 1 ]; then
+		echo "DISTRIB_RELEASE=$sys_version: using default .vimrc"
+	elif [ $result -eq 0 ]; then
+		echo "DISTRIB_RELEASE=$sys_version, not >= 18.04"
 		sed -i "s/let ubuntu18_04 = 1/let ubuntu18_04 = 0/" ~/.vim/sky8336/plugin.vim
 	fi
 
