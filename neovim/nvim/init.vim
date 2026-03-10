@@ -653,3 +653,5 @@ command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 " :map messages output to ~/.config/nvim/map.txt
 command -nargs=? Rmap redir! > ~/.config/nvim/my_help/key_map.txt | silent map | redir END
 
+" 加载lua模块(不需要.lua后缀)
+lua require('claude')

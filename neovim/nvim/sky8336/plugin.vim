@@ -116,6 +116,13 @@ let plugin_enable_vim_multiple_cursors = 1
 
 	" completion end
 
+	" AI: {{{3
+	Plug 'nvim-lua/plenary.nvim'
+	Plug 'greggh/claude-code.nvim'
+	" After installing, add this to your init.vim:
+	" lua require('claude-code').setup()
+	" AI end
+
 	" vim_plug_setup:  code_display {{{3
 	if plugin_use_vim_cpp_enhanced_highlight == 1
 		Plug 'octol/vim-cpp-enhanced-highlight'
